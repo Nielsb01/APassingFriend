@@ -1,6 +1,7 @@
 # Own added files
 UserSettings/
 *.dwlt
+.vsconfig
 
 
 # gitignore delivered by school below
