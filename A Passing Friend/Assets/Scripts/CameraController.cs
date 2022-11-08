@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -12,7 +13,10 @@ public class CameraController : MonoBehaviour
     public float maxCameraDistance = 10f;
     public float lookAroundSensitivity = 0.3f;
     public int resetSpeed = 500;
-    public float snapToPlayerCamThreshold = 0.1f;
+    public float snapToPlayerCamThreshold = 0.5f;
+
+    public CinemachineVirtualCamera sideCam;
+    public CinemachineVirtualCamera tailCam;
 
     private void Start()
     {
@@ -82,5 +86,23 @@ public class CameraController : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void ActivateTailCam()
+    {
+        tailCam.Priority = 100;
+    }
+    public void DeactivateTailCam()
+    {
+        tailCam.Priority = 1;
+    }
+    
+    public void ActivateSideCam()
+    {
+        sideCam.Priority = 100;
+    }
+    public void DeactivateSideCam()
+    {
+        sideCam.Priority = 1;
     }
 }
