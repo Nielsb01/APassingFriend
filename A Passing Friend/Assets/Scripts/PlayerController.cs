@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour
 {
     private Vector3 _movement;
+    private Vector2 _turn;
     private Vector2 _viewVector;
     private CharacterController _characterController;
     public float moveSpeed = 0.3f;
@@ -33,11 +34,11 @@ public class PlayerController : MonoBehaviour
             transform.TransformDirection(new Vector3(_movement.z * -1 * moveSpeed, -gravity,
                 _movement.x * moveSpeed));
         _characterController.Move(movementVector);
+        transform.Rotate(_turn);
         if (_movement.z != 0 || _movement.x != 0)
         {
             if (_viewVector.x == 0 && _viewVector.y == 0)
             {
-                Debug.Log("stating cam reset");
                 if (_camResetCoroutine == null)
                 {
                     _camResetCoroutine = StartCoroutine(FloatFocusPointBackToPlayer());
@@ -50,6 +51,13 @@ public class PlayerController : MonoBehaviour
     {
         var inputVector = moveVector.Get<Vector2>();
         _movement = new Vector3(inputVector.x, 0, inputVector.y);
+    }
+
+
+    public void OnTurn(InputValue moveVector)
+    {
+        var inputVector = moveVector.Get<Vector2>();
+        _turn = new Vector3(0, inputVector.x, 0);
     }
 
     public void OnLook(InputValue lookVector)
@@ -68,7 +76,6 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(_camResetCoroutine);
             _camResetCoroutine = null;
         }
-
     }
 
     private IEnumerator EnforceCameraMaxDistanceFromPlayer()
@@ -88,29 +95,30 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator FloatFocusPointBackToPlayer()
     {
-        bool notOnPlayerPosition = true;
-        while (notOnPlayerPosition)
+        while (true)
         {
-
             var cameraFocusPosition = playerLookingAt.position;
             var distanceBetweenCameraFocusAndPlayer = cameraFocusPosition - transform.position;
             var distanceDividedByResetSpeed = (distanceBetweenCameraFocusAndPlayer) / resetSpeed;
+            var playerVelocity = _characterController.velocity.magnitude;
+            if (playerVelocity < 1)
+            {
+                playerVelocity = 1;
+            }
+
+            var closingNumber = distanceDividedByResetSpeed * playerVelocity;
             if (distanceBetweenCameraFocusAndPlayer.magnitude < snapToPlayerCamThreshold)
             {
-                Debug.Log("breaking");
                 cameraFocusPosition -= distanceBetweenCameraFocusAndPlayer;
-                notOnPlayerPosition = false;
+                yield break;
             }
             else
             {
-                Debug.Log("closing distance");
-                cameraFocusPosition -= distanceDividedByResetSpeed;
+                cameraFocusPosition -= closingNumber;
             }
 
             playerLookingAt.position = cameraFocusPosition;
 
-            // playerLookingAt.position =
-            //     new Vector3(transform.position.x, playerLookingAt.position.y, playerLookingAt.position.z);
             yield return null;
         }
     }
