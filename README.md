@@ -1,10 +1,10 @@
 # A-Passing-Friend
 
 ## Workflow
-<img src="Docs\Git\workflow.png" alt="Workflow" width="500px"/>
+![Screenshot](Docs/Git/Workflow.png)
 
 ## Review process
-<img src="Docs\Git\reviewproces.png" alt="Reviewproces" width="500px"/>
+![Screenshot](Docs/Git/Reviewproces.png)
 
 ## Regels
 ### Branches
