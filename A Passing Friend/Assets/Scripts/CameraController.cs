@@ -16,8 +16,10 @@ public class CameraController : MonoBehaviour
     public float snapToPlayerCamThreshold = 0.5f;
     private bool _focusPointIsLockedOnPlayer = false;
 
-    public CinemachineVirtualCamera sideCam;
+    public CinemachineVirtualCamera sideCamLeft;
+    public CinemachineVirtualCamera sideCamRight;
     public CinemachineVirtualCamera tailCam;
+    public CinemachineVirtualCamera dollyCam;
 
     private void Start()
     {
@@ -109,13 +111,28 @@ public class CameraController : MonoBehaviour
         tailCam.Priority = 1;
     }
 
-    public void ActivateSideCam()
+    public void ActivateDollyCam()
     {
-        sideCam.Priority = 100;
+        dollyCam.Priority = 100;
     }
 
-    public void DeactivateSideCam()
+    public void DeactivateDollyCam()
     {
-        sideCam.Priority = 1;
+        dollyCam.Priority = 1;
+    }
+
+    public void ActivateSideCamLeft()
+    {
+        sideCamLeft.Priority = 100;
+    }
+    public void ActivateSideCamRight()
+    {
+        sideCamRight.Priority = 100;
+    }
+
+    public void DeactivateSideCams()
+    {
+        sideCamLeft.Priority = 1;
+        sideCamRight.Priority = 1;
     }
 }
