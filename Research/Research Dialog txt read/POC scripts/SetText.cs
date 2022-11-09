@@ -43,6 +43,10 @@ public class SetText : MonoBehaviour
         }
         else
         {
+            if (chosenOption.doesOptionEndConverstation())
+            {
+                print("ends");
+            }
             currentDialog = 0;
             chosenOption = null;
             dialogOptionsText = null;

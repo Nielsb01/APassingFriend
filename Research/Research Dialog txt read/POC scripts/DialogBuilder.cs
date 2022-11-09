@@ -65,7 +65,12 @@ public class DialogBuilder : MonoBehaviour
             string dialogTitle = subdialog[0];
             //Remove the introtext from the dialog options.
             subdialog.Remove(subdialog[0]);
-            DialogObject dialogObject = new DialogObject(dialogTitle, subdialog);
+            DialogObject dialogObject = new DialogObject(dialogTitle.Replace('$',' '), subdialog);
+            print(dialogTitle);
+            if (dialogTitle.Contains('$'))
+            {
+                dialogObject.setEndsConverstation(true);
+            }
             dialogOptions.Add(dialogObject);
         }
     }
@@ -76,8 +81,7 @@ public class DialogBuilder : MonoBehaviour
      */
     private String getIntroText(string text)
     {
-        string regex = "--";
-        string[] splitText = Regex.Split(text, regex);
+        string[] splitText = text.Split("--");
         try
         {
             introText = splitText[0];

@@ -7,6 +7,7 @@ public class DialogObject
 {
     private readonly string dialogChoice;
     private readonly List<string> dialog;
+    private bool endsConversation = false;
 
     public DialogObject(string dialogChoice, List<string> dialog)
     {
@@ -22,5 +23,15 @@ public class DialogObject
     public List<string> getDialog()
     {
         return this.dialog;
+    }
+
+    public void setEndsConverstation(bool endsConversation)
+    {
+        this.endsConversation = endsConversation;
+    }
+
+    public bool doesOptionEndConverstation()
+    {
+        return endsConversation;
     }
 }
