@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     public float lookAroundSensitivity = 0.3f;
     public int resetSpeed = 500;
     public float snapToPlayerCamThreshold = 0.5f;
+    private bool _focusPointIsLockedOnPlayer = false;
 
     public CinemachineVirtualCamera sideCam;
     public CinemachineVirtualCamera tailCam;
@@ -37,6 +38,7 @@ public class CameraController : MonoBehaviour
 
     public void LookAround(Vector2 lookVector)
     {
+        _focusPointIsLockedOnPlayer = false;
         playerLookingAt.position +=
             new Vector3(0, lookVector.y * lookAroundSensitivity, lookVector.x * lookAroundSensitivity);
 
@@ -51,11 +53,19 @@ public class CameraController : MonoBehaviour
     {
         while (true)
         {
-            var cameraDistanceFromPlayer = (playerLookingAt.position - transform.position).magnitude;
-            if (cameraDistanceFromPlayer > maxCameraDistance)
+            if (_focusPointIsLockedOnPlayer)
             {
-                playerLookingAt.position =
-                    transform.position + (playerLookingAt.position - transform.position).normalized * maxCameraDistance;
+                playerLookingAt.position = transform.position;
+            }
+            else
+            {
+                var cameraDistanceFromPlayer = (playerLookingAt.position - transform.position).magnitude;
+                if (cameraDistanceFromPlayer > maxCameraDistance)
+                {
+                    playerLookingAt.position =
+                        transform.position + 
+                        (playerLookingAt.position - transform.position).normalized * maxCameraDistance;
+                }
             }
 
             yield return null;
@@ -79,6 +89,7 @@ public class CameraController : MonoBehaviour
             if (distanceBetweenCameraFocusAndPlayer.magnitude < snapToPlayerCamThreshold)
             {
                 playerLookingAt.position -= transform.position;
+                _focusPointIsLockedOnPlayer = true;
                 yield break;
             }
 
@@ -92,15 +103,17 @@ public class CameraController : MonoBehaviour
     {
         tailCam.Priority = 100;
     }
+
     public void DeactivateTailCam()
     {
         tailCam.Priority = 1;
     }
-    
+
     public void ActivateSideCam()
     {
         sideCam.Priority = 100;
     }
+
     public void DeactivateSideCam()
     {
         sideCam.Priority = 1;

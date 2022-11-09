@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController _characterController;
     public float moveSpeed = 0.3f;
     public float gravity = 0.9f;
+    private VariableDeclarations _declarations;
 
 
     private CameraController _cameraController;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _cameraController = GetComponent<CameraController>();
+        _declarations = GetComponent<Variables>().declarations;
     }
 
     private void FixedUpdate()
@@ -50,4 +53,19 @@ public class PlayerController : MonoBehaviour
     {
         _cameraController.LookAround(lookVector.Get<Vector2>());
     }
+    //
+    // public void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag(_declarations["TailCamTriggerTag"].ToString()))
+    //     {
+    //         Debug.Log("entered Trigger");
+    //     }
+    // }
+    // public void OnTriggerExit(Collider other)
+    // {
+    //     if (other.CompareTag(_declarations["TailCamTriggerTag"].ToString()))
+    //     {
+    //         Debug.Log("left Trigger");
+    //     }
+    // }
 }
