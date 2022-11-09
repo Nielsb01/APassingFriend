@@ -5,9 +5,22 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
-    public RenderTexture lightCheckTexture;
-    public float lightLevel;
-    public int lightLevelRounded;
+    public bool dayTime = true;
+    [HideInInspector]
+    public int lightLevel;
+    [SerializeField]
+    private RenderTexture lightCheckTexture;
+    
+    private float exactLightLevel;
+    private const int INITIAL_LIGHTLEVEL_NIGHTTIME = 123583;
+    private const int INITIAL_LIGHTLEVEL_DAYTIME = 593746;
+
+    private int _initialLightlevel;
+
+    private void Awake()
+    {
+        _initialLightlevel = dayTime ? INITIAL_LIGHTLEVEL_DAYTIME : INITIAL_LIGHTLEVEL_NIGHTTIME;
+    }
 
     void Update()
     {
@@ -25,15 +38,13 @@ public class LightCheckScript : MonoBehaviour
 
         Color32[] colors = tmp2DTexture.GetPixels32();
 
-        lightLevel = 0;
+        exactLightLevel = 0;
         foreach (var color in colors)
         {
-            lightLevel += (0.2126f * color.r) + (0.7152f * color.g) + (0.0722f * color.b);
+            // Luminance formula
+            exactLightLevel += (0.2126f * color.r) + (0.7152f * color.g) + (0.0722f * color.b);
         }
-
-        lightLevelRounded = (int)Math.Round(lightLevel);
         
-        Debug.Log(lightLevelRounded);
-        Debug.Log(lightLevel);
+        lightLevel = (int)Math.Round(exactLightLevel) - _initialLightlevel;
     }
 }
