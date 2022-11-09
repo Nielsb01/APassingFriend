@@ -349,6 +349,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fox_cub_full_IP
       objectReference: {fileID: 0}
+    - target: {fileID: 5004686476074102392, guid: d5a63b8234a08d44bb707ca0fe73b8f0,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004686476074102398, guid: d5a63b8234a08d44bb707ca0fe73b8f0,
+        type: 3}
+      propertyPath: jumpSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5004686476074497261, guid: d5a63b8234a08d44bb707ca0fe73b8f0,
         type: 3}
       propertyPath: m_RootOrder
