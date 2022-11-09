@@ -1,0 +1,21 @@
+IntroText 
+--
+#DialoogOptie 1
+*1Hoi ik ben je nieuwe npc ik kan praten 1
+*2 praten is voor mij leuk dit is optie 2
+*3 hoi hoi hoi 3
+*4 Hoi ik ben je nieuwe npc ik kan praten 4
+*5 praten is voor mij leuk dit is optie 5
+*6 hoi hoi hoi 6
+*7 Hoi ik ben je nieuwe npc ik kan praten 7
+*8 praten is voor mij leuk dit is optie 8
+*9 hoi hoi hoi 9
+*10 Hoi ik ben je nieuwe npc ik kan praten 10
+*11 praten is voor mij leuk dit is optie 11
+*12 hoi hoi hoi 12
+
+#DialoogOpties 2$
+*1 Hoi test npc 1
+*2 Niet gemeen doen he
+*3 ):
+
