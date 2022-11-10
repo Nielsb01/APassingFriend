@@ -122,7 +122,7 @@ public class DialogBuilder : MonoBehaviour
     /**
      * Getting the introduction text from the npc.
      */
-    public String getIntroText()
+    public string getIntroText()
     {
         return introText;
     }
