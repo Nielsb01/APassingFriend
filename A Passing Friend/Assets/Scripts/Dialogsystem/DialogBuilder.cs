@@ -1,8 +1,12 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+
+#endregion
 
 public class DialogBuilder : MonoBehaviour
 {
@@ -44,7 +48,9 @@ public class DialogBuilder : MonoBehaviour
             var checkerFloat = 0.0f;
             if ((isSubOptie && option.Contains('*')) || (!isSubOptie && option.Contains('#')) || option == " " ||
                 float.TryParse(option, out checkerFloat))
+            {
                 splittedOptions.Remove(option);
+            }
         }
     }
 
@@ -65,7 +71,11 @@ public class DialogBuilder : MonoBehaviour
             // Remove the introtext from the dialog options.
             subdialog.Remove(subdialog[0]);
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
-            if (dialogTitle.Contains('$')) dialogObject.setEndsConverstation(true);
+            if (dialogTitle.Contains('$'))
+            {
+                dialogObject.setEndsConverstation(true);
+            }
+
             _dialogOptions.Add(dialogObject);
         }
     }
