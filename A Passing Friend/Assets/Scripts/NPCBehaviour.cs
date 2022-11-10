@@ -4,6 +4,8 @@ public class NPCBehaviour : MonoBehaviour
 {
     private GameObject npc;
 
+    private UIController ui;
+
     private bool playerInInteractRange;
 
     private float interactRange = 2.5f;
@@ -19,19 +21,22 @@ public class NPCBehaviour : MonoBehaviour
     {
         npc = GetComponent<GameObject>();
         outline = GetComponent<Outline>();
+        ui = GameObject.Find("UIDocument").GetComponent<UIController>();
     }
 
     private void Update()
     {
         playerInInteractRange = Physics.CheckSphere(transform.position, interactRange, whatIsPlayer);
 
-        if (playerInInteractRange)
+        if (playerInInteractRange && !outline.enabled)
         {
             outline.enabled = true;
+            ui.SetInteractButtonVisibility();
         } 
-        else if (outline.enabled)
+        else if (!playerInInteractRange && outline.enabled)
         {
             outline.enabled = false;
+            ui.SetInteractButtonVisibility();
         }
     }
 }

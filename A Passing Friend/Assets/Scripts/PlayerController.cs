@@ -7,12 +7,15 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController characterController;
 
+    private UIController ui;
+
     private Vector3 movement;
     [Range(0, 25)] public float speed = 5.0f;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        ui = GameObject.Find("UIDocument").GetComponent<UIController>();
         speed = 5.0f;
     }
 
@@ -31,5 +34,10 @@ public class PlayerController : MonoBehaviour
         var movementX = movementValue.Get<Vector2>().x;
 
         movement = new Vector3(movementX, 0.0f, movementY);
+    }
+
+    private void OnInteract()
+    {
+        ui.ContinueDialog();
     }
 }

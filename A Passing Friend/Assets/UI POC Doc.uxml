@@ -1,3 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Button tabindex="-1" text="E&#10;Interact" display-tooltip-when-elided="true" name="interact-button" style="width: 90px; white-space: nowrap; -unity-text-align: middle-center; height: 90px; font-size: 20px; color: rgba(255, 255, 255, 0.2); background-color: rgba(88, 88, 88, 0.59); -unity-background-image-tint-color: rgba(255, 255, 255, 0.2); left: 50%; top: 50%; right: auto; bottom: auto; position: absolute; justify-content: flex-end; align-items: center;" />
-</ui:UXML>
