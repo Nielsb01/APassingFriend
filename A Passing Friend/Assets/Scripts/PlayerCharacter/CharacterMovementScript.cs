@@ -93,7 +93,6 @@ public class CharacterMovementScript : MonoBehaviour
                 }
             }
 
-            //Debug.Log("Vx: " + (float)Math.Round(velocityX, 4) + " vY: " + (float)Math.Round(velocityY, 4));
             moveDirection.x = moveSpeed * ((float)Math.Round(velocityX, 4));
             moveDirection.z = moveSpeed * ((float)Math.Round(velocityY, 4));
 
@@ -115,7 +114,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJump()
     {
-        Debug.Log("press jump");
         if (characterController.isGrounded)
         {
             doJump = true;
