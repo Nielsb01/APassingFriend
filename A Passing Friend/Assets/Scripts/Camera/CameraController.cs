@@ -1,4 +1,3 @@
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
 
@@ -6,12 +5,13 @@ namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        public CinemachineVirtualCamera sideCamLeft;
-        public CinemachineVirtualCamera sideCamRight;
-        public CinemachineVirtualCamera tailCam;
+        [SerializeField] private CinemachineVirtualCamera sideCamLeft;
+        [SerializeField] private CinemachineVirtualCamera sideCamRight;
+        [SerializeField] private CinemachineVirtualCamera tailCam;
 
         public void ActivateTailCam()
         {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
             tailCam.Priority = 100;
         }
 
@@ -19,14 +19,16 @@ namespace Camera
         {
             tailCam.Priority = 1;
         }
-        
+
         public void ActivateSideCamLeft()
         {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(sideCamLeft);
             sideCamLeft.Priority = 100;
         }
 
         public void ActivateSideCamRight()
         {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(sideCamRight);
             sideCamRight.Priority = 100;
         }
 

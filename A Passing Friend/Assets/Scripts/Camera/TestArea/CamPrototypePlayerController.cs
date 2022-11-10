@@ -8,9 +8,9 @@ namespace Camera.TestArea
         private Vector3 _movement;
         private Vector2 _turn;
         private CharacterController _characterController;
-        public float moveSpeed = 0.3f;
-        public float gravity = 0.9f;
-        public float turnSpeed = 1.5f;
+        [SerializeField] private float moveSpeed = 0.2f;
+        [SerializeField] private float gravity = 0.9f;
+        [SerializeField] private float turnSpeed = 1.5f;
 
         private void Start()
         {
