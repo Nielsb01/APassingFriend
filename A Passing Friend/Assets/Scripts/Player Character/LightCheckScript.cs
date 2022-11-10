@@ -10,35 +10,35 @@ public class LightCheckScript : MonoBehaviour
 {
     private const int INITIAL_LIGHTLEVEL_NIGHTTIME = 4;
     private const int INITIAL_LIGHTLEVEL_DAYTIME = 6;
-    [SerializeField] private bool dayTime = true;
+    [SerializeField] private bool _dayTime = true;
 
     [HideInInspector] public int lightLevel;
 
-    [SerializeField] private RenderTexture topLightCheckTexture;
+    [SerializeField] private RenderTexture _topLightCheckTexture;
 
-    [SerializeField] private RenderTexture leftLightCheckTexture;
+    [SerializeField] private RenderTexture _leftLightCheckTexture;
 
-    [SerializeField] private RenderTexture rightLightCheckTexture;
+    [SerializeField] private RenderTexture _rightLightCheckTexture;
 
-    [SerializeField] private RenderTexture forwardlightCheckTexture;
+    [SerializeField] private RenderTexture _forwardLightCheckTexture;
 
-    [SerializeField] private RenderTexture backwardlightCheckTexture;
+    [SerializeField] private RenderTexture _backwardLightCheckTexture;
 
     private int _initialLightlevel;
 
     private void Awake()
     {
-        _initialLightlevel = dayTime ? INITIAL_LIGHTLEVEL_DAYTIME : INITIAL_LIGHTLEVEL_NIGHTTIME;
+        _initialLightlevel = _dayTime ? INITIAL_LIGHTLEVEL_DAYTIME : INITIAL_LIGHTLEVEL_NIGHTTIME;
     }
 
     private void Update()
     {
         var lightLevels = new float[5];
-        lightLevels[0] = GetPixelsFromTexture(topLightCheckTexture);
-        lightLevels[1] = GetPixelsFromTexture(leftLightCheckTexture);
-        lightLevels[2] = GetPixelsFromTexture(rightLightCheckTexture);
-        lightLevels[3] = GetPixelsFromTexture(forwardlightCheckTexture);
-        lightLevels[4] = GetPixelsFromTexture(backwardlightCheckTexture);
+        lightLevels[0] = GetPixelsFromTexture(_topLightCheckTexture);
+        lightLevels[1] = GetPixelsFromTexture(_leftLightCheckTexture);
+        lightLevels[2] = GetPixelsFromTexture(_rightLightCheckTexture);
+        lightLevels[3] = GetPixelsFromTexture(_forwardLightCheckTexture);
+        lightLevels[4] = GetPixelsFromTexture(_backwardLightCheckTexture);
 
         var average = lightLevels.Average();
 
@@ -65,6 +65,7 @@ public class LightCheckScript : MonoBehaviour
         var totalLuminance = 0f;
         foreach (var pixel in pixels)
         {
+            // https://en.wikipedia.org/wiki/Relative_luminance#:~:text=Relative%20luminance%20and%20%22gamma%20encoded%22%20colorspaces%5Bedit%5D
             totalLuminance += 0.2126f * pixel.r + 0.7152f * pixel.g + 0.0722f * pixel.b;
         }
 

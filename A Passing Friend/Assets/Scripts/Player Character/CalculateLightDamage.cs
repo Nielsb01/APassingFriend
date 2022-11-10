@@ -6,17 +6,17 @@ using UnityEngine;
 
 public class CalculateLightDamage : MonoBehaviour
 {
-    [SerializeField] private GameObject lightCheckScriptGameObject;
+    [SerializeField] private GameObject _lightCheckScriptGameObject;
 
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int _maxHealth = 100;
 
-    [SerializeField] private int damageMultiplier = 1;
+    [SerializeField] private int _damageMultiplier = 1;
 
-    [SerializeField] private int regenerationMultiplier = 5;
+    [SerializeField] private int _regenerationMultiplier = 5;
 
-    [SerializeField] private int lightToDamageThreshold = 3;
+    [SerializeField] private int _lightToDamageThreshold = 3;
 
-    [SerializeField] private int lightToHealingThreshold;
+    [SerializeField] private int _lightToHealingThreshold;
 
     private LightCheckScript _lightCheckScript;
     private float _health;
@@ -25,15 +25,15 @@ public class CalculateLightDamage : MonoBehaviour
 
     private void Awake()
     {
-        _lightCheckScript = lightCheckScriptGameObject.GetComponent<LightCheckScript>();
-        _health = maxHealth;
+        _lightCheckScript = _lightCheckScriptGameObject.GetComponent<LightCheckScript>();
+        _health = _maxHealth;
     }
 
     public void Update()
     {
         _lightLevel = _lightCheckScript.lightLevel;
 
-        if (_lightLevel >= lightToDamageThreshold)
+        if (_lightLevel >= _lightToDamageThreshold)
         {
             _timer += Time.deltaTime;
         }
@@ -45,19 +45,19 @@ public class CalculateLightDamage : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_lightLevel >= lightToDamageThreshold)
+        if (_lightLevel >= _lightToDamageThreshold)
         {
-            var damage = _lightLevel * damageMultiplier * _timer / 5;
+            var damage = _lightLevel * _damageMultiplier * _timer / 5;
 
             logDamageMultiplier(damage);
 
             _health -= damage;
         }
 
-        if (_lightLevel == lightToHealingThreshold)
+        if (_lightLevel == _lightToHealingThreshold)
         {
-            _health += regenerationMultiplier;
-            if (_health > maxHealth) _health = maxHealth;
+            _health += _regenerationMultiplier;
+            if (_health > _maxHealth) _health = _maxHealth;
         }
         
         logHealth();
