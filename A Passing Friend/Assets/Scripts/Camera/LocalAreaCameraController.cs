@@ -6,7 +6,7 @@ namespace Camera
     public class LocalAreaCameraController : MonoBehaviour
     {
         public CinemachineVirtualCamera virtualCamera;
-    
+
         public void ActivateLocalCam(Transform followTarget)
         {
             virtualCamera.Priority = 100;
