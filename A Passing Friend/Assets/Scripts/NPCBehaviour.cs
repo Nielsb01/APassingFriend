@@ -26,6 +26,8 @@ public class NPCBehaviour : MonoBehaviour
 
     private void Update()
     {
+        /* Instead of this method, you can also use the RayCast in the PlayerController script to check if the player is in interact range.
+           Preferably only use 1 method, but both also works. */
         playerInInteractRange = Physics.CheckSphere(transform.position, interactRange, whatIsPlayer);
 
         if (playerInInteractRange && !outline.enabled)

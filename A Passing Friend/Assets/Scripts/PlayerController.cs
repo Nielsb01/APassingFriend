@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteract()
     {
+        /* Instead of this method, you can also use the CheckSphere method in the NPCBehaviour script to check if the player is in interact range.
+           Preferably only use 1 method, but both also works. */
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
