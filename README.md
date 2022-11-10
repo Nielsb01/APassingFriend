@@ -20,9 +20,10 @@
 10.	'bugfix' branches worden gemerged naar de 'release-candidate' branch waar ze gemaakt zijn.
 11.	Nadat een pull request is gemerged vanuit een ‘sub-task’ branch, dan moet de eigenaar deze ‘sub-task’ branch verwijderen.
 12.	‘main’, ‘develop’ en ‘feature’ branches worden niet verwijderd.
-13.	‘feature’ branches worden aangemaakt als ‘feature/feature-<featureNummer>-<featureNaam>’.
-14.	‘sub-task’ branches worden aangemaakt als ‘sub-task/feature-<featureNummer>-<subtaskNaam>’.
-15.	‘bugfix’ branches worden aangemaakt als ‘bugfix/<featureNummer>-<bug>’.
+13.	‘feature’ branches worden aangemaakt als ‘feature/feature-<<featureNummer>featureNummer>-<<featureNaam>featureNaam>’.
+14.	‘sub-task’ branches worden aangemaakt als ‘sub-task/feature-<<featureNummer>featureNummer>-<<featureNaam>featureNaam>’.
+15.	‘bugfix’ branches worden aangemaakt als ‘bugfix/feature-<<featureNummer>featureNummer>-<<bug>bug>’.
+
 
 ### Reviewen
 1.	Als een 'sub-task' branch aan de DoD en de gewenste functionaliteit voldoet wordt hiervoor een pull request aangemaakt naar de 'feature' branch.
@@ -58,7 +59,12 @@
 3.	We werken met de URP.
 4.	We werken met Unity Editor Version 2022.1.14f1.
 5.	Voor de unit gebruikt binnen Unity geldt de regel; 1 unit = 1 meter.
-6.	Team Art levert assets als een prefab game object middels .fbx files inclusief mesh colliders.
+6.	Binnen de globale onderwerp folders (zoals scripts/prefabs/scenes etc), komt een folder met de featurenaam, waarin de onderdelen voor die feature van het onderwerp komen.
+7.	Team Art levert assets als een prefab game object middels .fbx files inclusief mesh colliders.
+
+### Pull request
+1.	Pull request namen formatteer je zo: ‘PR/feature-<<featurenummer>featureNummer>-<<naam>naam>’.
+
 
 ## Definition of Done
 Om te bepalen of een taak als klaar gezien kan worden wordt gebruik gemaakt van een Definition of Done. Deze is verschillend voor documenten en code. 
@@ -66,7 +72,7 @@ Om te bepalen of een taak als klaar gezien kan worden wordt gebruik gemaakt van 
 *	Code voldoet aan de Code Style Guide.
 *	Er is rekening gehouden met de CLEAN coding principles (zie Code Styleguide).
 *	De code moet voldoen aan de post condities van de taak.
-*	Alle code moet zonder extra uitleg te begrijpen zijn (voor programmeurs).
+*	Alle code moet zonder extra uitleg te begrijpen zijn (voor slimme programmeurs).
 *	Alle code is gereviewd door minstens 2 personen (Zie reviewproces van de Git workflow guideline).
 *	Alle code is in het Engels geschreven.
 
