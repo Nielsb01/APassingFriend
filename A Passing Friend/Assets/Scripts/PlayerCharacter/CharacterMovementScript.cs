@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
-using static UnityEngine.GraphicsBuffer;
 
 public class CharacterMovementScript : MonoBehaviour
 {
@@ -22,7 +17,7 @@ public class CharacterMovementScript : MonoBehaviour
     private float velocityX = 0.0f;
     private float maxPositiveVelocity = 2.0f;
     private float maxNegativeVelocity = -2.0f;
-    
+
     private Vector2 moveVector;
     private Vector3 moveDirection = Vector3.zero;
     private bool doJump;
@@ -87,7 +82,7 @@ public class CharacterMovementScript : MonoBehaviour
             else if (velocityX < 0)
             {
                 velocityX += Time.deltaTime * deceleration;
-                if (floatIsBetween(velocityX,0,0.01f))
+                if (floatIsBetween(velocityX, 0, 0.01f))
                 {
                     velocityX = 0;
                 }
