@@ -1,0 +1,201 @@
+fileFormatVersion: 2
+guid: 52df6bf0052e462409432b0200b6e83c
+timeCreated: 1551076353
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Arm_Fox
+    100002: Base
+    100004: claws_b.L
+    100006: claws_b.R
+    100008: claws_f.L
+    100010: claws_f.R
+    100012: Ear.L
+    100014: Ear.R
+    100016: eye.L
+    100018: eye.R
+    100020: foot_b.L
+    100022: foot_b.R
+    100024: foot_f.L
+    100026: foot_f.R
+    100028: //RootNode
+    100030: Fox_cub_LOD0
+    100032: Fox_cub_LOD1
+    100034: Fox_cub_LOD2
+    100036: Fox_cub_LOD3
+    100038: head
+    100040: Helper_foot_b.L
+    100042: Helper_foot_b.R
+    100044: Helper_shin_f.L
+    100046: Helper_shin_f.R
+    100048: hip_b.L
+    100050: hip_b.R
+    100052: hip_f.L
+    100054: hip_f.R
+    100056: leg_b.L
+    100058: leg_b.R
+    100060: leg_f.L
+    100062: leg_f.R
+    100064: mouth
+    100066: neck
+    100068: nose
+    100070: Root_bone
+    100072: shin_b.L
+    100074: shin_b.R
+    100076: shin_f.L
+    100078: shin_f.R
+    100080: Spine_01
+    100082: Spine_02
+    100084: Spine_03
+    100086: Spine_04
+    100088: Spine_05
+    100090: Spine_base
+    100092: tail_01
+    100094: tail_02
+    100096: tail_03
+    100098: tail_04
+    100100: tail_05
+    100102: thigh_b.L
+    100104: thigh_b.R
+    100106: thigh_f.L
+    100108: thigh_f.R
+    400000: Arm_Fox
+    400002: Base
+    400004: claws_b.L
+    400006: claws_b.R
+    400008: claws_f.L
+    400010: claws_f.R
+    400012: Ear.L
+    400014: Ear.R
+    400016: eye.L
+    400018: eye.R
+    400020: foot_b.L
+    400022: foot_b.R
+    400024: foot_f.L
+    400026: foot_f.R
+    400028: //RootNode
+    400030: Fox_cub_LOD0
+    400032: Fox_cub_LOD1
+    400034: Fox_cub_LOD2
+    400036: Fox_cub_LOD3
+    400038: head
+    400040: Helper_foot_b.L
+    400042: Helper_foot_b.R
+    400044: Helper_shin_f.L
+    400046: Helper_shin_f.R
+    400048: hip_b.L
+    400050: hip_b.R
+    400052: hip_f.L
+    400054: hip_f.R
+    400056: leg_b.L
+    400058: leg_b.R
+    400060: leg_f.L
+    400062: leg_f.R
+    400064: mouth
+    400066: neck
+    400068: nose
+    400070: Root_bone
+    400072: shin_b.L
+    400074: shin_b.R
+    400076: shin_f.L
+    400078: shin_f.R
+    400080: Spine_01
+    400082: Spine_02
+    400084: Spine_03
+    400086: Spine_04
+    400088: Spine_05
+    400090: Spine_base
+    400092: tail_01
+    400094: tail_02
+    400096: tail_03
+    400098: tail_04
+    400100: tail_05
+    400102: thigh_b.L
+    400104: thigh_b.R
+    400106: thigh_f.L
+    400108: thigh_f.R
+    4300000: Fox_cub_LOD0
+    4300002: Fox_cub_LOD1
+    4300004: Fox_cub_LOD2
+    4300006: Fox_cub_LOD3
+    9500000: //RootNode
+    13700000: Fox_cub_LOD0
+    13700002: Fox_cub_LOD1
+    13700004: Fox_cub_LOD2
+    13700006: Fox_cub_LOD3
+    20500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Root_bone
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
