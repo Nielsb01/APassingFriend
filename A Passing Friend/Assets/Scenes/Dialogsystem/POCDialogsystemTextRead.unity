@@ -237,9 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81829e549a3d7a142b68e8f9b68209cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogreader: {fileID: 2075864144}
-  onscreenText: {fileID: 2127284997}
-  chosen: 0
+  _dialogreader: {fileID: 2075864144}
+  _onscreenText: {fileID: 2127284997}
 --- !u!4 &1276853729
 Transform:
   m_ObjectHideFlags: 0
@@ -599,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19c15d7e61e3834d90e4c590177cb08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogTextFile: {fileID: 4900000, guid: f194191044f7f3645b148ba42acbcf23, type: 3}
+  _dialogTextFile: {fileID: 4900000, guid: f194191044f7f3645b148ba42acbcf23, type: 3}
 --- !u!4 &2075864145
 Transform:
   m_ObjectHideFlags: 0

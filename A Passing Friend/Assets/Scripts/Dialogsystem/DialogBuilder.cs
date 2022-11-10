@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,15 +6,16 @@ using UnityEngine;
 
 public class DialogBuilder : MonoBehaviour
 {
-    //The text asset that contains all dialog.
+    private readonly List<DialogObject> _dialogOptions = new();
+
+    // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
 
-    private String _introText;
-    private readonly List<DialogObject> _dialogOptions = new List<DialogObject>();
+    private string _introText;
 
-    void Awake()
+    private void Awake()
     {
-        //Read the dialog file and make it into the dialogobjects.
+        // Read the dialog file and make it into the dialogobjects.
         parseDialog();
     }
 
@@ -27,9 +27,9 @@ public class DialogBuilder : MonoBehaviour
      */
     private void parseDialog()
     {
-        string textToSet = getIntroText(_dialogTextFile.ToString());
-        string regex = "#";
-        List<string> dialogObjects = Regex.Split(textToSet, regex).ToList();
+        var textToSet = getIntroText(_dialogTextFile.ToString());
+        var regex = "#";
+        var dialogObjects = Regex.Split(textToSet, regex).ToList();
         dialogObjects.Remove(dialogObjects[0]);
         removeSplitStrings(dialogObjects, false);
         createDialogObjects(dialogObjects);
@@ -37,16 +37,14 @@ public class DialogBuilder : MonoBehaviour
 
     private void removeSplitStrings(List<string> splittedOptions, bool isSubOptie)
     {
-        //Unity's regex wont remove the characters from your text automatically, this is why we remove them by hand here .
-        foreach (var optie in splittedOptions.ToList())
+        // Unity's regex wont remove the characters from your text automatically, this is why we remove them by hand here .
+        foreach (var option in splittedOptions.ToList())
         {
-            //Dialog can't be only a number. This can be checked with a float.tryparse. We need a float for the output this is why this float is made.
-            float checkerFloat = 0.0f;
-            if ((isSubOptie && optie.Contains('*')) || (!isSubOptie && optie.Contains('#')) || optie == " " ||
-                float.TryParse(optie, out checkerFloat))
-            {
-                splittedOptions.Remove(optie);
-            }
+            // Dialog can't be only a number. This can be checked with a float.tryparse. We need a float for the output this is why this float is made.
+            var checkerFloat = 0.0f;
+            if ((isSubOptie && option.Contains('*')) || (!isSubOptie && option.Contains('#')) || option == " " ||
+                float.TryParse(option, out checkerFloat))
+                splittedOptions.Remove(option);
         }
     }
 
@@ -57,20 +55,17 @@ public class DialogBuilder : MonoBehaviour
      */
     private void createDialogObjects(List<string> dialog)
     {
-        string regex = "(\\*)([0-9]+)";
-        foreach (string option in dialog)
+        var regex = "(\\*)([0-9]+)";
+        foreach (var option in dialog)
         {
-            List<string> subdialog = Regex.Split(option, regex).ToList();
-            List<string> subdialogTrimmed = subdialog.Select(s => s.Trim()).ToList();
+            var subdialog = Regex.Split(option, regex).ToList();
+            var subdialogTrimmed = subdialog.Select(s => s.Trim()).ToList();
             removeSplitStrings(subdialogTrimmed, true);
-            string dialogTitle = subdialog[0];
-            //Remove the introtext from the dialog options.
+            var dialogTitle = subdialog[0];
+            // Remove the introtext from the dialog options.
             subdialog.Remove(subdialog[0]);
-            DialogObject dialogObject = new DialogObject(dialogTitle.Replace('$',' '), subdialogTrimmed);
-            if (dialogTitle.Contains('$'))
-            {
-                dialogObject.setEndsConverstation(true);
-            }
+            var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
+            if (dialogTitle.Contains('$')) dialogObject.setEndsConverstation(true);
             _dialogOptions.Add(dialogObject);
         }
     }
@@ -79,9 +74,9 @@ public class DialogBuilder : MonoBehaviour
      * Get the introduction text from the dialog.
      * The text you are first met with after opening the dialog or after completing the current dialog option.
      */
-    private String getIntroText(string text)
+    private string getIntroText(string text)
     {
-        string[] splitText = text.Split("--");
+        var splitText = text.Split("--");
         try
         {
             _introText = splitText[0];
@@ -89,7 +84,6 @@ public class DialogBuilder : MonoBehaviour
         }
         catch (IndexOutOfRangeException e)
         {
-            Console.WriteLine(e);
             Debug.LogWarning("Text seems to be missing something, did you forget to add an intro text?");
             _introText = "Intro text not found";
             return splitText[0];

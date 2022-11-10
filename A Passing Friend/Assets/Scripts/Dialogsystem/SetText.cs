@@ -1,29 +1,27 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class SetText : MonoBehaviour
 {
-    [SerializeField]
-    private DialogBuilder _dialogreader;
-    [SerializeField]
-    private Transform _onscreenText;
-    [SerializeField]
-    private int _chosen = 1;
-    
-    private int currentDialog = 0;
-    private List<String> dialogOptionsText;
+    [SerializeField] private readonly int _chosen = 1;
+
+    [SerializeField] private DialogBuilder _dialogreader;
+
+    [SerializeField] private Transform _onscreenText;
+
     private DialogObject chosenOption;
-    
+
+    private int currentDialog;
+    private List<string> dialogOptionsText;
+
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (chosenOption == null)
         {
-            List<DialogObject> dialogObjects = _dialogreader.getAllDialogObjects();
+            var dialogObjects = _dialogreader.getAllDialogObjects();
             chosenOption = dialogObjects[_chosen];
         }
 
@@ -34,19 +32,16 @@ public class SetText : MonoBehaviour
         }
     }
 
-   public void OnFire()
+    public void OnFire()
     {
-        if (currentDialog < dialogOptionsText.Count -1)
+        if (currentDialog < dialogOptionsText.Count - 1)
         {
             currentDialog += 1;
             SetDialogText(currentDialog);
         }
         else
         {
-            if (chosenOption.doesOptionEndConverstation())
-            {
-                print("ends");
-            }
+            if (chosenOption.doesOptionEndConverstation()) print("ends");
             currentDialog = 0;
             chosenOption = null;
             dialogOptionsText = null;
@@ -56,13 +51,13 @@ public class SetText : MonoBehaviour
 
     private void SetDialogText(int optionNumber)
     {
-        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogOptionsText[optionNumber]; 
+        var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
+        textMeshProUgui.text = dialogOptionsText[optionNumber];
     }
 
     private void setIntroText()
     {
-        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
+        var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
         textMeshProUgui.text = _dialogreader.getIntroText();
     }
 }
