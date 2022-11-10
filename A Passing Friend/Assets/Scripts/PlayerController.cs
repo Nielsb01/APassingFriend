@@ -10,16 +10,18 @@ public class PlayerController : MonoBehaviour
     private UIController ui;
 
     private Vector3 movement;
-    [Range(0, 25)] public float speed = 5.0f;
+    [Range(0, 25)] public float speed;
 
-    void Start()
+    private float interactRayDistance = 2.5f;
+
+    private void Start()
     {
         characterController = GetComponent<CharacterController>();
         ui = GameObject.Find("UIDocument").GetComponent<UIController>();
         speed = 5.0f;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Vector3 playerMovementDirectionFoward = transform.forward * movement.z * speed * Time.fixedDeltaTime;
         Vector3 playerMovementDirectionSide = transform.right * movement.x * speed * Time.fixedDeltaTime;
@@ -38,6 +40,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteract()
     {
-        ui.ContinueDialog();
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        Debug.DrawRay(transform.position, Vector3.forward * interactRayDistance);
+
+        if (Physics.Raycast(ray, out hit, interactRayDistance))
+        {
+            if (hit.transform.gameObject.CompareTag("NPC"))
+            {
+                Debug.Log("yee");
+                ui.ContinueDialog();
+            }
+        }
     }
 }

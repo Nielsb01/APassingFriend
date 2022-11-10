@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6669378527573070010}
   m_Layer: 0
   m_Name: NPC
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 4348538257070347657}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1322211735525200494
 MonoBehaviour:
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 4348538257070347656}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

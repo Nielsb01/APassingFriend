@@ -35,25 +35,27 @@ public class UIController : MonoBehaviour
 
     public void ContinueDialog()
     {
-        if (interactBox.visible)
+        if (!interactBox.visible)
         {
-            if (!dialogBox.visible)
-            {
-                dialogBox.visible = true;
-                currentTextNr = 0;
-            }
+            return;
+        }
 
-            if (currentTextNr < (dialogTextList.Count))
-            {
-                SetDialogBoxText(dialogTextList[currentTextNr]);
-                currentTextNr++;
-                Debug.Log(currentTextNr);
-            }
-            else if (currentTextNr == dialogTextList.Count)
-            {
-                dialogBox.visible = false;
-                currentTextNr = 0;
-            }
+        if (!dialogBox.visible)
+        {
+            dialogBox.visible = true;
+            currentTextNr = 0;
+        }
+
+        if (currentTextNr < (dialogTextList.Count))
+        {
+            SetDialogBoxText(dialogTextList[currentTextNr]);
+            currentTextNr++;
+            Debug.Log(currentTextNr);
+        }
+        else if (currentTextNr == dialogTextList.Count)
+        {
+            dialogBox.visible = false;
+            currentTextNr = 0;
         }
     }
 
