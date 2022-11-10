@@ -5,33 +5,33 @@ using UnityEngine;
 
 public class DialogObject
 {
-    private readonly string dialogChoice;
-    private readonly List<string> dialog;
-    private bool endsConversation = false;
+    private readonly string _dialogChoice;
+    private readonly List<string> _dialog;
+    private bool _endsConversation = false;
 
     public DialogObject(string dialogChoice, List<string> dialog)
     {
-        this.dialogChoice = dialogChoice;
-        this.dialog = dialog;
+        this._dialogChoice = dialogChoice;
+        this._dialog = dialog;
     }
 
     public string getDialogChoice()
     {
-        return this.dialogChoice;
+        return this._dialogChoice;
     }
 
     public List<string> getDialog()
     {
-        return this.dialog;
+        return this._dialog;
     }
 
     public void setEndsConverstation(bool endsConversation)
     {
-        this.endsConversation = endsConversation;
+        this._endsConversation = endsConversation;
     }
 
     public bool doesOptionEndConverstation()
     {
-        return endsConversation;
+        return _endsConversation;
     }
 }

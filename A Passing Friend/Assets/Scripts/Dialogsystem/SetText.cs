@@ -7,11 +7,11 @@ using UnityEngine;
 public class SetText : MonoBehaviour
 {
     [SerializeField]
-    private DialogBuilder dialogreader;
+    private DialogBuilder _dialogreader;
     [SerializeField]
-    private Transform onscreenText;
+    private Transform _onscreenText;
     [SerializeField]
-    private int chosen = 1;
+    private int _chosen = 1;
     
     private int currentDialog = 0;
     private List<String> dialogOptionsText;
@@ -23,8 +23,8 @@ public class SetText : MonoBehaviour
     {
         if (chosenOption == null)
         {
-            List<DialogObject> dialogObjects = dialogreader.getAllDialogObjects();
-            chosenOption = dialogObjects[chosen];
+            List<DialogObject> dialogObjects = _dialogreader.getAllDialogObjects();
+            chosenOption = dialogObjects[_chosen];
         }
 
         if (dialogOptionsText == null)
@@ -56,13 +56,13 @@ public class SetText : MonoBehaviour
 
     private void SetDialogText(int optionNumber)
     {
-        TextMeshProUGUI textMeshProUgui = onscreenText.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
         textMeshProUgui.text = dialogOptionsText[optionNumber]; 
     }
 
     private void setIntroText()
     {
-        TextMeshProUGUI textMeshProUgui = onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogreader.getIntroText();
+        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
+        textMeshProUgui.text = _dialogreader.getIntroText();
     }
 }
