@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.transform.gameObject.CompareTag("NPC"))
             {
-                Debug.Log("yee");
                 ui.ContinueDialog();
             }
         }
