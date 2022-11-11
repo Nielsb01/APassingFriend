@@ -39,7 +39,7 @@ And then the criteria:
 
 
 
-## II: Bronnen lijst
+## II: Source List
 
 [Comparison UI systems]: https://docs.unity3d.com/2020.2/Documentation/Manual/UI-system-compare.html	"Comparison UI Systems"
 [UI Toolkit]: https://docs.unity3d.com/Manual/UIToolkits.html	"UI Toolkits"

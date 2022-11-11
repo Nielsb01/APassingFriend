@@ -5,29 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController characterController;
+    private CharacterController _characterController;
 
-    private UIController ui;
+    private UIController _ui;
 
-    private Vector3 movement;
-    [Range(0, 25)] public float speed;
+    private Vector3 _movement;
 
-    private float interactRayDistance = 2.5f;
+    [Range(0, 25)]
+    private float _speed;
+
+    private float _interactRayDistance = 2.5f;
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        ui = GameObject.Find("UIDocument").GetComponent<UIController>();
-        speed = 5.0f;
+        _characterController = GetComponent<CharacterController>();
+        _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
+        _speed = 5.0f;
     }
 
     private void FixedUpdate()
     {
-        Vector3 playerMovementDirectionFoward = transform.forward * movement.z * speed * Time.fixedDeltaTime;
-        Vector3 playerMovementDirectionSide = transform.right * movement.x * speed * Time.fixedDeltaTime;
+        Vector3 playerMovementDirectionFoward = transform.forward * _movement.z * _speed * Time.fixedDeltaTime;
+        Vector3 playerMovementDirectionSide = transform.right * _movement.x * _speed * Time.fixedDeltaTime;
         playerMovementDirectionFoward.y = 0;
 
-        characterController.Move(playerMovementDirectionFoward + playerMovementDirectionSide);
+        _characterController.Move(playerMovementDirectionFoward + playerMovementDirectionSide);
     }
 
     private void OnMove(InputValue movementValue)
@@ -35,7 +37,7 @@ public class PlayerController : MonoBehaviour
         var movementY = movementValue.Get<Vector2>().y;
         var movementX = movementValue.Get<Vector2>().x;
 
-        movement = new Vector3(movementX, 0.0f, movementY);
+        _movement = new Vector3(movementX, 0.0f, movementY);
     }
 
     private void OnInteract()
@@ -45,13 +47,13 @@ public class PlayerController : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        Debug.DrawRay(transform.position, Vector3.forward * interactRayDistance);
+        Debug.DrawRay(transform.position, Vector3.forward * _interactRayDistance);
 
-        if (Physics.Raycast(ray, out hit, interactRayDistance))
+        if (Physics.Raycast(ray, out hit, _interactRayDistance))
         {
             if (hit.transform.gameObject.CompareTag("NPC"))
             {
-                ui.ContinueDialog();
+                _ui.ContinueDialog();
             }
         }
     }

@@ -1,25 +1,38 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
-    private VisualElement interactBox;
-    private VisualElement dialogBox;
-    private Label dialogBoxText;
+    // UI POC 1
+    private VisualElement _interactBox;
+
+    private VisualElement _dialogBox;
+
+    private Label _dialogBoxText;
+
+    // UI POC 2, please comment when not using.
+    private Label _dialogBoxCharName;
 
     private List<string> dialogTextList;
-    [SerializeField] private int currentTextNr = 0;
+
+    [SerializeField] 
+    private int currentTextNr = 0;
 
     private void Start()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
 
-        interactBox = root.Q<VisualElement>("interact-box");
-        dialogBox = root.Q<VisualElement>("dialog-box");
-        dialogBoxText = root.Q<Label>("dialog-box-text");
+        // UI POC 1
+        _interactBox = root.Q<VisualElement>("interact-box");
+        _dialogBox = root.Q<VisualElement>("dialog-box");
+        _dialogBoxText = root.Q<Label>("dialog-box-text");
 
-        dialogBox.visible = false;
+        // UI POC 2
+        _dialogBoxCharName = root.Q<Label>("dialog-box-char-name");
+
+        _dialogBox.visible = false;
 
         dialogTextList = new List<string>();
 
@@ -30,19 +43,19 @@ public class UIController : MonoBehaviour
 
     public void SetInteractButtonVisibility()
     {
-        interactBox.visible = !interactBox.visible;
+        _interactBox.visible = !_interactBox.visible;
     }
 
     public void ContinueDialog()
     {
-        if (!interactBox.visible)
+        if (!_interactBox.visible)
         {
             return;
         }
 
-        if (!dialogBox.visible)
+        if (!_dialogBox.visible)
         {
-            dialogBox.visible = true;
+            _dialogBox.visible = true;
             currentTextNr = 0;
         }
 
@@ -54,13 +67,13 @@ public class UIController : MonoBehaviour
         }
         else if (currentTextNr == dialogTextList.Count)
         {
-            dialogBox.visible = false;
+            _dialogBox.visible = false;
             currentTextNr = 0;
         }
     }
 
     private void SetDialogBoxText(string text)
     {
-        dialogBoxText.text = text;
+        _dialogBoxText.text = text;
     }
 }

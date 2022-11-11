@@ -2,43 +2,45 @@ using UnityEngine;
 
 public class NPCBehaviour : MonoBehaviour
 {
-    private GameObject npc;
+    private GameObject _npc;
 
-    private UIController ui;
+    private UIController _ui;
 
-    private bool playerInInteractRange;
+    private bool _playerInInteractRange;
 
-    private float interactRange = 2.5f;
+    private float _interactRange = 2.5f;
 
-    private Outline outline;
+    private Outline _outline;
 
-    public Camera mainCam;
+    [SerializeField] 
+    private Camera _mainCam;
 
-    public LayerMask whatIsPlayer;
+    [SerializeField] 
+    private LayerMask _whatIsPlayer;
 
 
     private void Start()
     {
-        npc = GetComponent<GameObject>();
-        outline = GetComponent<Outline>();
-        ui = GameObject.Find("UIDocument").GetComponent<UIController>();
+        _npc = GetComponent<GameObject>();
+        _outline = GetComponent<Outline>();
+        _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
     }
 
     private void Update()
     {
         /* Instead of this method, you can also use the RayCast in the PlayerController script to check if the player is in interact range.
            Preferably only use 1 method, but both also works. */
-        playerInInteractRange = Physics.CheckSphere(transform.position, interactRange, whatIsPlayer);
+        _playerInInteractRange = Physics.CheckSphere(transform.position, _interactRange, _whatIsPlayer);
 
-        if (playerInInteractRange && !outline.enabled)
+        if (_playerInInteractRange && !_outline.enabled)
         {
-            outline.enabled = true;
-            ui.SetInteractButtonVisibility();
+            _outline.enabled = true;
+            _ui.SetInteractButtonVisibility();
         } 
-        else if (!playerInInteractRange && outline.enabled)
+        else if (!_playerInInteractRange && _outline.enabled)
         {
-            outline.enabled = false;
-            ui.SetInteractButtonVisibility();
+            _outline.enabled = false;
+            _ui.SetInteractButtonVisibility();
         }
     }
 }
