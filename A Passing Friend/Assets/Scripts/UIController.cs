@@ -79,21 +79,23 @@ public class UIController : MonoBehaviour
             ShowDialogChoices();           
         }
 
-        if (_currentTextNr < _dialogTextList.Count && _choiceClicked != 0)
+        if (_currentTextNr < _dialogTextList.Count)
         {
-            Debug.Log(_currentTextNr);
+            _currentTextNr++;
             SetDialogBoxText(_dialogTextList[_currentTextNr]);
         }
-        else if (_currentTextNr == _dialogTextList.Count)
+
+        if (_currentTextNr >= _dialogTextList.Count)
         {
-            SetDialogBoxInvisible();
             _currentTextNr = 0;
             _choiceClicked = 0;
+            ShowDialogChoices();
         }
     }
 
     private void ShowDialogChoices()
     {
+        _dialogBox.visible = true;
         _dialogBoxCharName.visible = false;
         _dialogBoxText.visible = false;
         _dialogBoxChoices.visible = true;
@@ -141,6 +143,5 @@ public class UIController : MonoBehaviour
         _dialogBoxCharName.visible = true;
         _dialogBoxText.visible = true;
         _dialogBoxText.text = text;
-        _currentTextNr++;
     }
 }
