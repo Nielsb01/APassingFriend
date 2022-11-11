@@ -11,7 +11,7 @@ namespace Camera
             {
                 throw new NullReferenceException(
                     "The camera you are trying to use can not be found. The reference may be missing or incorrect.");
-            }
+            } 
         }
     }
 }

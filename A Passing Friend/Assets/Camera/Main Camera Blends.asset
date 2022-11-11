@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: '**ANY CAMERA**'
-    m_To: CM Tailcam
+    m_To: CM Tail cam
     m_Blend:
       m_Style: 7
       m_Time: 0.7
