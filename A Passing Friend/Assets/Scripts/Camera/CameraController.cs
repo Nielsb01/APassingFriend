@@ -5,8 +5,7 @@ namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private CinemachineVirtualCamera sideCamLeft;
-        [SerializeField] private CinemachineVirtualCamera sideCamRight;
+        [SerializeField] private CinemachineVirtualCamera faceCam;
         [SerializeField] private CinemachineVirtualCamera tailCam;
 
         public void ActivateTailCam()
@@ -20,22 +19,15 @@ namespace Camera
             tailCam.Priority = 1;
         }
 
-        public void ActivateSideCamLeft()
+        public void ActivateFaceCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(sideCamLeft);
-            sideCamLeft.Priority = 100;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
+            faceCam.Priority = 100;
         }
 
-        public void ActivateSideCamRight()
+        public void DeactivateFaceCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(sideCamRight);
-            sideCamRight.Priority = 100;
-        }
-
-        public void DeactivateSideCams()
-        {
-            sideCamLeft.Priority = 1;
-            sideCamRight.Priority = 1;
+            faceCam.Priority = 1;
         }
     }
 }
