@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 
-public class LocalAreaCameraController : MonoBehaviour
+namespace Camera
 {
-    public CinemachineVirtualCamera virtualCamera;
-    
-    public void ActivateLocalCam(Transform followTarget)
+    public class LocalAreaCameraController : MonoBehaviour
     {
-        virtualCamera.Priority = 100;
-        virtualCamera.Follow = followTarget;
-        virtualCamera.LookAt = followTarget;
-    }
+        [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
-    public void DeactivateLocalCam()
-    {
-        virtualCamera.Priority = 1;
+        public void ActivateLocalCam(Transform followTarget)
+        {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(virtualCamera);
+            virtualCamera.Priority = 100;
+            virtualCamera.Follow = followTarget;
+            virtualCamera.LookAt = followTarget;
+        }
+
+        public void DeactivateLocalCam()
+        {
+            virtualCamera.Priority = 1;
+        }
     }
 }

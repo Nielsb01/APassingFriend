@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Main Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: Follow cam
+  - m_From: '**ANY CAMERA**'
     m_To: CM Tailcam
     m_Blend:
       m_Style: 7
@@ -50,15 +50,4 @@ MonoBehaviour:
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-        m_RotationOrder: 0
-  - m_From: Follow cam
-    m_To: CM SidecamRight
-    m_Blend:
-      m_Style: 0
-      m_Time: 2
-      m_CustomCurve:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 0
-        m_PostInfinity: 0
         m_RotationOrder: 0
