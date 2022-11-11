@@ -114,7 +114,8 @@ public class UIController : MonoBehaviour
         }
         Button button = tab.target as Button;
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
-        _choiceClicked = Convert.ToInt32(buttonNr);
+        _choiceClicked = Convert.ToInt32(buttonNr) -1;
+        setDialogWithChoice();
     }
 
     private void SetDialogBoxInvisible()
@@ -134,9 +135,7 @@ public class UIController : MonoBehaviour
     public void SetDialogBuilder(DialogBuilder dialogBuilder)
     {
         this._dialogBuilder = dialogBuilder;
-        var dialogObjects = _dialogBuilder.getAllDialogObjects();
-        chosenDialogOption = dialogObjects[_choiceClicked];
-        _dialogTextList = chosenDialogOption.getDialog();
+        setDialogWithChoice();
         var counter = 1;
         _currentTextNr = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
@@ -145,5 +144,12 @@ public class UIController : MonoBehaviour
             counter += 1;
         }
         
+    }
+
+    private void setDialogWithChoice()
+    {
+        var dialogObjects = _dialogBuilder.getAllDialogObjects();
+        chosenDialogOption = dialogObjects[_choiceClicked];
+        _dialogTextList = chosenDialogOption.getDialog();
     }
 }
