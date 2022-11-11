@@ -8,5 +8,11 @@
     <ui:VisualElement name="dialog-box" style="left: 5%; top: 65%; height: 25%; width: 90%; background-color: rgba(0, 0, 0, 0.38);">
         <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="dialog-box-char-name" style="font-size: 35px; left: 2.5%; top: 7.5%; -unity-font: url(&apos;project://database/Assets/Fonts/Comic-Sans.ttf?fileID=12800000&amp;guid=32bfb13e27e6e74418d6f0ae2df89b12&amp;type=3#Comic-Sans&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Comic-Sans%20SDF.asset?fileID=11400000&amp;guid=550be71ada8cb674e88a50d7bb344e93&amp;type=2#Comic-Sans SDF&apos;); width: 95%;" />
         <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="dialog-box-text" style="left: 2.5%; top: 10%; width: 95%; height: 60%; font-size: 30px; -unity-font: url(&apos;project://database/Assets/Fonts/Comic-Sans.ttf?fileID=12800000&amp;guid=32bfb13e27e6e74418d6f0ae2df89b12&amp;type=3#Comic-Sans&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Comic-Sans%20SDF.asset?fileID=11400000&amp;guid=550be71ada8cb674e88a50d7bb344e93&amp;type=2#Comic-Sans SDF&apos;);" />
+        <ui:GroupBox name="dialog-box-choices" style="position: absolute; left: 2.5%; top: 7%; width: 95%; height: 85%;">
+            <ui:Button tabindex="-1" text="Button" display-tooltip-when-elided="true" name="dialog-box-choice-button-1" style="position: relative; font-size: 30px; width: 95%; height: 21.15%; top: 0; left: 2.5%; -unity-text-align: middle-left;" />
+            <ui:Button tabindex="-1" text="Button" display-tooltip-when-elided="true" name="dialog-box-choice-button-2" style="position: relative; font-size: 30px; width: 95%; height: 21.15%; top: 0; left: 2.5%; -unity-text-align: middle-left;" />
+            <ui:Button tabindex="-1" text="Button" display-tooltip-when-elided="true" name="dialog-box-choice-button-3" style="position: relative; font-size: 30px; width: 95%; height: 21.15%; top: 0; left: 2.5%; -unity-text-align: middle-left;" />
+            <ui:Button tabindex="-1" text="Button" display-tooltip-when-elided="true" name="dialog-box-choice-button-4" style="position: relative; font-size: 30px; width: 95%; height: 21.15%; top: 0; left: 2.5%; -unity-text-align: middle-left;" />
+        </ui:GroupBox>
     </ui:VisualElement>
 </ui:UXML>

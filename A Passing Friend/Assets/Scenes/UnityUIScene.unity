@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 7fb949ac12f5d3146b644b142a319f6a, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b69864bc826ba1f449752f19ebeaa53e,
+  sourceAsset: {fileID: 9197481963319205126, guid: 71d646306f5edb14ab4be14d5e90b720,
     type: 3}
   m_SortingOrder: 0
 --- !u!4 &1435562055
@@ -300,7 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb024f51ef563c34185de381b6567773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTextNr: 0
 --- !u!1 &1590618235
 GameObject:
   m_ObjectHideFlags: 0
