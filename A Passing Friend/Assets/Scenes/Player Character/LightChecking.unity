@@ -1160,11 +1160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12250454eeb46b64991af53a7bb9c2cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightCheckScriptGameObject: {fileID: 1123235006}
-  maxHealth: 100
-  damageMultiplier: 1
-  regenerationMultiplier: 5
-  lightLevelToStartingTakingDamage: 3
+  _lightCheckScriptGameObject: {fileID: 1123235006}
+  _maxHealth: 100
+  _damageMultiplier: 1
+  _regenerationMultiplier: 5
+  _lightToDamageThreshold: 3
+  _lightToHealingThreshold: 0
 --- !u!1 &1060028283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,17 +1349,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4f0e5cd531f604d950a5b8bb82b4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayTime: 1
+  _dayTime: 1
   lightLevel: 0
-  topLightCheckTexture: {fileID: 8400000, guid: e284ed8d1dd98924b9eabeb7ccdb51c0,
+  _topLightCheckTexture: {fileID: 8400000, guid: e284ed8d1dd98924b9eabeb7ccdb51c0,
     type: 2}
-  leftLightCheckTexture: {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b,
+  _leftLightCheckTexture: {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b,
     type: 2}
-  rightLightCheckTexture: {fileID: 8400000, guid: 0053936c71a64f74fa50b17f4375d203,
+  _rightLightCheckTexture: {fileID: 8400000, guid: 0053936c71a64f74fa50b17f4375d203,
     type: 2}
-  forwardlightCheckTexture: {fileID: 8400000, guid: 2d99eed57f4ea214eaf240360da9d465,
+  _forwardLightCheckTexture: {fileID: 8400000, guid: 2d99eed57f4ea214eaf240360da9d465,
     type: 2}
-  backwardlightCheckTexture: {fileID: 8400000, guid: 31a70b6ed7a25df43bbd81228a2db0eb,
+  _backwardLightCheckTexture: {fileID: 8400000, guid: 31a70b6ed7a25df43bbd81228a2db0eb,
     type: 2}
 --- !u!4 &1123235008
 Transform:
