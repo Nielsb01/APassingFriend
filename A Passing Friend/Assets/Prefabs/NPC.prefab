@@ -46,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e273d052a8802b64aad4ba66d143c1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  whatIsPlayer:
+  _mainCam: {fileID: 0}
+  _whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &6669378527573070010
 MonoBehaviour:
   m_ObjectHideFlags: 0

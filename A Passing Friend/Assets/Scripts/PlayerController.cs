@@ -44,17 +44,19 @@ public class PlayerController : MonoBehaviour
     {
         /* Instead of this method, you can also use the CheckSphere method in the NPCBehaviour script to check if the player is in interact range.
            Preferably only use 1 method, but both also works. */
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
+        //Ray ray = new Ray(transform.position, transform.forward);
+        //RaycastHit hit;
 
-        Debug.DrawRay(transform.position, Vector3.forward * _interactRayDistance);
+        //Debug.DrawRay(transform.position, Vector3.forward * _interactRayDistance);
 
-        if (Physics.Raycast(ray, out hit, _interactRayDistance))
-        {
-            if (hit.transform.gameObject.CompareTag("NPC"))
-            {
-                _ui.ContinueDialog();
-            }
-        }
+        //if (Physics.Raycast(ray, out hit, _interactRayDistance))
+        //{
+        //    if (hit.transform.gameObject.CompareTag("NPC"))
+        //    {
+        //       _ui.ContinueDialog();
+        //    }
+        //}
+
+        _ui.ContinueDialog();
     }
 }

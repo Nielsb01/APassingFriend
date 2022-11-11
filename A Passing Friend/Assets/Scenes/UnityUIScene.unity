@@ -511,7 +511,17 @@ PrefabInstance:
       objectReference: {fileID: 868820091428736204}
     - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
+      propertyPath: _mainCam
+      value: 
+      objectReference: {fileID: 868820091428736204}
+    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
       propertyPath: whatIsPlayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
+      propertyPath: _whatIsPlayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 4348538256522664600, guid: 316f67c3b5d8f394785be5fb934039d8,
