@@ -11,6 +11,7 @@ public class CalculateLightDamage : MonoBehaviour
 
     [SerializeField] private GameObject _lightCheckScriptGameObject;
     [SerializeField] private int _maxHealth = 100;
+    [SerializeField] private int _minHealth = 0;
     [SerializeField] private int _damageMultiplier = 1;
     [SerializeField] private int _regenerationMultiplier = 5;
     [SerializeField] private int _lightToDamageThreshold = 3;
@@ -21,6 +22,7 @@ public class CalculateLightDamage : MonoBehaviour
     private LightCheckScript _lightCheckScript;
     private int _lightLevel;
     private float _timer;
+    private float _minDamage = 0;
 
     private void Awake()
     {
@@ -52,14 +54,16 @@ public class CalculateLightDamage : MonoBehaviour
         if (_lightLevel >= _lightToDamageThreshold)
         {
             var damage = _lightLevel * _damageMultiplier * _timer / DAMAGE_REDUCTION_FACTOR;
-
-            _health -= (int) Math.Round(damage);
+            damage = damage < _minDamage ? _minDamage : damage;
+            
+            _health -= (int)Math.Round(damage);
+            _health = _health < _minHealth ? _minHealth : _health;
         }
 
         if (_lightLevel == _lightToHealingThreshold)
         {
             _health += _regenerationMultiplier;
-            if (_health > _maxHealth) _health = _maxHealth;
+            _health = _health > _maxHealth ? _maxHealth : _health;
         }
 
 #if DEBUG
@@ -71,54 +75,36 @@ public class CalculateLightDamage : MonoBehaviour
     private int _previousHigh;
     private int _previousLightLevel;
     private int _highestLevel;
-    private float _previousHealth;
+    private int _previousHealth;
     private float _previousDamage;
 
     private void logHealth()
     {
-        if (_health < 0)
-        {
-            _health = 0;
-        }
-
-        if (_health != _previousHealth)
-        {
-            _previousHealth = _health;
-            Debug.Log("Health: " + _health);
-        }
+        if (_health == _previousHealth) return;
+        _previousHealth = _health;
+        Debug.Log("Health: " + _health);
     }
 
     private void logDamageMultiplier(float damage)
     {
-        if (damage < 0)
-        {
-            damage = 0;
-        }
-
-        if (damage != _previousDamage)
-        {
-            _previousDamage = damage;
-            Debug.Log("Damage: " + damage);
-        }
+        if (damage == _previousDamage) return;
+        _previousDamage = damage;
+        Debug.Log("Damage: " + damage);
     }
 
     private void logHighestLuminance()
     {
-        if (_lightLevel > _highestLevel)
-        {
-            _highestLevel = _lightLevel;
-            _previousHigh = _highestLevel;
-            Debug.Log("Light: " + _highestLevel);
-        }
+        if (_lightLevel <= _highestLevel) return;
+        _highestLevel = _lightLevel;
+        _previousHigh = _highestLevel;
+        Debug.Log("Light: " + _highestLevel);
     }
 
     private void logLuminance()
     {
-        if (_lightLevel != _previousLightLevel)
-        {
-            _previousLightLevel = _lightLevel;
-            Debug.Log("LightLevel: " + _lightLevel);
-        }
+        if (_lightLevel == _previousLightLevel) return;
+        _previousLightLevel = _lightLevel;
+        Debug.Log("LightLevel: " + _lightLevel);
     }
 #endif
 }

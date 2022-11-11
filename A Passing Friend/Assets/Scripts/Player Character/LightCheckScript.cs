@@ -31,12 +31,14 @@ public class LightCheckScript : MonoBehaviour
     {
         if (!calculateLight) return;
 
-        var lightLevels = new float[5];
-        lightLevels[0] = GetPixelsFromTexture(_topLightCheckTexture);
-        lightLevels[1] = GetPixelsFromTexture(_leftLightCheckTexture);
-        lightLevels[2] = GetPixelsFromTexture(_rightLightCheckTexture);
-        lightLevels[3] = GetPixelsFromTexture(_forwardLightCheckTexture);
-        lightLevels[4] = GetPixelsFromTexture(_backwardLightCheckTexture);
+        var lightLevels = new float[] 
+        {
+            GetPixelsFromTexture(_topLightCheckTexture),
+            GetPixelsFromTexture(_leftLightCheckTexture),
+            GetPixelsFromTexture(_rightLightCheckTexture),
+            GetPixelsFromTexture(_forwardLightCheckTexture),
+            GetPixelsFromTexture(_backwardLightCheckTexture)
+        };
 
         var average = lightLevels.Average();
 
