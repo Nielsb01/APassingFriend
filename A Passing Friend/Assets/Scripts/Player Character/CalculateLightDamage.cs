@@ -1,5 +1,6 @@
 #region
 
+using System;
 using UnityEngine;
 
 #endregion
@@ -16,7 +17,7 @@ public class CalculateLightDamage : MonoBehaviour
     [SerializeField] private int _lightToHealingThreshold;
 
     private bool _calculateLight;
-    private float _health;
+    private int _health;
     private LightCheckScript _lightCheckScript;
     private int _lightLevel;
     private float _timer;
@@ -52,7 +53,7 @@ public class CalculateLightDamage : MonoBehaviour
         {
             var damage = _lightLevel * _damageMultiplier * _timer / DAMAGE_REDUCTION_FACTOR;
 
-            _health -= damage;
+            _health -= (int) Math.Round(damage);
         }
 
         if (_lightLevel == _lightToHealingThreshold)

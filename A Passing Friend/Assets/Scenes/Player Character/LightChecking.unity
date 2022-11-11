@@ -1349,8 +1349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4f0e5cd531f604d950a5b8bb82b4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dayTime: 1
   lightLevel: 0
+  calculateLight: 1
+  _dayTime: 1
   _topLightCheckTexture: {fileID: 8400000, guid: e284ed8d1dd98924b9eabeb7ccdb51c0,
     type: 2}
   _leftLightCheckTexture: {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b,
@@ -2339,7 +2340,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 30
+  m_Intensity: 15
   m_Range: 8
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
