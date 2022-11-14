@@ -27,8 +27,12 @@ public class CalculateLightDamage : MonoBehaviour
     private void Awake()
     {
         _lightCheckScript = _lightCheckScriptGameObject.GetComponent<LightCheckScript>();
-        _calculateLight = _lightCheckScript.calculateLight;
         _health = _maxHealth;
+    }
+
+    private void Start()
+    {
+        _calculateLight = _lightCheckScript.calculateLight;
     }
 
     public void Update()
@@ -68,6 +72,7 @@ public class CalculateLightDamage : MonoBehaviour
 
 #if DEBUG
         logHealth();
+        logLuminance();
 #endif
     }
 
