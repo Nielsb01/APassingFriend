@@ -16,11 +16,17 @@ public class DialogBuilder : MonoBehaviour
     [SerializeField] private TextAsset _dialogTextFile;
 
     private string _introText;
+    
+    
+    //TODO change camera to virtual camera
+    [SerializeField] private List<Camera> eventCameras;
+    [SerializeField] private List<AudioClip> eventAudio;
 
     private void Awake()
     {
         // Read the dialog file and make it into the dialogobjects.
         parseDialog();
+        
     }
 
     /**
@@ -70,7 +76,9 @@ public class DialogBuilder : MonoBehaviour
             var dialogTitle = subdialog[0];
             // Remove the introtext from the dialog options.
             subdialog.Remove(subdialog[0]);
+            
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
+            createDialogEventObject(dialogObject);
             if (dialogTitle.Contains('$'))
             {
                 dialogObject.setEndsConverstation(true);
@@ -97,6 +105,42 @@ public class DialogBuilder : MonoBehaviour
             Debug.LogWarning("Text seems to be missing something, did you forget to add an intro text?");
             _introText = "Intro text not found";
             return splitText[0];
+        }
+    }
+    
+    
+
+    private void createDialogEventObject(DialogObject dialogObject)
+    {
+        var regex = "(?<=\\[)(.*?)(?=\\])";
+        var testTextList = Regex.Split(dialogObject.getDialogChoice(), regex);
+        foreach (var text in testTextList)
+        {
+            if (text.Contains("Camera:"))
+            {
+                try
+                {
+                    dialogObject.setDialogCamera(eventCameras[0]);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Debug.Log("No camera set for event");
+                }
+
+                print(text);
+            }
+
+            if (text.Contains("Audio:"))
+            {
+                try
+                {
+                    dialogObject.setDialogAudio(eventAudio[0]);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Debug.Log("No camera set for event");
+                }
+            }
         }
     }
 

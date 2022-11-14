@@ -8,13 +8,13 @@ using UnityEngine;
 
 public class SetText : MonoBehaviour
 {
-    [SerializeField] private readonly int _chosen = 1;
+    [SerializeField] private int _chosen = 1;
 
     [SerializeField] private DialogBuilder _dialogreader;
 
     [SerializeField] private Transform _onscreenText;
 
-    private DialogObject chosenOption;
+    public DialogObject chosenOption;
 
     private int currentDialog;
     private List<string> dialogOptionsText;
