@@ -5,10 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - TailCamTrigger
-  - RightSideCamTrigger
-  - LeftSideCamTrigger
-  - SideToSideCamOverflowTrigger
-  - DollyCamTrigger
+  - LocalCamAreaTrigger
   layers:
   - Default
   - TransparentFX
