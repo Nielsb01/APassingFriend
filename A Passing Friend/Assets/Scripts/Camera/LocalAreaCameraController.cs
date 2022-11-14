@@ -10,14 +10,14 @@ namespace Camera
         public void ActivateLocalCam(Transform followTarget)
         {
             CamErrorHandler.ThrowErrorIfCamIsNotSet(virtualCamera);
-            virtualCamera.Priority = 100;
+            virtualCamera.Priority = (int)CameraState.Active;
             virtualCamera.Follow = followTarget;
             virtualCamera.LookAt = followTarget;
         }
 
         public void DeactivateLocalCam()
         {
-            virtualCamera.Priority = 1;
+            virtualCamera.Priority = (int)CameraState.Inactive;
         }
     }
 }

@@ -11,23 +11,23 @@ namespace Camera
         public void ActivateTailCam()
         {
             CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            tailCam.Priority = 100;
+            tailCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateTailCam()
         {
-            tailCam.Priority = 1;
+            tailCam.Priority = (int)CameraState.Inactive;
         }
 
         public void ActivateFaceCam()
         {
             CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            faceCam.Priority = 100;
+            faceCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateFaceCam()
         {
-            faceCam.Priority = 1;
+            faceCam.Priority = (int)CameraState.Inactive;
         }
     }
 }
