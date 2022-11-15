@@ -22,7 +22,7 @@ public class DialogBuilder : MonoBehaviour
     [SerializeField] private List<Camera> eventCameras;
     [SerializeField] private List<AudioClip> eventAudio;
     
-    private const string DIALOG_EVENT_REGEX = "(?<=\\[)(.*?)(?=\\])";
+    private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
     private const string NUMBER_REGEX = "[^0-9]";
     private const  string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
@@ -150,6 +150,8 @@ public class DialogBuilder : MonoBehaviour
                 }
             }
         }
+        var dialogChoiceWithModulesRemoved = Regex.Replace(dialogObject.getDialogChoice(), DIALOG_EVENT_REGEX, "");
+        dialogObject.setDialogChoice(dialogChoiceWithModulesRemoved);
     }
 
     /**

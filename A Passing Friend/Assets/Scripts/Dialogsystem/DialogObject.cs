@@ -8,7 +8,7 @@ using UnityEngine;
 public class DialogObject
 {
     private readonly List<string> _dialog;
-    private readonly string _dialogChoice;
+    private string _dialogChoice;
     private bool _endsConversation;
 
     private Camera _dialogCamera;
@@ -23,6 +23,11 @@ public class DialogObject
     public string getDialogChoice()
     {
         return _dialogChoice;
+    }
+
+    public void setDialogChoice(string dialogChoice)
+    {
+        this._dialogChoice = dialogChoice;
     }
 
     public List<string> getDialog()

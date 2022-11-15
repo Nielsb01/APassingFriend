@@ -48,6 +48,7 @@ public class SetText : MonoBehaviour
         }
         else
         {
+            print(_chosenOption.getDialogChoice());
             if (_chosenOption.doesOptionEndConverstation())
             {
                 print("ends");
