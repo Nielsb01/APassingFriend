@@ -21,7 +21,7 @@ public class CharacterMovementScript : MonoBehaviour
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
 
-    private float _checkValue = 0.01f;
+    private float _checkValue = 0.05f;
 
     void Start()
     {
@@ -45,6 +45,9 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _moveDirection.y = _jumpSpeed;
             _doJump = false;
+        } else if (characterController.isGrounded)
+        {
+            _moveDirection.y = 0;
         }
 
         if (_velocityY < _maxPositiveVelocity && _moveVector.y > 0)
@@ -93,7 +96,6 @@ public class CharacterMovementScript : MonoBehaviour
 
         _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
         _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
-
         _moveDirection.y -= _gravity * Time.deltaTime;
         characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
     }
