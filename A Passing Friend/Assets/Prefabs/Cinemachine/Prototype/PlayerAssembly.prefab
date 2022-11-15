@@ -1260,7 +1260,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 867665f3d6aaf6142a7d86a8f7022ab4, type: 2}
+  - {fileID: 2100000, guid: 8ef403ea865fd9b4ab4fdf21696ade5b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1294,8 +1294,8 @@ GameObject:
   - component: {fileID: 1590399507496190416}
   - component: {fileID: 1590399507496190422}
   - component: {fileID: 1590399507496190421}
+  - component: {fileID: 7288619049942800540}
   - component: {fileID: 1590399507496190406}
-  - component: {fileID: 1590399507496190408}
   - component: {fileID: 1590399507496190409}
   - component: {fileID: 1590399507496190417}
   - component: {fileID: 1590399507496190420}
@@ -1384,6 +1384,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7288619049942800540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590399507496190419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c680a19b95eda034faa5fd0d7e2dff78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceCam: {fileID: 7658972151703348303}
+  tailCam: {fileID: 878890385249803447}
 --- !u!114 &1590399507496190406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,20 +1415,6 @@ MonoBehaviour:
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"LocalCamAreaTriggerTag","value":{"$content":"LocalCamAreaTrigger","$type":"System.String"},"typeHandle":{"Identification":"System.String,
       mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences: []
---- !u!114 &1590399507496190408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590399507496190419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 255d1ff3a07c7f54c84b3f79f9edea42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceCam: {fileID: 7658972151703348303}
-  tailCam: {fileID: 878890385249803447}
 --- !u!114 &1590399507496190409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6661,7 +6661,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 054e772b111aba4478f02089e341ada5, type: 2}
+  - {fileID: 2100000, guid: eda05ce0b71cc47488f2a3d5a681be58, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

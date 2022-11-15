@@ -288,7 +288,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f5217d4404f402d4c824dfbcbc653be4, type: 2}
+  - {fileID: 2100000, guid: 4925b4814831f2747897738f67062a4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -419,7 +419,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4d8f33adc114749458a37d51cbbfe1df, type: 2}
+  - {fileID: 2100000, guid: d4cfdd7451151454ab1159eaf033a3d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -672,8 +672,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_ColorTemperature: 5000
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -756,7 +756,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123235006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd4f0e5cd531f604d950a5b8bb82b4b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a3930a562571294dbe65343f864cc2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lightLevel: 0
@@ -1082,7 +1082,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4528a6ac13419114a9affab629b5d838, type: 2}
+  - {fileID: 2100000, guid: e9c2d8e53b1ef3646a5a84d74a77060b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1393,7 +1393,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a5e3d69159e08146bc95b455bdec37e, type: 2}
+  - {fileID: 2100000, guid: 29b0e8b5378b1ad468b61c6fd8fd4c41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
