@@ -11,20 +11,17 @@ using UnityEngine;
 public class DialogBuilder : MonoBehaviour
 {
     private readonly List<DialogObject> _dialogOptions = new();
-
+    
+    private string _introText;
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
-
-    private string _introText;
-    
-    
     //TODO change camera to virtual camera
     [SerializeField] private List<Camera> eventCameras;
     [SerializeField] private List<AudioClip> eventAudio;
     
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
     private const string NUMBER_REGEX = "[^0-9]";
-    private const  string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
+    private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
     private void Awake()
     {
