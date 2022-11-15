@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
-    private const int INITIAL_LIGHTLEVEL_NIGHTTIME = 4;
-    private const int INITIAL_LIGHTLEVEL_DAYTIME = 6;
+    private const int INITIAL_LIGHTLEVEL_NIGHTTIME = 6;
+    private const int INITIAL_LIGHTLEVEL_DAYTIME = 10;
 
     [HideInInspector] public int lightLevel;
     public bool calculateLight;
