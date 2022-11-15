@@ -13,6 +13,8 @@ public class SetText : MonoBehaviour
     [SerializeField] private DialogBuilder _dialogreader;
 
     [SerializeField] private Transform _onscreenText;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Camera activeCamera;
 
     public DialogObject chosenOption;
 
@@ -41,6 +43,7 @@ public class SetText : MonoBehaviour
         if (currentDialog < dialogOptionsText.Count - 1)
         {
             currentDialog += 1;
+            setCamera();
             SetDialogText(currentDialog);
         }
         else
@@ -49,11 +52,12 @@ public class SetText : MonoBehaviour
             {
                 print("ends");
             }
-
+            resetCamera();
             currentDialog = 0;
             chosenOption = null;
             dialogOptionsText = null;
             setIntroText();
+
         }
     }
 
@@ -67,5 +71,18 @@ public class SetText : MonoBehaviour
     {
         var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
         textMeshProUgui.text = _dialogreader.getIntroText();
+    }
+
+    private void setCamera()
+    {
+        mainCamera.gameObject.SetActive(false);
+        activeCamera = chosenOption.getDialogCamera();
+        activeCamera.gameObject.SetActive(true);
+    }
+
+    private void resetCamera()
+    {
+        activeCamera.gameObject.SetActive(false);
+        mainCamera.gameObject.SetActive(true);
     }
 }

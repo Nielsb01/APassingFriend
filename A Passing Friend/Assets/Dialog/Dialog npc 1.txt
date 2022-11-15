@@ -1,21 +1,12 @@
-IntroText 
+Missie 1
 --
-#DialoogOptie 1 [Sound: 0]
-*1Hoi ik ben je nieuwe npc ik kan praten 1
-*2 praten is voor mij leuk dit is optie 2
-*3 hoi hoi hoi 3
-*4 Hoi ik ben je nieuwe npc ik kan praten 4
-*5 praten is voor mij leuk dit is optie 5
-*6 hoi hoi hoi 6
-*7 Hoi ik ben je nieuwe npc ik kan praten 7
-*8 praten is voor mij leuk dit is optie 8
-*9 hoi hoi hoi 9
-*10 Hoi ik ben je nieuwe npc ik kan praten 10
-*11 praten is voor mij leuk dit is optie 11
-*12 hoi hoi hoi 12
+#DialoogOptie 1 [Camera: 0]
+*1 We Moeten door deze poort heen om de andere kant te bereiken.
+*2 Deze poort is gemaakt van het mooiste steen
+*3 Zoals je kan zien is deze poort gemaakt door de beste architect in het hele land.
 
-#DialoogOpties 2$ [Camera: 0]
-*1 Hoi test npc 1
-*2 Niet gemeen doen he
-*3 ):
+#DialoogOpties 2$ [Camera: 1]
+*1 Deze stenen zijn gebruikt voor de oorlog.
+*2 Je kan zien dat deze stenen mooi zijn
+*3 Wow wat prachtig
 

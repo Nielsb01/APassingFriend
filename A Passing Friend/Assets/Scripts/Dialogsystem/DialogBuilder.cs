@@ -109,7 +109,10 @@ public class DialogBuilder : MonoBehaviour
     }
     
     
-
+    /**
+     * With this method the builder will extract the camera and audio tags from the dialog
+     * and asi ng the right camera and audio clips to the dialog options
+     */
     private void createDialogEventObject(DialogObject dialogObject)
     {
         var regex = "(?<=\\[)(.*?)(?=\\])";
@@ -120,25 +123,28 @@ public class DialogBuilder : MonoBehaviour
             {
                 try
                 {
-                    dialogObject.setDialogCamera(eventCameras[0]);
+                    string cameraNumberString = Regex.Replace(text, "[^0-9]", "");
+                    int cameraNumber = int.Parse(cameraNumberString);
+                    dialogObject.setDialogCamera(eventCameras[cameraNumber]);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
                     Debug.Log("No camera set for event");
                 }
-
-                print(text);
+                
             }
 
             if (text.Contains("Audio:"))
             {
                 try
                 {
-                    dialogObject.setDialogAudio(eventAudio[0]);
+                    string audioNumberString = Regex.Replace(text, "[^0-9]", "");
+                    int audioNumber = int.Parse(audioNumberString);
+                    dialogObject.setDialogAudio(eventAudio[audioNumber]);
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
-                    Debug.Log("No camera set for event");
+                    Debug.Log("No audio set for event");
                 }
             }
         }

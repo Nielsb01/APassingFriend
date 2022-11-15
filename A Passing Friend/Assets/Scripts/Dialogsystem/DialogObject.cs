@@ -49,5 +49,16 @@ public class DialogObject
     public void setDialogAudio(AudioClip dialogAudio)
     {
         this._dialogAudio = dialogAudio;
+        Debug.Log("Audio set: " + dialogAudio.name + " for " + _dialogChoice);
+    }
+
+    public Camera getDialogCamera()
+    {
+        return this._dialogCamera;
+    }
+
+    public AudioClip getDialogAudio()
+    {
+        return this._dialogAudio;
     }
 }
