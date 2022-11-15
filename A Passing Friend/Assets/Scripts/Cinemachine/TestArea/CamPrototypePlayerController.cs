@@ -20,7 +20,7 @@ namespace Camera.TestArea
         private void FixedUpdate()
         {
             Vector3 movementVector =
-                transform.TransformDirection(new Vector3(_movement.z * -1 * moveSpeed, -gravity,
+                transform.TransformDirection(new Vector3(_movement.z * -moveSpeed, -gravity,
                     _movement.x * moveSpeed));
             _characterController.Move(movementVector);
             transform.Rotate(_turn * turnSpeed);
