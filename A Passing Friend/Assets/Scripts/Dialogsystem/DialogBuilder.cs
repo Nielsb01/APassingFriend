@@ -21,6 +21,10 @@ public class DialogBuilder : MonoBehaviour
     //TODO change camera to virtual camera
     [SerializeField] private List<Camera> eventCameras;
     [SerializeField] private List<AudioClip> eventAudio;
+    
+    private const string DIALOG_EVENT_REGEX = "(?<=\\[)(.*?)(?=\\])";
+    private const string NUMBER_REGEX = "[^0-9]";
+    private const  string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
     private void Awake()
     {
@@ -67,10 +71,9 @@ public class DialogBuilder : MonoBehaviour
      */
     private void createDialogObjects(List<string> dialog)
     {
-        var regex = "(\\*)([0-9]+)";
         foreach (var option in dialog)
         {
-            var subdialog = Regex.Split(option, regex).ToList();
+            var subdialog = Regex.Split(option, DIALOG_OPTIONS_REGEX).ToList();
             var subdialogTrimmed = subdialog.Select(s => s.Trim()).ToList();
             removeSplitStrings(subdialogTrimmed, true);
             var dialogTitle = subdialog[0];
@@ -115,15 +118,14 @@ public class DialogBuilder : MonoBehaviour
      */
     private void createDialogEventObject(DialogObject dialogObject)
     {
-        var regex = "(?<=\\[)(.*?)(?=\\])";
-        var testTextList = Regex.Split(dialogObject.getDialogChoice(), regex);
+        var testTextList = Regex.Split(dialogObject.getDialogChoice(), DIALOG_EVENT_REGEX);
         foreach (var text in testTextList)
         {
             if (text.Contains("Camera:"))
             {
                 try
                 {
-                    string cameraNumberString = Regex.Replace(text, "[^0-9]", "");
+                    string cameraNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int cameraNumber = int.Parse(cameraNumberString);
                     dialogObject.setDialogCamera(eventCameras[cameraNumber]);
                 }
@@ -138,7 +140,7 @@ public class DialogBuilder : MonoBehaviour
             {
                 try
                 {
-                    string audioNumberString = Regex.Replace(text, "[^0-9]", "");
+                    string audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int audioNumber = int.Parse(audioNumberString);
                     dialogObject.setDialogAudio(eventAudio[audioNumber]);
                 }

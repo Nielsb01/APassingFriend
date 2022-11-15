@@ -43,13 +43,11 @@ public class DialogObject
     public void setDialogCamera(Camera dialogCamera)
     {
         this._dialogCamera = dialogCamera;
-        Debug.Log("Camera set: " + dialogCamera.name + " for " + _dialogChoice);
     }
 
     public void setDialogAudio(AudioClip dialogAudio)
     {
         this._dialogAudio = dialogAudio;
-        Debug.Log("Audio set: " + dialogAudio.name + " for " + _dialogChoice);
     }
 
     public Camera getDialogCamera()

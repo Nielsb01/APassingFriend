@@ -13,49 +13,49 @@ public class SetText : MonoBehaviour
     [SerializeField] private DialogBuilder _dialogreader;
 
     [SerializeField] private Transform _onscreenText;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Camera activeCamera;
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private Camera _activeCamera;
 
-    public DialogObject chosenOption;
+    [SerializeField] private DialogObject _chosenOption;
 
-    private int currentDialog;
-    private List<string> dialogOptionsText;
+    private int _currentDialog;
+    private List<string> _dialogOptionsText;
 
 
     // Update is called once per frame
     private void Update()
     {
-        if (chosenOption == null)
+        if (_chosenOption == null)
         {
             var dialogObjects = _dialogreader.getAllDialogObjects();
-            chosenOption = dialogObjects[_chosen];
+            _chosenOption = dialogObjects[_chosen];
         }
 
-        if (dialogOptionsText == null)
+        if (_dialogOptionsText == null)
         {
-            dialogOptionsText = chosenOption.getDialog();
+            _dialogOptionsText = _chosenOption.getDialog();
             setIntroText();
         }
     }
 
     public void OnFire()
     {
-        if (currentDialog < dialogOptionsText.Count - 1)
+        if (_currentDialog < _dialogOptionsText.Count - 1)
         {
-            currentDialog += 1;
+            _currentDialog += 1;
             setCamera();
-            SetDialogText(currentDialog);
+            SetDialogText(_currentDialog);
         }
         else
         {
-            if (chosenOption.doesOptionEndConverstation())
+            if (_chosenOption.doesOptionEndConverstation())
             {
                 print("ends");
             }
             resetCamera();
-            currentDialog = 0;
-            chosenOption = null;
-            dialogOptionsText = null;
+            _currentDialog = 0;
+            _chosenOption = null;
+            _dialogOptionsText = null;
             setIntroText();
 
         }
@@ -64,7 +64,7 @@ public class SetText : MonoBehaviour
     private void SetDialogText(int optionNumber)
     {
         var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogOptionsText[optionNumber];
+        textMeshProUgui.text = _dialogOptionsText[optionNumber];
     }
 
     private void setIntroText()
@@ -75,14 +75,14 @@ public class SetText : MonoBehaviour
 
     private void setCamera()
     {
-        mainCamera.gameObject.SetActive(false);
-        activeCamera = chosenOption.getDialogCamera();
-        activeCamera.gameObject.SetActive(true);
+        _mainCamera.gameObject.SetActive(false);
+        _activeCamera = _chosenOption.getDialogCamera();
+        _activeCamera.gameObject.SetActive(true);
     }
 
     private void resetCamera()
     {
-        activeCamera.gameObject.SetActive(false);
-        mainCamera.gameObject.SetActive(true);
+        _activeCamera.gameObject.SetActive(false);
+        _mainCamera.gameObject.SetActive(true);
     }
 }
