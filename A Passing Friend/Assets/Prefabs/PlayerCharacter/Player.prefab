@@ -160,7 +160,6 @@ MonoBehaviour:
   _deceleration: 2
   _moveSpeed: 2
   _jumpSpeed: 4.5
-  _gravity: 9.81
 --- !u!114 &2371669617183516381
 MonoBehaviour:
   m_ObjectHideFlags: 0
