@@ -9,7 +9,6 @@ TagManager:
   - SideToSideCamOverflowTrigger
   - RightSideCamTrigger
   - LeftSideCamTrigger
-  - NPC
   layers:
   - Default
   - TransparentFX
@@ -17,6 +16,9 @@ TagManager:
   - 
   - Water
   - UI
+  - 
+  - 
+  - 
   - 
   - 
   - Player

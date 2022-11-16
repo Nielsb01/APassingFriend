@@ -8,64 +8,82 @@ using UnityEngine;
 
 public class SetText : MonoBehaviour
 {
-    [SerializeField] private readonly int _chosen = 1;
+    [SerializeField] private int _chosen = 1;
 
     [SerializeField] private DialogBuilder _dialogreader;
 
     [SerializeField] private Transform _onscreenText;
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private Camera _activeCamera;
 
-    private DialogObject chosenOption;
+    [SerializeField] private DialogObject _chosenOption;
 
-    private int currentDialog;
-    private List<string> dialogOptionsText;
+    private int _currentDialog;
+    private List<string> _dialogOptionsText;
 
 
     // Update is called once per frame
     private void Update()
     {
-        if (chosenOption == null)
+        if (_chosenOption == null)
         {
             var dialogObjects = _dialogreader.getAllDialogObjects();
-            chosenOption = dialogObjects[_chosen];
+            _chosenOption = dialogObjects[_chosen];
         }
 
-        if (dialogOptionsText == null)
+        if (_dialogOptionsText == null)
         {
-            dialogOptionsText = chosenOption.getDialog();
+            _dialogOptionsText = _chosenOption.getDialog();
             setIntroText();
         }
     }
 
     public void OnFire()
     {
-        if (currentDialog < dialogOptionsText.Count - 1)
+        if (_currentDialog < _dialogOptionsText.Count - 1)
         {
-            currentDialog += 1;
-            SetDialogText(currentDialog);
+            _currentDialog += 1;
+            setCamera();
+            SetDialogText(_currentDialog);
         }
         else
         {
-            if (chosenOption.doesOptionEndConverstation())
+            print(_chosenOption.getDialogChoice());
+            if (_chosenOption.doesOptionEndConverstation())
             {
                 print("ends");
             }
-
-            currentDialog = 0;
-            chosenOption = null;
-            dialogOptionsText = null;
+            resetCamera();
+            _currentDialog = 0;
+            _chosenOption = null;
+            _dialogOptionsText = null;
             setIntroText();
+
         }
     }
 
     private void SetDialogText(int optionNumber)
     {
         var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogOptionsText[optionNumber];
+        textMeshProUgui.text = _dialogOptionsText[optionNumber];
     }
 
     private void setIntroText()
     {
         var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
         textMeshProUgui.text = _dialogreader.getIntroText();
+    }
+
+    private void setCamera()
+    {
+        _mainCamera.gameObject.SetActive(false);
+        _activeCamera = _chosenOption.getDialogCamera();
+        _activeCamera.gameObject.SetActive(true);
+    }
+
+    private void resetCamera()
+    {
+        _activeCamera.gameObject.SetActive(false);
+        _mainCamera.gameObject.SetActive(true);
     }
 }

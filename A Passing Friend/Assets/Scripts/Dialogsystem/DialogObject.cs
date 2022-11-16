@@ -1,14 +1,18 @@
 #region
 
 using System.Collections.Generic;
+using UnityEngine;
 
 #endregion
 
 public class DialogObject
 {
     private readonly List<string> _dialog;
-    private readonly string _dialogChoice;
+    private string _dialogChoice;
     private bool _endsConversation;
+
+    private Camera _dialogCamera;
+    private AudioClip _dialogAudio;
 
     public DialogObject(string dialogChoice, List<string> dialog)
     {
@@ -19,6 +23,11 @@ public class DialogObject
     public string getDialogChoice()
     {
         return _dialogChoice;
+    }
+
+    public void setDialogChoice(string dialogChoice)
+    {
+        this._dialogChoice = dialogChoice;
     }
 
     public List<string> getDialog()
@@ -34,5 +43,25 @@ public class DialogObject
     public bool doesOptionEndConverstation()
     {
         return _endsConversation;
+    }
+
+    public void setDialogCamera(Camera dialogCamera)
+    {
+        this._dialogCamera = dialogCamera;
+    }
+
+    public void setDialogAudio(AudioClip dialogAudio)
+    {
+        this._dialogAudio = dialogAudio;
+    }
+
+    public Camera getDialogCamera()
+    {
+        return this._dialogCamera;
+    }
+
+    public AudioClip getDialogAudio()
+    {
+        return this._dialogAudio;
     }
 }
