@@ -21,7 +21,7 @@ public class CharacterMovementScript : MonoBehaviour
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
 
-    private float _checkValue = 0.05f;
+    private const float CHECK_VALUE = 0.1f;
 
     void Start()
     {
@@ -66,7 +66,7 @@ public class CharacterMovementScript : MonoBehaviour
         else if (_velocityY < 0)
         {
             _velocityY += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityY, 0, _checkValue))
+            if (floatIsBetween(_velocityY, 0, CHECK_VALUE))
             {
                 _velocityY = 0;
             }
@@ -88,7 +88,7 @@ public class CharacterMovementScript : MonoBehaviour
         else if (_velocityX < 0)
         {
             _velocityX += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityX, 0, _checkValue))
+            if (floatIsBetween(_velocityX, 0, CHECK_VALUE))
             {
                 _velocityX = 0;
             }
@@ -97,6 +97,8 @@ public class CharacterMovementScript : MonoBehaviour
         _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
         _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
         _moveDirection.y -= _gravity * Time.deltaTime;
+        Debug.Log(_velocityX);
+        Debug.Log(_velocityY);
         characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
     }
 
