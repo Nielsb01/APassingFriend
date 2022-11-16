@@ -22,6 +22,7 @@ public class CharacterMovementScript : MonoBehaviour
     private Vector2 _rotation;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
+    private bool _rotationFrozen;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -37,6 +38,11 @@ public class CharacterMovementScript : MonoBehaviour
         Rotate();
     }
 
+    public void OnFreeLook(InputValue value)
+    {
+        _rotationFrozen = value.isPressed;
+    }
+
     void OnLook(InputValue inputValue)
     {
         Vector2 inputVector = inputValue.Get<Vector2>();
@@ -45,6 +51,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void Rotate()
     {
+        if (_rotationFrozen) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
