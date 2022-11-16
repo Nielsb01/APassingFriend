@@ -11,14 +11,16 @@ using UnityEngine;
 public class DialogBuilder : MonoBehaviour
 {
     private readonly List<DialogObject> _dialogOptions = new();
-    
+
     private string _introText;
+
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
+
     //TODO change camera to virtual camera
     [SerializeField] private List<Camera> eventCameras;
     [SerializeField] private List<AudioClip> eventAudio;
-    
+
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
     private const string NUMBER_REGEX = "[^0-9]";
     private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
@@ -27,7 +29,6 @@ public class DialogBuilder : MonoBehaviour
     {
         // Read the dialog file and make it into the dialogobjects.
         parseDialog();
-        
     }
 
     /**
@@ -76,7 +77,7 @@ public class DialogBuilder : MonoBehaviour
             var dialogTitle = subdialog[0];
             // Remove the introtext from the dialog options.
             subdialog.Remove(subdialog[0]);
-            
+
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
             createDialogEventObject(dialogObject);
             if (dialogTitle.Contains('$'))
@@ -100,18 +101,18 @@ public class DialogBuilder : MonoBehaviour
             _introText = splitText[0];
             return splitText[1];
         }
-        catch (IndexOutOfRangeException e)
+        catch (IndexOutOfRangeException)
         {
             Debug.LogWarning("Text seems to be missing something, did you forget to add an intro text?");
             _introText = "Intro text not found";
             return splitText[0];
         }
     }
-    
-    
+
+
     /**
      * With this method the builder will extract the camera and audio tags from the dialog
-     * and asi ng the right camera and audio clips to the dialog options
+     * and assign the right camera and audio clips to the dialog options
      */
     private void createDialogEventObject(DialogObject dialogObject)
     {
@@ -126,11 +127,10 @@ public class DialogBuilder : MonoBehaviour
                     int cameraNumber = int.Parse(cameraNumberString);
                     dialogObject.setDialogCamera(eventCameras[cameraNumber]);
                 }
-                catch (ArgumentOutOfRangeException e)
+                catch (ArgumentOutOfRangeException)
                 {
                     Debug.Log("No camera set for event");
                 }
-                
             }
 
             if (text.Contains("Audio:"))
@@ -141,12 +141,13 @@ public class DialogBuilder : MonoBehaviour
                     int audioNumber = int.Parse(audioNumberString);
                     dialogObject.setDialogAudio(eventAudio[audioNumber]);
                 }
-                catch (ArgumentOutOfRangeException e)
+                catch (ArgumentOutOfRangeException)
                 {
                     Debug.Log("No audio set for event");
                 }
             }
         }
+
         var dialogChoiceWithModulesRemoved = Regex.Replace(dialogObject.getDialogChoice(), DIALOG_EVENT_REGEX, "");
         dialogObject.setDialogChoice(dialogChoiceWithModulesRemoved);
     }
