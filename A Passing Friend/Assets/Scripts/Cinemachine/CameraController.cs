@@ -6,41 +6,41 @@ namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private CinemachineVirtualCamera faceCam;
-        [SerializeField] private CinemachineVirtualCamera tailCam;
-        [SerializeField] private CinemachineVirtualCamera pointOfViewCam;
-        [SerializeField] private CinemachineFreeLook freeLookCam;
+        [SerializeField] private CinemachineVirtualCamera _faceCam;
+        [SerializeField] private CinemachineVirtualCamera _tailCam;
+        [SerializeField] private CinemachineVirtualCamera _pointOfViewCam;
+        [SerializeField] private CinemachineFreeLook _freeLookCam;
 
         public void ActivateTailCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            tailCam.Priority = (int)CameraState.Active;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_tailCam);
+            _tailCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateTailCam()
         {
-            tailCam.Priority = (int)CameraState.Inactive;
+            _tailCam.Priority = (int)CameraState.Inactive;
         }
 
         public void ActivateFaceCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            faceCam.Priority = (int)CameraState.Active;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_tailCam);
+            _faceCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateFaceCam()
         {
-            faceCam.Priority = (int)CameraState.Inactive;
+            _faceCam.Priority = (int)CameraState.Inactive;
         }
         public void ActivatePovCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(pointOfViewCam);
-            pointOfViewCam.Priority = (int)CameraState.Active;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_pointOfViewCam);
+            _pointOfViewCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivatePovCam()
         {
-            pointOfViewCam.Priority = (int)CameraState.Inactive;
+            _pointOfViewCam.Priority = (int)CameraState.Inactive;
         }
 
 
@@ -48,17 +48,17 @@ namespace Camera
         {
             if (value.isPressed)
             {
-                freeLookCam.GetComponent<CinemachineInputProvider>().enabled = true;
-                freeLookCam.m_YAxisRecentering.m_enabled = false;
-                freeLookCam.m_RecenterToTargetHeading.m_enabled = false;
+                _freeLookCam.GetComponent<CinemachineInputProvider>().enabled = true;
+                _freeLookCam.m_YAxisRecentering.m_enabled = false;
+                _freeLookCam.m_RecenterToTargetHeading.m_enabled = false;
             }
             else
             {
-                freeLookCam.GetComponent<CinemachineInputProvider>().enabled = false;
-                freeLookCam.m_YAxisRecentering.m_enabled = true;
-                freeLookCam.m_RecenterToTargetHeading.m_enabled = true;
-                freeLookCam.m_YAxisRecentering.RecenterNow();
-                freeLookCam.m_RecenterToTargetHeading.RecenterNow();
+                _freeLookCam.GetComponent<CinemachineInputProvider>().enabled = false;
+                _freeLookCam.m_YAxisRecentering.m_enabled = true;
+                _freeLookCam.m_RecenterToTargetHeading.m_enabled = true;
+                _freeLookCam.m_YAxisRecentering.RecenterNow();
+                _freeLookCam.m_RecenterToTargetHeading.RecenterNow();
             }
         }
     }

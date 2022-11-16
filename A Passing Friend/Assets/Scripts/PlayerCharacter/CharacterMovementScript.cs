@@ -11,7 +11,7 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private float _gravity = 9.81f;
     [SerializeField] private float _rotationSpeed = 0.3f;
 
-    private CharacterController characterController;
+    private CharacterController _characterController;
 
     private float _velocityY = 0.0f;
     private float _velocityX = 0.0f;
@@ -29,7 +29,7 @@ public class CharacterMovementScript : MonoBehaviour
     void Start()
     {
         _doJump = false;
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     void FixedUpdate()
@@ -45,7 +45,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     void OnLook(InputValue inputValue)
     {
-        Vector2 inputVector = inputValue.Get<Vector2>();
+        var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
 
@@ -67,7 +67,7 @@ public class CharacterMovementScript : MonoBehaviour
             _moveDirection.y = _jumpSpeed;
             _doJump = false;
         }
-        else if (characterController.isGrounded)
+        else if (_characterController.isGrounded)
         {
             _moveDirection.y = 0;
         }
@@ -119,9 +119,7 @@ public class CharacterMovementScript : MonoBehaviour
         _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
         _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
         _moveDirection.y -= _gravity * Time.deltaTime;
-        Debug.Log(_velocityX);
-        Debug.Log(_velocityY);
-        characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
+        _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
     }
 
     private static bool floatIsBetween(float number, float min, float max)
@@ -137,7 +135,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJump()
     {
-        if (characterController.isGrounded)
+        if (_characterController.isGrounded)
         {
             _doJump = true;
         }
