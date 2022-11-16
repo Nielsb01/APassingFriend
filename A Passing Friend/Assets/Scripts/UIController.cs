@@ -1,67 +1,83 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
-    // UI POC 1
+    // UI
+    // // Dialog
     private VisualElement _interactBox;
 
     private VisualElement _dialogBox;
+
+    private GroupBox _dialogBoxDialog;
+
+    private Label _dialogBoxCharName;
 
     private Label _dialogBoxText;
 
     private GroupBox _dialogBoxChoices;
 
-    private Button _dialogBoxChoiceButton1;
+    private List<Button> _dialogBoxChoiceButtons = new List<Button>();
 
-    private Button _dialogBoxChoiceButton2;
+    private VisualElement root;
 
-    private Button _dialogBoxChoiceButton3;
 
-    private Button _dialogBoxChoiceButton4;
 
-    // UI POC 2, please comment when not using.
-    private Label _dialogBoxCharName;
+    // Dialog Builder
 
     private List<string> _dialogTextList;
-
-    private int _currentTextNr = 0;
-
-    private int _choiceClicked = 0;
     
     [SerializeField] private DialogBuilder _dialogBuilder;
     
     private DialogObject chosenDialogOption;
-    
-    private List<Button> _dialogBoxChoiceButtons = new List<Button>();
-    
-    private VisualElement root;
+
+    private int? _currentTextNr = null;
+
+    private int? _choiceClicked = null;
 
     private void Start()
     { 
         root = GetComponent<UIDocument>().rootVisualElement;
         _interactBox = root.Q<VisualElement>("interact-box");
         _dialogBox = root.Q<VisualElement>("dialog-box");
+        _dialogBoxDialog = root.Q<GroupBox>("dialog-box-dialog");
+        _dialogBoxCharName = root.Q<Label>("dialog-box-char-name");
         _dialogBoxText = root.Q<Label>("dialog-box-text");
         _dialogBoxChoices = root.Q<GroupBox>("dialog-box-choices");
+
         _dialogBox.visible = false;
-        _dialogBoxCharName = root.Q<Label>("dialog-box-char-name");
+        _interactBox.visible = false;
     }
 
-    public void SetInteractButtonVisibility()
+    // Setters
+    public void SetDialogSystemVisible()
     {
-        _interactBox.visible = !_interactBox.visible;
+        _interactBox.visible = true;
     }
 
+    public void SetDialogSystemInvisible()
+    {
+        _interactBox.visible = false;
+        SetDialogBoxInvisible();
+    }
+
+    private void SetDialogBoxInvisible()
+    {
+        _dialogBox.visible = false;
+        _dialogBoxChoices.visible = false;
+        _dialogBoxDialog.visible = false;
+    }
+
+    // UI Dialog System
     public void ContinueDialog()
     {
         if (!_interactBox.visible)
         {
             SetDialogBoxInvisible();
+            ResetTextAndChoice();
             return;
         }
 
@@ -71,16 +87,14 @@ public class UIController : MonoBehaviour
             ShowDialogChoices();           
         }
 
-        if (_currentTextNr < _dialogTextList.Count -1)
+        if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
-            SetDialogBoxText(_dialogTextList[_currentTextNr]);
+            SetDialogBoxCharText(_dialogTextList[_currentTextNr ?? default(int)]);
         }
-
         else 
         {
-            _currentTextNr = 0;
-            _choiceClicked = 0;
+            ResetTextAndChoice();
             ShowDialogChoices();
         }
     }
@@ -88,9 +102,9 @@ public class UIController : MonoBehaviour
     private void ShowDialogChoices()
     {
         _dialogBox.visible = true;
-        _dialogBoxCharName.visible = false;
-        _dialogBoxText.visible = false;
+        _dialogBoxDialog.visible = false;
         _dialogBoxChoices.visible = true;
+
         var counter = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
@@ -107,7 +121,7 @@ public class UIController : MonoBehaviour
     private void ClickedDialogBoxChoiceButton(EventBase tab)
     {
         _dialogBoxChoices.visible = false;
-        SetDialogBoxText(_dialogTextList[_currentTextNr]);
+        SetDialogBoxCharText(_dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.SetEnabled(false);
@@ -116,28 +130,27 @@ public class UIController : MonoBehaviour
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
         _choiceClicked = Convert.ToInt32(buttonNr) -1;
         setDialogWithChoice();
+        _currentTextNr = 0;
     }
 
-    private void SetDialogBoxInvisible()
+    private void ResetTextAndChoice()
     {
-        _dialogBox.visible = false;
-        _dialogBoxChoices.visible = false;
-        _dialogBoxCharName.visible = false;
-        _dialogBoxText.visible = false;
+        _choiceClicked = null;
+        _currentTextNr = null;
     }
 
-    private void SetDialogBoxText(string text)
+    private void SetDialogBoxCharText(string charName, string text)
     {
-        _dialogBoxCharName.visible = true;
-        _dialogBoxText.visible = true;
+        _dialogBoxDialog.visible = true;
+        _dialogBoxCharName.text = charName;
         _dialogBoxText.text = text;
     }
+
     public void SetDialogBuilder(DialogBuilder dialogBuilder)
     {
         this._dialogBuilder = dialogBuilder;
         setDialogWithChoice();
         var counter = 1;
-        _currentTextNr = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
             _dialogBoxChoiceButtons.Add(root.Q<Button>("dialog-box-choice-button-" + counter));
@@ -149,7 +162,7 @@ public class UIController : MonoBehaviour
     private void setDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.getAllDialogObjects();
-        chosenDialogOption = dialogObjects[_choiceClicked];
+        chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
         _dialogTextList = chosenDialogOption.getDialog();
     }
 }

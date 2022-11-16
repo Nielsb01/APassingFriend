@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCBehaviour : MonoBehaviour
+public class NpcSensor : MonoBehaviour
 {
     private UIController _ui;
 
@@ -27,8 +27,6 @@ public class NPCBehaviour : MonoBehaviour
 
     private void Update()
     {
-        /* Instead of this method, you can also use the RayCast in the PlayerController script to check if the player is in interact range.
-           Preferably only use 1 method, but both also works. */
         _npcInInteractRange = Physics.CheckSphere(transform.position, _interactRange, _whatIsNpc);
         var npcs = Physics.OverlapSphere(transform.position, _interactRange, _whatIsNpc);
         foreach (var npc in npcs)
@@ -42,13 +40,13 @@ public class NPCBehaviour : MonoBehaviour
             if (_npcInInteractRange && !_outline.enabled)
             {
                 _outline.enabled = true;
-                _ui.SetInteractButtonVisibility();
+                _ui.SetDialogSystemVisible();
                 _ui.SetDialogBuilder(_npcDialogBuilder);
             }
             else if (!_npcInInteractRange && _outline.enabled)
             {
                 _outline.enabled = false;
-                _ui.SetInteractButtonVisibility();
+                _ui.SetDialogSystemInvisible();
             }
         }
     }
