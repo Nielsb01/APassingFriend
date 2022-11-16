@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Npc
 {
-    public class NpcController : MonoBehaviour
+    public class NpcMovementController : MonoBehaviour
     {
-        [SerializeField] private List<Transform> _waypoints;
+        [SerializeField] private List<GameObject> _waypoints;
         [SerializeField] private float _waypointRounding = 0.3f;
         [SerializeField] private bool _patrolling = false;
         [SerializeField] private GameObject _pathNodePrefab;
         private NavMeshAgent _navMeshAgent;
 
-        void Start()
+        private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             if (_waypointRounding < 0.01f)
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Npc
             }
         }
 
-        void Update()
+        private void Update()
         {
             var destination = new Vector2(_navMeshAgent.destination.x, _navMeshAgent.destination.z);
             var currentPos = new Vector2(transform.position.x, transform.position.z);
@@ -42,30 +42,30 @@ namespace Assets.Scripts.Npc
             }
         }
 
-        public void SetPathByWaypoint(List<Transform> pathNodes)
+        public void SetPathWaypoint(List<GameObject> pathNodes)
         {
             _waypoints = pathNodes;
         }
 
-        public void SetPathByWaypoint(List<Vector3> pathNodes)
+        public void SetPathWaypoint(List<Vector3> pathNodes)
         {
-            _waypoints = new List<Transform>();
+            _waypoints = new List<GameObject>();
             foreach (var node in pathNodes)
             {
-                _waypoints.Add(TurnVector3IntoTransform(node));
+                _waypoints.Add(CreateWaypointOnPosition(node));
             }
         }
 
-        public void SetPathByWaypoint(Transform pathNode)
+        public void SetPathWaypoint(GameObject pathNode)
         {
-            _waypoints = new List<Transform> { pathNode };
+            _waypoints = new List<GameObject> { pathNode };
         }
 
-        public void SetPathByWaypoint(Vector3 pathNode)
+        public void SetPathWaypoint(Vector3 pathNode)
         {
-            _waypoints = new List<Transform>
+            _waypoints = new List<GameObject>
             {
-                TurnVector3IntoTransform(pathNode)
+                CreateWaypointOnPosition(pathNode)
             };
         }
 
@@ -73,19 +73,13 @@ namespace Assets.Scripts.Npc
         {
             if (_waypoints.Count > 0)
             {
-                _navMeshAgent.destination = _waypoints.First().position;
+                _navMeshAgent.destination = _waypoints.First().transform.position;
             }
         }
 
-        private Transform TurnVector3IntoTransform(Vector3 vector3)
+        private GameObject CreateWaypointOnPosition(Vector3 vector3)
         {
-            return new GameObject("PathNode", typeof(Transform))
-            {
-                transform =
-                {
-                    position = vector3
-                }
-            }.transform;
+            return Instantiate(_pathNodePrefab, vector3, Quaternion.identity);
         }
     }
 }
