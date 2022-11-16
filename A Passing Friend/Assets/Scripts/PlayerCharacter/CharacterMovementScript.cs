@@ -9,8 +9,9 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1.75f;
     [SerializeField] private float _jumpSpeed = 4.5f;
     [SerializeField] private float _gravity = 9.81f;
+    [SerializeField] private float _rotationSpeed = 0.3f;
 
-    private CharacterController characterController;
+    private CharacterController _characterController;
 
     private float _velocityY = 0.0f;
     private float _velocityX = 0.0f;
@@ -18,20 +19,40 @@ public class CharacterMovementScript : MonoBehaviour
     private float _maxNegativeVelocity = -2.0f;
 
     private Vector2 _moveVector;
+    private Vector2 _rotation;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
+    private bool _rotationFrozen;
 
-    private float _checkValue = 0.05f;
+    private const float CHECK_VALUE = 0.1f;
 
     void Start()
     {
         _doJump = false;
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
+        Rotate();
+    }
+
+    public void OnFreeLook(InputValue value)
+    {
+        _rotationFrozen = value.isPressed;
+    }
+
+    void OnLook(InputValue inputValue)
+    {
+        var inputVector = inputValue.Get<Vector2>();
+        _rotation = Vector3.up * inputVector.x;
+    }
+
+    private void Rotate()
+    {
+        if (_rotationFrozen) return;
+        transform.Rotate(_rotation * _rotationSpeed);
     }
 
     private void Move()
@@ -45,7 +66,8 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _moveDirection.y = _jumpSpeed;
             _doJump = false;
-        } else if (characterController.isGrounded)
+        }
+        else if (_characterController.isGrounded)
         {
             _moveDirection.y = 0;
         }
@@ -66,7 +88,7 @@ public class CharacterMovementScript : MonoBehaviour
         else if (_velocityY < 0)
         {
             _velocityY += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityY, 0, _checkValue))
+            if (floatIsBetween(_velocityY, 0, CHECK_VALUE))
             {
                 _velocityY = 0;
             }
@@ -88,7 +110,7 @@ public class CharacterMovementScript : MonoBehaviour
         else if (_velocityX < 0)
         {
             _velocityX += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityX, 0, _checkValue))
+            if (floatIsBetween(_velocityX, 0, CHECK_VALUE))
             {
                 _velocityX = 0;
             }
@@ -97,7 +119,7 @@ public class CharacterMovementScript : MonoBehaviour
         _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
         _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
         _moveDirection.y -= _gravity * Time.deltaTime;
-        characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
+        _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
     }
 
     private static bool floatIsBetween(float number, float min, float max)
@@ -113,7 +135,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJump()
     {
-        if (characterController.isGrounded)
+        if (_characterController.isGrounded)
         {
             _doJump = true;
         }

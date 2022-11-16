@@ -12,7 +12,7 @@ public class CalculateLightDamage : MonoBehaviour
     [SerializeField] private GameObject _lightCheckScriptGameObject;
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _minHealth = 0;
-    [SerializeField] private int _damageMultiplier = 1;
+    [SerializeField] private float _damageMultiplier = 1;
     [SerializeField] private int _regenerationMultiplier = 5;
     [SerializeField] private int _lightToDamageThreshold = 3;
     [SerializeField] private int _lightToHealingThreshold;
@@ -88,6 +88,11 @@ public class CalculateLightDamage : MonoBehaviour
         if (_health == _previousHealth) return;
         _previousHealth = _health;
         Debug.Log("Health: " + _health);
+        if (_health == 0)
+        {
+            Debug.Log("I DIED");
+            Debug.Log("D:");
+        }
     }
 
     private void logDamageMultiplier(float damage)

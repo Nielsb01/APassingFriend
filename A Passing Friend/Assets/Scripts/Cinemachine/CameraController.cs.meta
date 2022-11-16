@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:A Passing Friend/Assets/Scripts/PlayerCharacter/CharacterMovementScript.cs.meta
+guid: c680a19b95eda034faa5fd0d7e2dff78
+========
+guid: 255d1ff3a07c7f54c84b3f79f9edea42
+>>>>>>>> develop:A Passing Friend/Assets/Scripts/Cinemachine/CameraController.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

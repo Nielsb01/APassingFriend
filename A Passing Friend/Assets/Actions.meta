@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Passing Friend/Assets/Actions.meta
 guid: 87cdf9682aa39c244a875391587b6eea
+========
+guid: c323a1080fce49640b0a2cf164184898
+>>>>>>>> develop:A Passing Friend/Assets/Prefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
