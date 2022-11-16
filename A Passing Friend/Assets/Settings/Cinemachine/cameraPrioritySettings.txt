@@ -1,0 +1,12 @@
+﻿The camera priority settings are the following:
+
+The highest priority virtual camera becomes active.
+
+Unavailable camera's are priority 0.
+Available camera's that shouldn't be active are priority 1.
+Default camera has priority 10.
+Special situation camera has priority 100. (these include side view and tail view for tunnels)
+
+If you want to take over the screen in any situation, you should make your virtual camera priority 101 or higher.
+
+-Hugo van der Wel

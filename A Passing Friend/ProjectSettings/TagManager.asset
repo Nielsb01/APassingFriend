@@ -4,7 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - NPC
+  - TailCamTrigger
+  - LocalCamAreaTrigger
   layers:
   - Default
   - TransparentFX
@@ -12,7 +13,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - 
   - 
   - 
   - 
