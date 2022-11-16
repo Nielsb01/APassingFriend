@@ -5,19 +5,19 @@ namespace Camera
 {
     public class LocalAreaCameraController : MonoBehaviour
     {
-        [SerializeField] private CinemachineVirtualCamera virtualCamera;
+        [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
         public void ActivateLocalCam(Transform followTarget)
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(virtualCamera);
-            virtualCamera.Priority = (int)CameraState.Active;
-            virtualCamera.Follow = followTarget;
-            virtualCamera.LookAt = followTarget;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_virtualCamera);
+            _virtualCamera.Priority = (int)CameraState.Active;
+            _virtualCamera.Follow = followTarget;
+            _virtualCamera.LookAt = followTarget;
         }
 
         public void DeactivateLocalCam()
         {
-            virtualCamera.Priority = (int)CameraState.Inactive;
+            _virtualCamera.Priority = (int)CameraState.Inactive;
         }
     }
 }
