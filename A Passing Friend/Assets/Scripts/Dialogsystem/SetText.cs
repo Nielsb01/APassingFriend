@@ -1,6 +1,7 @@
 #region
 
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 
@@ -13,8 +14,7 @@ public class SetText : MonoBehaviour
     [SerializeField] private DialogBuilder _dialogreader;
 
     [SerializeField] private Transform _onscreenText;
-    [SerializeField] private Camera _mainCamera;
-    [SerializeField] private Camera _activeCamera;
+    [SerializeField] private CinemachineVirtualCamera _activeCamera;
 
     [SerializeField] private DialogObject _chosenOption;
 
@@ -76,14 +76,12 @@ public class SetText : MonoBehaviour
 
     private void setCamera()
     {
-        _mainCamera.gameObject.SetActive(false);
         _activeCamera = _chosenOption.getDialogCamera();
-        _activeCamera.gameObject.SetActive(true);
+        _activeCamera.Priority = (int)Camera.CameraState.Active;
     }
 
     private void resetCamera()
     {
-        _activeCamera.gameObject.SetActive(false);
-        _mainCamera.gameObject.SetActive(true);
+        _activeCamera.Priority =  (int)Camera.CameraState.Inactive;
     }
 }

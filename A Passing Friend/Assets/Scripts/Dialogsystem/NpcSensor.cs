@@ -12,7 +12,7 @@ public class NpcSensor : MonoBehaviour
 
     private DialogBuilder _npcDialogBuilder;
 
-    [SerializeField] private Camera _mainCam;
+    [SerializeField] private UnityEngine.Camera _mainCam;
 
     [SerializeField] private LayerMask _npcLayerMask;
 

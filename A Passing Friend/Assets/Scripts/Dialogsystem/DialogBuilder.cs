@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cinemachine;
 using UnityEngine;
 
 #endregion
@@ -18,8 +19,8 @@ public class DialogBuilder : MonoBehaviour
     [SerializeField] private TextAsset _dialogTextFile;
 
     //TODO change camera to virtual camera
-    [SerializeField] private List<Camera> eventCameras;
-    [SerializeField] private List<AudioClip> eventAudio;
+    [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
+    [SerializeField] private List<AudioClip> _eventAudio;
 
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
     private const string NUMBER_REGEX = "[^0-9]";
@@ -124,7 +125,7 @@ public class DialogBuilder : MonoBehaviour
                 {
                     string cameraNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int cameraNumber = int.Parse(cameraNumberString);
-                    dialogObject.setDialogCamera(eventCameras[cameraNumber]);
+                    dialogObject.setDialogCamera(_eventCameras[cameraNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -138,7 +139,7 @@ public class DialogBuilder : MonoBehaviour
                 {
                     string audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int audioNumber = int.Parse(audioNumberString);
-                    dialogObject.setDialogAudio(eventAudio[audioNumber]);
+                    dialogObject.setDialogAudio(_eventAudio[audioNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
