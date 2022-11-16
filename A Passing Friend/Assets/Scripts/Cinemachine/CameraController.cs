@@ -49,10 +49,14 @@ namespace Camera
             if (value.isPressed)
             {
                 freeLookCam.GetComponent<CinemachineInputProvider>().enabled = true;
+                freeLookCam.m_YAxisRecentering.m_enabled = false;
+                freeLookCam.m_RecenterToTargetHeading.m_enabled = false;
             }
             else
             {
                 freeLookCam.GetComponent<CinemachineInputProvider>().enabled = false;
+                freeLookCam.m_YAxisRecentering.m_enabled = true;
+                freeLookCam.m_RecenterToTargetHeading.m_enabled = true;
                 freeLookCam.m_YAxisRecentering.RecenterNow();
                 freeLookCam.m_RecenterToTargetHeading.RecenterNow();
             }

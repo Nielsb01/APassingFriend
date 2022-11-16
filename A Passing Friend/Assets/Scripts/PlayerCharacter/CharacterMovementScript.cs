@@ -9,6 +9,7 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1.75f;
     [SerializeField] private float _jumpSpeed = 4.5f;
     [SerializeField] private float _gravity = 9.81f;
+    [SerializeField] private float _rotationSpeed = 0.3f;
 
     private CharacterController characterController;
 
@@ -18,6 +19,7 @@ public class CharacterMovementScript : MonoBehaviour
     private float _maxNegativeVelocity = -2.0f;
 
     private Vector2 _moveVector;
+    private Vector2 _rotation;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
 
@@ -29,9 +31,21 @@ public class CharacterMovementScript : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
+        Rotate();
+    }
+
+    void OnLook(InputValue inputValue)
+    {
+        Vector2 inputVector = inputValue.Get<Vector2>();
+        _rotation = Vector3.up * inputVector.x;
+    }
+
+    private void Rotate()
+    {
+        transform.Rotate(_rotation * _rotationSpeed);
     }
 
     private void Move()
@@ -45,7 +59,8 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _moveDirection.y = _jumpSpeed;
             _doJump = false;
-        } else if (characterController.isGrounded)
+        }
+        else if (characterController.isGrounded)
         {
             _moveDirection.y = 0;
         }
