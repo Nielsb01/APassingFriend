@@ -17,10 +17,10 @@ public class DialogBuilder : MonoBehaviour
 
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
-
-    //TODO change camera to virtual camera
+    
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
     [SerializeField] private List<AudioClip> _eventAudio;
+    [SerializeField] private CinemachineVirtualCamera _npcCamera;
 
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
     private const string NUMBER_REGEX = "[^0-9]";
@@ -181,5 +181,15 @@ public class DialogBuilder : MonoBehaviour
     public string getIntroText()
     {
         return _introText;
+    }
+
+    public CinemachineVirtualCamera getNpcCamera()
+    {
+        return _npcCamera;
+    }
+
+    public string getNameOfNpc()
+    {
+        return gameObject.name;
     }
 }

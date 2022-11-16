@@ -24,10 +24,6 @@ public class UIController : MonoBehaviour
     private List<Button> _dialogBoxChoiceButtons = new List<Button>();
 
     private VisualElement _root;
-    
-    [SerializeField] private CinemachineVirtualCamera _activeCamera;
-
-
 
     // Dialog Builder
 
@@ -40,6 +36,10 @@ public class UIController : MonoBehaviour
     private int? _currentTextNr = null;
 
     private int? _choiceClicked = null;
+    
+    [SerializeField] private CinemachineVirtualCamera _activeCamera;
+    private CinemachineVirtualCamera _npcCamera;
+    private string _npcName;
 
     private void Start()
     { 
@@ -81,19 +81,22 @@ public class UIController : MonoBehaviour
         {
             SetDialogBoxInvisible();
             ResetTextAndChoice();
+            unsetDialogCamera();
+            unsetNpcCamera();
             return;
         }
 
         if (!_dialogBox.visible)
         {
             _dialogBox.visible = true;
-            ShowDialogChoices();           
+            ShowDialogChoices();
+            setNpcCamera();
         }
 
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
-            SetDialogBoxCharText("Asha", _dialogTextList[_currentTextNr ?? default(int)]);
+            SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         }
         else 
         {
@@ -120,13 +123,16 @@ public class UIController : MonoBehaviour
             dialogButton.clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
         }
         
+        if(chosenDialogOption.doesOptionEndConverstation()){
+            //TODO exit the dialog
+        }
         unsetDialogCamera();
     }
 
     private void ClickedDialogBoxChoiceButton(EventBase tab)
     {
         _dialogBoxChoices.visible = false;
-        SetDialogBoxCharText("Asha", _dialogTextList[_currentTextNr ?? default(int)]);
+        SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.SetEnabled(false);
@@ -135,6 +141,7 @@ public class UIController : MonoBehaviour
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
         _choiceClicked = Convert.ToInt32(buttonNr) -1;
         setDialogWithChoice();
+        setDialogCamera();
         _currentTextNr = 0;
     }
 
@@ -169,13 +176,24 @@ public class UIController : MonoBehaviour
         var dialogObjects = _dialogBuilder.getAllDialogObjects();
         chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
         _dialogTextList = chosenDialogOption.getDialog();
-        setDialogCamera();
+        _npcName = _dialogBuilder.getNameOfNpc();
+        _npcCamera = _dialogBuilder.getNpcCamera();
+    }
+
+    private void setNpcCamera()
+    {
+        _npcCamera.Priority = (int)Camera.CameraState.Active;
+    }
+
+    private void unsetNpcCamera()
+    {
+        _npcCamera.Priority = (int)Camera.CameraState.Inactive;
     }
 
     private void setDialogCamera()
     {
-        CinemachineVirtualCamera dialogCamera = chosenDialogOption.getDialogCamera();
-        if (dialogCamera != null)
+        _activeCamera = chosenDialogOption.getDialogCamera();
+        if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Active;
         }
@@ -183,8 +201,7 @@ public class UIController : MonoBehaviour
 
     private void unsetDialogCamera()
     {
-        CinemachineVirtualCamera dialogCamera = chosenDialogOption.getDialogCamera();
-        if (dialogCamera != null)
+        if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Inactive;
         }
