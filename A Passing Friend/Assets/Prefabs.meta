@@ -1,7 +1,12 @@
 fileFormatVersion: 2
-guid: c323a1080fce49640b0a2cf164184898
+<<<<<<<< HEAD:A Passing Friend/Assets/Prefabs.meta
+guid: 752b7a0f8a7ee2c40b279cc474a4f49b
 folderAsset: yes
 DefaultImporter:
+========
+guid: 054e772b111aba4478f02089e341ada5
+NativeFormatImporter:
+>>>>>>>> develop:A Passing Friend/Assets/Materials/Cinemachine/Player/head.mat.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
