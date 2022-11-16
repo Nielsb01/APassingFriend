@@ -1,33 +1,65 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Camera
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private CinemachineVirtualCamera faceCam;
-        [SerializeField] private CinemachineVirtualCamera tailCam;
+        [SerializeField] private CinemachineVirtualCamera _faceCam;
+        [SerializeField] private CinemachineVirtualCamera _tailCam;
+        [SerializeField] private CinemachineVirtualCamera _pointOfViewCam;
+        [SerializeField] private CinemachineFreeLook _freeLookCam;
 
         public void ActivateTailCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            tailCam.Priority = (int)CameraState.Active;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_tailCam);
+            _tailCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateTailCam()
         {
-            tailCam.Priority = (int)CameraState.Inactive;
+            _tailCam.Priority = (int)CameraState.Inactive;
         }
 
         public void ActivateFaceCam()
         {
-            CamErrorHandler.ThrowErrorIfCamIsNotSet(tailCam);
-            faceCam.Priority = (int)CameraState.Active;
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_tailCam);
+            _faceCam.Priority = (int)CameraState.Active;
         }
 
         public void DeactivateFaceCam()
         {
-            faceCam.Priority = (int)CameraState.Inactive;
+            _faceCam.Priority = (int)CameraState.Inactive;
+        }
+        public void ActivatePovCam()
+        {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(_pointOfViewCam);
+            _pointOfViewCam.Priority = (int)CameraState.Active;
+        }
+
+        public void DeactivatePovCam()
+        {
+            _pointOfViewCam.Priority = (int)CameraState.Inactive;
+        }
+
+
+        public void OnFreeLook(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                _freeLookCam.GetComponent<CinemachineInputProvider>().enabled = true;
+                _freeLookCam.m_YAxisRecentering.m_enabled = false;
+                _freeLookCam.m_RecenterToTargetHeading.m_enabled = false;
+            }
+            else
+            {
+                _freeLookCam.GetComponent<CinemachineInputProvider>().enabled = false;
+                _freeLookCam.m_YAxisRecentering.m_enabled = true;
+                _freeLookCam.m_RecenterToTargetHeading.m_enabled = true;
+                _freeLookCam.m_YAxisRecentering.RecenterNow();
+                _freeLookCam.m_RecenterToTargetHeading.RecenterNow();
+            }
         }
     }
 }
