@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class NPCBehaviour : MonoBehaviour
@@ -13,7 +14,7 @@ public class NPCBehaviour : MonoBehaviour
     private Outline _outline;
 
     [SerializeField] 
-    private Camera _mainCam;
+    private CinemachineVirtualCamera _mainCam;
 
     [SerializeField] 
     private LayerMask _whatIsPlayer;

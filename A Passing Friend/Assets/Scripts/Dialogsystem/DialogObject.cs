@@ -1,6 +1,7 @@
 #region
 
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 #endregion
@@ -11,7 +12,7 @@ public class DialogObject
     private string _dialogChoice;
     private bool _endsConversation;
 
-    private Camera _dialogCamera;
+    private CinemachineVirtualCamera _dialogCamera;
     private AudioClip _dialogAudio;
 
     public DialogObject(string dialogChoice, List<string> dialog)
@@ -45,7 +46,7 @@ public class DialogObject
         return _endsConversation;
     }
 
-    public void setDialogCamera(Camera dialogCamera)
+    public void setDialogCamera(CinemachineVirtualCamera dialogCamera)
     {
         this._dialogCamera = dialogCamera;
     }
@@ -55,7 +56,7 @@ public class DialogObject
         this._dialogAudio = dialogAudio;
     }
 
-    public Camera getDialogCamera()
+    public CinemachineVirtualCamera getDialogCamera()
     {
         return this._dialogCamera;
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cinemachine;
 using UnityEngine;
 
 #endregion
@@ -18,7 +19,7 @@ public class DialogBuilder : MonoBehaviour
     [SerializeField] private TextAsset _dialogTextFile;
 
     //TODO change camera to virtual camera
-    [SerializeField] private List<Camera> eventCameras;
+    [SerializeField] private List<CinemachineVirtualCamera> eventCameras;
     [SerializeField] private List<AudioClip> eventAudio;
 
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
