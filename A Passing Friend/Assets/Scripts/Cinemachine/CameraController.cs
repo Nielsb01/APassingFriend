@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Camera
 {
@@ -7,6 +8,8 @@ namespace Camera
     {
         [SerializeField] private CinemachineVirtualCamera faceCam;
         [SerializeField] private CinemachineVirtualCamera tailCam;
+        [SerializeField] private CinemachineVirtualCamera pointOfViewCam;
+        [SerializeField] private CinemachineFreeLook freeLookCam;
 
         public void ActivateTailCam()
         {
@@ -28,6 +31,31 @@ namespace Camera
         public void DeactivateFaceCam()
         {
             faceCam.Priority = (int)CameraState.Inactive;
+        }
+        public void ActivatePovCam()
+        {
+            CamErrorHandler.ThrowErrorIfCamIsNotSet(pointOfViewCam);
+            pointOfViewCam.Priority = (int)CameraState.Active;
+        }
+
+        public void DeactivatePovCam()
+        {
+            pointOfViewCam.Priority = (int)CameraState.Inactive;
+        }
+
+
+        public void OnFreeLook(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                freeLookCam.GetComponent<CinemachineInputProvider>().enabled = true;
+            }
+            else
+            {
+                freeLookCam.GetComponent<CinemachineInputProvider>().enabled = false;
+                freeLookCam.m_YAxisRecentering.RecenterNow();
+                freeLookCam.m_RecenterToTargetHeading.RecenterNow();
+            }
         }
     }
 }
