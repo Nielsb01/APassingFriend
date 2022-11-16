@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: 7fb949ac12f5d3146b644b142a319f6a, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: b69864bc826ba1f449752f19ebeaa53e,
+  sourceAsset: {fileID: 9197481963319205126, guid: 71d646306f5edb14ab4be14d5e90b720,
     type: 3}
   m_SortingOrder: 0
 --- !u!4 &1435562055
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb024f51ef563c34185de381b6567773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTextNr: 0
+  _dialogBuilder: {fileID: 0}
 --- !u!1 &1590618235
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,15 +487,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6066092292139083911, guid: 818ec6ea6a765c34497c9501459c8425,
+        type: 3}
+      propertyPath: _npcLayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 818ec6ea6a765c34497c9501459c8425, type: 3}
---- !u!20 &868820091428736204 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 868820091598909210, guid: 818ec6ea6a765c34497c9501459c8425,
-    type: 3}
-  m_PrefabInstance: {fileID: 868820091428736203}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4348538255858174801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -504,30 +503,15 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
-        type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 868820091428736204}
-    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
-        type: 3}
-      propertyPath: _mainCam
-      value: 
-      objectReference: {fileID: 868820091428736204}
-    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
-        type: 3}
-      propertyPath: whatIsPlayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322211735525200494, guid: 316f67c3b5d8f394785be5fb934039d8,
-        type: 3}
-      propertyPath: _whatIsPlayer.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 4348538256522664600, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
       propertyPath: m_Name
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348538256522664600, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4348538256522664600, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
@@ -587,6 +571,21 @@ PrefabInstance:
     - target: {fileID: 4348538256522664603, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348538257070347654, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606914550678202833, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
+      propertyPath: _dialogTextFile
+      value: 
+      objectReference: {fileID: 4900000, guid: f194191044f7f3645b148ba42acbcf23, type: 3}
+    - target: {fileID: 8757157410828776786, guid: 316f67c3b5d8f394785be5fb934039d8,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

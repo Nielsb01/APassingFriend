@@ -6,6 +6,9 @@ TagManager:
   tags:
   - TailCamTrigger
   - LocalCamAreaTrigger
+  - SideToSideCamOverflowTrigger
+  - RightSideCamTrigger
+  - LeftSideCamTrigger
   layers:
   - Default
   - TransparentFX
@@ -18,6 +21,9 @@ TagManager:
   - 
   - 
   - 
+  - Player
+  - LightObstacle
+  - Npc
   - 
   - 
   - 
