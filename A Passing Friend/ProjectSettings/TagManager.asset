@@ -4,6 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - TailCamTrigger
+  - LocalCamAreaTrigger
+  - SideToSideCamOverflowTrigger
+  - RightSideCamTrigger
+  - LeftSideCamTrigger
   - NPC
   layers:
   - Default
@@ -12,11 +17,11 @@ TagManager:
   - 
   - Water
   - UI
+  - 
+  - 
   - Player
+  - LightObstacle
   - Npc
-  - 
-  - 
-  - 
   - 
   - 
   - 

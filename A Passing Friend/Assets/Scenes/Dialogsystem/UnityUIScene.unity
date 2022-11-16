@@ -487,6 +487,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6066092292139083911, guid: 818ec6ea6a765c34497c9501459c8425,
+        type: 3}
+      propertyPath: _npcLayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 818ec6ea6a765c34497c9501459c8425, type: 3}

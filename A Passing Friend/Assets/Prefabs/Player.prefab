@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 868820091598909210}
   - component: {fileID: 868820091598909211}
   - component: {fileID: 3107078907074729226}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 868820092173078000}
   - component: {fileID: 868820092173078001}
   - component: {fileID: 868820092173078002}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 5217127801365967365}
   - component: {fileID: 6066092292139083911}
   - component: {fileID: 2075810503528848465}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ec3dc4084eea64a8fa0ebd68ec2620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactRayDistance: 2.5
 --- !u!114 &6066092292139083911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,9 +297,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCam: {fileID: 868820091598909210}
-  _whatIsNpc:
+  _npcLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
 --- !u!114 &2075810503528848465
 MonoBehaviour:
   m_ObjectHideFlags: 0
