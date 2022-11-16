@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [Range(0, 25)]
     private float _speed;
 
-    private float _interactRayDistance = 2.5f;
+    [SerializeField] private float _interactRayDistance = 2.5f;
 
     private void Start()
     {

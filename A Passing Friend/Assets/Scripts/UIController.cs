@@ -90,7 +90,7 @@ public class UIController : MonoBehaviour
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
-            SetDialogBoxCharText(_dialogTextList[_currentTextNr ?? default(int)]);
+            SetDialogBoxCharText("Asha", _dialogTextList[_currentTextNr ?? default(int)]);
         }
         else 
         {
@@ -109,7 +109,7 @@ public class UIController : MonoBehaviour
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
             _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
-            counter += 1;
+            counter++;
         }
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
@@ -121,7 +121,7 @@ public class UIController : MonoBehaviour
     private void ClickedDialogBoxChoiceButton(EventBase tab)
     {
         _dialogBoxChoices.visible = false;
-        SetDialogBoxCharText(_dialogTextList[_currentTextNr ?? default(int)]);
+        SetDialogBoxCharText("Asha", _dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.SetEnabled(false);
@@ -154,7 +154,7 @@ public class UIController : MonoBehaviour
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
             _dialogBoxChoiceButtons.Add(root.Q<Button>("dialog-box-choice-button-" + counter));
-            counter += 1;
+            counter++;
         }
         
     }

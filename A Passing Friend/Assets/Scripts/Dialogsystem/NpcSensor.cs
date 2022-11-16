@@ -12,11 +12,9 @@ public class NpcSensor : MonoBehaviour
 
     private DialogBuilder _npcDialogBuilder;
 
-    [SerializeField] 
-    private Camera _mainCam;
+    [SerializeField] private Camera _mainCam;
 
-    [SerializeField] 
-    private LayerMask _whatIsNpc;
+    [SerializeField] private LayerMask _npcLayerMask;
 
 
     private void Start()
@@ -27,8 +25,8 @@ public class NpcSensor : MonoBehaviour
 
     private void Update()
     {
-        _npcInInteractRange = Physics.CheckSphere(transform.position, _interactRange, _whatIsNpc);
-        var npcs = Physics.OverlapSphere(transform.position, _interactRange, _whatIsNpc);
+        _npcInInteractRange = Physics.CheckSphere(transform.position, _interactRange, _npcLayerMask);
+        var npcs = Physics.OverlapSphere(transform.position, _interactRange, _npcLayerMask);
         foreach (var npc in npcs)
         {
             _outline = npc.transform.GetComponent<Outline>();
