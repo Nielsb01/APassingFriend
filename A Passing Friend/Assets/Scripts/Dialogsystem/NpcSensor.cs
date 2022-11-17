@@ -4,8 +4,6 @@ public class NpcSensor : MonoBehaviour
 {
     private UIController _ui;
 
-    private bool _npcInInteractRange;
-
     private float _interactRange = 2.5f;
 
     private Outline _outline;
@@ -25,7 +23,6 @@ public class NpcSensor : MonoBehaviour
 
     private void Update()
     {
-        _npcInInteractRange = Physics.CheckSphere(transform.position, _interactRange, _npcLayerMask);
         var npcs = Physics.OverlapSphere(transform.position, _interactRange, _npcLayerMask);
         foreach (var npc in npcs)
         {
@@ -35,13 +32,13 @@ public class NpcSensor : MonoBehaviour
 
         if (_outline != null)
         {
-            if (_npcInInteractRange && !_outline.enabled)
+            if (npcs.Length > 0 && !_outline.enabled)
             {
                 _outline.enabled = true;
                 _ui.SetDialogSystemVisible();
                 _ui.SetDialogBuilder(_npcDialogBuilder);
             }
-            else if (!_npcInInteractRange && _outline.enabled)
+            else if (npcs.Length <= 0 && _outline.enabled)
             {
                 _outline.enabled = false;
                 _ui.SetDialogSystemInvisible();
