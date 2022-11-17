@@ -157,10 +157,11 @@ public class UIController : MonoBehaviour
     {
         _choiceClicked = null;
         _currentTextNr = null;
+        _dialogBoxText.text = "";
 
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
-            dialogButton.text = null;
+            dialogButton.text = "";
             dialogButton.SetEnabled(false);
         }
     }
