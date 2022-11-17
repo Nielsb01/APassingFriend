@@ -28,21 +28,21 @@ public class UIController : MonoBehaviour
     // Dialog Builder
 
     private List<string> _dialogTextList;
-    
+
     [SerializeField] private DialogBuilder _dialogBuilder;
-    
+
     private DialogObject chosenDialogOption;
 
     private int? _currentTextNr = null;
 
     private int? _choiceClicked = null;
-    
+
     [SerializeField] private CinemachineVirtualCamera _activeCamera;
     private CinemachineVirtualCamera _npcCamera;
     private string _npcName;
 
     private void Start()
-    { 
+    {
         _root = GetComponent<UIDocument>().rootVisualElement;
         _interactBox = _root.Q<VisualElement>("interact-box");
         _dialogBox = _root.Q<VisualElement>("dialog-box");
@@ -80,7 +80,7 @@ public class UIController : MonoBehaviour
         if (!_interactBox.visible)
         {
             SetDialogBoxInvisible();
-            ResetTextAndChoice();
+            ResetDialogue();
             unsetDialogCamera();
             unsetNpcCamera();
             return;
@@ -98,10 +98,21 @@ public class UIController : MonoBehaviour
             _currentTextNr++;
             SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         }
-        else 
+        else
         {
-            ResetTextAndChoice();
-            ShowDialogChoices();
+            ResetDialogue();
+
+            if (chosenDialogOption.doesOptionEndConverstation())
+            {
+                SetDialogBoxInvisible();
+                ResetDialogue();
+                unsetDialogCamera();
+                unsetNpcCamera();
+            }
+            else
+            {
+                ShowDialogChoices();
+            }
         }
     }
 
@@ -122,10 +133,7 @@ public class UIController : MonoBehaviour
             dialogButton.SetEnabled(true);
             dialogButton.clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
         }
-        
-        if(chosenDialogOption.doesOptionEndConverstation()){
-            //TODO exit the dialog
-        }
+
         unsetDialogCamera();
     }
 
@@ -139,16 +147,22 @@ public class UIController : MonoBehaviour
         }
         Button button = tab.target as Button;
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
-        _choiceClicked = Convert.ToInt32(buttonNr) -1;
+        _choiceClicked = Convert.ToInt32(buttonNr) - 1;
         setDialogWithChoice();
         setDialogCamera();
         _currentTextNr = 0;
     }
 
-    private void ResetTextAndChoice()
+    private void ResetDialogue()
     {
         _choiceClicked = null;
         _currentTextNr = null;
+
+        foreach (var dialogButton in _dialogBoxChoiceButtons)
+        {
+            dialogButton.text = null;
+            dialogButton.SetEnabled(false);
+        }
     }
 
     private void SetDialogBoxCharText(string charName, string text)
@@ -168,7 +182,7 @@ public class UIController : MonoBehaviour
             _dialogBoxChoiceButtons.Add(_root.Q<Button>("dialog-box-choice-button-" + counter));
             counter++;
         }
-        
+
     }
 
     private void setDialogWithChoice()
