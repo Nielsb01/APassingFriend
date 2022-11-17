@@ -90,6 +90,7 @@ public class UIController : MonoBehaviour
         {
             _dialogBox.visible = true;
             ShowDialogChoices();
+            SetDialogBoxCharText(_npcName, _dialogBuilder.getIntroText());
             setNpcCamera();
         }
 
@@ -119,7 +120,6 @@ public class UIController : MonoBehaviour
     private void ShowDialogChoices()
     {
         _dialogBox.visible = true;
-        _dialogBoxDialog.visible = false;
         _dialogBoxChoices.visible = true;
 
         var counter = 0;
@@ -133,7 +133,7 @@ public class UIController : MonoBehaviour
             dialogButton.SetEnabled(true);
             dialogButton.clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
         }
-
+        SetDialogBoxCharText(_npcName, _dialogBuilder.getIntroText());
         unsetDialogCamera();
     }
 
@@ -193,6 +193,7 @@ public class UIController : MonoBehaviour
         _dialogTextList = chosenDialogOption.getDialog();
         _npcName = _dialogBuilder.getNameOfNpc();
         _npcCamera = _dialogBuilder.getNpcCamera();
+        
     }
 
     private void setNpcCamera()
