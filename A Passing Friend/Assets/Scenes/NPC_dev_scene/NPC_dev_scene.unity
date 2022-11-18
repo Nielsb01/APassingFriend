@@ -552,6 +552,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4805259041890650634, guid: aea4369c32319b249b037685469f36cf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d55124cd57e2d245b32577fb15c6cc4, type: 2}
     - target: {fileID: 4805259041890650647, guid: aea4369c32319b249b037685469f36cf,
         type: 3}
       propertyPath: m_Name
@@ -679,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 4805259041890650632, guid: aea4369c32319b249b037685469f36cf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 72.9
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 4805259041890650632, guid: aea4369c32319b249b037685469f36cf,
         type: 3}
@@ -689,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 4805259041890650632, guid: aea4369c32319b249b037685469f36cf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.88
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4805259041890650632, guid: aea4369c32319b249b037685469f36cf,
         type: 3}
@@ -807,6 +812,15 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PathNode (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140353407933206981, guid: aea4369c32319b249b037685469f36cf,
+        type: 3}
+      propertyPath: _data._json
+      value: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"NewMovementSpeed","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"RoundingForThisNode","value":{"$content":1.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"WaitTimeAtThisNode","value":{"$content":10.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TriggerEvent","value":{"$content":true,"$type":"System.Boolean"},"typeHandle":{"Identification":"System.Boolean,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
