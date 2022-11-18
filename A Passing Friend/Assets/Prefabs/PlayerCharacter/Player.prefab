@@ -182,7 +182,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325920329672}
-  m_LocalRotation: {x: 0.0067886603, y: -5.7557586e-10, z: 3.9074794e-12, w: 0.999977}
+  m_LocalRotation: {x: 0.0067886612, y: -3.9157963e-17, z: 4.299041e-19, w: 0.999977}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -574,7 +574,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: -0.011353499, y: -5.5496844e-17, z: -1.6536215e-18, w: 0.99993557}
+  m_LocalRotation: {x: -0.011353497, y: -7.153458e-21, z: 3.9312968e-19, w: 0.99993557}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1181,7 +1181,7 @@ GameObject:
   - component: {fileID: 4716140158671274677}
   - component: {fileID: 5661446499362725511}
   m_Layer: 0
-  m_Name: Shit
+  m_Name: CatComponents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
