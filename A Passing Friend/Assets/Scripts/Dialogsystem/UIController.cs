@@ -50,7 +50,6 @@ public class UIController : MonoBehaviour
         _dialogBoxCharName = _root.Q<Label>("dialog-box-char-name");
         _dialogBoxText = _root.Q<Label>("dialog-box-text");
         _dialogBoxChoices = _root.Q<GroupBox>("dialog-box-choices");
-
         _dialogBox.visible = false;
         _interactBox.visible = false;
     }
@@ -126,12 +125,9 @@ public class UIController : MonoBehaviour
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
             _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].SetEnabled(true);
+            _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
-        }
-        foreach (var dialogButton in _dialogBoxChoiceButtons)
-        {
-            dialogButton.SetEnabled(true);
-            dialogButton.clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
         }
         SetDialogBoxCharText(_npcName, _dialogBuilder.getIntroText());
         unsetDialogCamera();
