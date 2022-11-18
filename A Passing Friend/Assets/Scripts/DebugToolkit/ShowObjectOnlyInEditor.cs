@@ -1,36 +1,24 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace DebugToolkit
 {
-    [ExecuteInEditMode]
     public class ShowObjectOnlyInEditor : MonoBehaviour
     {
-        private MaterialPropertyBlock _propertyBlock;
-        private Renderer _renderer;
+        [SerializeField] private Material mat1;
+        [SerializeField] private Material mat2;
+        [SerializeField] private Material mat3;
+        [SerializeField] private Material mat4;
 
-        public void OnValidate()
+        public void Awake()
         {
-            Renderer renderer = GetComponent<Renderer>();
-            if (_propertyBlock == null)
-                _propertyBlock = new MaterialPropertyBlock();
-            var color = GetRandomColor();
-            Debug.Log(color);
-
-            // Assign our new value.
-            _propertyBlock.SetColor("_Color", color);
-            // Apply the edited values to the renderer.
-            renderer.SetPropertyBlock(_propertyBlock);
-
-            // if (_propertyBlock == null)
-            //     _propertyBlock = new MaterialPropertyBlock();
-            // _propertyBlock = new MaterialPropertyBlock();
-            // _renderer = GetComponent<Renderer>();
-            // ChangeColourDependingOnNodeActivities();
-            // if (!EditorApplication.isPlaying && !Application.isPlaying) return;
-            // // HideIfGameIsRunning();
+            ChangeColourDependingOnNodeActivities();
+            if (!EditorApplication.isPlaying && !Application.isPlaying) return;
+            HideIfGameIsRunning();
         }
 
         private void HideIfGameIsRunning()
@@ -45,34 +33,28 @@ namespace DebugToolkit
 
         private void ChangeColourDependingOnNodeActivities()
         {
-            var color = new Color();
-
-            var newMovementSpeed = GetComponent<Variables>().declarations.Get("NewMovementSpeed");
-            var roundingForThisNode = GetComponent<Variables>().declarations.Get("RoundingForThisNode");
-            var waitTimeAtThisNode = GetComponent<Variables>().declarations.Get("WaitTimeAtThisNode");
-            var triggerEvent = GetComponent<Variables>().declarations.Get("TriggerEvent");
-            Debug.Log(newMovementSpeed);
-            Debug.Log(roundingForThisNode);
-            Debug.Log(waitTimeAtThisNode);
-            Debug.Log(triggerEvent);
-            if (newMovementSpeed != null)
+            bool newMovementSpeed = ((float)GetComponent<Variables>().declarations.Get("NewMovementSpeed") > 0);
+            bool roundingForThisNode = ((float)GetComponent<Variables>().declarations.Get("RoundingForThisNode") > 0);
+            bool waitTimeAtThisNode = ((float)GetComponent<Variables>().declarations.Get("WaitTimeAtThisNode") > 0);
+            bool triggerEvent = (bool)GetComponent<Variables>().declarations.Get("TriggerEvent");
+            if (newMovementSpeed)
             {
-                color.b += 127.5f;
+                GetComponent<Renderer>().material.color = mat1.color;
             }
 
-            if (roundingForThisNode != null)
+            if (roundingForThisNode)
             {
-                color.b += 127.5f;
+                GetComponent<Renderer>().material.color = mat2.color;
             }
 
-            if (waitTimeAtThisNode != null)
+            if (waitTimeAtThisNode)
             {
-                color.g += 127.5f;
+                GetComponent<Renderer>().material.color = mat3.color;
             }
 
-            if (triggerEvent != null)
+            if (triggerEvent)
             {
-                color.r += 127.5f;
+                GetComponent<Renderer>().material.color = mat4.color;
             }
         }
 
