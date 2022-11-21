@@ -35,7 +35,7 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private float _jumpCharged = 0.0f;
     private bool _holdingDownJump = false;
     [SerializeField] private float _chargeSpeed = 1.0f;
-    [SerializeField] private float _jumpFailvalue = 90.0f;
+    [SerializeField] private float _jumpOverchargeValue = 90.0f;
 
     void Start()
     {
@@ -146,15 +146,10 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
-    private IEnumerator chargeJump()
+    private void resetJumpCharge()
     {
-        while (_holdingDownJump)
-        {
-            _jumpCharged += _chargeSpeed * Time.deltaTime;
-            yield return (null);
-        }
-
-        StopCoroutine("chargeJump");
+        _holdingDownJump = false;
+        _jumpCharged = 0;
     }
 
     private void OnMove(InputValue inputValue)
@@ -169,7 +164,6 @@ public class CharacterMovementScript : MonoBehaviour
             if (_isInChargeJumpZone)
             {
                 _holdingDownJump = true;
-                StartCoroutine("chargeJump");
             }
             else
             {
@@ -183,7 +177,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (_isInChargeJumpZone)
         {
             print("jumpReleased");
-            if (_jumpCharged > _jumpFailvalue)
+            if (_jumpCharged > _jumpOverchargeValue)
             {
                 OnJumpFail();
             }
@@ -191,9 +185,7 @@ public class CharacterMovementScript : MonoBehaviour
             {
                 _moveDirection.y = _jumpCharged;
             }
-            StopCoroutine("chargeJump");
-            _holdingDownJump = false;
-            _jumpCharged = 0;
+            resetJumpCharge();
         }
     }
 
@@ -211,6 +203,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (trigger.transform.tag == "ChargeJumpZone")
         {
             _isInChargeJumpZone = false;
+            resetJumpCharge();
         }
     }
 
@@ -219,8 +212,13 @@ public class CharacterMovementScript : MonoBehaviour
         print("Jump failed :(");
     }
 
-    private float getJumpCharged()
+    public float getJumpCharged()
     {
         return _jumpCharged;
+    }
+
+    public float getOverchargeLevel()
+    {
+        return _jumpOverchargeValue;
     }
 }
