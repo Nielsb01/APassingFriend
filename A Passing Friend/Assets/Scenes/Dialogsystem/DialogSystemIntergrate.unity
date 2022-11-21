@@ -847,6 +847,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIDocument
       objectReference: {fileID: 0}
+    - target: {fileID: 1232823282108055234, guid: 5e16aaf9853e95a409ccaaf68a67333a,
+        type: 3}
+      propertyPath: sourceAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 957575ed7926dba4cbf884b58347dcd0,
+        type: 3}
     - target: {fileID: 1232823282108055235, guid: 5e16aaf9853e95a409ccaaf68a67333a,
         type: 3}
       propertyPath: m_RootOrder

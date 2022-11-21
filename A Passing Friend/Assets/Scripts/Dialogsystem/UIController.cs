@@ -73,8 +73,7 @@ public class UIController : MonoBehaviour
         _dialogBoxDialog.visible = false;
     }
 
-    // UI Dialog System
-    public void ContinueDialog()
+    private void FixedUpdate()
     {
         if (!_interactBox.visible)
         {
@@ -84,6 +83,14 @@ public class UIController : MonoBehaviour
             unsetNpcCamera();
             return;
         }
+    }
+
+    // UI Dialog System
+    public void ContinueDialog()
+    {
+        //Debug.Log(_dialogBox.contentRect.width);
+        //Debug.Log((_dialogBox.contentRect.width / 100) * 40);
+        Debug.Log("test");
 
         if (!_dialogBox.visible)
         {
@@ -100,17 +107,17 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            ResetDialogue();
-
             if (chosenDialogOption.doesOptionEndConverstation())
             {
                 SetDialogBoxInvisible();
                 ResetDialogue();
                 unsetDialogCamera();
                 unsetNpcCamera();
+                return;
             }
             else
             {
+                ResetDialogue();
                 ShowDialogChoices();
             }
         }
@@ -124,7 +131,9 @@ public class UIController : MonoBehaviour
         var counter = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
+            Debug.Log(dialog.getDialogChoice());
             _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].style.fontSize = 30;
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
@@ -153,11 +162,11 @@ public class UIController : MonoBehaviour
     {
         _choiceClicked = null;
         _currentTextNr = null;
-        _dialogBoxText.text = "";
+        _dialogBoxText.text = "-";
 
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
-            dialogButton.text = "";
+            dialogButton.text = "-";
             dialogButton.SetEnabled(false);
         }
     }
@@ -166,6 +175,7 @@ public class UIController : MonoBehaviour
     {
         _dialogBoxDialog.visible = true;
         _dialogBoxCharName.text = charName;
+        //_dialogBoxCharName.style.fontSize = 30;
         _dialogBoxText.text = text;
     }
 
@@ -189,7 +199,7 @@ public class UIController : MonoBehaviour
         _dialogTextList = chosenDialogOption.getDialog();
         _npcName = _dialogBuilder.getNameOfNpc();
         _npcCamera = _dialogBuilder.getNpcCamera();
-        
+
     }
 
     private void setNpcCamera()

@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 55342dc8eb49c804ea4b21264c04c321
+guid: d4407bfcf1998884db9f9482c53cf593
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
   fontSize: 16
-  forceTextureCase: -1
+  forceTextureCase: -2
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
   fontNames:
   - Merienda
   fallbackFontReferences:
-  - {fileID: 12800000, guid: f9e66a3ed474f7c4da6494e3c643040e, type: 3}
+  - {fileID: 12800000, guid: 40e4a34dfb36023479082f876a788b70, type: 3}
   customCharacters: 
-  fontRenderingMode: 2
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1
