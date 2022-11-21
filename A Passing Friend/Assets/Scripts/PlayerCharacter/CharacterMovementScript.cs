@@ -29,7 +29,6 @@ public class CharacterMovementScript : MonoBehaviour
     private const float CHECK_VALUE = 0.1f;
 
     //Charge jumping
-    private List<MovementModule> movementModules;
     [SerializeField] private bool _isInChargeJumpZone;
 
     //TODO Alleen voor testen haar serialize hier weg.
@@ -40,10 +39,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     void Start()
     {
-        foreach (var module in movementModules)
-        {
-            module.setUpModule();
-        }
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
     }
@@ -52,10 +47,6 @@ public class CharacterMovementScript : MonoBehaviour
     {
         Move();
         Rotate();
-        foreach (var module in movementModules)
-        {
-            module.RunModule();
-        }
     }
 
     public void OnFreeLook(InputValue value)
@@ -73,6 +64,14 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_rotationFrozen) return;
         transform.Rotate(_rotation * _rotationSpeed);
+    }
+
+    void Update()
+    {
+        if (_holdingDownJump)
+        {
+            _jumpCharged += _chargeSpeed * Time.deltaTime;
+        }
     }
 
     private void Move()
@@ -192,6 +191,7 @@ public class CharacterMovementScript : MonoBehaviour
             {
                 _moveDirection.y = _jumpCharged;
             }
+            StopCoroutine("chargeJump");
             _holdingDownJump = false;
             _jumpCharged = 0;
         }
