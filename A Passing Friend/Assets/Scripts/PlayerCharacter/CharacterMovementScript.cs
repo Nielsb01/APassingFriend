@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,8 +28,22 @@ public class CharacterMovementScript : MonoBehaviour
 
     private const float CHECK_VALUE = 0.1f;
 
+    //Charge jumping
+    private List<MovementModule> movementModules;
+    [SerializeField] private bool _isInChargeJumpZone;
+
+    //TODO Alleen voor testen haar serialize hier weg.
+    [SerializeField] private float _jumpCharged = 0.0f;
+    private bool _holdingDownJump = false;
+    [SerializeField] private float _chargeSpeed = 1.0f;
+    [SerializeField] private float _jumpFailvalue = 90.0f;
+
     void Start()
     {
+        foreach (var module in movementModules)
+        {
+            module.setUpModule();
+        }
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
     }
@@ -36,6 +52,10 @@ public class CharacterMovementScript : MonoBehaviour
     {
         Move();
         Rotate();
+        foreach (var module in movementModules)
+        {
+            module.RunModule();
+        }
     }
 
     public void OnFreeLook(InputValue value)
@@ -67,7 +87,7 @@ public class CharacterMovementScript : MonoBehaviour
             _moveDirection.y = _jumpSpeed;
             _doJump = false;
         }
-        else if (_characterController.isGrounded)
+        else if (_characterController.isGrounded && !_isInChargeJumpZone)
         {
             _moveDirection.y = 0;
         }
@@ -127,6 +147,16 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
+    private IEnumerator chargeJump()
+    {
+        while (_holdingDownJump)
+        {
+            _jumpCharged += _chargeSpeed * Time.deltaTime;
+            yield return (null);
+        }
+
+        StopCoroutine("chargeJump");
+    }
 
     private void OnMove(InputValue inputValue)
     {
@@ -137,7 +167,60 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_characterController.isGrounded)
         {
-            _doJump = true;
+            if (_isInChargeJumpZone)
+            {
+                _holdingDownJump = true;
+                StartCoroutine("chargeJump");
+            }
+            else
+            {
+                _doJump = true;
+            }
         }
+    }
+
+    private void OnJumpRelease()
+    {
+        if (_isInChargeJumpZone)
+        {
+            print("jumpReleased");
+            if (_jumpCharged > _jumpFailvalue)
+            {
+                OnJumpFail();
+            }
+            else
+            {
+                _moveDirection.y = _jumpCharged;
+            }
+            _holdingDownJump = false;
+            _jumpCharged = 0;
+        }
+    }
+
+    private void OnTriggerEnter(Collider trigger)
+    {
+        print("test");
+        if (trigger.transform.tag == "ChargeJumpZone")
+        {
+            _isInChargeJumpZone = true;
+        }
+    }
+
+    void OnTriggerExit(Collider trigger)
+    {
+        if (trigger.transform.tag == "ChargeJumpZone")
+        {
+            _isInChargeJumpZone = false;
+        }
+    }
+
+    private void OnJumpFail()
+    {
+        print("Jump failed :(");
+    }
+
+    private float getJumpCharged()
+    {
+        return _jumpCharged;
     }
 }
