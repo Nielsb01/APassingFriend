@@ -8,23 +8,19 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
-    private const int INITIAL_LIGHTLEVEL_NIGHTTIME = 7;
-    private const int INITIAL_LIGHTLEVEL_DAYTIME = 11;
+    private const int INITIAL_OBJECT_LIGHTLEVEL = 9;
 
     [HideInInspector] public int lightLevel;
     public bool calculateLight;
-    [SerializeField] private bool _dayTime = true;
     [SerializeField] private RenderTexture _leftLightCheckTexture;
     [SerializeField] private RenderTexture _rightLightCheckTexture;
     [SerializeField] private RenderTexture _backwardLightCheckTexture;
     [SerializeField] private RenderTexture _forwardLightCheckTexture;
 
-    private int _initialLightlevel;
     private Texture2D _tmp2DTexture;
 
     private void Awake()
     {
-        _initialLightlevel = _dayTime ? INITIAL_LIGHTLEVEL_DAYTIME : INITIAL_LIGHTLEVEL_NIGHTTIME;
         // All renderTextures have to be of the same size
         _tmp2DTexture = new(_leftLightCheckTexture.width, _leftLightCheckTexture.height);
     }
@@ -43,7 +39,7 @@ public class LightCheckScript : MonoBehaviour
 
         var average = lightLevels.Average();
 
-        lightLevel = (int)Math.Round(average) - _initialLightlevel;
+        lightLevel = (int)Math.Round(average) - INITIAL_OBJECT_LIGHTLEVEL;
     }
 
     private float GetPixelsFromTexture(RenderTexture lightCheckTexture)
