@@ -80,7 +80,6 @@ public class UIController : MonoBehaviour
             SetDialogBoxInvisible();
             ResetDialogue();
             unsetDialogCamera();
-            unsetNpcCamera();
             return;
         }
     }
@@ -88,15 +87,26 @@ public class UIController : MonoBehaviour
     // UI Dialog System
     public void ContinueDialog()
     {
-        //Debug.Log(_dialogBox.contentRect.width);
-        //Debug.Log((_dialogBox.contentRect.width / 100) * 40);
-        Debug.Log("test");
+        if (!_interactBox.visible)
+        {
+            return;
+        }
 
-        if (!_dialogBox.visible)
+        if (!_dialogBox.visible && _interactBox.visible)
         {
             _dialogBox.visible = true;
-            ShowDialogChoices();
-            SetDialogBoxCharText(_npcName, _dialogBuilder.getIntroText());
+            Debug.Log("test!");
+
+            if (_dialogBuilder.getAllDialogObjects().Count != 1)
+            {
+                ShowDialogChoices();
+            } else
+            {
+                _choiceClicked = 0;
+                setDialogWithChoice();
+                _currentTextNr = -1;
+            }
+
             setNpcCamera();
         }
 
@@ -118,7 +128,16 @@ public class UIController : MonoBehaviour
             else
             {
                 ResetDialogue();
-                ShowDialogChoices();
+
+                if (_dialogBuilder.getAllDialogObjects().Count != 1)
+                {
+                    ShowDialogChoices();
+                } else
+                {
+                    _choiceClicked = 0;
+                    setDialogWithChoice();
+                    _currentTextNr = -1;
+                }
             }
         }
     }
@@ -131,8 +150,8 @@ public class UIController : MonoBehaviour
         var counter = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
-            Debug.Log(dialog.getDialogChoice());
-            _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            //_dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].text = "boo!";
             _dialogBoxChoiceButtons[counter].style.fontSize = 30;
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;

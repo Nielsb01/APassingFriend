@@ -309,7 +309,7 @@ PrefabInstance:
     - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
         type: 3}
       propertyPath: calculateLight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2723,7 +2723,7 @@ PrefabInstance:
     - target: {fileID: 4348538257070347654, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
       propertyPath: m_Name
-      value: CapsuleAsha
+      value: Asha
       objectReference: {fileID: 0}
     - target: {fileID: 4348538257070347657, guid: 316f67c3b5d8f394785be5fb934039d8,
         type: 3}
@@ -4394,7 +4394,7 @@ PrefabInstance:
     - target: {fileID: 429239325920329678, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879014
+      value: 0.14879012
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
@@ -5256,12 +5256,12 @@ PrefabInstance:
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.23447205
+      value: 0.23447204
       objectReference: {fileID: 0}
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.26037917
+      value: -0.2603792
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -5373,7 +5373,7 @@ PrefabInstance:
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879015
+      value: 0.14879014
       objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
