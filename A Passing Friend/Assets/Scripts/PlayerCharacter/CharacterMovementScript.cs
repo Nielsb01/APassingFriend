@@ -8,12 +8,12 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovementScript : MonoBehaviour
 {
-    [SerializeField] private readonly float _acceleration = 0.8f;
-    [SerializeField] private readonly float _deceleration = 1.6f;
-    [SerializeField] private readonly float _moveSpeed = 1.75f;
-    [SerializeField] private readonly float _jumpSpeed = 4.5f;
-    [SerializeField] private readonly float _gravity = 9.81f;
-    [SerializeField] private readonly float _rotationSpeed = 0.3f;
+    [SerializeField] private float _acceleration = 0.8f;
+    [SerializeField] private float _deceleration = 1.6f;
+    [SerializeField] private float _moveSpeed = 1.75f;
+    [SerializeField] private float _jumpSpeed = 4.5f;
+    [SerializeField] private float _gravity = 9.81f;
+    [SerializeField] private float _rotationSpeed = 0.3f;
 
     private CharacterController _characterController;
 
@@ -31,8 +31,8 @@ public class CharacterMovementScript : MonoBehaviour
     private const float CHECK_VALUE = 0.1f;
 
     //Charge jumping
-    [SerializeField] private readonly float _chargeSpeed = 1.0f;
-    [SerializeField] private readonly float _jumpOverchargeValue = 90.0f;
+    [SerializeField] private float _chargeSpeed = 1.0f;
+    [SerializeField] private float _jumpOverchargeValue = 90.0f;
 
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
