@@ -1,24 +1,26 @@
+#region
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+#endregion
+
 public class CharacterMovementScript : MonoBehaviour
 {
-    [SerializeField] private float _acceleration = 0.8f;
-    [SerializeField] private float _deceleration = 1.6f;
-    [SerializeField] private float _moveSpeed = 1.75f;
-    [SerializeField] private float _jumpSpeed = 4.5f;
-    [SerializeField] private float _gravity = 9.81f;
-    [SerializeField] private float _rotationSpeed = 0.3f;
+    [SerializeField] private readonly float _acceleration = 0.8f;
+    [SerializeField] private readonly float _deceleration = 1.6f;
+    [SerializeField] private readonly float _moveSpeed = 1.75f;
+    [SerializeField] private readonly float _jumpSpeed = 4.5f;
+    [SerializeField] private readonly float _gravity = 9.81f;
+    [SerializeField] private readonly float _rotationSpeed = 0.3f;
 
     private CharacterController _characterController;
 
-    private float _velocityY = 0.0f;
-    private float _velocityX = 0.0f;
-    private float _maxPositiveVelocity = 2.0f;
-    private float _maxNegativeVelocity = -2.0f;
+    private float _velocityY;
+    private float _velocityX;
+    private readonly float _maxPositiveVelocity = 2.0f;
+    private readonly float _maxNegativeVelocity = -2.0f;
 
     private Vector2 _moveVector;
     private Vector2 _rotation;
@@ -29,21 +31,21 @@ public class CharacterMovementScript : MonoBehaviour
     private const float CHECK_VALUE = 0.1f;
 
     //Charge jumping
-    [SerializeField] private bool _isInChargeJumpZone;
+    [SerializeField] private readonly float _chargeSpeed = 1.0f;
+    [SerializeField] private readonly float _jumpOverchargeValue = 90.0f;
 
-    //TODO Alleen voor testen haar serialize hier weg.
-    [SerializeField] private float _jumpCharged = 0.0f;
-    private bool _holdingDownJump = false;
-    [SerializeField] private float _chargeSpeed = 1.0f;
-    [SerializeField] private float _jumpOverchargeValue = 90.0f;
+    private bool _isInChargeJumpZone;
+    private bool _holdingDownJump;
+    private float _jumpCharged;
 
-    void Start()
+
+    private void Start()
     {
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
         Rotate();
@@ -54,7 +56,7 @@ public class CharacterMovementScript : MonoBehaviour
         _rotationFrozen = value.isPressed;
     }
 
-    void OnLook(InputValue inputValue)
+    private void OnLook(InputValue inputValue)
     {
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
@@ -66,7 +68,7 @@ public class CharacterMovementScript : MonoBehaviour
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
-    void Update()
+    private void Update()
     {
         if (_holdingDownJump)
         {
@@ -135,8 +137,8 @@ public class CharacterMovementScript : MonoBehaviour
             }
         }
 
-        _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
-        _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
+        _moveDirection.x = _moveSpeed * (float)Math.Round(_velocityX, 4);
+        _moveDirection.z = _moveSpeed * (float)Math.Round(_velocityY, 4);
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
     }
@@ -176,7 +178,6 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_isInChargeJumpZone)
         {
-            print("jumpReleased");
             if (_jumpCharged > _jumpOverchargeValue)
             {
                 OnJumpFail();
@@ -185,20 +186,20 @@ public class CharacterMovementScript : MonoBehaviour
             {
                 _moveDirection.y = _jumpCharged;
             }
+
             resetJumpCharge();
         }
     }
 
     private void OnTriggerEnter(Collider trigger)
     {
-        print("test");
         if (trigger.transform.tag == "ChargeJumpZone")
         {
             _isInChargeJumpZone = true;
         }
     }
 
-    void OnTriggerExit(Collider trigger)
+    private void OnTriggerExit(Collider trigger)
     {
         if (trigger.transform.tag == "ChargeJumpZone")
         {
@@ -209,9 +210,11 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJumpFail()
     {
+        // TODO implement funny cat animations
         print("Jump failed :(");
     }
 
+    // Getters for making UI
     public float getJumpCharged()
     {
         return _jumpCharged;

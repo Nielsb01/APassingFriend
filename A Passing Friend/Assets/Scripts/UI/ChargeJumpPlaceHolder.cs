@@ -1,25 +1,28 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-    using UnityEngine.UIElements;
+using UnityEngine.UIElements;
 
-    public class ChargeJumpPlaceHolder : MonoBehaviour
+public class ChargeJumpPlaceHolder : MonoBehaviour
 {
-    [SerializeField] private CharacterMovementScript characterMovementScript;
+    // TODO: This script is only for showing the placeholder UI and needs to be deleted after the UI is implemented
+    [SerializeField] private CharacterMovementScript _characterMovementScript;
 
-    [SerializeField] private Transform jumpSprite;
-    [SerializeField] private Transform MaxJumpSprite;
-    // Start is called before the first frame update
+    [SerializeField] private Transform _jumpSprite;
+
+    [SerializeField] private Transform _maxJumpSprite;
+
+    // Start is called before the first frame update -Deze staat hier speciaal voor Hugo ;)
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float y = jumpSprite.GetComponent<RectTransform>().sizeDelta.y;
-        jumpSprite.GetComponent<RectTransform>().sizeDelta = new Vector2(characterMovementScript.getJumpCharged() * 100, y);
-        MaxJumpSprite.GetComponent<RectTransform>().sizeDelta = new Vector2(characterMovementScript.getOverchargeLevel() * 100, y);
-
+        float y = _jumpSprite.GetComponent<RectTransform>().sizeDelta.y;
+        _jumpSprite.GetComponent<RectTransform>().sizeDelta =
+            new Vector2(_characterMovementScript.getJumpCharged() * 100, y);
+        _maxJumpSprite.GetComponent<RectTransform>().sizeDelta =
+            new Vector2(_characterMovementScript.getOverchargeLevel() * 100, y);
     }
 }
