@@ -85,10 +85,13 @@ public class CharacterMovementScript : MonoBehaviour
 
         if (_doJump)
         {
-            _moveDirection.y = _jumpSpeed;
+            if (!_isInChargeJumpZone)
+            {
+                _moveDirection.y = _jumpSpeed;
+            }
             _doJump = false;
         }
-        else if (_characterController.isGrounded && !_isInChargeJumpZone)
+        else if (_characterController.isGrounded)
         {
             _moveDirection.y = 0;
         }
@@ -185,6 +188,7 @@ public class CharacterMovementScript : MonoBehaviour
             else
             {
                 _moveDirection.y = _jumpCharged;
+                _doJump = true;
             }
 
             resetJumpCharge();
