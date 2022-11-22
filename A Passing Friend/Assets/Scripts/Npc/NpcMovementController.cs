@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Npc
                 {
                     _waypoints.Remove(_waypoints.First());
                 }
+
                 NavigateToNextWaypoint();
             }
         }
@@ -80,6 +82,15 @@ namespace Assets.Scripts.Npc
         private GameObject CreateWaypointOnPosition(Vector3 vector3)
         {
             return Instantiate(_pathNodePrefab, vector3, Quaternion.identity);
+        }
+
+        private void CheckIfNodeHasEffect(GameObject node)
+        {
+            if(node.GetComponent<Variables>())
+        }
+
+        private void ApplyNodeEffect()
+        {
         }
     }
 }

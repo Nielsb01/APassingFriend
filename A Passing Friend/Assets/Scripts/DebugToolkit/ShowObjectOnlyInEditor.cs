@@ -7,15 +7,19 @@ using Random = UnityEngine.Random;
 
 namespace DebugToolkit
 {
+    [ExecuteInEditMode]
     public class ShowObjectOnlyInEditor : MonoBehaviour
     {
-        [SerializeField] private Material mat1;
-        [SerializeField] private Material mat2;
-        [SerializeField] private Material mat3;
-        [SerializeField] private Material mat4;
+        [SerializeField] private Material defaultNodeMaterial;
+        [SerializeField] private Material triggerNodeMaterial;
+        [SerializeField] private Material speedChangeNodeMaterial;
+        [SerializeField] private Material waitNodeMaterial;
+        [SerializeField] private Material customRoundingNodeMaterial;
+        private Renderer _renderer;
 
-        public void Awake()
+        public void OnValidate()
         {
+            _renderer = GetComponent<Renderer>();
             ChangeColourDependingOnNodeActivities();
             if (!EditorApplication.isPlaying && !Application.isPlaying) return;
             HideIfGameIsRunning();
@@ -23,7 +27,7 @@ namespace DebugToolkit
 
         private void HideIfGameIsRunning()
         {
-            GetComponent<Renderer>().enabled = false;
+            _renderer.enabled = false;
             var lightComp = GetComponent<Light>();
             if (lightComp != null)
             {
@@ -33,34 +37,26 @@ namespace DebugToolkit
 
         private void ChangeColourDependingOnNodeActivities()
         {
-            bool newMovementSpeed = ((float)GetComponent<Variables>().declarations.Get("NewMovementSpeed") > 0);
-            bool roundingForThisNode = ((float)GetComponent<Variables>().declarations.Get("RoundingForThisNode") > 0);
-            bool waitTimeAtThisNode = ((float)GetComponent<Variables>().declarations.Get("WaitTimeAtThisNode") > 0);
-            bool triggerEvent = (bool)GetComponent<Variables>().declarations.Get("TriggerEvent");
-            if (newMovementSpeed)
+            if ((bool)GetComponent<Variables>().declarations.Get("TriggerEvent"))
             {
-                GetComponent<Renderer>().material.color = mat1.color;
+                _renderer.material = triggerNodeMaterial;
             }
-
-            if (roundingForThisNode)
+            else if ((float)GetComponent<Variables>().declarations.Get("WaitTimeAtThisNode") > 0)
             {
-                GetComponent<Renderer>().material.color = mat2.color;
+                _renderer.material = waitNodeMaterial;
             }
-
-            if (waitTimeAtThisNode)
+            else if ((float)GetComponent<Variables>().declarations.Get("NewMovementSpeed") > 0)
             {
-                GetComponent<Renderer>().material.color = mat3.color;
+                _renderer.material = speedChangeNodeMaterial;
             }
-
-            if (triggerEvent)
+            else if ((float)GetComponent<Variables>().declarations.Get("RoundingForThisNode") > 0)
             {
-                GetComponent<Renderer>().material.color = mat4.color;
+                _renderer.material = customRoundingNodeMaterial;
             }
-        }
-
-        static Color GetRandomColor()
-        {
-            return Color.HSVToRGB(Random.value, 1, .9f);
+            else
+            {
+                _renderer.material = defaultNodeMaterial;
+            }
         }
     }
 }

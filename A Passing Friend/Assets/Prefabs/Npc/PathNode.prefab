@@ -182,10 +182,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfadfd8a19aabd45ac026b461eeafda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mat1: {fileID: 2100000, guid: 524220da52c3a944c9921151b9d8b351, type: 2}
-  mat2: {fileID: 2100000, guid: f4daf46cdd1c01d43a1334e03221949c, type: 2}
-  mat3: {fileID: 2100000, guid: a76c841b90354dd48837d6e9cfa7bf07, type: 2}
-  mat4: {fileID: 2100000, guid: 4cea427776547434197130949b62ec41, type: 2}
+  defaultNodeMaterial: {fileID: 2100000, guid: 1563a134ce8beef4b998b2d31ab91f78, type: 2}
+  triggerNodeMaterial: {fileID: 2100000, guid: 524220da52c3a944c9921151b9d8b351, type: 2}
+  speedChangeNodeMaterial: {fileID: 2100000, guid: f4daf46cdd1c01d43a1334e03221949c,
+    type: 2}
+  waitNodeMaterial: {fileID: 2100000, guid: a76c841b90354dd48837d6e9cfa7bf07, type: 2}
+  customRoundingNodeMaterial: {fileID: 2100000, guid: 4cea427776547434197130949b62ec41,
+    type: 2}
 --- !u!114 &6140353407933206981
 MonoBehaviour:
   m_ObjectHideFlags: 0
