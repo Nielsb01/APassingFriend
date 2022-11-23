@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterMovementScript : MonoBehaviour
+public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
@@ -139,5 +139,17 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _doJump = true;
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        GetComponent<CharacterController>().enabled = false;
+        this.transform.position = data.PlayerLocation;
+        GetComponent<CharacterController>().enabled = true;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.PlayerLocation = this.transform.position;
     }
 }
