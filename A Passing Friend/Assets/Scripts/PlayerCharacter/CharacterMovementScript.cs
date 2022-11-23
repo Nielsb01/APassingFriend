@@ -38,8 +38,7 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
     private float _jumpCharged;
-
-
+    
     private void Start()
     {
         _doJump = false;
@@ -231,5 +230,10 @@ public class CharacterMovementScript : MonoBehaviour
     public float getOverchargeLevel()
     {
         return _jumpOverchargeValue;
+    }
+
+    public bool isInChargeZone()
+    {
+       return _isInChargeJumpZone;
     }
 }
