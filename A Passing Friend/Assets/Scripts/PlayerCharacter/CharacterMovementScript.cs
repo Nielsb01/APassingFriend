@@ -33,6 +33,7 @@ public class CharacterMovementScript : MonoBehaviour
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
+    [SerializeField] private float _failjumpSpeed;
 
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
@@ -216,6 +217,9 @@ public class CharacterMovementScript : MonoBehaviour
     {
         // TODO implement funny cat animations
         print("Jump failed :(");
+        _moveDirection.y = _failjumpSpeed;
+        _velocityY += _failjumpSpeed;
+        _doJump = true;
     }
 
     // Getters for making UI
