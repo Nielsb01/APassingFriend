@@ -22,7 +22,6 @@ namespace Assets.Scripts.Npc
 
         private void Start()
         {
-            _variables = GetComponent<Variables>().declarations;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             if (_waypointRounding < 0.01f)
             {
@@ -49,6 +48,7 @@ namespace Assets.Scripts.Npc
                     _waypoints.Remove(_waypoints.First());
                 }
 
+                ApplyNodeEffects();
                 NavigateToNextWaypoint();
             }
         }
@@ -96,24 +96,22 @@ namespace Assets.Scripts.Npc
 
         private void CheckIfNextNodeHasEffect(GameObject node)
         {
-            Debug.Log(1);
-            Debug.Log(_variables);
-            Debug.Log(2);
-            Debug.Log(_variables.Get("RoundingForThisNode"));
-            Debug.Log(3);
-            Debug.Log((float)_variables.Get("RoundingForThisNode"));
+            _variables = node.GetComponent<Variables>().declarations;
+            var roundingForThisNode = GetFloatVariableFromNextNode("RoundingForThisNode");
+            SetRoundingForNextWaypoint(roundingForThisNode > 0, roundingForThisNode);
+        }
+
+        private void ApplyNodeEffects()
+        {
             ApplyMovementSpeedChange();
 
-            var roundingForThisNode = (float)_variables.Get("RoundingForThisNode");
-            SetRoundingForNextWaypoint(roundingForThisNode > 0, roundingForThisNode);
-
-            var waitTimeAtThisNode = (float)_variables.Get("WaitTimeAtThisNode");
+            var waitTimeAtThisNode = GetFloatVariableFromNextNode("WaitTimeAtThisNode");
             if (waitTimeAtThisNode > 0)
             {
                 ApplyWaitTimeAtThisNode(waitTimeAtThisNode);
             }
 
-            var triggerEvent = (bool)_variables.Get("TriggerEvent");
+            var triggerEvent = GetBoolVariableFromNextNode("TriggerEvent");
             if (triggerEvent)
             {
                 ApplyTriggerEvent();
@@ -127,10 +125,46 @@ namespace Assets.Scripts.Npc
 
         private void ApplyMovementSpeedChange()
         {
-            var newMovementSpeed = (float)_variables.Get("NewMovementSpeed");
+            var newMovementSpeed = GetFloatVariableFromNextNode("NewMovementSpeed");
             if (newMovementSpeed > 0)
             {
                 _navMeshAgent.speed = newMovementSpeed;
+            }
+        }
+
+        private float GetFloatVariableFromNextNode(string variableName)
+        {
+            var value = GetVariableFromNextNode(variableName);
+            if (value == null)
+            {
+                return 0f;
+            }
+
+            return (float)value;
+        }
+
+        private bool GetBoolVariableFromNextNode(string variableName)
+        {
+            var value = GetVariableFromNextNode(variableName);
+            if (value == null)
+            {
+                return false;
+            }
+
+            return (bool)value;
+        }
+
+
+        private object GetVariableFromNextNode(string variableName)
+        {
+            try
+            {
+                return _variables.Get(variableName);
+            }
+            catch
+            {
+                Debug.Log("Could not find var");
+                return null;
             }
         }
 
