@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Scripts.Npc
+namespace Npc
 {
     public class NpcMovementController : MonoBehaviour
     {
@@ -19,6 +17,8 @@ namespace Assets.Scripts.Npc
         private NavMeshAgent _navMeshAgent;
         private VariableDeclarations _variables;
         private float _waypointRoundingForNextNode;
+        private bool _skipNextNodeActions = true;
+        private GameObject _currentTravelDestinationNode;
 
         private void Start()
         {
@@ -37,6 +37,13 @@ namespace Assets.Scripts.Npc
             var currentPos = new Vector2(transform.position.x, transform.position.z);
             if ((destination - currentPos).magnitude < _waypointRoundingForNextNode && _waypoints.Count > 0)
             {
+                if (!_skipNextNodeActions)
+                {
+                    ApplyNodeEffects();
+                }
+
+                NavigateToNextWaypoint();
+
                 if (_patrolling)
                 {
                     var point = _waypoints.First();
@@ -48,8 +55,8 @@ namespace Assets.Scripts.Npc
                     _waypoints.Remove(_waypoints.First());
                 }
 
-                ApplyNodeEffects();
-                NavigateToNextWaypoint();
+
+                _skipNextNodeActions = false;
             }
         }
 
@@ -82,11 +89,11 @@ namespace Assets.Scripts.Npc
 
         private void NavigateToNextWaypoint()
         {
-            if (_waypoints.Count > 0)
-            {
-                _navMeshAgent.destination = _waypoints.First().transform.position;
-                CheckIfNextNodeHasEffect(_waypoints.First());
-            }
+            if (_waypoints.Count <= 0) return;
+            
+            _navMeshAgent.destination = _waypoints.First().transform.position;
+            CheckIfNextNodeHasEffect(_waypoints.First());
+            _currentTravelDestinationNode = _waypoints.First();
         }
 
         private GameObject CreateWaypointOnPosition(Vector3 vector3)
@@ -111,8 +118,7 @@ namespace Assets.Scripts.Npc
                 ApplyWaitTimeAtThisNode(waitTimeAtThisNode);
             }
 
-            var triggerEvent = GetBoolVariableFromNextNode("TriggerEvent");
-            if (triggerEvent)
+            if (GetBoolVariableFromNextNode("TriggerEvent"))
             {
                 ApplyTriggerEvent();
             }
@@ -175,6 +181,14 @@ namespace Assets.Scripts.Npc
 
         private void ApplyTriggerEvent()
         {
+            try
+            {
+                _currentTravelDestinationNode.GetComponent<NpcMoveNodeTrigger>().Trigger();
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Could not run trigger: " + e);
+            }
         }
 
         private IEnumerator WaitForTimeAtNode(float time)
