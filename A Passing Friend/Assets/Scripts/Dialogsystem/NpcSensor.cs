@@ -4,7 +4,7 @@ public class NpcSensor : MonoBehaviour
 {
     private UIController _ui;
 
-    private float _interactRange = 2.5f;
+    private const float INTERACT_RANGE = 2.5f;
 
     private Outline _outline;
 

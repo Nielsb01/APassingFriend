@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private DialogBuilder _dialogBuilder;
 
-    private DialogObject chosenDialogOption;
+    private DialogObject _chosenDialogOption;
 
     private int? _currentTextNr = null; // the current number of text in the text list.
 
