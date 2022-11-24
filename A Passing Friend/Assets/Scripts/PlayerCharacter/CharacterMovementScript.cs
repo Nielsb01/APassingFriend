@@ -214,7 +214,7 @@ public class CharacterMovementScript : MonoBehaviour
 
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
-            _isInChargeJumpZone = true;
+            _inClimbingZone = true;
         }
     }
 
@@ -227,7 +227,7 @@ public class CharacterMovementScript : MonoBehaviour
         }
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
-            _isInChargeJumpZone = false;
+            _inClimbingZone = false;
         }
         
     }
@@ -243,7 +243,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnClimb()
     {
-        _characterController.Move(_moveDirection * Time.deltaTime);
+        _characterController.Move(_moveVector * Time.deltaTime);
     }
 
     // Getters for making UI
