@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class UIController : MonoBehaviour
 {
     // UI
+
     // // Dialog
     private GroupBox _interactBox;
 
@@ -25,7 +26,7 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
-    // Dialog Builder
+    // // Dialog Builder
 
     private List<string> _dialogTextList;
 
@@ -58,8 +59,10 @@ public class UIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Set the dialog box invisible when the player is not or no longer in the interaction range of a NPC.
-        // Currently coded for the dialog system, can be easily adapted for items as well.
+        /*
+        Set the dialog box invisible when the player is not or no longer in the interaction range of a NPC.
+        Currently coded for the dialog system, can be easily adapted for items as well.
+        */
 
         if (!_interactBox.visible)
         {
@@ -128,10 +131,8 @@ public class UIController : MonoBehaviour
             SetNpcCamera();
         }
 
-        /*
-         If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
-        */
-
+        
+        //If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
@@ -140,7 +141,7 @@ public class UIController : MonoBehaviour
         else
         {
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
-            if (chosenDialogOption.doesOptionEndConverstation())
+            if (_chosenDialogOption.doesOptionEndConverstation())
             {
                 SetDialogBoxInvisible();
                 ResetDialogue();
@@ -243,8 +244,8 @@ public class UIController : MonoBehaviour
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.getAllDialogObjects();
-        chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-        _dialogTextList = chosenDialogOption.getDialog();
+        _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
+        _dialogTextList = _chosenDialogOption.getDialog();
         _npcName = _dialogBuilder.getNameOfNpc();
         _npcCamera = _dialogBuilder.getNpcCamera();
 
@@ -262,7 +263,7 @@ public class UIController : MonoBehaviour
 
     private void SetDialogCamera()
     {
-        _activeCamera = chosenDialogOption.getDialogCamera();
+        _activeCamera = _chosenDialogOption.getDialogCamera();
         if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Active;

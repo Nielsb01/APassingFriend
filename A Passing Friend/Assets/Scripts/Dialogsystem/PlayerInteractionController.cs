@@ -1,6 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class NpcSensor : MonoBehaviour
+public class PlayerInteractionController : MonoBehaviour
 {
     private UIController _ui;
 
@@ -10,20 +13,17 @@ public class NpcSensor : MonoBehaviour
 
     private DialogBuilder _npcDialogBuilder;
 
-    [SerializeField] private UnityEngine.Camera _mainCam;
-
     [SerializeField] private LayerMask _npcLayerMask;
-
 
     private void Start()
     {
-        _outline = GetComponent<Outline>();
         _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
     }
 
     private void Update()
     {
-        var npcs = Physics.OverlapSphere(transform.position, _interactRange, _npcLayerMask);
+        // Check for NPCs in a Sphere of INTERACT_RANGE range on the layer mask Npc.
+        var npcs = Physics.OverlapSphere(transform.position, INTERACT_RANGE, _npcLayerMask);
         foreach (var npc in npcs)
         {
             _outline = npc.transform.GetComponent<Outline>();
@@ -44,5 +44,10 @@ public class NpcSensor : MonoBehaviour
                 _ui.SetDialogSystemInvisible();
             }
         }
+    }
+
+    private void OnInteract()
+    {
+        _ui.ContinueDialog();
     }
 }
