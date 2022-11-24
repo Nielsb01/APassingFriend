@@ -39,6 +39,9 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _holdingDownJump;
     private float _jumpCharged;
     
+    // Climbing
+    [SerializeField] private bool _inClimbingZone;
+    
     private void Start()
     {
         _doJump = false;
@@ -47,8 +50,15 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        Rotate();
+        if (_inClimbingZone)
+        {
+            OnClimb();
+        }
+        else
+        {
+            Move();
+            Rotate();
+        }
     }
 
     public void OnFreeLook(InputValue value)
@@ -197,7 +207,12 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.transform.tag == "ChargeJumpZone")
+        if (trigger.transform.CompareTag("ChargeJumpZone"))
+        {
+            _isInChargeJumpZone = true;
+        }
+
+        if (trigger.transform.CompareTag("ClimbingZone"))
         {
             _isInChargeJumpZone = true;
         }
@@ -205,11 +220,16 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnTriggerExit(Collider trigger)
     {
-        if (trigger.transform.tag == "ChargeJumpZone")
+        if (trigger.transform.CompareTag("ChargeJumpZone"))
         {
             _isInChargeJumpZone = false;
             resetJumpCharge();
         }
+        if (trigger.transform.CompareTag("ClimbingZone"))
+        {
+            _isInChargeJumpZone = false;
+        }
+        
     }
 
     private void OnJumpFail()
@@ -221,18 +241,23 @@ public class CharacterMovementScript : MonoBehaviour
         _doJump = true;
     }
 
+    private void OnClimb()
+    {
+        _characterController.Move(_moveDirection * Time.deltaTime);
+    }
+
     // Getters for making UI
-    public float getJumpCharged()
+    public float GetJumpCharged()
     {
         return _jumpCharged;
     }
 
-    public float getOverchargeLevel()
+    public float GetOverchargeLevel()
     {
         return _jumpOverchargeValue;
     }
 
-    public bool isInChargeZone()
+    public bool IsInChargeZone()
     {
        return _isInChargeJumpZone;
     }
