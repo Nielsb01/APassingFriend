@@ -298,7 +298,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _data._json
       value: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"NewMovementSpeed","value":{"$content":5.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"RoundingForThisNode","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"RoundingForThisNode","value":{"$content":0.1,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"WaitTimeAtThisNode","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TriggerEvent","value":{"$content":false,"$type":"System.Boolean"},"typeHandle":{"Identification":"System.Boolean,
         mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
@@ -18839,7 +18839,7 @@ MonoBehaviour:
   - {fileID: 857818896}
   - {fileID: 1401632105}
   - {fileID: 881720025}
-  _waypointRounding: 3
+  _defaultWaypointRounding: 0.3
   _patrolling: 1
   _pathNodePrefab: {fileID: 4805259041890650647, guid: aea4369c32319b249b037685469f36cf,
     type: 3}
@@ -27952,7 +27952,7 @@ MonoBehaviour:
   - {fileID: 17108123}
   - {fileID: 241206201}
   - {fileID: 254777975}
-  _waypointRounding: 3
+  _defaultWaypointRounding: 0.3
   _patrolling: 1
   _pathNodePrefab: {fileID: 4805259041890650647, guid: aea4369c32319b249b037685469f36cf,
     type: 3}
