@@ -28,11 +28,11 @@ Transform:
   m_GameObject: {fileID: 8187029252678950357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.062, y: 0.281, z: 70.392}
-  m_LocalScale: {x: 0.3160542, y: 0.3160542, z: 0.3160542}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4062469763898294229
 MeshFilter:
