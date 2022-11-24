@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,12 @@ namespace Camera
         [SerializeField] private CinemachineVirtualCamera _tailCam;
         [SerializeField] private CinemachineVirtualCamera _pointOfViewCam;
         [SerializeField] private CinemachineFreeLook _freeLookCam;
+        private CharacterMovementScript _characterMovementScript;
+
+        private void Start()
+        {
+            _characterMovementScript = GetComponent<CharacterMovementScript>();
+        }
 
         public void ActivateTailCam()
         {
@@ -32,6 +39,7 @@ namespace Camera
         {
             _faceCam.Priority = (int)CameraState.Inactive;
         }
+
         public void ActivatePovCam()
         {
             CamErrorHandler.ThrowErrorIfCamIsNotSet(_pointOfViewCam);
@@ -60,6 +68,19 @@ namespace Camera
                 _freeLookCam.m_YAxisRecentering.RecenterNow();
                 _freeLookCam.m_RecenterToTargetHeading.RecenterNow();
             }
+        }
+
+        public void LockOrientation(float orientation)
+        {
+            var newRotation = transform.eulerAngles;
+            newRotation.y = orientation;
+            transform.Rotate(newRotation);
+            _characterMovementScript.rotationFrozenDueToSpecialArea = true;
+        }
+
+        public void UnlockOrientation()
+        {
+            _characterMovementScript.rotationFrozenDueToSpecialArea = false;
         }
     }
 }
