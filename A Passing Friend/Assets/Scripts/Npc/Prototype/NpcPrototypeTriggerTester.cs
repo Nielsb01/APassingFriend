@@ -1,4 +1,3 @@
-using System;
 using Npc;
 using UnityEngine;
 using Random = UnityEngine.Random;
