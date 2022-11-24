@@ -143,9 +143,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        GetComponent<CharacterController>().enabled = false;
+        _characterController.enabled = false;
         this.transform.position = data.PlayerLocation;
-        GetComponent<CharacterController>().enabled = true;
+        _characterController.enabled = true;
     }
 
     public void SaveData(ref GameData data)

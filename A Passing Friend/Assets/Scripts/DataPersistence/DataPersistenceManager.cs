@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private string _filename;
+    [SerializeField] private string _dirPath = "C:\\temp";
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
@@ -22,7 +23,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        this._fileDataHandler = new FileDataHandler("D:\\", _filename);
+        this._fileDataHandler = new FileDataHandler(_dirPath, _filename);
         this._dataPersistenceOpjects = GetAllDataPersistenceObjects();
         LoadGame();
     }
