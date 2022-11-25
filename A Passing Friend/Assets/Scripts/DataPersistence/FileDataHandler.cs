@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FileDataHandler
 {
-    private string _dataDirPath = string.Empty;
-    private string _dataFileName = string.Empty;
+    private string _dataDirPath;
+    private string _dataFileName;
     private string _fullPath = string.Empty;
 
     public FileDataHandler(string dataDirPath, string dataFileName)
