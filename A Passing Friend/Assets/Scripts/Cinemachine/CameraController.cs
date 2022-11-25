@@ -70,11 +70,38 @@ namespace Camera
             }
         }
 
-        public void LockOrientation(float orientation)
+        public void LockOrientation(float targetOrientation, bool allowMirroredDirectionLock)
         {
-            var newRotation = transform.eulerAngles;
-            newRotation.y = orientation;
-            transform.Rotate(newRotation);
+            if (!allowMirroredDirectionLock)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
+                return;
+            }
+
+            var playerOrientation = transform.rotation.eulerAngles.y;
+            if (playerOrientation is > 90 and < 270 && targetOrientation is > 90 and < 270)
+            {
+                if (playerOrientation - targetOrientation < 90)
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation - 180, 0));
+                }
+            }
+            else
+            {
+                if (playerOrientation - targetOrientation > 270 || playerOrientation - targetOrientation < 90)
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation - 180, 0));
+                }
+            }
+
             _characterMovementScript.rotationFrozenDueToSpecialArea = true;
         }
 

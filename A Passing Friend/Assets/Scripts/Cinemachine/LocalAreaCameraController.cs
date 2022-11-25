@@ -7,6 +7,7 @@ namespace Camera
     {
         [SerializeField] private CinemachineVirtualCamera _virtualCamera;
         [SerializeField] private float _lockOrientation = -1;
+        [SerializeField] private bool _allowMirroredDirectionLock = true;
         private CameraController _cameraController;
         
 
@@ -19,7 +20,7 @@ namespace Camera
             _cameraController = cameraController;
             if (_lockOrientation > -1)
             {
-                _cameraController.LockOrientation(_lockOrientation);
+                _cameraController.LockOrientation(_lockOrientation, _allowMirroredDirectionLock);
             }
         }
 

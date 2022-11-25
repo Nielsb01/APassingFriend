@@ -39,7 +39,7 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
     private float _jumpCharged;
-    
+
     private void Start()
     {
         _doJump = false;
@@ -90,6 +90,7 @@ public class CharacterMovementScript : MonoBehaviour
             {
                 _moveDirection.y = _jumpSpeed;
             }
+
             _doJump = false;
         }
         else if (_characterController.isGrounded)
@@ -235,6 +236,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool isInChargeZone()
     {
-       return _isInChargeJumpZone;
+        return _isInChargeJumpZone;
     }
 }
