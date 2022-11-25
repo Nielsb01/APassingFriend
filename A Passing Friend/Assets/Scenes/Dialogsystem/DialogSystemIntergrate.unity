@@ -842,17 +842,17 @@ PrefabInstance:
     - target: {fileID: 429239325920329678, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879012
+      value: 0.14879014
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019071978
+      value: 0.000000019071978
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000002516744
+      value: -0.000000002516744
       objectReference: {fileID: 0}
     - target: {fileID: 429239326883995322, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
@@ -1319,11 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e273d052a8802b64aad4ba66d143c1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ui: {fileID: 0}
-  _outline: {fileID: 0}
-  _npcDialogBuilder: {fileID: 0}
-  _npcLayerMask:
-    m_Bits: 8192
 --- !u!4 &650189637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1527812422064048396, guid: c6629a9edf638084488df3e857a987f8,
@@ -1952,6 +1947,16 @@ PrefabInstance:
       propertyPath: m_LookAt
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8881215762036347287, guid: 1d81beddd7783a84d9a31e81d1007208,
+        type: 3}
+      propertyPath: _eventCameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881215762036347287, guid: 1d81beddd7783a84d9a31e81d1007208,
+        type: 3}
+      propertyPath: _eventCameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 946777855}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 781010857554193871, guid: 1d81beddd7783a84d9a31e81d1007208,
@@ -3822,6 +3827,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8881215762036347287, guid: 1d81beddd7783a84d9a31e81d1007208,
+        type: 3}
+      propertyPath: _dialogTextFile
+      value: 
+      objectReference: {fileID: 4900000, guid: e7370b7e414609644b6befb81a944253, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 781010857554193871, guid: 1d81beddd7783a84d9a31e81d1007208,
@@ -4786,7 +4796,7 @@ PrefabInstance:
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879014
+      value: 0.14879015
       objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
