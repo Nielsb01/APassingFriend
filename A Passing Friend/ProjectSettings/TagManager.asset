@@ -9,6 +9,8 @@ TagManager:
   - SideToSideCamOverflowTrigger
   - RightSideCamTrigger
   - LeftSideCamTrigger
+  - ChargeJumpZone
+  - ClimbingZone
   layers:
   - Default
   - TransparentFX

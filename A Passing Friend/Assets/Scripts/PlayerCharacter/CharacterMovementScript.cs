@@ -38,7 +38,7 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
     private float _jumpCharged;
-    
+
     // Climbing
     [SerializeField] private bool _inClimbingZone;
     
@@ -228,6 +228,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
             _inClimbingZone = false;
+            PreformSmallJump(0.1f);
         }
         
     }
@@ -236,14 +237,20 @@ public class CharacterMovementScript : MonoBehaviour
     {
         // TODO implement funny cat animations
         print("Jump failed :(");
-        _moveDirection.y = _failjumpSpeed;
-        _velocityY += _failjumpSpeed;
+        PreformSmallJump(_failjumpSpeed);
         _doJump = true;
     }
 
     private void OnClimb()
     {
-        _characterController.Move(_moveVector * Time.deltaTime);
+        _characterController.Move(new Vector3(0,_moveVector.y,_moveVector.x) * Time.deltaTime);
+        
+    }
+
+    private void PreformSmallJump(float jumpPower)
+    {
+        _moveDirection.y = jumpPower;
+        _velocityY += jumpPower;
     }
 
     // Getters for making UI
