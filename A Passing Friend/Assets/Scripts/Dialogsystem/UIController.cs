@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
 {
     // UI
 
-    // // Dialog
+    // // Dialog UI
     private GroupBox _interactBox;
 
     private VisualElement _dialogBox;
@@ -44,6 +44,10 @@ public class UIController : MonoBehaviour
 
     private CinemachineVirtualCamera _npcCamera;
 
+    // SCREEN
+    [SerializeField] private int _lastScreenWidth;
+    [SerializeField] private int _lastScreenHeight;
+
     private void Start()
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
@@ -55,6 +59,11 @@ public class UIController : MonoBehaviour
         _dialogBoxChoices = _root.Q<GroupBox>("dialog-box-choices");
         _dialogBox.visible = false;
         _interactBox.visible = false;
+
+        _lastScreenWidth = Screen.width;
+        _lastScreenHeight = Screen.height;
+
+        ChangeFontDynamically();
     }
 
     private void FixedUpdate()
@@ -77,6 +86,8 @@ public class UIController : MonoBehaviour
 
             return;
         }
+
+        CheckForScreenResolutionChanges();
     }
 
     // Set the dialog system visible.
@@ -121,7 +132,8 @@ public class UIController : MonoBehaviour
             if (_dialogBuilder.getAllDialogObjects().Count != 1)
             {
                 ShowDialogChoices();
-            } else
+            }
+            else
             {
                 _choiceClicked = 0;
                 SetDialogWithChoice();
@@ -131,7 +143,7 @@ public class UIController : MonoBehaviour
             SetNpcCamera();
         }
 
-        
+
         //If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
@@ -158,7 +170,8 @@ public class UIController : MonoBehaviour
                 if (_dialogBuilder.getAllDialogObjects().Count != 1)
                 {
                     ShowDialogChoices();
-                } else
+                }
+                else
                 {
                     // If the option does not end conversation ánd there is but one dialog option, reset dialogue.
                     _choiceClicked = 0;
@@ -175,10 +188,15 @@ public class UIController : MonoBehaviour
         _dialogBox.visible = true;
         _dialogBoxChoices.visible = true;
 
+        ChangeFontDynamically();
+
         var counter = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
-            _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].visible = true;
+            //_dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].text = "Placeholder";
+
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
@@ -194,6 +212,7 @@ public class UIController : MonoBehaviour
         SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
+            dialogButton.visible = false;
             dialogButton.SetEnabled(false);
         }
         Button button = tab.target as Button;
@@ -237,6 +256,13 @@ public class UIController : MonoBehaviour
             _dialogBoxChoiceButtons.Add(_root.Q<Button>("dialog-box-choice-button-" + counter));
             counter++;
         }
+        foreach (var dialogButton in _dialogBoxChoiceButtons)
+        {
+            dialogButton.visible = false;
+            dialogButton.SetEnabled(false);
+        }
+
+        ChangeButtonFontDynamically();
 
     }
 
@@ -249,6 +275,74 @@ public class UIController : MonoBehaviour
         _npcName = _dialogBuilder.getNameOfNpc();
         _npcCamera = _dialogBuilder.getNpcCamera();
 
+    }
+
+    // Check if the screen resolution changes.
+    private void CheckForScreenResolutionChanges()
+    {
+        if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
+        {
+            _lastScreenWidth = Screen.width;
+            _lastScreenHeight = Screen.height;
+
+            ChangeFontDynamically();
+        }
+    }
+
+    // Change the font size so it looks/feels dynamic.
+    private void ChangeFontDynamically()
+    {
+        // Full HD
+        if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
+        {
+            _dialogBoxCharName.style.fontSize = 35;
+            _dialogBoxText.style.fontSize = 50;
+        }
+        // WXGA
+        if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
+        {
+            _dialogBoxCharName.style.fontSize = 25;
+            _dialogBoxText.style.fontSize = 30;
+        }
+        // QHD
+        if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
+        {
+            _dialogBoxCharName.style.fontSize = 50;
+            _dialogBoxText.style.fontSize = 70;
+        }
+        // 4K UHD
+        if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
+        {
+            _dialogBoxCharName.style.fontSize = 70;
+            _dialogBoxText.style.fontSize = 80;
+        }
+    }
+
+    private void ChangeButtonFontDynamically()
+    {
+        foreach (var dialogButton in _dialogBoxChoiceButtons)
+        {
+            // Full HD
+            if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
+            {
+                dialogButton.style.fontSize = 40;
+            }
+            // WXGA
+            if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
+            {
+                dialogButton.style.fontSize = 30;
+            }
+            // QHD
+            if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
+            {
+                dialogButton.style.fontSize = 50;
+            }
+            // 4K UHD
+            if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
+            {
+                dialogButton.style.fontSize = 50;
+            }
+        }
     }
 
     private void SetNpcCamera()
