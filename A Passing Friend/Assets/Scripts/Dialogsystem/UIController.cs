@@ -64,6 +64,7 @@ public class UIController : MonoBehaviour
         _lastScreenHeight = Screen.height;
 
         ChangeFontDynamically();
+        ChangeButtonFontDynamically();
     }
 
     private void FixedUpdate()
@@ -109,6 +110,11 @@ public class UIController : MonoBehaviour
         _dialogBox.visible = false;
         _dialogBoxChoices.visible = false;
         _dialogBoxDialog.visible = false;
+
+        foreach (var dialogButton in _dialogBoxChoiceButtons)
+        {
+            dialogButton.visible = false;
+        }
     }
 
     // Cycle through the dialog.
@@ -189,6 +195,7 @@ public class UIController : MonoBehaviour
         _dialogBoxChoices.visible = true;
 
         ChangeFontDynamically();
+        ChangeButtonFontDynamically();
 
         var counter = 0;
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
@@ -286,6 +293,7 @@ public class UIController : MonoBehaviour
             _lastScreenHeight = Screen.height;
 
             ChangeFontDynamically();
+            ChangeButtonFontDynamically();
         }
     }
 
@@ -320,27 +328,30 @@ public class UIController : MonoBehaviour
 
     private void ChangeButtonFontDynamically()
     {
-        foreach (var dialogButton in _dialogBoxChoiceButtons)
+        if (_dialogBoxChoiceButtons != null)
         {
-            // Full HD
-            if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
+            foreach (var dialogButton in _dialogBoxChoiceButtons)
             {
-                dialogButton.style.fontSize = 40;
-            }
-            // WXGA
-            if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
-            {
-                dialogButton.style.fontSize = 30;
-            }
-            // QHD
-            if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
-            {
-                dialogButton.style.fontSize = 50;
-            }
-            // 4K UHD
-            if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
-            {
-                dialogButton.style.fontSize = 50;
+                // Full HD
+                if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
+                {
+                    dialogButton.style.fontSize = 30;
+                }
+                // WXGA
+                if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
+                {
+                    dialogButton.style.fontSize = 20;
+                }
+                // QHD
+                if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
+                {
+                    dialogButton.style.fontSize = 50;
+                }
+                // 4K UHD
+                if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
+                {
+                    dialogButton.style.fontSize = 70;
+                }
             }
         }
     }
