@@ -26,7 +26,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private const float CHECK_VALUE = 0.1f;
 
-    void Start()
+    void Awake()
     {
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
