@@ -11,9 +11,9 @@ public class CalculateLightDamage : MonoBehaviour
     [SerializeField] private GameObject _lightCheckScriptGameObject;
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _minHealth = 0;
-    [SerializeField] private float damagePerFrame = 1;
-    [SerializeField] private int _regenerationMultiplier = 5;
+    [SerializeField] private float _damagePerFrame = 1;
     [SerializeField] private int _lightToDamageThreshold = 3;
+    [SerializeField] private int _regenerationMultiplier = 5;
     [SerializeField] private int _lightToHealingThreshold;
 
     private bool _calculateLight;
@@ -49,7 +49,7 @@ public class CalculateLightDamage : MonoBehaviour
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
-            _health -= (int)Math.Round(damagePerFrame);
+            _health -= (int)Math.Round(_damagePerFrame);
             _health = _health < _minHealth ? _minHealth : _health;
         }
 
