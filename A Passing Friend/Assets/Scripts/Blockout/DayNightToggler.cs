@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class DayNightToggler : MonoBehaviour
 {
-    public GameObject directionalLight;
-    public float dayRotation;
-    public float nightRotation;
-    public List<GameObject> lights;
-    private bool isDay;
+    [SerializeField] private GameObject directionalLight;
+    [SerializeField] private float dayRotation;
+    [SerializeField] private float nightRotation;
+    [SerializeField] private List<GameObject> lights;
+    private bool _isDay;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // start 
-        isDay = false;
+        // ensure that level starts in day time
+        _isDay = false;
         ToggleDayNight();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -29,15 +27,15 @@ public class DayNightToggler : MonoBehaviour
 
     private void ToggleDayNight()
     {
-        if (isDay)
+        if (_isDay)
         {
             ToNight();
-            isDay = false;
+            _isDay = false;
         }
         else
         {
             ToDay();
-            isDay = true;
+            _isDay = true;
         }
     }
 
@@ -56,7 +54,6 @@ public class DayNightToggler : MonoBehaviour
         {
             light.gameObject.SetActive(false);
         }
-
         directionalLight.transform.rotation = Quaternion.Euler(dayRotation, 90f, directionalLight.transform.rotation.z);
     }
 }
