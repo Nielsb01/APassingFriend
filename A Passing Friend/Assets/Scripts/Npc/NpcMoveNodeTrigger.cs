@@ -15,7 +15,7 @@ namespace Npc
                 throw new Exception("A trigger node needs one or more trigger scripts.");
             }
 
-            _triggerScripts.ForEach(script => { script.ExecuteTrigger(); });
+            _triggerScripts.ForEach(script => script.ExecuteTrigger());
         }
     }
 }
