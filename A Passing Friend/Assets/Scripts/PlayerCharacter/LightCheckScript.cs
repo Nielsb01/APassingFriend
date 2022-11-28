@@ -36,6 +36,11 @@ public class LightCheckScript : MonoBehaviour
             GetPixelsFromTexture(_forwardLightCheckTexture),
             GetPixelsFromTexture(_backwardLightCheckTexture)
         };
+        
+        // Debug.Log("Left: " + lightLevels[0]);
+        // Debug.Log("Right: " + lightLevels[1]);
+        // Debug.Log("Forward: " + lightLevels[2]);
+        // Debug.Log("Backward: " + lightLevels[3]);
 
         var average = lightLevels.Average();
 
@@ -56,11 +61,12 @@ public class LightCheckScript : MonoBehaviour
         RenderTexture.active = previous;
         RenderTexture.ReleaseTemporary(tmpTexture);
 
-        var pixels = _tmp2DTexture.GetPixels32();
-
+        var pixels = _tmp2DTexture.GetPixels32(3).ToList();
+        // pixels.RemoveAll(f => f.r == 0 && f.g == 0 && f.b == 0);
+        
         // Wikipedia contributors. (2021, 3 november). Relative luminance. Wikipedia. https://en.wikipedia.org/wiki/Relative_luminance#:~:text=Relative%20luminance%20and%20%22gamma%20encoded%22%20colorspaces%5Bedit%5D
         var totalLuminance = pixels.Sum(pixel => 0.2126f * pixel.r + 0.7152f * pixel.g + 0.0722f * pixel.b);
 
-        return totalLuminance / pixels.Length;
+        return totalLuminance / pixels.Count;
     }
 }
