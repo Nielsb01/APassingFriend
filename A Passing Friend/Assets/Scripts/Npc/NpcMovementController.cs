@@ -146,7 +146,7 @@ namespace Npc
 
         private float GetFloatVariableFromNextNode(string variableName)
         {
-            return (float)(_variables.Get(variableName) ?? 0.1f);
+            return (float)(_variables.Get(variableName) ?? MINIMUM_ROUNDING);
         }
 
         private bool GetBoolVariableFromNextNode(string variableName)

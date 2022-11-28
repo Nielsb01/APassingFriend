@@ -27952,7 +27952,7 @@ MonoBehaviour:
   - {fileID: 17108123}
   - {fileID: 241206201}
   - {fileID: 254777975}
-  _defaultWaypointRounding: 0.3
+  _defaultWaypointRounding: 3
   _patrolling: 1
   _pathNodePrefab: {fileID: 4805259041890650647, guid: aea4369c32319b249b037685469f36cf,
     type: 3}

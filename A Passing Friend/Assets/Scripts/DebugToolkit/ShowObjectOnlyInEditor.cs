@@ -1,17 +1,18 @@
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DebugToolkit
 {
     [ExecuteInEditMode]
     public class ShowObjectOnlyInEditor : MonoBehaviour
     {
-        [SerializeField] private Material defaultNodeMaterial;
-        [SerializeField] private Material triggerNodeMaterial;
-        [SerializeField] private Material speedChangeNodeMaterial;
-        [SerializeField] private Material waitNodeMaterial;
-        [SerializeField] private Material customRoundingNodeMaterial;
+        [SerializeField] private Material _defaultNodeMaterial;
+        [SerializeField] private Material _triggerNodeMaterial;
+        [SerializeField] private Material _speedChangeNodeMaterial;
+        [SerializeField] private Material _waitNodeMaterial;
+        [SerializeField] private Material _customRoundingNodeMaterial;
         private Renderer _renderer;
 
         public void OnValidate()
@@ -36,23 +37,23 @@ namespace DebugToolkit
         {
             if ((bool)GetComponent<Variables>().declarations.Get("TriggerEvent"))
             {
-                _renderer.material = triggerNodeMaterial;
+                _renderer.material = _triggerNodeMaterial;
             }
             else if ((float)GetComponent<Variables>().declarations.Get("WaitTimeAtThisNode") > 0)
             {
-                _renderer.material = waitNodeMaterial;
+                _renderer.material = _waitNodeMaterial;
             }
             else if ((float)GetComponent<Variables>().declarations.Get("NewMovementSpeed") > 0)
             {
-                _renderer.material = speedChangeNodeMaterial;
+                _renderer.material = _speedChangeNodeMaterial;
             }
             else if ((float)GetComponent<Variables>().declarations.Get("RoundingForThisNode") > 0)
             {
-                _renderer.material = customRoundingNodeMaterial;
+                _renderer.material = _customRoundingNodeMaterial;
             }
             else
             {
-                _renderer.material = defaultNodeMaterial;
+                _renderer.material = _defaultNodeMaterial;
             }
         }
     }
