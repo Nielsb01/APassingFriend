@@ -1,23 +1,21 @@
 using System;
 using System.Collections.Generic;
-using Npc;
 using UnityEngine;
 
-public class NpcMoveNodeTrigger : MonoBehaviour
+namespace Npc
 {
-    [SerializeField] private List<MonoBehaviour> _triggerScripts;
-
-    public void Trigger()
+    public class NpcMoveNodeTrigger : MonoBehaviour
     {
-        if (_triggerScripts.Count == 0)
-        {
-            throw new Exception("A trigger node needs one or more trigger scripts.");
-        }
+        [SerializeField] private List<TriggerScript> _triggerScripts;
 
-        _triggerScripts.ForEach(script =>
+        public void Trigger()
         {
-            var script2 = (ITriggerScript)script;
-            script2.ExecuteTrigger();
-        });
+            if (_triggerScripts.Count == 0)
+            {
+                throw new Exception("A trigger node needs one or more trigger scripts.");
+            }
+
+            _triggerScripts.ForEach(script => { script.ExecuteTrigger(); });
+        }
     }
 }

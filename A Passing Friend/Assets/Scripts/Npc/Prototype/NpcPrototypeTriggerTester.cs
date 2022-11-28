@@ -1,11 +1,13 @@
-using Npc;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class NpcPrototypeTriggerTester :  MonoBehaviour, ITriggerScript
+namespace Npc.Prototype
 {
-    public void ExecuteTrigger()
+    public class NpcPrototypeTriggerTester :  TriggerScript
     {
-        GetComponent<Renderer>().material.color = Random.ColorHSV();
+         
+        public override void ExecuteTrigger()
+        {
+            GetComponent<Renderer>().material.color = Random.ColorHSV();
+        }
     }
 }

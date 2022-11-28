@@ -9626,6 +9626,11 @@ PrefabInstance:
       propertyPath: _triggerScripts.Array.data[1]
       value: 
       objectReference: {fileID: 1824496198}
+    - target: {fileID: 7748937593120036205, guid: aea4369c32319b249b037685469f36cf,
+        type: 3}
+      propertyPath: _triggerScripts.Array.data[2]
+      value: 
+      objectReference: {fileID: 152707028}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: aea4369c32319b249b037685469f36cf, type: 3}
