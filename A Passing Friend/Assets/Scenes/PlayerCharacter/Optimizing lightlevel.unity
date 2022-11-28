@@ -1516,6 +1516,36 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b48dc27d46de7044283d8d4e59d8ddbe, type: 2}
+    - target: {fileID: 3648689827853525140, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648689827853525140, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _acceleration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648689827853525140, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _deceleration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6966172918534732439, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: damageMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6966172918534732439, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: damageReductionMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6966172918534732439, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _lightCheckScriptGameObject
+      value: 
+      objectReference: {fileID: 1874164042}
     - target: {fileID: 7958723150283605444, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_IsActive
@@ -2140,6 +2170,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867722298}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1874164042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 478993901623565424, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 80779100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1897555817
 GameObject:
   m_ObjectHideFlags: 0
@@ -3399,12 +3435,12 @@ PrefabInstance:
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.23447204
+      value: 0.23447205
       objectReference: {fileID: 0}
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.2603792
+      value: -0.26037917
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
