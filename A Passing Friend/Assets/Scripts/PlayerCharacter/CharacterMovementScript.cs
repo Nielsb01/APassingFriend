@@ -40,7 +40,7 @@ public class CharacterMovementScript : MonoBehaviour
     private float _jumpCharged;
 
     // Climbing
-    [SerializeField] private bool _inClimbingZone;
+    private bool _inClimbingZone;
     private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     
     private void Start()
@@ -53,7 +53,7 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_inClimbingZone)
         {
-            OnClimb();
+            Climb();
         }
         else
         {
@@ -242,7 +242,7 @@ public class CharacterMovementScript : MonoBehaviour
         _doJump = true;
     }
 
-    private void OnClimb()
+    private void Climb()
     {
         _characterController.Move(new Vector3(0,_moveVector.y,_moveVector.x) * Time.deltaTime);
         
