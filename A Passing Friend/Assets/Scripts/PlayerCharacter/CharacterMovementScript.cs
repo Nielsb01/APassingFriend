@@ -42,7 +42,8 @@ public class CharacterMovementScript : MonoBehaviour
     // Climbing
     private bool _inClimbingZone;
     private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
-    
+    private static bool _canClimb = true;
+
     private void Start()
     {
         _doJump = false;
@@ -51,7 +52,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_inClimbingZone)
+        if (_inClimbingZone && _canClimb)
         {
             Climb();
         }
@@ -60,6 +61,9 @@ public class CharacterMovementScript : MonoBehaviour
             Move();
             Rotate();
         }
+        
+        CheckCanClimb();
+        
     }
 
     public void OnFreeLook(InputValue value)
@@ -186,6 +190,11 @@ public class CharacterMovementScript : MonoBehaviour
                 _doJump = true;
             }
         }
+
+        if (_inClimbingZone)
+        {
+            _canClimb = false;
+        }
     }
 
     private void OnJumpRelease()
@@ -216,6 +225,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
             _inClimbingZone = true;
+           MakePlayerFacingWall();
         }
     }
 
@@ -233,7 +243,6 @@ public class CharacterMovementScript : MonoBehaviour
         }
         
     }
-
     private void OnJumpFail()
     {
         // TODO implement funny cat animations
@@ -242,10 +251,43 @@ public class CharacterMovementScript : MonoBehaviour
         _doJump = true;
     }
 
+    private void CheckCanClimb()
+    {
+        if (_canClimb) return;
+        if (_characterController.isGrounded)
+        {
+            _canClimb = true;
+            //Resetting movement direction so the cat won't get slammed into the floor 
+            _moveDirection.y = 0;
+            MakePlayerFacingWall();
+        }
+    }
+
     private void Climb()
     {
-        _characterController.Move(new Vector3(0,_moveVector.y,_moveVector.x) * Time.deltaTime);
-        
+        Vector3 climbingMovementDirection = new Vector3(_moveVector.x, _moveVector.y, 0);
+        _characterController.Move(transform.TransformDirection(climbingMovementDirection * Time.deltaTime));
+        // If the character is grounded and we press backward, we want to call the normal move to exit the climb zone.
+        if (_characterController.isGrounded && _moveVector.y <= -1)
+        {
+            Move();
+        }
+    }
+    private void MakePlayerFacingWall()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward,out hit))
+        {
+            if (hit.transform.CompareTag("ClimbingZone"))
+            {
+                transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
+            }
+            else
+            {
+                // if the player isn't looking at the wall anymore exit climbing
+                _inClimbingZone = false;
+            }
+        }
     }
     // This jumped is preformed when failing a jump, but also when exiting a climb zone.
     private void PreformSmallJump(float jumpPower)
