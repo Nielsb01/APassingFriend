@@ -41,6 +41,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     // Climbing
     [SerializeField] private bool _inClimbingZone;
+    private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     
     private void Start()
     {
@@ -228,7 +229,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
             _inClimbingZone = false;
-            PreformSmallJump(0.1f);
+            PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
         }
         
     }
@@ -246,7 +247,7 @@ public class CharacterMovementScript : MonoBehaviour
         _characterController.Move(new Vector3(0,_moveVector.y,_moveVector.x) * Time.deltaTime);
         
     }
-
+    // This jumped is preformed when failing a jump, but also when exiting a climb zone.
     private void PreformSmallJump(float jumpPower)
     {
         _moveDirection.y = jumpPower;
