@@ -50,8 +50,7 @@ namespace Camera
         {
             _pointOfViewCam.Priority = (int)CameraState.Inactive;
         }
-
-
+        
         public void OnFreeLook(InputValue value)
         {
             if (value.isPressed)
@@ -72,6 +71,7 @@ namespace Camera
 
         public void LockOrientation(float targetOrientation, bool allowMirroredDirectionLock)
         {
+            _characterMovementScript.rotationFrozenDueToSpecialArea = true;
             if (!allowMirroredDirectionLock)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
@@ -101,8 +101,6 @@ namespace Camera
                     transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation - 180, 0));
                 }
             }
-
-            _characterMovementScript.rotationFrozenDueToSpecialArea = true;
         }
 
         public void UnlockOrientation()
