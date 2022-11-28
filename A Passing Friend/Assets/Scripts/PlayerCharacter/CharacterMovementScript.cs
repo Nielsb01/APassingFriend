@@ -26,7 +26,8 @@ public class CharacterMovementScript : MonoBehaviour
     private Vector2 _rotation;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
-    private bool _rotationFrozen;
+    private bool _rotationFrozenDueToFreeLook;
+    public bool rotationFrozenDueToSpecialArea;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -38,12 +39,12 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
     private float _jumpCharged;
-
+    
     // Climbing
     private bool _inClimbingZone;
     private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     private static bool _canClimb = true;
-
+    
     private void Start()
     {
         _doJump = false;
@@ -68,7 +69,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     public void OnFreeLook(InputValue value)
     {
-        _rotationFrozen = value.isPressed;
+        _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
@@ -79,7 +80,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void Rotate()
     {
-        if (_rotationFrozen) return;
+        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -104,6 +105,7 @@ public class CharacterMovementScript : MonoBehaviour
             {
                 _moveDirection.y = _jumpSpeed;
             }
+
             _doJump = false;
         }
         else if (_characterController.isGrounded)
@@ -309,6 +311,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool IsInChargeZone()
     {
-       return _isInChargeJumpZone;
+        return _isInChargeJumpZone;
     }
 }
