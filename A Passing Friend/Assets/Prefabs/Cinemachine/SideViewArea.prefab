@@ -343,4 +343,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f6fb4825157e9409ece8f7e6fcbe97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 1527812422214361151}
+  _virtualCamera: {fileID: 1527812422214361151}
+  _lockOrientation: -1
