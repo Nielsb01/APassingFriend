@@ -24,11 +24,14 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _doJump;
     private bool _rotationFrozen;
 
+    [SerializeField] private bool _movementImpaired;
+
     private const float CHECK_VALUE = 0.1f;
 
     void Start()
     {
         _doJump = false;
+        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -127,15 +130,25 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
+    public void SetMovementImpaired(bool movementImpaired, bool rotationFrozen)
+    {
+        _movementImpaired = movementImpaired;
+        _rotationFrozen = rotationFrozen;
+    }
+
 
     private void OnMove(InputValue inputValue)
     {
-        _moveVector = inputValue.Get<Vector2>();
+        if (!_movementImpaired)
+        {
+            _moveVector = inputValue.Get<Vector2>();
+        }
+
     }
 
     private void OnJump()
     {
-        if (_characterController.isGrounded)
+        if (_characterController.isGrounded && !_movementImpaired)
         {
             _doJump = true;
         }

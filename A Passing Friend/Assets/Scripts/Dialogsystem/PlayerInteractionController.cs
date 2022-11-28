@@ -15,6 +15,12 @@ public class PlayerInteractionController : MonoBehaviour
 
     [SerializeField] private LayerMask _npcLayerMask;
 
+    [SerializeField] private FieldOfView playerFov;
+
+
+
+    
+
     private void Start()
     {
         _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
@@ -22,32 +28,34 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-        // Check for NPCs in a Sphere of INTERACT_RANGE range on the layer mask Npc.
-        var npcs = Physics.OverlapSphere(transform.position, INTERACT_RANGE, _npcLayerMask);
-        foreach (var npc in npcs)
+        if (playerFov.CanSeeTarget)
         {
-            _outline = npc.transform.GetComponent<Outline>();
-            _npcDialogBuilder = npc.transform.GetComponent<DialogBuilder>();
+            _outline = playerFov.TargetRef.transform.GetComponent<Outline>();
+            _npcDialogBuilder = playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
+
 
         if (_outline != null)
         {
-            if (npcs.Length > 0 && !_outline.enabled)
+            if (playerFov.CanSeeTarget && !_outline.enabled)
             {
                 _outline.enabled = true;
                 _ui.SetDialogSystemVisible();
                 _ui.SetDialogBuilder(_npcDialogBuilder);
             }
-            else if (npcs.Length <= 0 && _outline.enabled)
+            else if (!playerFov.CanSeeTarget && _outline.enabled)
             {
                 _outline.enabled = false;
                 _ui.SetDialogSystemInvisible();
             }
         }
     }
-
-    private void OnInteract()
+   private void OnInteract()
     {
-        _ui.ContinueDialog();
+        if (playerFov.CanSeeTarget)
+        {
+            _ui.ContinueDialog();
+        }
+
     }
 }

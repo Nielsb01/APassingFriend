@@ -18,6 +18,8 @@ public class UIController : MonoBehaviour
 
     private Label _dialogBoxCharName;
 
+    private Label _dialogBoxIntroText;
+
     private Label _dialogBoxText;
 
     private GroupBox _dialogBoxChoices;
@@ -25,6 +27,8 @@ public class UIController : MonoBehaviour
     private List<Button> _dialogBoxChoiceButtons = new List<Button>();
 
     private VisualElement _root;
+
+    private Button _dialogBoxExitButton;
 
     // // Dialog Builder
 
@@ -44,6 +48,9 @@ public class UIController : MonoBehaviour
 
     private CinemachineVirtualCamera _npcCamera;
 
+    // Character Movement
+    [SerializeField] CharacterMovementScript characterMovementScript;
+
     // SCREEN
     [SerializeField] private int _lastScreenWidth;
     [SerializeField] private int _lastScreenHeight;
@@ -55,8 +62,10 @@ public class UIController : MonoBehaviour
         _dialogBox = _root.Q<VisualElement>("dialog-box");
         _dialogBoxDialog = _root.Q<GroupBox>("dialog-box-dialog");
         _dialogBoxCharName = _root.Q<Label>("dialog-box-char-name");
+        _dialogBoxIntroText = _root.Q<Label>("dialog-box-intro-text");
         _dialogBoxText = _root.Q<Label>("dialog-box-text");
         _dialogBoxChoices = _root.Q<GroupBox>("dialog-box-choices");
+        _dialogBoxExitButton = _root.Q<Button>("dialog-box-exit-button");
         _dialogBox.visible = false;
         _interactBox.visible = false;
 
@@ -111,6 +120,8 @@ public class UIController : MonoBehaviour
         _dialogBoxChoices.visible = false;
         _dialogBoxDialog.visible = false;
 
+        _dialogBoxExitButton.SetEnabled(false);
+
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.visible = false;
@@ -133,7 +144,11 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
+            characterMovementScript.SetMovementImpaired(true, true);
+
             _dialogBox.visible = true;
+            _dialogBoxExitButton.SetEnabled(true);
+            _dialogBoxExitButton.clickable.clickedWithEventInfo += ClickedDialogBoxExitButton;
 
             if (_dialogBuilder.getAllDialogObjects().Count != 1)
             {
@@ -161,6 +176,8 @@ public class UIController : MonoBehaviour
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
             if (_chosenDialogOption.doesOptionEndConverstation())
             {
+                characterMovementScript.SetMovementImpaired(false, false);
+
                 SetDialogBoxInvisible();
                 ResetDialogue();
                 UnsetDialogCamera();
@@ -188,6 +205,17 @@ public class UIController : MonoBehaviour
         }
     }
 
+    // If a dialog choice button is clicked, set the following dialog to that choice.
+    private void ClickedDialogBoxExitButton(EventBase tab)
+    {
+        characterMovementScript.SetMovementImpaired(false, false);
+
+        SetDialogBoxInvisible();
+        ResetDialogue();
+        UnsetDialogCamera();
+        UnsetNpcCamera();
+    }
+
     // Show the dialog choices visual element.
     private void ShowDialogChoices()
     {
@@ -208,13 +236,14 @@ public class UIController : MonoBehaviour
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
         }
-        SetDialogBoxCharText(_npcName, _dialogBuilder.getIntroText());
+        SetDialogIntroText(_dialogBuilder.getIntroText());
         UnsetDialogCamera();
     }
 
     // If a dialog choice button is clicked, set the following dialog to that choice.
     private void ClickedDialogBoxChoiceButton(EventBase tab)
     {
+        _dialogBoxIntroText.visible = false;
         _dialogBoxChoices.visible = false;
         SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
@@ -235,6 +264,7 @@ public class UIController : MonoBehaviour
     {
         _choiceClicked = null;
         _currentTextNr = null;
+        _dialogBoxIntroText.text = "-";
         _dialogBoxText.text = "-";
 
         foreach (var dialogButton in _dialogBoxChoiceButtons)
@@ -242,6 +272,14 @@ public class UIController : MonoBehaviour
             dialogButton.text = "-";
             dialogButton.SetEnabled(false);
         }
+    }
+
+    // Set the intro dialog text.
+    private void SetDialogIntroText(string text)
+    {
+        _dialogBoxDialog.visible = true;
+        _dialogBoxIntroText.visible = true;
+        _dialogBoxIntroText.text = text;
     }
 
     // Set the actual dialog text and character name.
