@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DayNightToggler : MonoBehaviour
 {
-    [SerializeField] private GameObject directionalLight;
-    [SerializeField] private float dayRotation;
-    [SerializeField] private float nightRotation;
-    [SerializeField] private List<GameObject> lights;
+    [SerializeField] private GameObject _directionalLight;
+    [SerializeField] private float _dayRotation;
+    [SerializeField] private float _nightRotation;
+    [SerializeField] private List<GameObject> _lights;
     private bool _isDay;
 
     void Start()
@@ -41,19 +41,19 @@ public class DayNightToggler : MonoBehaviour
 
     private void ToNight()
     {
-        foreach (GameObject light in lights)
+        foreach (GameObject light in _lights)
         {
             light.gameObject.SetActive(true);
         }
-        directionalLight.transform.rotation = Quaternion.Euler(nightRotation, 90f, directionalLight.transform.rotation.z);
+        _directionalLight.transform.rotation = Quaternion.Euler(_nightRotation, 90f, _directionalLight.transform.rotation.z);
     }
 
     private void ToDay()
     {
-        foreach(GameObject light in lights)
+        foreach(GameObject light in _lights)
         {
             light.gameObject.SetActive(false);
         }
-        directionalLight.transform.rotation = Quaternion.Euler(dayRotation, 90f, directionalLight.transform.rotation.z);
+        _directionalLight.transform.rotation = Quaternion.Euler(_dayRotation, 90f, _directionalLight.transform.rotation.z);
     }
 }
