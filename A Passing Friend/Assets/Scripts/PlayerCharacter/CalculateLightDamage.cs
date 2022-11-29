@@ -8,21 +8,18 @@ using UnityEngine.UI;
 
 public class CalculateLightDamage : MonoBehaviour
 {
-    private const int DAMAGE_REDUCTION_FACTOR = 5;
-
     [SerializeField] private GameObject _lightCheckScriptGameObject;
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private int _minHealth = 0;
-    [SerializeField] private float _damageMultiplier = 1;
-    [SerializeField] private int _regenerationMultiplier = 5;
+    [SerializeField] private float _damagePerFrame = 1;
     [SerializeField] private int _lightToDamageThreshold = 3;
+    [SerializeField] private int _regenerationMultiplier = 5;
     [SerializeField] private int _lightToHealingThreshold;
 
     private bool _calculateLight;
     private int _health;
     private LightCheckScript _lightCheckScript;
     private int _lightLevel;
-    private float _timer;
     private float _minDamage = 0;
     public Image vignette;
 
@@ -42,15 +39,6 @@ public class CalculateLightDamage : MonoBehaviour
         if (!_calculateLight) return;
 
         _lightLevel = _lightCheckScript.lightLevel;
-
-        if (_lightLevel >= _lightToDamageThreshold)
-        {
-            _timer += Time.deltaTime;
-        }
-        else
-        {
-            _timer = 0;
-        }
     }
 
     private void FixedUpdate()
@@ -61,10 +49,7 @@ public class CalculateLightDamage : MonoBehaviour
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
-            var damage = _lightLevel * _damageMultiplier * _timer / DAMAGE_REDUCTION_FACTOR;
-            damage = damage < _minDamage ? _minDamage : damage;
-            
-            _health -= (int)Math.Round(damage);
+            _health -= (int)Math.Round(_damagePerFrame);
             _health = _health < _minHealth ? _minHealth : _health;
         }
 

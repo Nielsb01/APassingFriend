@@ -3,6 +3,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 #endregion
 
@@ -39,11 +40,15 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _isInChargeJumpZone;
     private bool _holdingDownJump;
     private float _jumpCharged;
-    
+
     // Climbing
     private bool _inClimbingZone;
     private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     private static bool _canClimb = true;
+    
+    //Animation
+    [SerializeField] private Animator _playerAnimator;
+    private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
     
     private void Start()
     {
@@ -161,6 +166,7 @@ public class CharacterMovementScript : MonoBehaviour
         _moveDirection.z = _moveSpeed * (float)Math.Round(_velocityY, 4);
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
+        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE,_velocityY);
     }
 
     private static bool floatIsBetween(float number, float min, float max)
