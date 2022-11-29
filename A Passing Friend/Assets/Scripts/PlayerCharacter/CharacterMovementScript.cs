@@ -60,6 +60,11 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void Move()
     {
+        if (!_movementImpaired)
+        {
+            return;
+        }
+
         if (_moveVector == null)
         {
             return;
