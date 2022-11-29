@@ -7,7 +7,7 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] [Range(0, 360)] private float _angle;
 
-    [SerializeField] private List<GameObject> _targetRef;
+    [SerializeField] private GameObject _targetRef;
 
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstructionMask;
@@ -34,17 +34,9 @@ public class FieldOfView : MonoBehaviour
     {
         get
         {
-            return _targetRef[0];
-        }
-    }
-
-    public List<GameObject> TargetRefs
-    {
-        get
-        {
             return _targetRef;
         }
-    }    
+    }
 
     public bool CanSeeTarget
     {
@@ -77,6 +69,7 @@ public class FieldOfView : MonoBehaviour
         if (rangeChecks.Length != 0)
         {
             Transform target = rangeChecks[0].transform;
+            _targetRef = target.gameObject;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)

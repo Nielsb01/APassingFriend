@@ -230,7 +230,8 @@ public class UIController : MonoBehaviour
         {
             _dialogBoxChoiceButtons[counter].visible = true;
             //_dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
-            _dialogBoxChoiceButtons[counter].text = "Placeholder";
+            _dialogBoxChoiceButtons[0].text = "Wat is er met die domme poort?";
+            _dialogBoxChoiceButtons[1].text = "En die rare steen?";
 
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
@@ -264,12 +265,12 @@ public class UIController : MonoBehaviour
     {
         _choiceClicked = null;
         _currentTextNr = null;
-        _dialogBoxIntroText.text = "-";
-        _dialogBoxText.text = "-";
+        _dialogBoxIntroText.text = " ";
+        _dialogBoxText.text = " ";
 
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
-            dialogButton.text = "-";
+            dialogButton.text = " ";
             dialogButton.SetEnabled(false);
         }
     }
@@ -342,24 +343,28 @@ public class UIController : MonoBehaviour
         if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
         {
             _dialogBoxCharName.style.fontSize = 35;
+            _dialogBoxIntroText.style.fontSize = 50;
             _dialogBoxText.style.fontSize = 50;
         }
         // WXGA
         if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
         {
             _dialogBoxCharName.style.fontSize = 25;
+            _dialogBoxIntroText.style.fontSize = 30;
             _dialogBoxText.style.fontSize = 30;
         }
         // QHD
         if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
         {
             _dialogBoxCharName.style.fontSize = 50;
+            _dialogBoxIntroText.style.fontSize = 70;
             _dialogBoxText.style.fontSize = 70;
         }
         // 4K UHD
         if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
         {
             _dialogBoxCharName.style.fontSize = 70;
+            _dialogBoxIntroText.style.fontSize = 80;
             _dialogBoxText.style.fontSize = 80;
         }
     }
