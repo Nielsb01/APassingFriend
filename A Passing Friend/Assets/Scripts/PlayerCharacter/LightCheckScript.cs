@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
-    private const int INITIAL_OBJECT_LIGHTLEVEL = 9;
+    public int INITIAL_OBJECT_LIGHTLEVEL = 4;
 
     [HideInInspector] public int lightLevel;
     public bool calculateLight;
@@ -40,6 +40,8 @@ public class LightCheckScript : MonoBehaviour
         var average = lightLevels.Average();
 
         lightLevel = (int)Math.Round(average) - INITIAL_OBJECT_LIGHTLEVEL;
+
+        lightLevel = lightLevel < 0 ? 0 : lightLevel;
     }
 
     private float GetPixelsFromTexture(RenderTexture lightCheckTexture)
