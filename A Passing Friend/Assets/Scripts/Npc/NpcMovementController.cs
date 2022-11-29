@@ -14,6 +14,7 @@ namespace Npc
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
         [SerializeField] private bool _patrolling = false;
         [SerializeField] private GameObject _pathNodePrefab;
+        [SerializeField] private WaypointRoute _route;
         private NavMeshAgent _navMeshAgent;
         private VariableDeclarations _variables;
         private float _waypointRoundingForNextNode;
@@ -34,6 +35,11 @@ namespace Npc
             }
 
             _waypointRoundingForNextNode = _defaultWaypointRounding;
+
+            if (_route != null)
+            {
+                StartRoute(_route);
+            }
         }
 
         private void Update()
@@ -75,6 +81,12 @@ namespace Npc
             {
                 CreateWaypointOnPosition(pathNode)
             };
+        }
+
+        public void StartRoute(WaypointRoute route)
+        {
+            _waypoints = route.waypoints;
+            _patrolling = route.isPatrol;
         }
 
         private void NavigateToNextWaypoint()
