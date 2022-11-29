@@ -43,11 +43,15 @@ public class CharacterMovementScript : MonoBehaviour
 
     public void OnFreeLook(InputValue value)
     {
+        if (_movementImpaired) return;
+
         _rotationFrozen = value.isPressed;
     }
 
     void OnLook(InputValue inputValue)
     {
+        if (_movementImpaired) return;
+
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
