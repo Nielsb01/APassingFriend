@@ -3,6 +3,26 @@ UserSettings/
 *.dwlt
 .vsconfig
 
+# Sound ignores
+/FMOD Project/Assets/*
+
+## Never ignore DLLs in the FMOD subfolder.
+!/A Passing Friend/[Aa]ssets/Plugins/FMOD/**/lib/*
+
+## Don't ignore images and gizmos used by FMOD in the Unity Editor.
+!/A Passing Friend/[Aa]ssets/Gizmos/FMOD/*
+!/A Passing Friend/[Aa]ssets/Editor Default Resources/FMOD/*
+                    
+## Ignore the Cache folder since it is updated locally.
+/A Passing Friend/[Aa]ssets/Plugins/FMOD/Cache/*
+                    
+## Ignore bank files in the StreamingAssets folder.
+/A Passing Friend/[Aa]ssets/StreamingAssets/**/*.bank
+/A Passing Friend/[Aa]ssets/StreamingAssets/**/*.bank.meta
+                    
+## If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
+## Log files can be ignored.
+/A Passing Friend/[Aa]ssets/FMODBanks/fmod_editor.log
 
 # gitignore delivered by school below
 
