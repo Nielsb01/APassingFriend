@@ -288,7 +288,16 @@ public class CharacterMovementScript : MonoBehaviour
         {
             if (hit.transform.CompareTag("ClimbingZone"))
             {
-                transform.rotation = Quaternion.FromToRotation(-Vector3.forward, hit.normal);
+                print(hit.normal);
+                print( Vector3.Cross(-hit.normal, transform.right));
+                if (-hit.normal != -Vector3.forward)
+                {
+                    transform.rotation = Quaternion.FromToRotation(Vector3.forward, -hit.normal);
+                }
+                else
+                {
+                    transform.transform.rotation = hit.transform.rotation;
+                }
             }
             else
             {
