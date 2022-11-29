@@ -942,17 +942,17 @@ PrefabInstance:
     - target: {fileID: 429239325920329678, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879012
+      value: 0.14879014
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000019071978
+      value: 0.000000019071978
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000002516744
+      value: -0.000000002516744
       objectReference: {fileID: 0}
     - target: {fileID: 429239326883995322, guid: 308df2d97975b6349ab8a8a52ab7d645,
         type: 3}
@@ -1425,7 +1425,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630154783}
-  m_LocalRotation: {x: 0.2515316, y: -0.3692089, z: 0.10451789, w: 0.888534}
+  m_LocalRotation: {x: 0.25153157, y: -0.36920887, z: 0.10451789, w: 0.888534}
   m_LocalPosition: {x: -15.961418, y: 3.7027626, z: 18.424927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _radius: 2.5
-  _angle: 100
+  _angle: 160
   _targetRef: {fileID: 0}
   _targetMask:
     serializedVersion: 2
@@ -4985,12 +4985,12 @@ PrefabInstance:
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.23447204
+      value: 0.23447205
       objectReference: {fileID: 0}
     - target: {fileID: 2882348548601304360, guid: 4f09d6916340aa845869c3039697c440,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.2603792
+      value: -0.26037917
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -5102,7 +5102,7 @@ PrefabInstance:
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14879014
+      value: 0.14879015
       objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}

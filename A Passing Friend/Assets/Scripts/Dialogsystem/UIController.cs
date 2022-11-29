@@ -144,7 +144,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            characterMovementScript.SetMovementImpaired(true, true);
+            characterMovementScript.FreezeMovement(true, true);
 
             _dialogBox.visible = true;
             _dialogBoxExitButton.SetEnabled(true);
@@ -176,7 +176,7 @@ public class UIController : MonoBehaviour
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
             if (_chosenDialogOption.doesOptionEndConverstation())
             {
-                characterMovementScript.SetMovementImpaired(false, false);
+                characterMovementScript.FreezeMovement(false, false);
 
                 SetDialogBoxInvisible();
                 ResetDialogue();
@@ -208,7 +208,7 @@ public class UIController : MonoBehaviour
     // If a dialog choice button is clicked, set the following dialog to that choice.
     private void ClickedDialogBoxExitButton(EventBase tab)
     {
-        characterMovementScript.SetMovementImpaired(false, false);
+        characterMovementScript.FreezeMovement(false, false);
 
         SetDialogBoxInvisible();
         ResetDialogue();

@@ -130,7 +130,7 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
-    public void SetMovementImpaired(bool movementImpaired, bool rotationFrozen)
+    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
     {
         _movementImpaired = movementImpaired;
         _rotationFrozen = rotationFrozen;
@@ -142,6 +142,11 @@ public class CharacterMovementScript : MonoBehaviour
         if (!_movementImpaired)
         {
             _moveVector = inputValue.Get<Vector2>();
+        } else
+        {
+            _moveVector = Vector3.zero;
+            _moveDirection.x = 0;
+            _moveDirection.z = 0;
         }
 
     }
