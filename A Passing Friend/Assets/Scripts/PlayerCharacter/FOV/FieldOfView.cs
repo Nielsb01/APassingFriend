@@ -6,6 +6,7 @@ public class FieldOfView : MonoBehaviour
 {
     [SerializeField] private float _radius;
     [SerializeField] [Range(0, 360)] private float _angle;
+    private float _secondsBetweenChecks = 0.2f;
 
     [SerializeField] private GameObject _targetRef;
 
@@ -53,7 +54,7 @@ public class FieldOfView : MonoBehaviour
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        WaitForSeconds wait = new WaitForSeconds(_secondsBetweenChecks);
 
         while (true)
         {

@@ -9,6 +9,10 @@ public class UIController : MonoBehaviour
 {
     // UI
 
+    private bool _isInInteractRange;
+
+    private bool _isInInteraction;
+
     // // Dialog UI
     private GroupBox _interactBox;
 
@@ -29,8 +33,6 @@ public class UIController : MonoBehaviour
     private VisualElement _root;
 
     private Button _dialogBoxExitButton;
-
-    private bool _isInInteractRange;
 
 
     // // Dialog Builder
@@ -90,9 +92,10 @@ public class UIController : MonoBehaviour
         Set the dialog system invisible when the player is not or no longer in the interaction range of a NPC.
         Currently coded for the dialog system, can be easily adapted for items as well.
         */
-
         if (!_isInInteractRange)
         {
+            _isInInteraction = false;
+
             SetDialogSystemInvisible();
             ResetDialogue();
             UnsetDialogCamera();
@@ -121,12 +124,17 @@ public class UIController : MonoBehaviour
     // Set the interact box visible.
     public void SetInteractBoxVisible()
     {
-        _interactBox.visible = true;
+        if (!_isInInteraction)
+        {
+            _interactBox.visible = true;
+        }
     }
 
     // Set the dialog system invisible.
     public void SetDialogSystemInvisible()
     {
+        _isInInteraction = false;
+
         _interactBox.visible = false;
         _dialogBox.visible = false;
         _dialogBoxChoices.visible = false;
@@ -157,6 +165,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
+            _isInInteraction = true;
             _interactBox.visible = false;
             characterMovementScript.FreezeMovement(true, true);
 
@@ -190,6 +199,9 @@ public class UIController : MonoBehaviour
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
             if (_chosenDialogOption.doesOptionEndConverstation())
             {
+                _isInInteraction = false;
+                _isDialogBuilderSet = false;
+
                 characterMovementScript.FreezeMovement(false, false);
 
                 SetDialogSystemInvisible();
@@ -222,6 +234,9 @@ public class UIController : MonoBehaviour
     // If a dialog choice button is clicked, set the following dialog to that choice.
     private void ClickedDialogBoxExitButton(EventBase tab)
     {
+        _isInInteraction = true;
+        _isDialogBuilderSet = false;
+
         characterMovementScript.FreezeMovement(false, false);
 
         SetDialogSystemInvisible();
