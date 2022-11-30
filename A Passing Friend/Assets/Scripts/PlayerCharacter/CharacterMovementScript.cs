@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 #endregion
 
-public class CharacterMovementScript : MonoBehaviour
+public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
@@ -32,6 +32,7 @@ public class CharacterMovementScript : MonoBehaviour
 
     private const float CHECK_VALUE = 0.1f;
 
+
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
@@ -44,7 +45,7 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
  
-    private void Start()
+    private void Awake()
     {
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
@@ -184,6 +185,18 @@ public class CharacterMovementScript : MonoBehaviour
         }
     }
 
+    public void LoadData(GameData data)
+    {
+        _characterController.enabled = false;
+        this.transform.position = data.PlayerLocation;
+        _characterController.enabled = true;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.PlayerLocation = this.transform.position;
+    }
+    
     private void OnJumpRelease()
     {
         if (_isInChargeJumpZone)
