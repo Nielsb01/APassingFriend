@@ -45,7 +45,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
  
-    private void Awake(){
+    private void Awake()
+    {
         _doJump = false;
         _characterController = GetComponent<CharacterController>();
     }
