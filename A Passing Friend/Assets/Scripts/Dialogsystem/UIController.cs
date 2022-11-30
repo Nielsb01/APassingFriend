@@ -118,11 +118,6 @@ public class UIController : MonoBehaviour
         _isDialogBuilderSet = isDialogBuilderSet;
     }
 
-    public bool GetIsDialogBuilderSet()
-    {
-        return _isDialogBuilderSet;
-    }
-
     // Set the interact box visible.
     public void SetInteractBoxVisible()
     {

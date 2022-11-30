@@ -148,7 +148,8 @@ public class CharacterMovementScript : MonoBehaviour
         if (!_movementImpaired)
         {
             _moveVector = inputValue.Get<Vector2>();
-        } else
+        }
+        else
         {
             _moveVector = Vector3.zero;
             _moveDirection.x = 0;

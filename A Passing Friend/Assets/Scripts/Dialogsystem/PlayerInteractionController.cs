@@ -17,10 +17,6 @@ public class PlayerInteractionController : MonoBehaviour
 
     [SerializeField] private FieldOfView playerFov;
 
-
-
-    
-
     private void Start()
     {
         _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
@@ -54,7 +50,7 @@ public class PlayerInteractionController : MonoBehaviour
         }
     }
 
-   private void OnInteract()
+    private void OnInteract()
     {
         if (playerFov.CanSeeTarget)
         {
