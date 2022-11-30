@@ -94,6 +94,7 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
+            characterMovementScript.FreezeMovement(false, false);
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -165,9 +166,9 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
+            characterMovementScript.FreezeMovement(true, true);
             _isInInteraction = true;
             _interactBox.visible = false;
-            characterMovementScript.FreezeMovement(true, true);
 
             _dialogBox.visible = true;
             _dialogBoxExitButton.SetEnabled(true);
