@@ -7,6 +7,6 @@ public class GameData
 
     public GameData()
     {
-        PlayerLocation = Vector3.zero;
+        PlayerLocation = new Vector3(0,0,10);
     }
 }
