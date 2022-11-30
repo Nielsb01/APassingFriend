@@ -23,14 +23,14 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        this._fileDataHandler = new FileDataHandler(_dirPath, _filename);
-        this._dataPersistenceOpjects = GetAllDataPersistenceObjects();
+        _fileDataHandler = new FileDataHandler(_dirPath, _filename);
+        _dataPersistenceOpjects = GetAllDataPersistenceObjects();
         LoadGame();
     }
 
     private List<IDataPersistence> GetAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> result = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        var result = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
         return new List<IDataPersistence>(result);
     }
 
@@ -41,7 +41,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void NewGame()
     {
-        this._gameData = new GameData();
+        _gameData = new GameData();
     }
 
     public void SaveGame()
@@ -56,7 +56,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame()
     {
-        this._gameData = _fileDataHandler.Load();
+        _gameData = _fileDataHandler.Load();
 
         if (_gameData == null)
         {
