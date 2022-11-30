@@ -254,7 +254,7 @@ public class CharacterMovementScript : MonoBehaviour
     private void OnJumpFail()
     {
         // TODO implement funny cat animations
-        print("Jump failed :(");
+        Debug.Log("Jump failed :(");
         PreformSmallJump(_failjumpSpeed);
         _doJump = true;
     }
@@ -288,8 +288,6 @@ public class CharacterMovementScript : MonoBehaviour
         {
             if (hit.transform.CompareTag("ClimbingZone"))
             {
-                print(hit.normal);
-                print( Vector3.Cross(-hit.normal, transform.right));
                 if (-hit.normal != -Vector3.forward)
                 {
                     transform.rotation = Quaternion.FromToRotation(Vector3.forward, -hit.normal);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -796,17 +796,17 @@ PrefabInstance:
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.07437619
+      value: 0.07437622
       objectReference: {fileID: 0}
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029719779
+      value: -3.5330337e-15
       objectReference: {fileID: 0}
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000022165831
+      value: 3.064301e-16
       objectReference: {fileID: 0}
     - target: {fileID: 429239325920329678, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
@@ -836,12 +836,12 @@ PrefabInstance:
     - target: {fileID: 429239326176224708, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017327691
+      value: -0.000000017327691
       objectReference: {fileID: 0}
     - target: {fileID: 429239326176224708, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -6.607131e-10
+      value: 6.607131e-10
       objectReference: {fileID: 0}
     - target: {fileID: 429239326883995322, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
@@ -932,6 +932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648689827853525140, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _jumpOverchargeValue
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8012747224378882956, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
