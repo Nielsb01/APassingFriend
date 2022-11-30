@@ -8,10 +8,9 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
-    public int INITIAL_OBJECT_LIGHTLEVEL = 4;
-
     [HideInInspector] public int lightLevel;
     public bool calculateLight;
+    [SerializeField] private int _initialObjectLightlevel = 9;
     [SerializeField] private RenderTexture _leftLightCheckTexture;
     [SerializeField] private RenderTexture _rightLightCheckTexture;
     [SerializeField] private RenderTexture _backwardLightCheckTexture;
@@ -39,7 +38,7 @@ public class LightCheckScript : MonoBehaviour
 
         var average = lightLevels.Average();
 
-        lightLevel = (int)Math.Round(average) - INITIAL_OBJECT_LIGHTLEVEL;
+        lightLevel = (int)Math.Round(average) - _initialObjectLightlevel;
 
         lightLevel = lightLevel < 0 ? 0 : lightLevel;
     }
