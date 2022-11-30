@@ -30,6 +30,9 @@ public class UIController : MonoBehaviour
 
     private Button _dialogBoxExitButton;
 
+    private bool _isInInteractRange;
+
+
     // // Dialog Builder
 
     private List<string> _dialogTextList;
@@ -48,8 +51,13 @@ public class UIController : MonoBehaviour
 
     private CinemachineVirtualCamera _npcCamera;
 
+    private bool _isDialogBuilderSet;
+
+
     // Character Movement
     [SerializeField] CharacterMovementScript characterMovementScript;
+
+
 
     // SCREEN
     [SerializeField] private int _lastScreenWidth;
@@ -79,13 +87,13 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
     {
         /*
-        Set the dialog box invisible when the player is not or no longer in the interaction range of a NPC.
+        Set the dialog system invisible when the player is not or no longer in the interaction range of a NPC.
         Currently coded for the dialog system, can be easily adapted for items as well.
         */
 
-        if (!_interactBox.visible)
+        if (!_isInInteractRange)
         {
-            SetDialogBoxInvisible();
+            SetDialogSystemInvisible();
             ResetDialogue();
             UnsetDialogCamera();
 
@@ -100,8 +108,23 @@ public class UIController : MonoBehaviour
         CheckForScreenResolutionChanges();
     }
 
-    // Set the dialog system visible.
-    public void SetDialogSystemVisible()
+    public void SetIsInInteractRange(bool isInInteractRange)
+    {
+        _isInInteractRange = isInInteractRange;
+    }
+
+    public void SetIsDialogBuilderSet(bool isDialogBuilderSet)
+    {
+        _isDialogBuilderSet = isDialogBuilderSet;
+    }
+
+    public bool GetIsDialogBuilderSet()
+    {
+        return _isDialogBuilderSet;
+    }
+
+    // Set the interact box visible.
+    public void SetInteractBoxVisible()
     {
         _interactBox.visible = true;
     }
@@ -110,12 +133,6 @@ public class UIController : MonoBehaviour
     public void SetDialogSystemInvisible()
     {
         _interactBox.visible = false;
-        SetDialogBoxInvisible();
-    }
-
-    // Set the dialog box invisible.
-    private void SetDialogBoxInvisible()
-    {
         _dialogBox.visible = false;
         _dialogBoxChoices.visible = false;
         _dialogBoxDialog.visible = false;
@@ -132,8 +149,9 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
-        if (!_interactBox.visible)
+        if (!_isInInteractRange)
         {
+            SetDialogSystemInvisible();
             return;
         }
 
@@ -144,6 +162,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
+            _interactBox.visible = false;
             characterMovementScript.FreezeMovement(true, true);
 
             _dialogBox.visible = true;
@@ -178,7 +197,7 @@ public class UIController : MonoBehaviour
             {
                 characterMovementScript.FreezeMovement(false, false);
 
-                SetDialogBoxInvisible();
+                SetDialogSystemInvisible();
                 ResetDialogue();
                 UnsetDialogCamera();
                 UnsetNpcCamera();
@@ -210,7 +229,7 @@ public class UIController : MonoBehaviour
     {
         characterMovementScript.FreezeMovement(false, false);
 
-        SetDialogBoxInvisible();
+        SetDialogSystemInvisible();
         ResetDialogue();
         UnsetDialogCamera();
         UnsetNpcCamera();
@@ -294,6 +313,11 @@ public class UIController : MonoBehaviour
     // Set the dialog builder from the NPC.
     public void SetDialogBuilder(DialogBuilder dialogBuilder)
     {
+        if (_isDialogBuilderSet)
+        {
+            return;
+        }
+
         this._dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
@@ -357,8 +381,8 @@ public class UIController : MonoBehaviour
         if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
         {
             _dialogBoxCharName.style.fontSize = 50;
-            _dialogBoxIntroText.style.fontSize = 70;
-            _dialogBoxText.style.fontSize = 70;
+            _dialogBoxIntroText.style.fontSize = 60;
+            _dialogBoxText.style.fontSize = 60;
         }
         // 4K UHD
         if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)

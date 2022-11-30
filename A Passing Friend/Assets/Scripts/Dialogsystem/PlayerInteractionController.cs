@@ -37,16 +37,19 @@ public class PlayerInteractionController : MonoBehaviour
 
         if (_outline != null)
         {
-            if (playerFov.CanSeeTarget && !_outline.enabled)
+            if (playerFov.CanSeeTarget)
             {
                 _outline.enabled = true;
-                _ui.SetDialogSystemVisible();
+                _ui.SetIsInInteractRange(true);
+                _ui.SetInteractBoxVisible();
                 _ui.SetDialogBuilder(_npcDialogBuilder);
+                _ui.SetIsDialogBuilderSet(true);
             }
-            else if (!playerFov.CanSeeTarget && _outline.enabled)
+            else if (!playerFov.CanSeeTarget)
             {
                 _outline.enabled = false;
-                _ui.SetDialogSystemInvisible();
+                _ui.SetIsInInteractRange(false);
+                _ui.SetIsDialogBuilderSet(false);
             }
         }
     }
