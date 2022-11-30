@@ -53,6 +53,7 @@ public class PlayerInteractionController : MonoBehaviour
             }
         }
     }
+
    private void OnInteract()
     {
         if (playerFov.CanSeeTarget)
