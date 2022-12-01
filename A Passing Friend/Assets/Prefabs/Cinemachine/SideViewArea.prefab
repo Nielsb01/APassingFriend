@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 1527812422597967035}
   - component: {fileID: 1527812422597967034}
   - component: {fileID: 1527812422597967029}
+  - component: {fileID: 6271371583359763657}
   m_Layer: 2
   m_Name: AreaMarker
   m_TagString: LocalCamAreaTrigger
@@ -345,3 +346,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _virtualCamera: {fileID: 1527812422214361151}
   _lockOrientation: -1
+  _allowMirroredDirectionLock: 1
+--- !u!114 &6271371583359763657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527812422597967032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcfadfd8a19aabd45ac026b461eeafda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
