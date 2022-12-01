@@ -65,7 +65,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         if (_movementImpaired) return;
 
-        _rotationFrozenDueToDialog = value.isPressed;
+        _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
