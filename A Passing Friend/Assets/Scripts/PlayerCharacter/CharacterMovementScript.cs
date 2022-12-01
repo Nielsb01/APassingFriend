@@ -28,7 +28,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
+    private bool _rotationFrozenDueToDialog;
     public bool rotationFrozenDueToSpecialArea;
+
+    [SerializeField] private bool _movementImpaired;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -48,6 +51,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         _doJump = false;
+        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -59,18 +63,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void OnFreeLook(InputValue value)
     {
-        _rotationFrozenDueToFreeLook = value.isPressed;
+        if (_movementImpaired) return;
+
+        _rotationFrozenDueToDialog = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
     {
+        if (_movementImpaired) return;
+
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea) return;
+        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -84,6 +92,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Move()
     {
+        if (_movementImpaired) return;
+
         if (_moveVector == null)
         {
             return;
@@ -164,15 +174,31 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _holdingDownJump = false;
         _jumpCharged = 0;
     }
+    
+    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
+    {
+        _movementImpaired = movementImpaired;
+        _rotationFrozenDueToDialog = rotationFrozen;
+    }
 
     private void OnMove(InputValue inputValue)
     {
-        _moveVector = inputValue.Get<Vector2>();
+        if (!_movementImpaired)
+        {
+            _moveVector = inputValue.Get<Vector2>();
+        }
+        else
+        {
+            _moveVector = Vector3.zero;
+            _moveDirection.x = 0;
+            _moveDirection.z = 0;
+        }
+
     }
 
     private void OnJump()
     {
-        if (_characterController.isGrounded)
+        if (_characterController.isGrounded && !_movementImpaired)
         {
             if (_isInChargeJumpZone)
             {
