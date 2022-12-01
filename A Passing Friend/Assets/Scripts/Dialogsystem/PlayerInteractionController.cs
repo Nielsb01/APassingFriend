@@ -7,13 +7,9 @@ public class PlayerInteractionController : MonoBehaviour
 {
     private UIController _ui;
 
-    private const float INTERACT_RANGE = 2.5f;
-
     private Outline _outline;
 
     private DialogBuilder _npcDialogBuilder;
-
-    [SerializeField] private LayerMask _npcLayerMask;
 
     [SerializeField] private FieldOfView playerFov;
 
