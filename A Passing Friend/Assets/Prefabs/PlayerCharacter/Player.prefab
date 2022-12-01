@@ -870,7 +870,7 @@ MonoBehaviour:
   _moveSpeed: 1.75
   _jumpSpeed: 4.5
   _gravity: 9.81
-  _rotationSpeed: 0.3
+  _rotationSpeed: 0.09
   rotationFrozenDueToSpecialArea: 0
   _chargeSpeed: 1
   _jumpOverchargeValue: 90
