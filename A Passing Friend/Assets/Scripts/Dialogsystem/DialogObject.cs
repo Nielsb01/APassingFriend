@@ -28,7 +28,7 @@ public class DialogObject
 
     public void setDialogChoice(string dialogChoice)
     {
-        this._dialogChoice = dialogChoice;
+        _dialogChoice = dialogChoice;
     }
 
     public List<string> getDialog()
@@ -48,21 +48,21 @@ public class DialogObject
 
     public void setDialogCamera(CinemachineVirtualCamera dialogCamera)
     {
-        this._dialogCamera = dialogCamera;
+        _dialogCamera = dialogCamera;
     }
 
     public void setDialogAudio(AudioClip dialogAudio)
     {
-        this._dialogAudio = dialogAudio;
+        _dialogAudio = dialogAudio;
     }
 
     public CinemachineVirtualCamera getDialogCamera()
     {
-        return this._dialogCamera;
+        return _dialogCamera;
     }
 
     public AudioClip getDialogAudio()
     {
-        return this._dialogAudio;
+        return _dialogAudio;
     }
 }

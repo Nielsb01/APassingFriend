@@ -24,11 +24,14 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _doJump;
     private bool _rotationFrozen;
 
+    [SerializeField] private bool _movementImpaired;
+
     private const float CHECK_VALUE = 0.1f;
 
     void Start()
     {
         _doJump = false;
+        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -40,11 +43,15 @@ public class CharacterMovementScript : MonoBehaviour
 
     public void OnFreeLook(InputValue value)
     {
+        if (_movementImpaired) return;
+
         _rotationFrozen = value.isPressed;
     }
 
     void OnLook(InputValue inputValue)
     {
+        if (_movementImpaired) return;
+
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
@@ -57,6 +64,8 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void Move()
     {
+        if (_movementImpaired) return;
+
         if (_moveVector == null)
         {
             return;
@@ -127,15 +136,31 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
+    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
+    {
+        _movementImpaired = movementImpaired;
+        _rotationFrozen = rotationFrozen;
+    }
+
 
     private void OnMove(InputValue inputValue)
     {
-        _moveVector = inputValue.Get<Vector2>();
+        if (!_movementImpaired)
+        {
+            _moveVector = inputValue.Get<Vector2>();
+        }
+        else
+        {
+            _moveVector = Vector3.zero;
+            _moveDirection.x = 0;
+            _moveDirection.z = 0;
+        }
+
     }
 
     private void OnJump()
     {
-        if (_characterController.isGrounded)
+        if (_characterController.isGrounded && !_movementImpaired)
         {
             _doJump = true;
         }
