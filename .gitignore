@@ -3,8 +3,6 @@ UserSettings/
 *.dwlt
 .vsconfig
 **/com.unity.probuilder/Settings.json
-TriggerVisualizationMaterals/
-Textures/PlayerCharacter/RenderTextures/
 
 ### FMOD Unity Integration ###
 Info.plist
