@@ -1,8 +1,12 @@
+#region
+
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterMovementScript : MonoBehaviour
+#endregion
+
+public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
@@ -13,29 +17,45 @@ public class CharacterMovementScript : MonoBehaviour
 
     private CharacterController _characterController;
 
-    private float _velocityY = 0.0f;
-    private float _velocityX = 0.0f;
-    private float _maxPositiveVelocity = 2.0f;
-    private float _maxNegativeVelocity = -2.0f;
+    private float _velocityY;
+    private float _velocityX;
+    private readonly float _maxPositiveVelocity = 2.0f;
+    private readonly float _maxNegativeVelocity = -2.0f;
 
     private Vector2 _moveVector;
     private Vector2 _rotation;
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
-    private bool _rotationFrozen;
+    private bool _rotationFrozenDueToFreeLook;
+    private bool _rotationFrozenDueToDialog;
+    [HideInInspector]
+    public bool rotationFrozenDueToSpecialArea;
 
     [SerializeField] private bool _movementImpaired;
 
     private const float CHECK_VALUE = 0.1f;
 
-    void Start()
+    //Charge jumping
+    [SerializeField] private float _chargeSpeed = 1.0f;
+    [SerializeField] private float _jumpOverchargeValue = 90.0f;
+    [SerializeField] private float _failjumpSpeed;
+
+    private bool _isInChargeJumpZone;
+    private bool _holdingDownJump;
+    private float _jumpCharged;
+
+    //Animation
+    [SerializeField] private Animator _playerAnimator;
+    private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
+ 
+    private void Awake()
     {
         _doJump = false;
         _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Move();
         Rotate();
@@ -45,10 +65,10 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_movementImpaired) return;
 
-        _rotationFrozen = value.isPressed;
+        _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
-    void OnLook(InputValue inputValue)
+    private void OnLook(InputValue inputValue)
     {
         if (_movementImpaired) return;
 
@@ -58,8 +78,16 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void Rotate()
     {
-        if (_rotationFrozen) return;
+        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
         transform.Rotate(_rotation * _rotationSpeed);
+    }
+
+    private void Update()
+    {
+        if (_holdingDownJump)
+        {
+            _jumpCharged += _chargeSpeed * Time.deltaTime;
+        }
     }
 
     private void Move()
@@ -73,7 +101,11 @@ public class CharacterMovementScript : MonoBehaviour
 
         if (_doJump)
         {
-            _moveDirection.y = _jumpSpeed;
+            if (!_isInChargeJumpZone)
+            {
+                _moveDirection.y = _jumpSpeed;
+            }
+
             _doJump = false;
         }
         else if (_characterController.isGrounded)
@@ -125,10 +157,11 @@ public class CharacterMovementScript : MonoBehaviour
             }
         }
 
-        _moveDirection.x = _moveSpeed * ((float)Math.Round(_velocityX, 4));
-        _moveDirection.z = _moveSpeed * ((float)Math.Round(_velocityY, 4));
+        _moveDirection.x = _moveSpeed * (float)Math.Round(_velocityX, 4);
+        _moveDirection.z = _moveSpeed * (float)Math.Round(_velocityY, 4);
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
+        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE,_velocityY);
     }
 
     private static bool floatIsBetween(float number, float min, float max)
@@ -136,12 +169,17 @@ public class CharacterMovementScript : MonoBehaviour
         return number >= min && number <= max;
     }
 
+    private void resetJumpCharge()
+    {
+        _holdingDownJump = false;
+        _jumpCharged = 0;
+    }
+
     public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
     {
         _movementImpaired = movementImpaired;
-        _rotationFrozen = rotationFrozen;
+        _rotationFrozenDueToDialog = rotationFrozen;
     }
-
 
     private void OnMove(InputValue inputValue)
     {
@@ -162,7 +200,86 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_characterController.isGrounded && !_movementImpaired)
         {
-            _doJump = true;
+            if (_isInChargeJumpZone)
+            {
+                _holdingDownJump = true;
+            }
+            else
+            {
+                _doJump = true;
+            }
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        _characterController.enabled = false;
+        this.transform.position = data.PlayerLocation;
+        _characterController.enabled = true;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.PlayerLocation = this.transform.position;
+    }
+    
+    private void OnJumpRelease()
+    {
+        if (_isInChargeJumpZone)
+        {
+            if (_jumpCharged > _jumpOverchargeValue)
+            {
+                OnJumpFail();
+            }
+            else
+            {
+                _moveDirection.y = _jumpCharged;
+                _doJump = true;
+            }
+
+            resetJumpCharge();
+        }
+    }
+
+    private void OnTriggerEnter(Collider trigger)
+    {
+        if (trigger.transform.tag == "ChargeJumpZone")
+        {
+            _isInChargeJumpZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider trigger)
+    {
+        if (trigger.transform.tag == "ChargeJumpZone")
+        {
+            _isInChargeJumpZone = false;
+            resetJumpCharge();
+        }
+    }
+
+    private void OnJumpFail()
+    {
+        // TODO implement funny cat animations
+        print("Jump failed :(");
+        _moveDirection.y = _failjumpSpeed;
+        _velocityY += _failjumpSpeed;
+        _doJump = true;
+    }
+
+    // Getters for making UI
+    public float getJumpCharged()
+    {
+        return _jumpCharged;
+    }
+
+    public float getOverchargeLevel()
+    {
+        return _jumpOverchargeValue;
+    }
+
+    public bool isInChargeZone()
+    {
+        return _isInChargeJumpZone;
     }
 }

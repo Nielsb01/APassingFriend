@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Terrible Thursday/17-11-2022.unity
-    guid: 688451807c87fab49b8bf4f245795caf
+    path: Assets/Scenes/Blockout/LevelBlockout.unity
+    guid: 5dd50bb6e01babc4ab8347ed108a5752
   m_configObjects: {}
