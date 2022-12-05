@@ -37,9 +37,10 @@ public class CharacterMovementScript : MonoBehaviour
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
     [SerializeField] private float _failjumpSpeed;
 
-    private bool _isInChargeJumpZone;
+    [SerializeField] private bool _chargeJumpUnlocked;
     private bool _holdingDownJump;
-    private float _jumpCharged;
+    [SerializeField] private float _jumpCharged;
+    private bool _doChargeJump;
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -90,12 +91,13 @@ public class CharacterMovementScript : MonoBehaviour
 
         if (_doJump)
         {
-            if (!_isInChargeJumpZone)
+            if (!_doChargeJump)
             {
                 _moveDirection.y = _jumpSpeed;
             }
 
             _doJump = false;
+            _doChargeJump = false;
         }
         else if (_characterController.isGrounded)
         {
@@ -171,52 +173,48 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJump()
     {
-        if (_characterController.isGrounded)
-        {
-            if (_isInChargeJumpZone)
-            {
-                _holdingDownJump = true;
-            }
-            else
-            {
-                _doJump = true;
-            }
-        }
+       
     }
 
     private void OnJumpRelease()
     {
-        if (_isInChargeJumpZone)
+        if (_chargeJumpUnlocked && _jumpCharged > 0.3f)
         {
-            if (_jumpCharged > _jumpOverchargeValue)
+            if (_characterController.isGrounded)
             {
-                OnJumpFail();
+                if (_jumpCharged > _jumpOverchargeValue)
+                {
+                    OnJumpFail();
+                }
+                else 
+                {
+                    _moveDirection.y = _jumpCharged;
+                    _doJump = true;
+                    _doChargeJump = true;
+                }
             }
-            else
-            {
-                _moveDirection.y = _jumpCharged;
-                _doJump = true;
-            }
-
             resetJumpCharge();
         }
+        else  if (_characterController.isGrounded)
+        {
+            _doJump = true;
+        }
+    }
+
+    private void OnJumpHold()
+    {
+        if (_chargeJumpUnlocked)
+            {
+                _holdingDownJump = true;
+            }
     }
 
     private void OnTriggerEnter(Collider trigger)
     {
-        if (trigger.transform.tag == "ChargeJumpZone")
-        {
-            _isInChargeJumpZone = true;
-        }
     }
 
     private void OnTriggerExit(Collider trigger)
     {
-        if (trigger.transform.tag == "ChargeJumpZone")
-        {
-            _isInChargeJumpZone = false;
-            resetJumpCharge();
-        }
     }
 
     private void OnJumpFail()
@@ -241,6 +239,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     public bool isInChargeZone()
     {
-        return _isInChargeJumpZone;
+        return _chargeJumpUnlocked;
     }
 }
