@@ -1012,7 +1012,7 @@ MonoBehaviour:
     m_Bits: 8192
   _obstructionMask:
     serializedVersion: 2
-    m_Bits: 4609
+    m_Bits: 4608
   _canSeeTarget: 0
 --- !u!1 &429239326887273107
 GameObject:
