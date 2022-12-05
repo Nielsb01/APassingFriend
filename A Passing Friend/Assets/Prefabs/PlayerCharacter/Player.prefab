@@ -1004,15 +1004,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef464631a33dac42821f60296009e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 0
-  _angle: 0
+  _radius: 1
+  _angle: 90
   _targetRef: {fileID: 0}
   _targetMask:
     serializedVersion: 2
     m_Bits: 8192
   _obstructionMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4609
   _canSeeTarget: 0
 --- !u!1 &429239326887273107
 GameObject:

@@ -1,5 +1,5 @@
 {
-    "name": "A Passing Friend",
+    "name": "A_Passing_Friend",
     "maps": [
         {
             "name": "Player",
@@ -27,6 +27,15 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "7f76f43d-79fa-4ed2-ad40-9f77b92840d4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "3c214145-3c1b-4c63-98e5-d06a820338a0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -331,6 +340,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ToggleHideMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b726031d-7e9a-485e-9752-71a150a8c22a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

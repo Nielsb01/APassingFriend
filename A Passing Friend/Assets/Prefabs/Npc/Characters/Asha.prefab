@@ -462,7 +462,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6534641627532490242}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &15879819804425006
+--- !u!65 &7767647970247056081
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -473,9 +473,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 1, z: 0.5}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &7983727703207611284
+--- !u!114 &5881152513234762833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -487,10 +487,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19c15d7e61e3834d90e4c590177cb08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogTextFile: {fileID: 4900000, guid: 071faf3fec876a548b1465caf1a27f3c, type: 3}
+  _dialogTextFile: {fileID: 4900000, guid: f194191044f7f3645b148ba42acbcf23, type: 3}
   _eventCameras: []
   _eventAudio: []
   _npcCamera: {fileID: 8963600680497976836}
+--- !u!114 &9048766497233856664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429920583906436328}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!4 &1429920583906436334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
