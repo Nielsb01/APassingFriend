@@ -79,6 +79,7 @@ public class DialogBuilder : MonoBehaviour
             // Remove the introtext from the dialog options.
             subdialogTrimmed.Remove(subdialogTrimmed[0]);
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
+
             createDialogEventObject(dialogObject);
             if (dialogTitle.Contains('$'))
             {
