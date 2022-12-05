@@ -17,12 +17,8 @@ namespace Camera
 
         private void Update()
         {
-            Debug.Log("update");
-
             if (_hideMouse)
             {
-                Debug.Log("hiding");
-
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
@@ -123,13 +119,11 @@ namespace Camera
             _characterMovementScript.rotationFrozenDueToSpecialArea = false;
         }
         
-        public void OnHideMouse(InputValue inputValue)
+        public void OnToggleHideMouse(InputValue inputValue)
         {
             _hideMouse = !_hideMouse;
-            Debug.Log("check");
             if (!_hideMouse)
             {
-                Debug.Log("unlocking");
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }

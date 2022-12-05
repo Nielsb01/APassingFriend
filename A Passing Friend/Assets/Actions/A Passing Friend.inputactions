@@ -61,12 +61,12 @@
                 },
                 {
                     "name": "ToggleHideMouse",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "83c68d5b-d551-4499-956f-1941ea3be976",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
