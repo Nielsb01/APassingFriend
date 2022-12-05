@@ -45,6 +45,7 @@ public class CharacterMovementScript : MonoBehaviour
     private bool _inClimbingZone;
     private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     private static bool _canClimb = true;
+    private bool _isClimbing;
     
     //Animation
     [SerializeField] private Animator _playerAnimator;
@@ -58,7 +59,12 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_inClimbingZone && _canClimb)
+        if (_inClimbingZone)
+        {
+            MakePlayerFaceWall();
+            CheckCanClimb();
+        }
+        if (_isClimbing && _canClimb)
         {
             Climb();
         }
@@ -68,7 +74,7 @@ public class CharacterMovementScript : MonoBehaviour
             Rotate();
         }
         
-        CheckCanClimb();
+        
         
     }
 
@@ -199,7 +205,7 @@ public class CharacterMovementScript : MonoBehaviour
             }
         }
 
-        if (_inClimbingZone)
+        if (_isClimbing)
         {
             _canClimb = false;
         }
@@ -229,11 +235,9 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _isInChargeJumpZone = true;
         }
-
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
             _inClimbingZone = true;
-           MakePlayerFacingWall();
         }
     }
 
@@ -246,8 +250,8 @@ public class CharacterMovementScript : MonoBehaviour
         }
         if (trigger.transform.CompareTag("ClimbingZone"))
         {
+            _isClimbing = false;
             _inClimbingZone = false;
-            PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
         }
         
     }
@@ -267,7 +271,6 @@ public class CharacterMovementScript : MonoBehaviour
             _canClimb = true;
             //Resetting movement direction so the cat won't get slammed into the floor 
             _moveDirection.y = 0;
-            MakePlayerFacingWall();
         }
     }
 
@@ -281,26 +284,29 @@ public class CharacterMovementScript : MonoBehaviour
             Move();
         }
     }
-    private void MakePlayerFacingWall()
+    private void MakePlayerFaceWall()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward,out hit))
+        if(Physics.Raycast(transform.position, transform.forward,out hit,0.3f))
         {
-            if (hit.transform.CompareTag("ClimbingZone"))
+            if (hit.transform.CompareTag("ClimbingWall"))
             {
-                if (-hit.normal != -Vector3.forward)
-                {
-                    transform.rotation = Quaternion.FromToRotation(Vector3.forward, -hit.normal);
-                }
-                else
-                {
-                    transform.transform.rotation = hit.transform.rotation;
-                }
+                _isClimbing = true;
             }
-            else
+            else if (_isClimbing)
             {
                 // if the player isn't looking at the wall anymore exit climbing
-                _inClimbingZone = false;
+                {
+                    _isClimbing = false;
+                    PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
+                }
+            }
+        }
+        else if (_isClimbing)
+        {
+            {
+                _isClimbing = false;
+                PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
             }
         }
     }
