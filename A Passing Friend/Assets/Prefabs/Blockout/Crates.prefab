@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4419235231738398816}
   m_Layer: 0
-  m_Name: Smallstuff
+  m_Name: Crates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
