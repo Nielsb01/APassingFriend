@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &478993901623565425
 MonoBehaviour:
@@ -46,12 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightLevel: 0
   calculateLight: 1
-  _dayTime: 1
-  _leftLightCheckTexture: {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b,
-    type: 2}
-  _rightLightCheckTexture: {fileID: 8400000, guid: 0053936c71a64f74fa50b17f4375d203,
-    type: 2}
-  _backwardLightCheckTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333,
-    type: 2}
-  _forwardLightCheckTexture: {fileID: 8400000, guid: 596b11d5380db7844942da53178a8166,
-    type: 2}
+  _initialObjectLightlevel: 44
+  _renderTextures:
+  - {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
+  - {fileID: 8400000, guid: 9aa955ad246b04d4784562f7e22ab1bd, type: 2}
+  - {fileID: 8400000, guid: 365c0f44d323281458d3730709724881, type: 2}
+  - {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b, type: 2}
+  - {fileID: 8400000, guid: eb5d4cadd466027448776ddc05e86969, type: 2}
+  - {fileID: 8400000, guid: 037644336c06d034e975bf95cde9f6a6, type: 2}
+  - {fileID: 8400000, guid: 0053936c71a64f74fa50b17f4375d203, type: 2}
+  - {fileID: 8400000, guid: 3f799a44333e2704bbe324d1aa326f77, type: 2}
+  - {fileID: 8400000, guid: 3d85aeda505709040ac81bfb471a9579, type: 2}
