@@ -27,6 +27,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
+    [HideInInspector]
     public bool rotationFrozenDueToSpecialArea;
 
     private const float CHECK_VALUE = 0.1f;
