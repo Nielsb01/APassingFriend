@@ -76,7 +76,6 @@ public class FieldOfView : MonoBehaviour
             if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                Debug.Log("test");
                 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                 {

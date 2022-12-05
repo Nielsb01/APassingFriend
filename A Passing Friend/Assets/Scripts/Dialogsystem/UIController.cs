@@ -259,10 +259,7 @@ public class UIController : MonoBehaviour
         foreach (var dialog in _dialogBuilder.getAllDialogObjects())
         {
             _dialogBoxChoiceButtons[counter].visible = true;
-            //_dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
-            _dialogBoxChoiceButtons[0].text = "Wat is er met die domme poort?";
-            _dialogBoxChoiceButtons[1].text = "En die rare steen?";
-
+            _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
