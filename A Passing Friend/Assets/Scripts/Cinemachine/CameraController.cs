@@ -12,6 +12,21 @@ namespace Camera
         [SerializeField] private CinemachineVirtualCamera _pointOfViewCam;
         [SerializeField] private CinemachineFreeLook _freeLookCam;
         private CharacterMovementScript _characterMovementScript;
+        private bool _hideMouse;
+
+
+        private void Update()
+        {
+            Debug.Log("update");
+
+            if (_hideMouse)
+            {
+                Debug.Log("hiding");
+
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
 
         private void Start()
         {
@@ -106,6 +121,18 @@ namespace Camera
         public void UnlockOrientation()
         {
             _characterMovementScript.rotationFrozenDueToSpecialArea = false;
+        }
+        
+        public void OnHideMouse(InputValue inputValue)
+        {
+            _hideMouse = !_hideMouse;
+            Debug.Log("check");
+            if (!_hideMouse)
+            {
+                Debug.Log("unlocking");
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }
