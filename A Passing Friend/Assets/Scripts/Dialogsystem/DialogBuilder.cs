@@ -75,7 +75,7 @@ public class DialogBuilder : MonoBehaviour
             var subdialog = Regex.Split(option, DIALOG_OPTIONS_REGEX).ToList();
             var subdialogTrimmed = subdialog.Select(s => s.Trim()).ToList();
             removeSplitStrings(subdialogTrimmed, true);
-            var dialogTitle = subdialog[0];
+            var dialogTitle = subdialog[0].Trim();
             // Remove the introtext from the dialog options.
             subdialogTrimmed.Remove(subdialogTrimmed[0]);
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
