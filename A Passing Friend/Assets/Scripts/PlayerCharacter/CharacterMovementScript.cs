@@ -42,10 +42,13 @@ public class CharacterMovementScript : MonoBehaviour
     private float _jumpCharged;
 
     // Climbing
+    [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
     private bool _inClimbingZone;
-    private static float CLIMB_ZONE_EXIT_JUMP_SPEED = 0.1f;
     private static bool _canClimb = true;
-    private bool _isClimbing;
+    private bool _isClimbing; 
+    private bool _exitingClimbing;
+    private static string CLIMBING_ZONE_TAG = "ClimbingZone";
+    private static float CLIMBING_DISTANCE = 0.3f;
     
     //Animation
     [SerializeField] private Animator _playerAnimator;
@@ -61,10 +64,15 @@ public class CharacterMovementScript : MonoBehaviour
     {
         if (_inClimbingZone)
         {
-            MakePlayerFaceWall();
             CheckCanClimb();
+
+            if (_canClimb)
+            {
+                ClimbWall();
+            }
         }
-        if (_isClimbing && _canClimb)
+
+        if (_isClimbing)
         {
             Climb();
         }
@@ -205,6 +213,7 @@ public class CharacterMovementScript : MonoBehaviour
         if (_isClimbing)
         {
             _canClimb = false;
+            _isClimbing = false;
         }
     }
 
@@ -221,7 +230,6 @@ public class CharacterMovementScript : MonoBehaviour
                 _moveDirection.y = _jumpCharged;
                 _doJump = true;
             }
-
             resetJumpCharge();
         }
     }
@@ -232,7 +240,7 @@ public class CharacterMovementScript : MonoBehaviour
         {
             _isInChargeJumpZone = true;
         }
-        if (trigger.transform.CompareTag("ClimbingZone"))
+        if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
         {
             _inClimbingZone = true;
         }
@@ -245,7 +253,7 @@ public class CharacterMovementScript : MonoBehaviour
             _isInChargeJumpZone = false;
             resetJumpCharge();
         }
-        if (trigger.transform.CompareTag("ClimbingZone"))
+        if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
         {
             _isClimbing = false;
             _inClimbingZone = false;
@@ -278,33 +286,33 @@ public class CharacterMovementScript : MonoBehaviour
         // If the character is grounded and we press backward, we want to call the normal move to exit the climb zone.
         if (_characterController.isGrounded && _moveVector.y <= -1)
         {
-            Move();
+            _exitingClimbing = true;
+            _isClimbing = false;
         }
     }
-    private void MakePlayerFaceWall()
+    private void ClimbWall()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward,out hit,0.3f))
+        if(Physics.Raycast(transform.position, transform.forward,out hit,CLIMBING_DISTANCE))
         {
             if (hit.transform.CompareTag("ClimbingWall"))
             {
-                _isClimbing = true;
+                if (!_exitingClimbing)
+                {
+                    _isClimbing = true;
+                }
             }
             else if (_isClimbing)
             {
                 // if the player isn't looking at the wall anymore exit climbing
                 {
-                    _isClimbing = false;
-                    PerformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
+                    ExitClimbing();
                 }
             }
         }
-        else if (_isClimbing)
+        else
         {
-            {
-                _isClimbing = false;
-                PerformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
-            }
+            _exitingClimbing = false;
         }
     }
     // This jumped is performed when failing a jump, but also when exiting a climb zone.
@@ -312,6 +320,15 @@ public class CharacterMovementScript : MonoBehaviour
     {
         _moveDirection.y = jumpPower;
         _velocityY += jumpPower;
+    }
+
+    private void ExitClimbing()
+    {
+        _isClimbing = false;
+        _velocityX = 0;
+        _velocityY = 0;
+        PerformSmallJump(_climbZoneExitJumpSpeed);
+        _exitingClimbing = false;
     }
 
     // Getters for making UI

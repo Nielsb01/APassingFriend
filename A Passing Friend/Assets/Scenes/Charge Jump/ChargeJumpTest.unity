@@ -723,7 +723,7 @@ GameObject:
   - component: {fileID: 1092279466}
   - component: {fileID: 1092279470}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: 'Climbing '
   m_TagString: ClimbingZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -911,13 +911,84 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153881055}
   m_LocalRotation: {x: 0.49999985, y: 0.50000024, z: -0.5000001, w: 0.49999988}
-  m_LocalPosition: {x: 6.653, y: 1.2266, z: -9.833}
-  m_LocalScale: {x: 0.044232015, y: 1, z: 0.21103507}
+  m_LocalPosition: {x: 6.653, y: 1.2284, z: -9.833}
+  m_LocalScale: {x: 0.044232015, y: 1, z: 0.21139167}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+--- !u!1001 &1272051796
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.54686
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.595
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.5854464
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822521, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115599375680822525, guid: 4c411d77529046b4287184cf86fbf2a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Climbing zone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4c411d77529046b4287184cf86fbf2a7, type: 3}
 --- !u!1001 &1486325588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -934,17 +1005,17 @@ PrefabInstance:
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.07437619
+      value: 0.07437622
       objectReference: {fileID: 0}
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000029719779
+      value: 3.5330337e-15
       objectReference: {fileID: 0}
     - target: {fileID: 429239325887783210, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000022165831
+      value: -3.064301e-16
       objectReference: {fileID: 0}
     - target: {fileID: 429239325920329678, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
@@ -959,12 +1030,12 @@ PrefabInstance:
     - target: {fileID: 429239325920329678, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017179161
+      value: -0.000000017179165
       objectReference: {fileID: 0}
     - target: {fileID: 429239325920329678, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -9.674255e-10
+      value: 9.674257e-10
       objectReference: {fileID: 0}
     - target: {fileID: 429239326014005083, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
@@ -1085,6 +1156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _jumpOverchargeValue
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3648689827853525140, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _climbZoneExitJumpSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8012747224378882956, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
@@ -1377,13 +1453,14 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!1 &1586762452
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4628603031989433809, guid: 8b64455635dc0ef4faa005f82e8ee071,
+    type: 3}
+  m_PrefabInstance: {fileID: 4628603033307227909}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -1392,7 +1469,7 @@ GameObject:
   - component: {fileID: 1586762454}
   - component: {fileID: 1586762453}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Climbing wall
   m_TagString: ClimbingWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1401,8 +1478,9 @@ GameObject:
 --- !u!64 &1586762453
 MeshCollider:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4628603031989433808, guid: 8b64455635dc0ef4faa005f82e8ee071,
+    type: 3}
+  m_PrefabInstance: {fileID: 4628603033307227909}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586762452}
   m_Material: {fileID: 0}
@@ -1415,8 +1493,9 @@ MeshCollider:
 --- !u!23 &1586762454
 MeshRenderer:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4628603031989433811, guid: 8b64455635dc0ef4faa005f82e8ee071,
+    type: 3}
+  m_PrefabInstance: {fileID: 4628603033307227909}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586762452}
   m_Enabled: 1
@@ -1457,16 +1536,18 @@ MeshRenderer:
 --- !u!33 &1586762455
 MeshFilter:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4628603031989433810, guid: 8b64455635dc0ef4faa005f82e8ee071,
+    type: 3}
+  m_PrefabInstance: {fileID: 4628603033307227909}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586762452}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1586762456
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+    type: 3}
+  m_PrefabInstance: {fileID: 4628603033307227909}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1586762452}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
@@ -1475,7 +1556,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1671397977
 GameObject:
@@ -1880,12 +1961,12 @@ PrefabInstance:
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000003435833
+      value: -0.00000003435833
       objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000019348507
+      value: 0.0000000019348507
       objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207925, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
@@ -2172,3 +2253,74 @@ MonoBehaviour:
   _characterMovementScript: {fileID: 774140462}
   _jumpSprite: {fileID: 667752483}
   _maxJumpSprite: {fileID: 480502879}
+--- !u!1001 &4628603033307227909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4628603031989433809, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_Name
+      value: Climbing wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5027
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4628603031989433821, guid: 8b64455635dc0ef4faa005f82e8ee071,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b64455635dc0ef4faa005f82e8ee071, type: 3}
