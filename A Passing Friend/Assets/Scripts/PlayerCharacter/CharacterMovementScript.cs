@@ -73,9 +73,6 @@ public class CharacterMovementScript : MonoBehaviour
             Move();
             Rotate();
         }
-        
-        
-        
     }
 
     public void OnFreeLook(InputValue value)
@@ -259,7 +256,7 @@ public class CharacterMovementScript : MonoBehaviour
     {
         // TODO implement funny cat animations
         Debug.Log("Jump failed :(");
-        PreformSmallJump(_failjumpSpeed);
+        PerformSmallJump(_failjumpSpeed);
         _doJump = true;
     }
 
@@ -298,7 +295,7 @@ public class CharacterMovementScript : MonoBehaviour
                 // if the player isn't looking at the wall anymore exit climbing
                 {
                     _isClimbing = false;
-                    PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
+                    PerformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
                 }
             }
         }
@@ -306,12 +303,12 @@ public class CharacterMovementScript : MonoBehaviour
         {
             {
                 _isClimbing = false;
-                PreformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
+                PerformSmallJump(CLIMB_ZONE_EXIT_JUMP_SPEED);
             }
         }
     }
-    // This jumped is preformed when failing a jump, but also when exiting a climb zone.
-    private void PreformSmallJump(float jumpPower)
+    // This jumped is performed when failing a jump, but also when exiting a climb zone.
+    private void PerformSmallJump(float jumpPower)
     {
         _moveDirection.y = jumpPower;
         _velocityY += jumpPower;
