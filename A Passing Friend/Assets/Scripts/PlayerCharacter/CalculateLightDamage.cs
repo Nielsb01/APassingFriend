@@ -22,11 +22,14 @@ public class CalculateLightDamage : MonoBehaviour
     private int _lightLevel;
     private float _minDamage = 0;
     public Image vignette;
+    private ParticleSystem _particleSystem;
+    private bool isParticling;
 
     private void Awake()
     {
         _lightCheckScript = _lightCheckScriptGameObject.GetComponent<LightCheckScript>();
         _health = _maxHealth;
+        _particleSystem = GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -45,24 +48,63 @@ public class CalculateLightDamage : MonoBehaviour
     {
         if (!_calculateLight) return;
         
-        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
+        UpdateVignette();
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
-            _health -= (int)Math.Round(_damagePerFrame);
-            _health = _health < _minHealth ? _minHealth : _health;
+            TakeDamage();
         }
-
-        if (_lightLevel == _lightToHealingThreshold)
+        else
         {
-            _health += _regenerationMultiplier;
-            _health = _health > _maxHealth ? _maxHealth : _health;
+            isParticling = false;
+            _particleSystem.Stop();
+            
+            if (_lightLevel <= _lightToHealingThreshold)
+            {
+                Heal();
+            }
         }
 
 #if DEBUG
         logHealth();
         logLuminance();
 #endif
+    }
+
+    private void TakeDamage()
+    {
+        CreateDamageParticles();
+
+        _health -= (int)Math.Round(_damagePerFrame);
+        _health = _health < _minHealth ? _minHealth : _health;
+    }
+
+    private void Heal()
+    {
+        _health += _regenerationMultiplier;
+        _health = _health > _maxHealth ? _maxHealth : _health;
+    }
+
+    private void UpdateVignette()
+    {
+        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
+    }
+
+    private void CreateDamageParticles()
+    {
+        if (!isParticling)
+        {
+            _particleSystem.Play();
+            isParticling = true;
+        }
+
+        ChangeParticleEmission(125 - _health);
+    }
+
+    private void ChangeParticleEmission(float emission)
+    {
+        var particleSystemEmission = _particleSystem.emission;
+        particleSystemEmission.rateOverTime = emission;
     }
 
 #if DEBUG
