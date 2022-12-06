@@ -219,8 +219,6 @@ public class CharacterMovementScript : MonoBehaviour
 
     private void OnJumpFail()
     {
-        // TODO implement funny cat animations
-        print("Jump failed :(");
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
         _doJump = true;
