@@ -19,6 +19,8 @@ public class ChargeJumpPlaceHolder : MonoBehaviour
 
     void Update()
     {
+        _jumpSprite.gameObject.SetActive(_characterMovementScript.getJumpCharged() > 0.3f);
+        _maxJumpSprite.gameObject.SetActive(_characterMovementScript.getJumpCharged() > 0.3f);
         float y = _jumpSprite.GetComponent<RectTransform>().sizeDelta.y;
         _jumpSprite.GetComponent<RectTransform>().sizeDelta =
             new Vector2(_characterMovementScript.getJumpCharged() * 100, y);
