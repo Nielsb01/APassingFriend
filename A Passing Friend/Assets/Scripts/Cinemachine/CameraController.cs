@@ -1,4 +1,3 @@
-using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +11,17 @@ namespace Camera
         [SerializeField] private CinemachineVirtualCamera _pointOfViewCam;
         [SerializeField] private CinemachineFreeLook _freeLookCam;
         private CharacterMovementScript _characterMovementScript;
+        private bool _hideMouse;
+
+
+        private void Update()
+        {
+            if (_hideMouse)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
 
         private void Start()
         {
@@ -106,6 +116,16 @@ namespace Camera
         public void UnlockOrientation()
         {
             _characterMovementScript.rotationFrozenDueToSpecialArea = false;
+        }
+        
+        public void OnToggleHideMouse(InputValue inputValue)
+        {
+            _hideMouse = !_hideMouse;
+            if (!_hideMouse)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
         }
     }
 }

@@ -5,13 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Terrible Thursday/17-11-2022.unity
-    guid: 688451807c87fab49b8bf4f245795caf
-  - enabled: 0
-    path: Assets/Scenes/Charge Jump/ChargeJumpTest.unity
-    guid: e259cf197c79f654ca9177fb3ca47676
   - enabled: 1
-    path: Assets/Scenes/Vignette effect.unity
-    guid: 56a3cc1d81808f24ca7b9927d0747b5e
+    path: Assets/Scenes/Blockout/LevelBlockout.unity
+    guid: 5dd50bb6e01babc4ab8347ed108a5752
   m_configObjects: {}
