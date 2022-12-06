@@ -44,7 +44,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
- 
+    //Interacting
+    [SerializeField] private float _interactDistance = 1.0f;
+    private Transform _holdingItem;
+    [SerializeField] private Transform _pickUpLocation;
     private void Awake()
     {
         _doJump = false;
@@ -185,18 +188,67 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         }
     }
 
+    private void OnInteract()
+    {
+        if (_holdingItem == null)
+        {
+
+            RaycastHit hit;
+            if (Physics.Raycast(_pickUpLocation.position, transform.TransformDirection(Vector3.forward), out hit,
+                    _interactDistance))
+            {
+                Debug.DrawRay(_pickUpLocation.position, transform.TransformDirection(Vector3.forward) * hit.distance,
+                    Color.yellow);
+                Debug.Log("Did Hit" + hit.transform.gameObject);
+                PickupAbleItem pickupAbleItemScript = hit.transform.GetComponent<PickupAbleItem>();
+                if (pickupAbleItemScript != null)
+                {
+                    pickupAbleItemScript.Pickup(_pickUpLocation);
+                    _holdingItem = hit.transform; ;
+                }
+            }
+            else
+            {
+                Debug.DrawRay(_pickUpLocation.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+                Debug.Log("Did not Hit");
+            }
+        }
+        else
+        {
+            _holdingItem.GetComponent<PickupAbleItem>().Drop();
+            _holdingItem = null;
+            
+        }
+    }
+
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
         this.transform.position = data.PlayerLocation;
         _characterController.enabled = true;
+        loadHoldingItem(data);
     }
 
     public void SaveData(ref GameData data)
     {
         data.PlayerLocation = this.transform.position;
+        if (_holdingItem != null)
+        {
+            data.ItemHeldByPlayer = this._holdingItem.name;
+        }
+        else
+        {
+            data.ItemHeldByPlayer = null;
+        }
     }
-    
+
+    private void loadHoldingItem(GameData data)
+    {
+        Transform itemHeldByPlayer = GameObject.Find(data.ItemHeldByPlayer).transform;
+        itemHeldByPlayer.GetComponent<PickupAbleItem>().Pickup(_pickUpLocation);
+        _holdingItem = itemHeldByPlayer;
+    }
+
     private void OnJumpRelease()
     {
         if (_isInChargeJumpZone)
