@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4805259041890650636}
   - component: {fileID: 4805259041890650638}
   - component: {fileID: 5144608636448217820}
+  - component: {fileID: 5148287735059357249}
   m_Layer: 0
   m_Name: PathNode
   m_TagString: DebugComponent
@@ -236,3 +237,15 @@ MonoBehaviour:
   _waitNodeMaterial: {fileID: 2100000, guid: a76c841b90354dd48837d6e9cfa7bf07, type: 2}
   _customRoundingNodeMaterial: {fileID: 2100000, guid: 4cea427776547434197130949b62ec41,
     type: 2}
+--- !u!114 &5148287735059357249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4805259041890650647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441b1acaeb473aa42bb61d4ed2a251fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -170,7 +170,7 @@ namespace Npc
         {
             try
             {
-                _currentTravelDestinationNode.GetComponent<NpcMoveNodeTrigger>().Trigger();
+                _currentTravelDestinationNode.GetComponent<PathNodeController>().Trigger();
             }
             catch (Exception e)
             {

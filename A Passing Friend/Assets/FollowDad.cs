@@ -1,19 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowDad : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject npc;
+    private bool _grounded = false;
+    private Rigidbody _rb;
+    [SerializeField] private float _bounceStrength = 2;
+    [SerializeField] private float _followControllerSpeed = 3;
+
+    private void Start()
     {
-        
+        _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        var _rb = GetComponent<Rigidbody>();
-        // _rb.AddForce(transform.position - GetComponentInParent<Transform>().position);
+        TrackControllerGameObject();
+        if (_grounded)
+        {
+            Bounce();
+        }
+    }
+
+    private void Bounce()
+    {
+        _rb.AddForce(new Vector3(0,_bounceStrength,0), ForceMode.Impulse);
+    }
+    
+    private void TrackControllerGameObject()
+    {
+        _rb.AddForce((npc.transform.position - transform.position) * _followControllerSpeed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        _grounded = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        _grounded = false;
     }
 }
