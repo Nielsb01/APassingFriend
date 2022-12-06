@@ -29,7 +29,7 @@ public class CalculateLightDamage : MonoBehaviour
     {
         _lightCheckScript = _lightCheckScriptGameObject.GetComponent<LightCheckScript>();
         _health = _maxHealth;
-        _particleSystem = GetComponent<ParticleSystem>();
+        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Start()
