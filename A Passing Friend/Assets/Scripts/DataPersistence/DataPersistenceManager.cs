@@ -6,6 +6,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private string _filename;
     [SerializeField] private string _dirPath = "C:\\temp";
+    [SerializeField] private List<GameObject> _checkpoints;
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
@@ -16,7 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("More than one DPM found in scene");
+            Debug.LogError(this.name + "More than one DPM found in scene");
         }
         instance = this;
     }
@@ -42,6 +43,14 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         _gameData = new GameData();
+        if (_checkpoints.Count < 1 || _checkpoints[0] == null)
+        {
+            Debug.LogError(this.name + ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
+        }
+        else
+        {
+            _gameData.PlayerLocation = _checkpoints[0].transform.position;
+        }
     }
 
     public void SaveGame()
