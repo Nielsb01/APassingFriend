@@ -98,7 +98,7 @@ public class UIController : MonoBehaviour
 
         _jumpChargeBar = _root.Q<JumpChargeBar>("jump-charge-bar");
         _jumpChargeBar.value = _currentJumpCharge / _maxJumpCharge;
-        //_jumpChargeBar.visible = false;
+        _jumpChargeBar.visible = false;
         _currentlyChargingJump = false;
 
         _lastScreenWidth = Screen.width;
@@ -124,9 +124,16 @@ public class UIController : MonoBehaviour
         if (!characterMovementScript.GetCurrentlyChargingJump())
         {
             DechargeJump();
+
+            if (_currentJumpCharge == 0)
+            {
+                _jumpChargeBar.visible = false;
+            }
         }
         else
         {
+            _jumpChargeBar.visible = true;
+
             ChargeJump();
         }
 
