@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,21 +8,16 @@ namespace Npc
 {
     public class NpcMovementController : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _waypoints;
+        [SerializeField] private List<GameObject> _waypointsRoute = new List<GameObject>();
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
         [SerializeField] private bool _patrolling = false;
-        [SerializeField] private GameObject _pathNodePrefab;
         [SerializeField] private WaypointRoute _route;
         private NavMeshAgent _navMeshAgent;
-        private VariableDeclarations _variables;
         private float _waypointRoundingForNextNode;
         private bool _skipNextNodeActions = true;
         private GameObject _currentTravelDestinationNode;
         private const float MINIMUM_ROUNDING = 0.1f;
-        private const string ROUNDING_VARIABLE_NAME = "RoundingForThisNode";
-        private const string TRIGGER_VARIABLE_NAME = "TriggerEvent";
-        private const string SPEED_CHANGE_VARIABLE_NAME = "NewMovementSpeed";
-        private const string WAIT_TIME_VARIABLE_NAME = "WaitTimeAtThisNode";
+        private PathNodeController _pathNodeController;
 
         private void Start()
         {
@@ -44,138 +37,92 @@ namespace Npc
 
         private void Update()
         {
-            var destination = new Vector2(_navMeshAgent.destination.x, _navMeshAgent.destination.z);
-            var currentPos = new Vector2(transform.position.x, transform.position.z);
-            if (!((destination - currentPos).magnitude < _waypointRoundingForNextNode) || _waypoints.Count <= 0) return;
-
+            if (!IsNpcAtDestination()) return;
             if (!_skipNextNodeActions)
             {
                 ExecuteNodeEffects();
             }
 
-            NavigateToNextWaypoint();
+            GoToNextWaypoint();
         }
 
-        public void SetPathWaypoint(List<GameObject> pathNodes)
+        private bool IsNpcAtDestination()
         {
-            _waypoints = pathNodes;
-        }
-
-        public void SetPathWaypoint(List<Vector3> pathNodes)
-        {
-            _waypoints = new List<GameObject>();
-            foreach (var node in pathNodes)
-            {
-                _waypoints.Add(CreateWaypointOnPosition(node));
-            }
-        }
-
-        public void SetPathWaypoint(GameObject pathNode)
-        {
-            _waypoints = new List<GameObject> { pathNode };
-        }
-
-        public void SetPathWaypoint(Vector3 pathNode)
-        {
-            _waypoints = new List<GameObject>
-            {
-                CreateWaypointOnPosition(pathNode)
-            };
+            var dest = _navMeshAgent.destination;
+            var pos = transform.position;
+            var destination = new Vector2(dest.x, dest.z);
+            var currentPos = new Vector2(pos.x, pos.z);
+            return (destination - currentPos).magnitude < _waypointRoundingForNextNode;
         }
 
         public void StartRoute(WaypointRoute route)
         {
-            _waypoints = route.waypoints;
+            _waypointsRoute = route.waypoints;
             _patrolling = route.isPatrol;
         }
 
-        private void NavigateToNextWaypoint()
+        private void GoToNextWaypoint()
         {
-            if (_waypoints.Count <= 0) return;
-
-            _navMeshAgent.destination = _waypoints.First().transform.position;
-            CheckIfNextNodeHasEffect(_waypoints.First());
-            _currentTravelDestinationNode = _waypoints.First();
+            Debug.Log("_waypointsRoute.Count");
+            Debug.Log(_waypointsRoute.Count);
+            if (_waypointsRoute.Count == 0) return;
 
             if (_patrolling)
             {
-                var point = _waypoints.First();
-                _waypoints.Remove(point);
-                _waypoints.Add(point);
+                var point = _waypointsRoute.First();
+                _waypointsRoute.Remove(point);
+                _waypointsRoute.Add(point);
             }
             else
             {
-                _waypoints.Remove(_waypoints.First());
+                _waypointsRoute.Remove(_waypointsRoute.First());
             }
 
+            _currentTravelDestinationNode = _waypointsRoute.First();
+            _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
+            SetRoundingForNextNode(_currentTravelDestinationNode);
+            _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             _skipNextNodeActions = false;
         }
 
-        private GameObject CreateWaypointOnPosition(Vector3 vector3)
+        private void SetRoundingForNextNode(GameObject node)
         {
-            return Instantiate(_pathNodePrefab, vector3, Quaternion.identity);
-        }
-
-        private void CheckIfNextNodeHasEffect(GameObject node)
-        {
-            _variables = node.GetComponent<Variables>().declarations;
-            var roundingForThisNode = GetFloatVariableFromNextNode(ROUNDING_VARIABLE_NAME);
-            if (roundingForThisNode == 0)
+            var roundingForNextNode = _pathNodeController.RoundingForThisNode;
+            if (SettingDisabled(roundingForNextNode))
             {
                 _waypointRoundingForNextNode = _defaultWaypointRounding;
             }
             else
             {
                 _waypointRoundingForNextNode =
-                    roundingForThisNode >= MINIMUM_ROUNDING ? roundingForThisNode : MINIMUM_ROUNDING;
+                    roundingForNextNode >= MINIMUM_ROUNDING ? roundingForNextNode : MINIMUM_ROUNDING;
             }
         }
 
         private void ExecuteNodeEffects()
         {
-            ExecuteMovementSpeedChange();
+            var newMovementSpeed = _pathNodeController.NewMovementSpeed;
+            if (!SettingDisabled(newMovementSpeed))
+            {
+                _navMeshAgent.speed = newMovementSpeed;
+            }
 
-            var waitTimeAtThisNode = GetFloatVariableFromNextNode(WAIT_TIME_VARIABLE_NAME);
-            if (waitTimeAtThisNode > 0)
+            var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;
+            if (!SettingDisabled(waitTimeAtThisNode))
             {
                 StartCoroutine(WaitForSeconds(waitTimeAtThisNode));
             }
 
-            if (GetBoolVariableFromNextNode(TRIGGER_VARIABLE_NAME))
+            if (_pathNodeController.TriggerScripts.Count > 0)
             {
-                ApplyTriggerEvent();
+                _pathNodeController.Trigger();
             }
         }
 
-        private void ExecuteMovementSpeedChange()
+        private static bool SettingDisabled(float value)
         {
-            var newMovementSpeed = GetFloatVariableFromNextNode(SPEED_CHANGE_VARIABLE_NAME);
-            if (newMovementSpeed > 0)
-            {
-                _navMeshAgent.speed = newMovementSpeed;
-            }
-        }
-
-        private float GetFloatVariableFromNextNode(string variableName)
-        {
-            return (float)(_variables.Get(variableName) ?? MINIMUM_ROUNDING);
-        }
-
-        private bool GetBoolVariableFromNextNode(string variableName)
-        {
-            return (bool)(_variables.Get(variableName) ?? false);
-        }
-
-        private void ApplyTriggerEvent()
-        {
-            try
-            {
-                _currentTravelDestinationNode.GetComponent<PathNodeController>().Trigger();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Could not run trigger: " + e);
-            }
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
+            return value == -1;
         }
 
         private IEnumerator WaitForSeconds(float time)

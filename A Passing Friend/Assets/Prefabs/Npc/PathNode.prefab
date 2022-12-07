@@ -10,14 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4805259041890650632}
   - component: {fileID: 4805259041890650637}
-  - component: {fileID: 6140353407933206981}
-  - component: {fileID: 7748937593120036205}
+  - component: {fileID: 5148287735059357249}
   - component: {fileID: 4805259041890650635}
   - component: {fileID: 4805259041890650634}
   - component: {fileID: 4805259041890650636}
   - component: {fileID: 4805259041890650638}
   - component: {fileID: 5144608636448217820}
-  - component: {fileID: 5148287735059357249}
   m_Layer: 0
   m_Name: PathNode
   m_TagString: DebugComponent
@@ -102,7 +100,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &6140353407933206981
+--- !u!114 &5148287735059357249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,28 +109,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4805259041890650647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Script: {fileID: 11500000, guid: 441b1acaeb473aa42bb61d4ed2a251fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"NewMovementSpeed","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"RoundingForThisNode","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"WaitTimeAtThisNode","value":{"$content":0.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"},{"name":"TriggerEvent","value":{"$content":false,"$type":"System.Boolean"},"typeHandle":{"Identification":"System.Boolean,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
---- !u!114 &7748937593120036205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805259041890650647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6a1b204754e924a91b395023f8440c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _newMovementSpeed: -1
+  _roundingForThisNode: -1
+  _waitTimeAtThisNode: -1
+  _bounceStrengthFromThisNode: -1
+  _ballFollowSpeedFromThisNode: -1
   _triggerScripts: []
 --- !u!33 &4805259041890650635
 MeshFilter:
@@ -237,15 +221,6 @@ MonoBehaviour:
   _waitNodeMaterial: {fileID: 2100000, guid: a76c841b90354dd48837d6e9cfa7bf07, type: 2}
   _customRoundingNodeMaterial: {fileID: 2100000, guid: 4cea427776547434197130949b62ec41,
     type: 2}
---- !u!114 &5148287735059357249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805259041890650647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441b1acaeb473aa42bb61d4ed2a251fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _bounceNodeMaterial: {fileID: 2100000, guid: a708cc4dc9ed32f40bda559357f826fe, type: 2}
+  _followBallSpeedChangeNodeMaterial: {fileID: 2100000, guid: 94aab9394f86e8543a901390ef2f7089,
+    type: 2}
