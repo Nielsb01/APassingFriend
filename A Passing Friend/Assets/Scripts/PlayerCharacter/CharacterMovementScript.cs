@@ -191,6 +191,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             if (_characterController.isGrounded)
             {
+                // Minimum charge value determines how long the jump key should be held down, we want to subtract this from the charge so everything before that
+                // threshold wont matter for the jump
+                _jumpCharged -= _MinimumChargeJumpValue;
                 if (_jumpCharged > _jumpOverchargeValue)
                 {
                     OnJumpFail();
@@ -202,20 +205,21 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
                     _doChargeJump = true;
                 }
             }
-            resetJumpCharge();
+            
         }
         else  if (_characterController.isGrounded)
         {
             _doJump = true;
         }
+        resetJumpCharge();
     }
 
     private void OnJumpHold()
     {
         if (_chargeJumpUnlocked)
-            {
-                _holdingDownJump = true;
-            }
+        { 
+            _holdingDownJump = true;
+        }
     }
     
     private void OnJumpFail()
@@ -233,6 +237,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public float getOverchargeLevel()
     {
         return _jumpOverchargeValue;
+    }
+
+    public float GetMinimumChargeJumpValue()
+    {   
+        return _MinimumChargeJumpValue;
     }
 
     public bool isInChargeZone()
