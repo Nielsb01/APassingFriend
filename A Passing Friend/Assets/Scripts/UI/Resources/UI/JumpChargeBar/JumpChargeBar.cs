@@ -64,7 +64,7 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
     private VisualElement hbForeground;
 
-    public new class UmxlFactory: UxmlFactory<JumpChargeBar, UxmlTraits> { }
+    public class UmxlFactory: UxmlFactory<JumpChargeBar, UxmlTraits> { }
 
     public new class UxmlTraits: VisualElement.UxmlTraits
     {

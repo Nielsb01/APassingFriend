@@ -28,7 +28,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
     [HideInInspector]
-    public bool rotationFrozenDueToSpecialArea;
+    public bool _rotationFrozenDueToSpecialArea;
+    public bool _rotationFrozenDueToDialog;
+
+    private bool _movementImpaired;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -41,7 +44,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _jumpCharged;
     [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
     private bool _doChargeJump;
-    private bool _holdingDownJump;
+    [SerializeField] private bool _holdingDownJump;
+
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -49,6 +53,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         _doJump = false;
+        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -60,18 +65,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void OnFreeLook(InputValue value)
     {
+        if (_movementImpaired) return;
+
         _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
     {
+        if (_movementImpaired) return;
+
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea) return;
+        if (_rotationFrozenDueToFreeLook || _rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -85,6 +94,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Move()
     {
+        if (_movementImpaired) return;
+
         if (_moveVector == null)
         {
             return;
@@ -167,9 +178,26 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _jumpCharged = 0;
     }
 
+    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
+    {
+        _movementImpaired = movementImpaired;
+        _rotationFrozenDueToDialog = rotationFrozen;
+    }
+
     private void OnMove(InputValue inputValue)
     {
         _moveVector = inputValue.Get<Vector2>();
+        if (!_movementImpaired)
+        {
+            _moveVector = inputValue.Get<Vector2>();
+        }
+        else
+        {
+            _moveVector = Vector3.zero;
+            _moveDirection.x = 0;
+            _moveDirection.z = 0;
+        }
+
     }
     
     public void LoadData(GameData data)
@@ -185,8 +213,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     }
     
     private void OnJumpRelease()
-    {
-       
+    {       
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
             if (_characterController.isGrounded)
@@ -229,23 +256,24 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     }
 
     // Getters for making UI
-    public float getJumpCharged()
+    public float GetJumpCharged()
     {
         return _jumpCharged;
     }
 
-    public float getOverchargeLevel()
+    public float GetOverchargeLevel()
     {
         return _jumpOverchargeValue;
     }
 
     public float GetMinimumChargeJumpValue()
-    {   
+    {
         return _MinimumChargeJumpValue;
     }
 
-    public bool isInChargeZone()
+    // Getters for the UI.
+    public bool GetHoldingDownJump()
     {
-        return _chargeJumpUnlocked;
+        return _holdingDownJump;
     }
 }

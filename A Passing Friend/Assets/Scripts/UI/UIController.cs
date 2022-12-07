@@ -37,7 +37,7 @@ public class UIController : MonoBehaviour
     private Button _dialogBoxExitButton;
 
 
-    // // Dialog Builder]
+    // // Dialog Builder
     private List<string> _dialogTextList;
 
     private string _npcName;
@@ -62,12 +62,9 @@ public class UIController : MonoBehaviour
     private JumpChargeBar _jumpChargeBar;
 
     [Header("Jump Charge Bar")]
-    [SerializeField] private bool _currentlyChargingJump = false;
-
-    [SerializeField] private int _jumpCharge = 5; // the amount that the bar is (de)charged with.
-    [SerializeField] private int _minJumpCharge = 0;
-    [SerializeField] private int _maxJumpCharge = 100;
-    [SerializeField] private int _currentJumpCharge = 0; // the current charge on the bar.
+    [SerializeField] private float _minJumpCharge = 0;
+    [SerializeField] private float _maxJumpCharge;
+    [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
     [SerializeField] [Range(0, 2)] private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
 
 
@@ -85,7 +82,11 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
+        
+        // Interaction
         _interactBox = _root.Q<GroupBox>("interact-box");
+        
+        // Dialog
         _dialogBox = _root.Q<VisualElement>("dialog-box");
         _dialogBoxDialog = _root.Q<GroupBox>("dialog-box-dialog");
         _dialogBoxCharName = _root.Q<Label>("dialog-box-char-name");
@@ -96,11 +97,13 @@ public class UIController : MonoBehaviour
         _dialogBox.visible = false;
         _interactBox.visible = false;
 
+        // Jump charge bar
         _jumpChargeBar = _root.Q<JumpChargeBar>("jump-charge-bar");
+        _maxJumpCharge = characterMovementScript.GetOverchargeLevel();
         _jumpChargeBar.value = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.visible = false;
-        _currentlyChargingJump = false;
 
+        // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
 
@@ -121,11 +124,11 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         // Charge or decharge the jump bar if the player is currently charging or not.
-        if (!characterMovementScript.GetCurrentlyChargingJump())
+        if (!characterMovementScript.GetHoldingDownJump())
         {
             DechargeJump();
 
-            if (_currentJumpCharge == 0)
+            if (_currentJumpCharge == _minJumpCharge)
             {
                 _jumpChargeBar.visible = false;
             }
@@ -158,6 +161,16 @@ public class UIController : MonoBehaviour
         }
 
         CheckForScreenResolutionChanges();
+    }
+
+    private void OnValidate()
+    {
+        // If the jump charge bar is initialized, set its value to the starting value.
+        if (_jumpChargeBar != null)
+        {
+            _jumpChargeBar.value = _jumpChargePercent;
+            _currentJumpCharge = (int)(_jumpChargePercent * _maxJumpCharge);
+        }
     }
 
     /* 
@@ -421,47 +434,19 @@ public class UIController : MonoBehaviour
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
+    // Charge the jump bar.
     private void ChargeJump()
     {
-        _currentlyChargingJump = true;
-        _currentJumpCharge += _jumpCharge;
+        _currentJumpCharge += characterMovementScript.GetJumpCharged() * Time.deltaTime;
         _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * 2));
-        _jumpChargePercent = (float)_currentJumpCharge / _maxJumpCharge;
+        _jumpChargePercent = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.value = _jumpChargePercent;
     }
-
+    
+    // Decharge the jump bar.
     private void DechargeJump()
     {
-        _currentJumpCharge -= _jumpCharge;
-        _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * 2));
-        _jumpChargePercent = (float)_currentJumpCharge / _maxJumpCharge;
-        _jumpChargeBar.value = _jumpChargePercent;
-    }
-
-    public bool GetChargeBarOvercharged()
-    {
-        if (_currentJumpCharge > _maxJumpCharge)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public int GetCurrentJumpCharge()
-    {
-        return _currentJumpCharge / 10;
-    }
-
-    private void OnValidate()
-    {
-        if (_jumpChargeBar != null)
-        {
-            _jumpChargeBar.value = _jumpChargePercent;
-            _currentJumpCharge = (int)(_jumpChargePercent * _maxJumpCharge);
-        }
+        _currentJumpCharge = characterMovementScript.GetJumpCharged();
     }
 
     /* 
