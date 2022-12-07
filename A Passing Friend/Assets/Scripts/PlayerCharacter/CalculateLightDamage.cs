@@ -1,6 +1,7 @@
 #region
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,28 +9,28 @@ using UnityEngine.UI;
 
 public class CalculateLightDamage : MonoBehaviour
 {
-    [SerializeField] private GameObject _lightCheckScriptGameObject;
-    [SerializeField] private int _maxHealth = 100;
-    [SerializeField] private int _minHealth = 0;
-    [SerializeField] private float _damagePerFrame = 1;
+    [SerializeField] private GameObject _lightCheckController;
+    [SerializeField] private Image vignette;
+    [SerializeField] private ParticleSystem _damageParticleSystem;
+    [SerializeField] private ParticleSystem _dyingParticleSystem;
+    [SerializeField] private float _maxHealth = 100;
+    [SerializeField] private float _minHealth = 0;
     [SerializeField] private int _lightToDamageThreshold = 3;
-    [SerializeField] private int _regenerationMultiplier = 5;
+    [SerializeField] private float _damagePerFrame = 1;
     [SerializeField] private int _lightToHealingThreshold;
+    [SerializeField] private float _regenerationMultiplier = 5;
 
-    private bool _calculateLight;
-    private int _health;
     private LightCheckScript _lightCheckScript;
+    private bool _calculateLight;
     private int _lightLevel;
-    private float _minDamage = 0;
-    public Image vignette;
-    private ParticleSystem _particleSystem;
-    private bool isParticling;
+    private float _health;
+    private bool _isDead;
+    private bool _isParticling;
 
     private void Awake()
     {
-        _lightCheckScript = _lightCheckScriptGameObject.GetComponent<LightCheckScript>();
+        _lightCheckScript = _lightCheckController.GetComponent<LightCheckScript>();
         _health = _maxHealth;
-        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Start()
@@ -56,8 +57,8 @@ public class CalculateLightDamage : MonoBehaviour
         }
         else
         {
-            isParticling = false;
-            _particleSystem.Stop();
+            _isParticling = false;
+            _damageParticleSystem.Stop();
             
             if (_lightLevel <= _lightToHealingThreshold)
             {
@@ -73,16 +74,32 @@ public class CalculateLightDamage : MonoBehaviour
 
     private void TakeDamage()
     {
-        CreateDamageParticles();
-
-        _health -= (int)Math.Round(_damagePerFrame);
-        _health = _health < _minHealth ? _minHealth : _health;
+        if (_isDead)
+        {
+            PlayDeathAnimation();
+        }
+        else
+        {
+            CreateDamageParticles();
+            _health -= _damagePerFrame;
+        }
+        
+        if (_health < 0)
+        {
+            _isDead = true;
+            _health = _minHealth;
+        }
     }
 
     private void Heal()
     {
         _health += _regenerationMultiplier;
         _health = _health > _maxHealth ? _maxHealth : _health;
+    }
+
+    private void PlayDeathAnimation()
+    {
+        _dyingParticleSystem.Play();
     }
 
     private void UpdateVignette()
@@ -92,10 +109,10 @@ public class CalculateLightDamage : MonoBehaviour
 
     private void CreateDamageParticles()
     {
-        if (!isParticling)
+        if (!_isParticling)
         {
-            _particleSystem.Play();
-            isParticling = true;
+            _damageParticleSystem.Play();
+            _isParticling = true;
         }
 
         ChangeParticleEmission(125 - _health);
@@ -103,7 +120,7 @@ public class CalculateLightDamage : MonoBehaviour
 
     private void ChangeParticleEmission(float emission)
     {
-        var particleSystemEmission = _particleSystem.emission;
+        var particleSystemEmission = _damageParticleSystem.emission;
         particleSystemEmission.rateOverTime = emission;
     }
 
@@ -111,7 +128,7 @@ public class CalculateLightDamage : MonoBehaviour
     private int _previousHigh;
     private int _previousLightLevel;
     private int _highestLevel;
-    private int _previousHealth;
+    private float _previousHealth;
     private float _previousDamage;
 
     private void logHealth()
