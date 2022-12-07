@@ -37,11 +37,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _chargeSpeed = 1.0f;
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
     [SerializeField] private float _failjumpSpeed;
-
     [SerializeField] private bool _chargeJumpUnlocked;
-    private bool _holdingDownJump;
     [SerializeField] private float _jumpCharged;
+    [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
     private bool _doChargeJump;
+    private bool _holdingDownJump;
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -187,7 +187,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpRelease()
     {
        
-        if (_chargeJumpUnlocked && _jumpCharged > 0.3f)
+        if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
             if (_characterController.isGrounded)
             {
