@@ -63,10 +63,8 @@ namespace Npc
 
         private void GoToNextWaypoint()
         {
-            Debug.Log("_waypointsRoute.Count");
-            Debug.Log(_waypointsRoute.Count);
-            if (_waypointsRoute.Count == 0) return;
-
+            if (_waypointsRoute.Count == 0){Debug.Log("1"); return;}
+            
             if (_patrolling)
             {
                 var point = _waypointsRoute.First();
@@ -77,11 +75,12 @@ namespace Npc
             {
                 _waypointsRoute.Remove(_waypointsRoute.First());
             }
-
+            
+            if (_waypointsRoute.Count == 0){Debug.Log("2"); return;}Debug.Log("3");
             _currentTravelDestinationNode = _waypointsRoute.First();
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
-            SetRoundingForNextNode(_currentTravelDestinationNode);
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
+            SetRoundingForNextNode(_currentTravelDestinationNode);
             _skipNextNodeActions = false;
         }
 
