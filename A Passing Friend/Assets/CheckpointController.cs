@@ -8,6 +8,18 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
     [SerializeField] private string _checkpointName;
     private bool _isActive = false;
 
+    public void Start()
+    {
+        if (_gameData == null)
+        {
+            Debug.LogError(this.name + ": Must have a CheckpointGameDataScriptableObject, it can't be null.");
+        }
+        if (_checkpointName == null)
+        {
+            Debug.LogError(this.name + ": Must have a unique Name set, it can't be null.");
+        }
+    }
+
     public void SetIsActiveTrue()
     {
         _isActive = true;

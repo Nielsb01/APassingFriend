@@ -57,7 +57,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log("Saving game");
         foreach (var obj in _dataPersistenceOpjects)
         {
             obj.SaveData(ref _gameData);
@@ -68,7 +67,6 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame()
     {
-        Debug.Log("Loading game");
         _gameData = _fileDataHandler.Load();
 
         if (_gameData == null)
