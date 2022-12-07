@@ -171,12 +171,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _moveVector = inputValue.Get<Vector2>();
     }
-
-    private void OnJump()
-    {
-       
-    }
-
+    
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
@@ -191,6 +186,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     
     private void OnJumpRelease()
     {
+       
         if (_chargeJumpUnlocked && _jumpCharged > 0.3f)
         {
             if (_characterController.isGrounded)
@@ -221,20 +217,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
                 _holdingDownJump = true;
             }
     }
-
-    private void OnTriggerEnter(Collider trigger)
-    {
-    }
-
-    private void OnTriggerExit(Collider trigger)
-    {
-    }
-
+    
     private void OnJumpFail()
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
-        _doJump = true;
     }
 
     // Getters for making UI
