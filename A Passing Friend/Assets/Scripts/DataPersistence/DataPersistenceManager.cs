@@ -49,12 +49,15 @@ public class DataPersistenceManager : MonoBehaviour
         }
         else
         {
-            _gameData.PlayerLocation = _checkpoints[0].transform.position;
+            var checkpoint = _checkpoints[0].GetComponent<CheckpointController>();
+            checkpoint.SetIsActiveTrue();
+            checkpoint.SaveData(ref _gameData);
         }
     }
 
     public void SaveGame()
     {
+        Debug.Log("Saving game");
         foreach (var obj in _dataPersistenceOpjects)
         {
             obj.SaveData(ref _gameData);
@@ -65,6 +68,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame()
     {
+        Debug.Log("Loading game");
         _gameData = _fileDataHandler.Load();
 
         if (_gameData == null)

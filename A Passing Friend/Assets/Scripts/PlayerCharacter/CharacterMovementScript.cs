@@ -194,7 +194,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
-        data.PlayerLocation = this.transform.position;
+        
     }
     
     private void OnJumpRelease()
