@@ -6,10 +6,12 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private CheckpointGameDataSO _gameData;
     [SerializeField] private string _checkpointName;
-    private bool _isActive = false;
+    private bool _isActive;
 
     public void Start()
     {
+        _isActive = false;
+
         if (_gameData == null)
         {
             Debug.LogError(this.name + ": Must have a CheckpointGameDataScriptableObject, it can't be null.");
@@ -25,17 +27,12 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         _isActive = true;
     }
 
-    public void LoadData(GameData gameData) 
+    public string GetCheckpointName()
     {
-        if (gameData.activeCheckpoint.Equals(_checkpointName))
-        {
-            _isActive = true;
-        }
-        else
-        {
-            _isActive = false;
-        }
+        return _checkpointName;
     }
+
+    public void LoadData(GameData gameData) {}
 
     public void SaveData(ref GameData gameData)
     {
@@ -48,5 +45,6 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         gameData.ashaLocation = _gameData.ashaLocation;
         gameData.questOneState = _gameData.questOneState;
         gameData.questTwoState = _gameData.questTwoState;
+        _isActive = false;
     }
 }

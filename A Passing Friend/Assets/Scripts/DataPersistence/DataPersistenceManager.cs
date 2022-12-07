@@ -29,6 +29,15 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
+    //TODO This needs to be replaced during intergration with a propper way to call it
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextWaypoint();
+        }
+    }
+
     private List<IDataPersistence> GetAllDataPersistenceObjects()
     {
         var result = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
@@ -49,9 +58,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         else
         {
-            var checkpoint = _checkpoints[0].GetComponent<CheckpointController>();
-            checkpoint.SetIsActiveTrue();
-            checkpoint.SaveData(ref _gameData);
+            SetWaypoint(0);
         }
     }
 
@@ -78,5 +85,25 @@ public class DataPersistenceManager : MonoBehaviour
         {
             obj.LoadData(_gameData);
         }
+    }
+
+    public void NextWaypoint()
+    {
+        var nameActive = _gameData.activeCheckpoint;
+
+        for (int i = 0; i < _checkpoints.Count - 1; i++)
+        {
+            if (_checkpoints[i].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
+            {
+                SetWaypoint(i + 1);
+            }
+        }
+    }
+
+    private void SetWaypoint(int index)
+    {
+        var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
+        checkpoint.SetIsActiveTrue();
+        checkpoint.SaveData(ref _gameData);
     }
 }
