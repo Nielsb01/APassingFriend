@@ -45,7 +45,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     // Climbing
     [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
     private bool _inClimbingZone;
-    private static bool _canClimb = true;
+    private bool _canClimb = true;
     private bool _isClimbing; 
     private bool _exitingClimbing;
     private static string CLIMBING_ZONE_TAG = "ClimbingZone";
@@ -325,7 +325,14 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         }
         else
         {
-            _exitingClimbing = false;
+            if (_exitingClimbing)
+            {
+                _exitingClimbing = false;
+            }
+            else if(_isClimbing)
+            {
+                _isClimbing = false;
+            }
         }
     }
     // This jumped is performed when failing a jump, but also when exiting a climb zone.
