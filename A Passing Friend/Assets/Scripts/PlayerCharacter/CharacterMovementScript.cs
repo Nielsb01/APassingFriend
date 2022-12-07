@@ -36,13 +36,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private const float CHECK_VALUE = 0.1f;
 
     //Charge jumping
-    [SerializeField] private float _chargeSpeed = 1.0f;
-    [SerializeField] private float _jumpOverchargeValue = 90.0f;
     [SerializeField] private float _failjumpSpeed;
 
     private bool _isInChargeJumpZone;
-    private bool _holdingDownJump;
-    private float _jumpCharged;
+    private bool _currentlyChargingJump;
+
+    //UI
+    [SerializeField] private UIController _ui;
 
     //Animation
     [SerializeField] private Animator _playerAnimator;
@@ -80,14 +80,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
         transform.Rotate(_rotation * _rotationSpeed);
-    }
-
-    private void Update()
-    {
-        if (_holdingDownJump)
-        {
-            _jumpCharged += _chargeSpeed * Time.deltaTime;
-        }
     }
 
     private void Move()
@@ -169,12 +161,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return number >= min && number <= max;
     }
 
-    private void resetJumpCharge()
-    {
-        _holdingDownJump = false;
-        _jumpCharged = 0;
-    }
-
     public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
     {
         _movementImpaired = movementImpaired;
@@ -202,11 +188,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             if (_isInChargeJumpZone)
             {
-                _holdingDownJump = true;
+                _currentlyChargingJump = true;
             }
             else
             {
                 _doJump = true;
+                _currentlyChargingJump = false;
             }
         }
     }
@@ -214,30 +201,32 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
-        this.transform.position = data.PlayerLocation;
+        transform.position = data.PlayerLocation;
         _characterController.enabled = true;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.PlayerLocation = this.transform.position;
+        data.PlayerLocation = transform.position;
     }
-    
+
     private void OnJumpRelease()
     {
+        _currentlyChargingJump = false;
+
         if (_isInChargeJumpZone)
         {
-            if (_jumpCharged > _jumpOverchargeValue)
+
+            if (_ui.GetChargeBarOvercharged())
             {
                 OnJumpFail();
             }
             else
             {
-                _moveDirection.y = _jumpCharged;
+                _moveDirection.y = _ui.GetCurrentJumpCharge();
                 _doJump = true;
             }
 
-            resetJumpCharge();
         }
     }
 
@@ -254,7 +243,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         if (trigger.transform.tag == "ChargeJumpZone")
         {
             _isInChargeJumpZone = false;
-            resetJumpCharge();
         }
     }
 
@@ -267,15 +255,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _doJump = true;
     }
 
-    // Getters for making UI
-    public float getJumpCharged()
+    public bool GetCurrentlyChargingJump()
     {
-        return _jumpCharged;
-    }
-
-    public float getOverchargeLevel()
-    {
-        return _jumpOverchargeValue;
+        return _currentlyChargingJump;
     }
 
     public bool isInChargeZone()
