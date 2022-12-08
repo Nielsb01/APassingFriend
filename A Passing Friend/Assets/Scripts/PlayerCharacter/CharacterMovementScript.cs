@@ -28,9 +28,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
     [HideInInspector]
-    public bool rotationFrozenDueToSpecialArea;
+    public bool _rotationFrozenDueToSpecialArea;
+    public bool _rotationFrozenDueToDialog;
 
     private const float CHECK_VALUE = 0.1f;
+
+    private bool _movementImpaired;
 
 
     //Charge jumping
@@ -49,6 +52,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         _doJump = false;
+        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -71,7 +75,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea) return;
+        if (_rotationFrozenDueToFreeLook || _rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -170,6 +174,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _holdingDownJump = false;
         _jumpCharged = 0;
+    }
+
+    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
+    {
+        _movementImpaired = movementImpaired;
+        _rotationFrozenDueToDialog = rotationFrozen;
     }
 
     private void OnMove(InputValue inputValue)
