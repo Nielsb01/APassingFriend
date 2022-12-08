@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "JumpHold",
+                    "type": "Button",
+                    "id": "53682955-b3eb-41d5-be40-984d6dd46295",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -340,6 +349,19 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ToggleHideMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8439f8bf-de41-48e1-ad00-1e399b5c1a6f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "JumpHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
