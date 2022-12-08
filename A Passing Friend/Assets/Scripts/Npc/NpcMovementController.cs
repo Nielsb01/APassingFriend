@@ -33,15 +33,14 @@ namespace Npc
             {
                 StartRoute(_route);
             }
+            GoToNextWaypoint();
         }
 
         private void Update()
         {
             if (!IsNpcAtDestination()) return;
-            if (!_skipNextNodeActions)
-            {
-                ExecuteNodeEffects();
-            }
+
+            ExecuteNodeEffects();
 
             GoToNextWaypoint();
         }
@@ -63,8 +62,12 @@ namespace Npc
 
         private void GoToNextWaypoint()
         {
-            if (_waypointsRoute.Count == 0){Debug.Log("1"); return;}
-            
+            if (_waypointsRoute.Count == 0)
+            {
+                Debug.Log("1");
+                return;
+            }
+
             if (_patrolling)
             {
                 var point = _waypointsRoute.First();
@@ -76,7 +79,14 @@ namespace Npc
                 _waypointsRoute.Remove(_waypointsRoute.First());
             }
             
-            if (_waypointsRoute.Count == 0){Debug.Log("2"); return;}Debug.Log("3");
+            Debug.Log("waipoynts: " + _waypointsRoute.Count);
+            if (_waypointsRoute.Count == 0)
+            {
+                Debug.Log("2");
+                return;
+            }
+
+            Debug.Log("3");
             _currentTravelDestinationNode = _waypointsRoute.First();
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
