@@ -36,6 +36,10 @@ public class DataPersistenceManager : MonoBehaviour
         {
             NextWaypoint();
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadGame();
+        }
     }
 
     private List<IDataPersistence> GetAllDataPersistenceObjects()
@@ -104,6 +108,6 @@ public class DataPersistenceManager : MonoBehaviour
     {
         var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
         checkpoint.SetIsActiveTrue();
-        checkpoint.SaveData(ref _gameData);
+        SaveGame();
     }
 }
