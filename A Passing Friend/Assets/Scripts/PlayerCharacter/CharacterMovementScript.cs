@@ -81,6 +81,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
         }
+
+        if (!_characterController.isGrounded && _jumpCharged > 0)
+        {
+            _jumpCharged = 0;
+        }
     }
 
     private void Move()
@@ -216,7 +221,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnJumpHold()
     {
-        if (_chargeJumpUnlocked)
+        if (_chargeJumpUnlocked && _characterController.isGrounded)
         { 
             _holdingDownJump = true;
         }
