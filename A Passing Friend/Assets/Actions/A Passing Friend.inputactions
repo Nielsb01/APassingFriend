@@ -35,7 +35,7 @@
                 {
                     "name": "Interact",
                     "type": "Button",
-                    "id": "012a206e-c698-4a9e-977c-4b04c49da2a8",
+                    "id": "2a78ce5a-0e17-4159-8c7c-f3e328c788f1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -362,12 +362,10 @@
                     "action": "JumpHold",
                     "isComposite": false,
                     "isPartOfComposite": false
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "609d9910-de31-4009-ae41-08c06a156e27",
+                    "id": "170b0738-39c0-4418-98af-1f7a4473a716",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
