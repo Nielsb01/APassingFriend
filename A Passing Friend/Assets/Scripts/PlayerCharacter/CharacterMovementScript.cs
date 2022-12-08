@@ -27,23 +27,21 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
-    private bool _rotationFrozenDueToDialog;
     [HideInInspector]
     public bool rotationFrozenDueToSpecialArea;
 
-    [SerializeField] private bool _movementImpaired;
-
     private const float CHECK_VALUE = 0.1f;
+
 
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
     [SerializeField] private float _failjumpSpeed;
-
-    private bool _isInChargeJumpZone;
+    [SerializeField] private bool _chargeJumpUnlocked;
+    [SerializeField] private float _jumpCharged;
+    [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
+    private bool _doChargeJump;
     private bool _holdingDownJump;
-    private float _jumpCharged;
-
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -51,7 +49,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Awake()
     {
         _doJump = false;
-        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -63,22 +60,18 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void OnFreeLook(InputValue value)
     {
-        if (_movementImpaired) return;
-
         _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
     {
-        if (_movementImpaired) return;
-
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
+        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea) return;
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -88,12 +81,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
         }
+
+        if (!_characterController.isGrounded && _jumpCharged > 0)
+        {
+            _jumpCharged = 0;
+        }
     }
 
     private void Move()
     {
-        if (_movementImpaired) return;
-
         if (_moveVector == null)
         {
             return;
@@ -101,12 +97,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (_doJump)
         {
-            if (!_isInChargeJumpZone)
+            if (!_doChargeJump)
             {
                 _moveDirection.y = _jumpSpeed;
             }
 
             _doJump = false;
+            _doChargeJump = false;
         }
         else if (_characterController.isGrounded)
         {
@@ -175,42 +172,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _jumpCharged = 0;
     }
 
-    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
-    {
-        _movementImpaired = movementImpaired;
-        _rotationFrozenDueToDialog = rotationFrozen;
-    }
-
     private void OnMove(InputValue inputValue)
     {
-        if (!_movementImpaired)
-        {
-            _moveVector = inputValue.Get<Vector2>();
-        }
-        else
-        {
-            _moveVector = Vector3.zero;
-            _moveDirection.x = 0;
-            _moveDirection.z = 0;
-        }
-
+        _moveVector = inputValue.Get<Vector2>();
     }
-
-    private void OnJump()
-    {
-        if (_characterController.isGrounded && !_movementImpaired)
-        {
-            if (_isInChargeJumpZone)
-            {
-                _holdingDownJump = true;
-            }
-            else
-            {
-                _doJump = true;
-            }
-        }
-    }
-
+    
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
@@ -225,46 +191,46 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     
     private void OnJumpRelease()
     {
-        if (_isInChargeJumpZone)
+       
+        if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
-            if (_jumpCharged > _jumpOverchargeValue)
+            if (_characterController.isGrounded)
             {
-                OnJumpFail();
+                // Minimum charge value determines how long the jump key should be held down, we want to subtract this from the charge so everything before that
+                // threshold wont matter for the jump
+                _jumpCharged -= _MinimumChargeJumpValue;
+                if (_jumpCharged > _jumpOverchargeValue)
+                {
+                    OnJumpFail();
+                }
+                else 
+                {
+                    _moveDirection.y = _jumpCharged;
+                    _doJump = true;
+                    _doChargeJump = true;
+                }
             }
-            else
-            {
-                _moveDirection.y = _jumpCharged;
-                _doJump = true;
-            }
-
-            resetJumpCharge();
+            
         }
-    }
-
-    private void OnTriggerEnter(Collider trigger)
-    {
-        if (trigger.transform.tag == "ChargeJumpZone")
+        else  if (_characterController.isGrounded)
         {
-            _isInChargeJumpZone = true;
+            _doJump = true;
         }
+        resetJumpCharge();
     }
 
-    private void OnTriggerExit(Collider trigger)
+    private void OnJumpHold()
     {
-        if (trigger.transform.tag == "ChargeJumpZone")
-        {
-            _isInChargeJumpZone = false;
-            resetJumpCharge();
+        if (_chargeJumpUnlocked && _characterController.isGrounded)
+        { 
+            _holdingDownJump = true;
         }
     }
-
+    
     private void OnJumpFail()
     {
-        // TODO implement funny cat animations
-        print("Jump failed :(");
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
-        _doJump = true;
     }
 
     // Getters for making UI
@@ -278,8 +244,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return _jumpOverchargeValue;
     }
 
+    public float GetMinimumChargeJumpValue()
+    {   
+        return _MinimumChargeJumpValue;
+    }
+
     public bool isInChargeZone()
     {
-        return _isInChargeJumpZone;
+        return _chargeJumpUnlocked;
     }
 }
