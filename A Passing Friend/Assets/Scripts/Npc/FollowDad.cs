@@ -11,6 +11,18 @@ public class FollowDad : MonoBehaviour
     [SerializeField] private float _bounceStrength = 2;
     [SerializeField] private float _followControllerSpeed = 3;
 
+    public float BounceStrength
+    {
+        get => _bounceStrength;
+        set => _bounceStrength = value;
+    }
+
+    public float FollowControllerSpeed
+    {
+        get => _followControllerSpeed;
+        set => _followControllerSpeed = value;
+    }
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();

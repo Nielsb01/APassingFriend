@@ -12,6 +12,7 @@ namespace Npc
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
         [SerializeField] private bool _patrolling = false;
         [SerializeField] private WaypointRoute _route;
+        [SerializeField] private GameObject _followingChild;
         private NavMeshAgent _navMeshAgent;
         private float _waypointRoundingForNextNode;
         private bool _skipNextNodeActions = true;
@@ -33,7 +34,8 @@ namespace Npc
             {
                 StartRoute(_route);
             }
-            GoToNextWaypoint();
+
+            GoToNextWaypoint(false);
         }
 
         private void Update()
@@ -41,7 +43,6 @@ namespace Npc
             if (!IsNpcAtDestination()) return;
 
             ExecuteNodeEffects();
-
             GoToNextWaypoint();
         }
 
@@ -60,41 +61,36 @@ namespace Npc
             _patrolling = route.isPatrol;
         }
 
-        private void GoToNextWaypoint()
+        private void GoToNextWaypoint(bool removeNextNodeFromQueue = true)
         {
-            if (_waypointsRoute.Count == 0)
+            if (removeNextNodeFromQueue)
             {
-                Debug.Log("1");
-                return;
+                if (_waypointsRoute.Count == 0)
+                {
+                    return;
+                }
+
+                if (_patrolling)
+                {
+                    var point = _waypointsRoute.First();
+                    _waypointsRoute.Remove(point);
+                    _waypointsRoute.Add(point);
+                }
+                else
+                {
+                    _waypointsRoute.Remove(_waypointsRoute.First());
+                    if (_waypointsRoute.Count == 0) return;
+                }
             }
 
-            if (_patrolling)
-            {
-                var point = _waypointsRoute.First();
-                _waypointsRoute.Remove(point);
-                _waypointsRoute.Add(point);
-            }
-            else
-            {
-                _waypointsRoute.Remove(_waypointsRoute.First());
-            }
-            
-            Debug.Log("waipoynts: " + _waypointsRoute.Count);
-            if (_waypointsRoute.Count == 0)
-            {
-                Debug.Log("2");
-                return;
-            }
-
-            Debug.Log("3");
             _currentTravelDestinationNode = _waypointsRoute.First();
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
-            SetRoundingForNextNode(_currentTravelDestinationNode);
+            SetRoundingForNextNode();
             _skipNextNodeActions = false;
         }
 
-        private void SetRoundingForNextNode(GameObject node)
+        private void SetRoundingForNextNode()
         {
             var roundingForNextNode = _pathNodeController.RoundingForThisNode;
             if (SettingDisabled(roundingForNextNode))
@@ -120,6 +116,18 @@ namespace Npc
             if (!SettingDisabled(waitTimeAtThisNode))
             {
                 StartCoroutine(WaitForSeconds(waitTimeAtThisNode));
+            }
+            
+            var newBallSpeed = _pathNodeController.BallFollowSpeedFromThisNode;
+            if (!SettingDisabled(newBallSpeed))
+            {
+                _followingChild.GetComponent<FollowDad>().FollowControllerSpeed = newBallSpeed;
+            }
+            
+            var bounceStrengthFromThisNode = _pathNodeController.BounceStrengthFromThisNode;
+            if (!SettingDisabled(bounceStrengthFromThisNode))
+            {
+                _followingChild.GetComponent<FollowDad>().BounceStrength = bounceStrengthFromThisNode;
             }
 
             if (_pathNodeController.TriggerScripts.Count > 0)
