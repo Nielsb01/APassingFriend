@@ -32,7 +32,7 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
-    [SerializeField] private bool _isDialogExitButtonVisible = true;
+    [SerializeField] private bool _isDialogExitButtonVisible = false;
 
     private Button _dialogBoxExitButton;
 
@@ -80,7 +80,6 @@ public class UIController : MonoBehaviour
         _dialogBoxExitButton = _root.Q<Button>("dialog-box-exit-button");
         _dialogBox.visible = false;
         _interactBox.visible = false;
-        _isDialogExitButtonVisible = true;
 
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
