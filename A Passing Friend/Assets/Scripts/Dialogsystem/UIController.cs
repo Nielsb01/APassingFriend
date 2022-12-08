@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
+    [SerializeField] private bool _isDialogExitButtonVisible = true;
+
     private Button _dialogBoxExitButton;
 
 
@@ -78,6 +80,7 @@ public class UIController : MonoBehaviour
         _dialogBoxExitButton = _root.Q<Button>("dialog-box-exit-button");
         _dialogBox.visible = false;
         _interactBox.visible = false;
+        _isDialogExitButtonVisible = true;
 
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
@@ -107,6 +110,12 @@ public class UIController : MonoBehaviour
             }
 
             return;
+        }
+
+        if (_isInInteraction)
+        {
+            _dialogBoxExitButton.visible = _isDialogExitButtonVisible;
+            _dialogBoxExitButton.SetEnabled(_isDialogExitButtonVisible);
         }
 
         CheckForScreenResolutionChanges();
@@ -140,6 +149,7 @@ public class UIController : MonoBehaviour
         _dialogBox.visible = false;
         _dialogBoxChoices.visible = false;
         _dialogBoxDialog.visible = false;
+        _dialogBoxExitButton.visible = false;
 
         _dialogBoxExitButton.SetEnabled(false);
 

@@ -17,7 +17,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private CharacterController _characterController;
 
-    private float _velocityY;
+    [SerializeField] private float _velocityY;
     private float _velocityX;
     private readonly float _maxPositiveVelocity = 2.0f;
     private readonly float _maxNegativeVelocity = -2.0f;
@@ -47,7 +47,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
- 
+
     private void Awake()
     {
         _doJump = false;
@@ -161,7 +161,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _moveDirection.z = _moveSpeed * (float)Math.Round(_velocityY, 4);
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
-        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE,_velocityY);
+        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
     }
 
     private static bool floatIsBetween(float number, float min, float max)
@@ -173,6 +173,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _movementImpaired = movementImpaired;
         _rotationFrozenDueToDialog = rotationFrozen;
+
+        if (movementImpaired)
+        {
+            _velocityY = 0;
+            _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
+        }
     }
 
     private void resetJumpCharge()
@@ -190,6 +196,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         else
         {
             _moveVector = Vector3.zero;
+            _velocityY = 0;
+            _velocityX = 0;
             _moveDirection.x = 0;
             _moveDirection.z = 0;
         }
@@ -222,7 +230,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         data.PlayerLocation = this.transform.position;
     }
-    
+
     private void OnJumpRelease()
     {
         if (_isInChargeJumpZone)
