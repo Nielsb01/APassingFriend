@@ -36,12 +36,12 @@ public class DialogObject
         return _dialog;
     }
 
-    public void SetEndsConverstation(bool endsConversation)
+    public void SetEndsConversation(bool endsConversation)
     {
         _endsConversation = endsConversation;
     }
 
-    public bool DoesOptionEndConverstation()
+    public bool DoesOptionEndConversation()
     {
         return _endsConversation;
     }

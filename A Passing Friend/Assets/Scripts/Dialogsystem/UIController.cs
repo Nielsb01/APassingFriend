@@ -198,7 +198,7 @@ public class UIController : MonoBehaviour
         else
         {
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
-            if (_chosenDialogOption.DoesOptionEndConverstation())
+            if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 _isInInteraction = false;
                 _isDialogBuilderSet = false;

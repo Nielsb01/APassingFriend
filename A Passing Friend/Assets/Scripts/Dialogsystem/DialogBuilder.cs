@@ -82,7 +82,7 @@ public class DialogBuilder : MonoBehaviour
             CreateDialogEventObject(dialogObject);
             if (dialogTitle.Contains('$'))
             {
-                dialogObject.SetEndsConverstation(true);
+                dialogObject.SetEndsConversation(true);
             }
 
             _dialogOptions.Add(dialogObject);
