@@ -8,10 +8,10 @@ using UnityEngine;
 public class DialogBuilder : MonoBehaviour
 {
     //The text asset that contains all dialog.
-    [SerializeField] private TextAsset dialogTextFile;
+    [SerializeField] private TextAsset _dialogTextFile;
 
-    private String introText;
-    private readonly List<DialogObject> dialogOptions = new List<DialogObject>();
+    private String _introText;
+    private readonly List<DialogObject> _dialogOptions = new List<DialogObject>();
 
     void Awake()
     {
@@ -27,12 +27,12 @@ public class DialogBuilder : MonoBehaviour
      */
     private void parseDialog()
     {
-        string textToSet = getIntroText(dialogTextFile.ToString());
+        string textToSet = getIntroText(_dialogTextFile.ToString());
         string regex = "#";
-        List<string> dialogObjects = Regex.Split(textToSet, regex).ToList();
-        dialogObjects.Remove(dialogObjects[0]);
-        removeSplitStrings(dialogObjects, false);
-        createDialogObjects(dialogObjects);
+        List<string> _dialogOptions = Regex.Split(textToSet, regex).ToList();
+        _dialogOptions.Remove(_dialogOptions[0]);
+        removeSplitStrings(_dialogOptions, false);
+        createDialogObjects(_dialogOptions);
     }
 
     private void removeSplitStrings(List<string> splittedOptions, bool isSubOptie)
@@ -71,7 +71,7 @@ public class DialogBuilder : MonoBehaviour
             {
                 dialogObject.setEndsConverstation(true);
             }
-            dialogOptions.Add(dialogObject);
+            _dialogOptions.Add(dialogObject);
         }
     }
 
@@ -84,14 +84,14 @@ public class DialogBuilder : MonoBehaviour
         string[] splitText = text.Split("--");
         try
         {
-            introText = splitText[0];
+            _introText = splitText[0];
             return splitText[1];
         }
         catch (IndexOutOfRangeException e)
         {
             Console.WriteLine(e);
             Debug.LogWarning("Text seems to be missing something, did you forget to add an intro text?");
-            introText = "Intro text not found";
+            _introText = "Intro text not found";
             return splitText[0];
         }
     }
@@ -102,13 +102,13 @@ public class DialogBuilder : MonoBehaviour
     public DialogObject getDialogOptionFromIndex(int optionIndex)
 
     {
-        if (optionIndex > dialogOptions.Count)
+        if (optionIndex > _dialogOptions.Count)
         {
             Debug.LogWarning("Dialog option not found, returning the first option.");
-            return dialogOptions[0];
+            return _dialogOptions[0];
         }
 
-        return dialogOptions[optionIndex];
+        return _dialogOptions[optionIndex];
     }
 
     /**
@@ -116,7 +116,7 @@ public class DialogBuilder : MonoBehaviour
      */
     public List<DialogObject> getAllDialogObjects()
     {
-        return dialogOptions;
+        return _dialogOptions;
     }
 
     /**
@@ -124,6 +124,6 @@ public class DialogBuilder : MonoBehaviour
      */
     public String getIntroText()
     {
-        return introText;
+        return _introText;
     }
 }

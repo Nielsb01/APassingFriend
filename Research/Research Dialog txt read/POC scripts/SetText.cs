@@ -7,62 +7,62 @@ using UnityEngine;
 public class SetText : MonoBehaviour
 {
     [SerializeField]
-    private DialogBuilder dialogreader;
+    private DialogBuilder _dialogreader;
     [SerializeField]
-    private Transform onscreenText;
+    private Transform _onscreenText;
     [SerializeField]
-    private int chosen = 1;
+    private int _chosen = 1;
     
-    private int currentDialog = 0;
-    private List<String> dialogOptionsText;
-    private DialogObject chosenOption;
+    private int _currentDialog = 0;
+    private List<String> _dialogOptionsText;
+    private DialogObject _chosenOption;
     
 
     // Update is called once per frame
     void Update()
     {
-        if (chosenOption == null)
+        if (_chosenOption == null)
         {
-            List<DialogObject> dialogObjects = dialogreader.getAllDialogObjects();
-            chosenOption = dialogObjects[chosen];
+            List<DialogObject> dialogObjects = _dialogreader.getAllDialogObjects();
+            _chosenOption = dialogObjects[_chosen];
         }
 
-        if (dialogOptionsText == null)
+        if (_dialogOptionsText == null)
         {
-            dialogOptionsText = chosenOption.getDialog();
+            _dialogOptionsText = _chosenOption.getDialog();
             setIntroText();
         }
     }
 
    public void OnFire()
     {
-        if (currentDialog < dialogOptionsText.Count -1)
+        if (_currentDialog < _dialogOptionsText.Count -1)
         {
-            currentDialog += 1;
-            SetDialogText(currentDialog);
+            _currentDialog += 1;
+            SetDialogText(_currentDialog);
         }
         else
         {
-            if (chosenOption.doesOptionEndConverstation())
+            if (_chosenOption.doesOptionEndConverstation())
             {
                 print("ends");
             }
-            currentDialog = 0;
-            chosenOption = null;
-            dialogOptionsText = null;
+            _currentDialog = 0;
+            _chosenOption = null;
+            _dialogOptionsText = null;
             setIntroText();
         }
     }
 
     private void SetDialogText(int optionNumber)
     {
-        TextMeshProUGUI textMeshProUgui = onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogOptionsText[optionNumber]; 
+        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
+        textMeshProUgui.text = _dialogOptionsText[optionNumber]; 
     }
 
     private void setIntroText()
     {
-        TextMeshProUGUI textMeshProUgui = onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = dialogreader.getIntroText();
+        TextMeshProUGUI textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
+        textMeshProUgui.text = _dialogreader.getIntroText();
     }
 }

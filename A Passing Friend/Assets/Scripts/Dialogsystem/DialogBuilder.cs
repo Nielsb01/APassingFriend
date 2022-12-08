@@ -119,7 +119,8 @@ public class DialogBuilder : MonoBehaviour
         var testTextList = Regex.Split(dialogObject.GetDialogChoice(), DIALOG_EVENT_REGEX);
         foreach (var text in testTextList)
         {
-            if (text.Contains("Camera:"))
+            var checkForCamera = "Camera:";
+            if (text.Contains(checkForCamera))
             {
                 try
                 {
