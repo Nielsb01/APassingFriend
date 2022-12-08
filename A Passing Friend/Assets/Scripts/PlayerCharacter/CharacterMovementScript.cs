@@ -31,10 +31,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public bool _rotationFrozenDueToSpecialArea;
     public bool _rotationFrozenDueToDialog;
 
-    private bool _movementImpaired;
-
     private const float CHECK_VALUE = 0.1f;
 
+    private bool _movementImpaired;
 
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
@@ -44,7 +43,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _jumpCharged;
     [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
     private bool _doChargeJump;
-    [SerializeField] private bool _holdingDownJump;
+    private bool _holdingDownJump;
 
     //Animation
     [SerializeField] private Animator _playerAnimator;
@@ -65,15 +64,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     public void OnFreeLook(InputValue value)
     {
-        if (_movementImpaired) return;
-
         _rotationFrozenDueToFreeLook = value.isPressed;
     }
 
     private void OnLook(InputValue inputValue)
     {
-        if (_movementImpaired) return;
-
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
@@ -94,8 +89,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Move()
     {
-        if (_movementImpaired) return;
-
         if (_moveVector == null)
         {
             return;
@@ -187,6 +180,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnMove(InputValue inputValue)
     {
         _moveVector = inputValue.Get<Vector2>();
+
         if (!_movementImpaired)
         {
             _moveVector = inputValue.Get<Vector2>();
