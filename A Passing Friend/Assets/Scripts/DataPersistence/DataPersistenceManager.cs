@@ -6,6 +6,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private string _filename;
     [SerializeField] private string _dirPath = "C:\\temp";
+    [SerializeField] private List<GameObject> _checkpoints;
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
@@ -16,7 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("More than one DPM found in scene");
+            Debug.LogError(this.name + "More than one DPM found in scene");
         }
         instance = this;
     }
@@ -26,6 +27,19 @@ public class DataPersistenceManager : MonoBehaviour
         _fileDataHandler = new FileDataHandler(_dirPath, _filename);
         _dataPersistenceOpjects = GetAllDataPersistenceObjects();
         LoadGame();
+    }
+
+    //TODO This needs to be replaced during intergration with a propper way to call it
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextWaypoint();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadGame();
+        }
     }
 
     private List<IDataPersistence> GetAllDataPersistenceObjects()
@@ -42,6 +56,14 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame()
     {
         _gameData = new GameData();
+        if (_checkpoints.Count < 1 || _checkpoints[0] == null)
+        {
+            Debug.LogError(this.name + ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
+        }
+        else
+        {
+            SetWaypoint(0);
+        }
     }
 
     public void SaveGame()
@@ -67,5 +89,25 @@ public class DataPersistenceManager : MonoBehaviour
         {
             obj.LoadData(_gameData);
         }
+    }
+
+    public void NextWaypoint()
+    {
+        var nameActive = _gameData.activeCheckpoint;
+
+        for (int i = 0; i < _checkpoints.Count - 1; i++)
+        {
+            if (_checkpoints[i].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
+            {
+                SetWaypoint(i + 1);
+            }
+        }
+    }
+
+    private void SetWaypoint(int index)
+    {
+        var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
+        checkpoint.SetIsActiveTrue();
+        SaveGame();
     }
 }
