@@ -5148,7 +5148,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325920329672}
-  m_LocalRotation: {x: 0.04836755, y: 0.01298151, z: -0.00062867283, w: 0.9987451}
+  m_LocalRotation: {x: 0.04836755, y: 0.012981475, z: -0.0006286711, w: 0.9987451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5736,6 +5736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightCheckController: {fileID: 0}
+  _catBones: {fileID: 0}
   vignette: {fileID: 0}
   _damageParticleSystem: {fileID: 1105946777334155035}
   _dyingParticleSystem: {fileID: 8396406677430293499}
@@ -11335,7 +11336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1542778989365036495
 Transform:
   m_ObjectHideFlags: 0
@@ -16307,7 +16308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6495320988196144424
 Transform:
   m_ObjectHideFlags: 0

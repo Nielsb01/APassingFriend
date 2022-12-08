@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 #endregion
@@ -12,6 +13,7 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private GameObject _lightCheckController;
+    [SerializeField] private GameObject _catBones;
     [SerializeField] private Image vignette;
     [SerializeField] private ParticleSystem _damageParticleSystem;
     [SerializeField] private ParticleSystem _dyingParticleSystem;
@@ -103,34 +105,15 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        FindObjectOfType<CharacterMovementScript>().enabled = false;
+        transform.GetComponent<BoxCollider>().enabled = false;
+        transform.GetComponent<CharacterController>().enabled = false;
+        transform.GetChild(2).gameObject.SetActive(false);
         
+        FindObjectOfType<CharacterMovementScript>().enabled = false;
+
         _dyingParticleSystem.Play();
         
-        var model = gameObject.transform.Find("Model/CatWalkAnimation");
-        model.Find("Cat").gameObject.SetActive(false);
-        
-        DropBones(model);
-    }
-    
-    private void DropBones(Transform parent)
-    {
-        foreach (Transform child in parent)
-        {
-            StartCoroutine(DropBone(child));
-            
-            DropBones(child);
-        }
-    }
-
-    private IEnumerator DropBone(Transform child)
-    {
-        yield return new WaitForSeconds(0.7f);
-        child.SetParent(null, true);
-        child.gameObject.AddComponent<CapsuleCollider>();
-        child.gameObject.AddComponent<Rigidbody>();
-        yield return new WaitForSeconds(1f);
-        Destroy(child.gameObject.GetComponent<Rigidbody>());
+        Instantiate(_catBones, transform.position, transform.rotation);
     }
 
     private void UpdateVignette()
