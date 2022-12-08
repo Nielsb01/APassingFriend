@@ -29,7 +29,7 @@ public class DialogBuilder : MonoBehaviour
     private void Awake()
     {
         // Read the dialog file and make it into the dialogobjects.
-        parseDialog();
+        ParseDialog();
     }
 
     /**
@@ -38,17 +38,17 @@ public class DialogBuilder : MonoBehaviour
      * Dialog options
      * Dialog
      */
-    private void parseDialog()
+    private void ParseDialog()
     {
-        var textToSet = getIntroText(_dialogTextFile.ToString());
+        var textToSet = GetIntroText(_dialogTextFile.ToString());
         var regex = "#";
         var dialogObjects = Regex.Split(textToSet, regex).ToList();
         dialogObjects.Remove(dialogObjects[0]);
-        removeSplitStrings(dialogObjects, false);
-        createDialogObjects(dialogObjects);
+        RemoveSplitStrings(dialogObjects, false);
+        CreateDialogObjects(dialogObjects);
     }
 
-    private void removeSplitStrings(List<string> splittedOptions, bool isSubOptie)
+    private void RemoveSplitStrings(List<string> splittedOptions, bool isSubOptie)
     {
         // Unity's regex wont remove the characters from your text automatically, this is why we remove them by hand here .
         foreach (var option in splittedOptions.ToList())
@@ -68,21 +68,21 @@ public class DialogBuilder : MonoBehaviour
      * Every dialog option is a set of dialog based on the choice made by the player.
      * A dialog option contains the answer that needs to be selected to get this option and a list of all dialog for this option.
      */
-    private void createDialogObjects(List<string> dialog)
+    private void CreateDialogObjects(List<string> dialog)
     {
         foreach (var option in dialog)
         {
             var subdialog = Regex.Split(option, DIALOG_OPTIONS_REGEX).ToList();
             var subdialogTrimmed = subdialog.Select(s => s.Trim()).ToList();
-            removeSplitStrings(subdialogTrimmed, true);
+            RemoveSplitStrings(subdialogTrimmed, true);
             var dialogTitle = subdialog[0].Trim();
             // Remove the introtext from the dialog options.
             subdialogTrimmed.Remove(subdialogTrimmed[0]);
             var dialogObject = new DialogObject(dialogTitle.Replace('$', ' '), subdialogTrimmed);
-            createDialogEventObject(dialogObject);
+            CreateDialogEventObject(dialogObject);
             if (dialogTitle.Contains('$'))
             {
-                dialogObject.setEndsConverstation(true);
+                dialogObject.SetEndsConverstation(true);
             }
 
             _dialogOptions.Add(dialogObject);
@@ -93,7 +93,7 @@ public class DialogBuilder : MonoBehaviour
      * Get the introduction text from the dialog.
      * The text you are first met with after opening the dialog or after completing the current dialog option.
      */
-    private string getIntroText(string text)
+    private string GetIntroText(string text)
     {
         var splitText = text.Split("--");
         try
@@ -114,9 +114,9 @@ public class DialogBuilder : MonoBehaviour
      * With this method the builder will extract the camera and audio tags from the dialog
      * and assign the right camera and audio clips to the dialog options
      */
-    private void createDialogEventObject(DialogObject dialogObject)
+    private void CreateDialogEventObject(DialogObject dialogObject)
     {
-        var testTextList = Regex.Split(dialogObject.getDialogChoice(), DIALOG_EVENT_REGEX);
+        var testTextList = Regex.Split(dialogObject.GetDialogChoice(), DIALOG_EVENT_REGEX);
         foreach (var text in testTextList)
         {
             if (text.Contains("Camera:"))
@@ -125,7 +125,7 @@ public class DialogBuilder : MonoBehaviour
                 {
                     string cameraNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int cameraNumber = int.Parse(cameraNumberString);
-                    dialogObject.setDialogCamera(_eventCameras[cameraNumber]);
+                    dialogObject.SetDialogCamera(_eventCameras[cameraNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -139,7 +139,7 @@ public class DialogBuilder : MonoBehaviour
                 {
                     string audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
                     int audioNumber = int.Parse(audioNumberString);
-                    dialogObject.setDialogAudio(_eventAudio[audioNumber]);
+                    dialogObject.SetDialogAudio(_eventAudio[audioNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -148,14 +148,14 @@ public class DialogBuilder : MonoBehaviour
             }
         }
 
-        var dialogChoiceWithModulesRemoved = Regex.Replace(dialogObject.getDialogChoice(), DIALOG_EVENT_REGEX, "");
-        dialogObject.setDialogChoice(dialogChoiceWithModulesRemoved);
+        var dialogChoiceWithModulesRemoved = Regex.Replace(dialogObject.GetDialogChoice(), DIALOG_EVENT_REGEX, "");
+        dialogObject.SetDialogChoice(dialogChoiceWithModulesRemoved);
     }
 
     /**
      * Getting a single dialog option by index
      */
-    public DialogObject getDialogOptionFromIndex(int optionIndex)
+    public DialogObject GetDialogOptionFromIndex(int optionIndex)
 
     {
         if (optionIndex > _dialogOptions.Count)
@@ -170,7 +170,7 @@ public class DialogBuilder : MonoBehaviour
     /**
      * Getting all available dialogs from the npc
      */
-    public List<DialogObject> getAllDialogObjects()
+    public List<DialogObject> GetAllDialogObjects()
     {
         return _dialogOptions;
     }
@@ -178,17 +178,17 @@ public class DialogBuilder : MonoBehaviour
     /**
      * Getting the introduction text from the npc.
      */
-    public string getIntroText()
+    public string GetIntroText()
     {
         return _introText;
     }
 
-    public CinemachineVirtualCamera getNpcCamera()
+    public CinemachineVirtualCamera GetNpcCamera()
     {
         return _npcCamera;
     }
 
-    public string getNameOfNpc()
+    public string GetNameOfNpc()
     {
         return gameObject.name;
     }

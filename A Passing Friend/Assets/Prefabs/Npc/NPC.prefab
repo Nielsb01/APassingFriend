@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 5293889835202695916}
   - component: {fileID: 5293889835202695919}
   - component: {fileID: 5293889835202695913}
-  m_Layer: 0
-  m_Name: Npc
+  - component: {fileID: 5686131978594062623}
+  - component: {fileID: 3176368959286188457}
+  - component: {fileID: 2420673090788692516}
+  m_Layer: 13
+  m_Name: NPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5293889835202695914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 1.39, z: -1}
+  m_LocalPosition: {x: 0.4, y: 0, z: 15.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,6 +53,7 @@ MonoBehaviour:
   _patrolling: 1
   _pathNodePrefab: {fileID: 4805259041890650647, guid: aea4369c32319b249b037685469f36cf,
     type: 3}
+  _route: {fileID: 0}
 --- !u!195 &5293889835202695913
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -69,6 +73,53 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5686131978594062623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293889835202695914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19c15d7e61e3834d90e4c590177cb08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogTextFile: {fileID: 4900000, guid: f194191044f7f3645b148ba42acbcf23, type: 3}
+  _eventCameras: []
+  _eventAudio: []
+  _npcCamera: {fileID: 0}
+--- !u!65 &3176368959286188457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293889835202695914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2420673090788692516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293889835202695914}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

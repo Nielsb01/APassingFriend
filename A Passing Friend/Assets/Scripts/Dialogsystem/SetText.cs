@@ -27,13 +27,13 @@ public class SetText : MonoBehaviour
     {
         if (_chosenOption == null)
         {
-            var dialogObjects = _dialogreader.getAllDialogObjects();
+            var dialogObjects = _dialogreader.GetAllDialogObjects();
             _chosenOption = dialogObjects[_chosen];
         }
 
         if (_dialogOptionsText == null)
         {
-            _dialogOptionsText = _chosenOption.getDialog();
+            _dialogOptionsText = _chosenOption.GetDialog();
             setIntroText();
         }
     }
@@ -48,8 +48,8 @@ public class SetText : MonoBehaviour
         }
         else
         {
-            print(_chosenOption.getDialogChoice());
-            if (_chosenOption.doesOptionEndConverstation())
+            print(_chosenOption.GetDialogChoice());
+            if (_chosenOption.DoesOptionEndConverstation())
             {
                 print("ends");
             }
@@ -71,12 +71,12 @@ public class SetText : MonoBehaviour
     private void setIntroText()
     {
         var textMeshProUgui = _onscreenText.GetComponent<TextMeshProUGUI>();
-        textMeshProUgui.text = _dialogreader.getIntroText();
+        textMeshProUgui.text = _dialogreader.GetIntroText();
     }
 
     private void setCamera()
     {
-        _activeCamera = _chosenOption.getDialogCamera();
+        _activeCamera = _chosenOption.GetDialogCamera();
         _activeCamera.Priority = (int)Camera.CameraState.Active;
     }
 
