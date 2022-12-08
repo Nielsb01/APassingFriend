@@ -51,7 +51,7 @@ public class SetText : MonoBehaviour
             print(_chosenOption.GetDialogChoice());
             if (_chosenOption.DoesOptionEndConverstation())
             {
-                print("ends");
+                Debug.Log("dialog ended");
             }
             resetCamera();
             _currentDialog = 0;
