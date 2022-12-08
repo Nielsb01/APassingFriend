@@ -183,6 +183,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (movementImpaired)
         {
+            _doChargeJump = false;
+            _holdingDownJump = false;
+            _doJump = false;
+            _jumpCharged = 0;
             _velocityY = 0;
             _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
         }
