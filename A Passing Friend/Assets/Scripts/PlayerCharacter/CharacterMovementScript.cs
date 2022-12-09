@@ -48,9 +48,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     // Climbing
     [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
-    private bool _inClimbingZone;
+    [SerializeField] private bool _inClimbingZone;
     private bool _canClimb = true;
-    private bool _isClimbing; 
+    [SerializeField] private bool _isClimbing; 
     private bool _exitingClimbing;
     private static string CLIMBING_ZONE_TAG = "ClimbingZone";
     private static float CLIMBING_DISTANCE = 0.3f;
@@ -118,7 +118,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
         }
-
         if (!_characterController.isGrounded && _jumpCharged > 0)
         {
             _jumpCharged = 0;
@@ -249,13 +248,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _velocityY = 0;
             _velocityX = 0;
         }
-
-
-        if (_isClimbing)
-        {
-            _canClimb = false;
-            _isClimbing = false;
-        }
     }
 
     public void LoadData(GameData data)
@@ -298,6 +290,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _doJump = true;
         }
+
+        if (_isClimbing)
+        {
+            _canClimb = false;
+            _isClimbing = false;
+        }
         ResetJumpCharge();
     }
     
@@ -326,7 +324,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _isClimbing = false;
             _inClimbingZone = false;
         }
-        
     }
 
     private void OnJumpFail()
