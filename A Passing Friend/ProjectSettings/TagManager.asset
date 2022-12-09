@@ -21,6 +21,9 @@ TagManager:
   - Player
   - LightObstacle
   - 
+  - Player
+  - LightObstacle
+  - Npc
   - 
   - 
   - 
