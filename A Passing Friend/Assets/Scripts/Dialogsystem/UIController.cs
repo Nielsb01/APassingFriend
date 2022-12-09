@@ -59,7 +59,7 @@ public class UIController : MonoBehaviour
 
 
     // Character Movement
-    [SerializeField] CharacterMovementScript characterMovementScript;
+    [SerializeField] private CharacterMovementScript _characterMovementScript;
 
 
 
@@ -96,7 +96,7 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
-            characterMovementScript.FreezeMovement(false, false);
+            _characterMovementScript.FreezeMovement(false, false);
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -175,7 +175,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            characterMovementScript.FreezeMovement(true, true);
+            _characterMovementScript.FreezeMovement(true, true);
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -212,7 +212,7 @@ public class UIController : MonoBehaviour
                 _isInInteraction = false;
                 _isDialogBuilderSet = false;
 
-                characterMovementScript.FreezeMovement(false, false);
+                _characterMovementScript.FreezeMovement(false, false);
 
                 SetDialogSystemInvisible();
                 ResetDialogue();
@@ -247,7 +247,7 @@ public class UIController : MonoBehaviour
         _isInInteraction = true;
         _isDialogBuilderSet = false;
 
-        characterMovementScript.FreezeMovement(false, false);
+        _characterMovementScript.FreezeMovement(false, false);
 
         SetDialogSystemInvisible();
         ResetDialogue();
