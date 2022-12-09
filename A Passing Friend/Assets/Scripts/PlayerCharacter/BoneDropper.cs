@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class BoneDropper : MonoBehaviour
 {
+    [SerializeField] private float _secondsBeforeDroppingBones = 0.7f;
+
     private void Awake()
     {
         DropBones(transform.GetChild(1));
@@ -22,7 +24,7 @@ public class BoneDropper : MonoBehaviour
 
     private IEnumerator DropBone(Transform child)
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(_secondsBeforeDroppingBones);
 
         child.gameObject.GetComponent<Rigidbody>().useGravity = true;
     }

@@ -12,6 +12,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private Image vignette;
     [SerializeField] private ParticleSystem _damageParticleSystem;
     [SerializeField] private ParticleSystem _dyingParticleSystem;
+    [SerializeField] private int _maxDamageParticleEmission = 125;
     [SerializeField] private float _maxHealth = 100;
     [SerializeField] private float _minHealth;
     [SerializeField] private int _lightToDamageThreshold = 3;
@@ -37,7 +38,7 @@ public class HealthController : MonoBehaviour
         _calculateLight = _lightCheckScript.calculateLight;
     }
 
-    public void Update()
+    private void Update()
     {
         if (!_calculateLight) return;
 
@@ -125,7 +126,7 @@ public class HealthController : MonoBehaviour
             _isParticling = true;
         }
 
-        ChangeParticleEmission(125 - _health);
+        ChangeParticleEmission(_maxDamageParticleEmission - _health);
     }
 
     private void ChangeParticleEmission(float emission)
