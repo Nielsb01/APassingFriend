@@ -53,6 +53,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private bool _isClimbing; 
     private bool _exitingClimbing;
     private static string CLIMBING_ZONE_TAG = "ClimbingZone";
+    private static string CLIMBING_WALL_TAG = "ClimbingWall";
     private static float CLIMBING_DISTANCE = 0.3f;
     
     //Animation
@@ -359,7 +360,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         RaycastHit hit;
         if(Physics.Raycast(transform.position, transform.forward,out hit,CLIMBING_DISTANCE))
         {
-            if (hit.transform.CompareTag("ClimbingWall"))
+            if (hit.transform.CompareTag(CLIMBING_WALL_TAG))
             {
                 transform.forward = Vector3.Lerp(transform.forward,
                     -hit.normal,
