@@ -8,19 +8,18 @@ namespace Npc
 {
     public class NpcMovementController : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> _waypointsRoute = new List<GameObject>();
+        [SerializeField] private List<GameObject> _waypointsRoute = new();
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
-        [SerializeField] private bool _patrolling = false;
+        [SerializeField] private bool _patrolling;
         [SerializeField] private WaypointRoute _route;
         [SerializeField] private GameObject _followingChild;
         private NavMeshAgent _navMeshAgent;
         private float _waypointRoundingForNextNode;
-        private bool _skipNextNodeActions = true;
         private GameObject _currentTravelDestinationNode;
         private const float MINIMUM_ROUNDING = 0.1f;
         private PathNodeController _pathNodeController;
-        private bool _teleportingToNextNode = false;
-        private bool _teleportingBallAfterTeleport = false;
+        private bool _teleportingToNextNode;
+        private bool _teleportingBallAfterTeleport;
 
         private void Start()
         {
@@ -92,7 +91,6 @@ namespace Npc
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             SetRoundingForNextNode();
-            _skipNextNodeActions = false;
 
             if (_teleportingToNextNode)
             {

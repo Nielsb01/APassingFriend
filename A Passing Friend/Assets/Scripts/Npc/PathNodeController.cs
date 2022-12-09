@@ -43,7 +43,7 @@ namespace Npc
         private float _ballFollowSpeedFromThisNode = -1;
 
         [SerializeField] private bool _lockBallToController = false;
-        
+
         [SerializeField] private bool _unlockBallFromController = false;
 
 

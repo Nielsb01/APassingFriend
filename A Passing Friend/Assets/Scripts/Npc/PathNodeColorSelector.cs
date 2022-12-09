@@ -29,7 +29,7 @@ public class PathNodeColorSelector : MonoBehaviour
         {
             _renderer.material = _triggerNodeMaterial;
         }
-        else if (controller.TeleportToNextNode  == true)
+        else if (controller.TeleportToNextNode)
         {
             _renderer.material = _teleportToNextNodeMaterial;
         }

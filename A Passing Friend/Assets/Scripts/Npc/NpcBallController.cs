@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Npc
 {
     public class NpcBallController : MonoBehaviour
     {
-        [SerializeField] private GameObject npc;
+        [SerializeField] private GameObject _npc;
         private NavMeshAgent _npcAgent;
-        private bool _grounded = false;
+        private bool _grounded;
         private Rigidbody _rb;
         private bool _lockedToController = false;
         [SerializeField] private float _bounceStrength = 2;
@@ -34,7 +35,7 @@ namespace Npc
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            _npcAgent = npc.GetComponent<NavMeshAgent>();
+            _npcAgent = _npc.GetComponent<NavMeshAgent>();
         }
 
         private void FixedUpdate()
@@ -55,7 +56,7 @@ namespace Npc
 
         private void LockToController()
         {
-            var npcPos = npc.transform.position;
+            var npcPos = _npc.transform.position;
             transform.position = new Vector3(npcPos.x, transform.position.y, npcPos.z);
             _rb.velocity = _npcAgent.velocity;
         }
@@ -67,7 +68,7 @@ namespace Npc
 
         private void TrackControllerGameObject()
         {
-            _rb.AddForce((npc.transform.position - transform.position) * _followControllerSpeed);
+            _rb.AddForce((_npc.transform.position - transform.position) * _followControllerSpeed);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -82,7 +83,7 @@ namespace Npc
 
         public void TeleportToController()
         {
-            transform.position = npc.transform.position;
+            transform.position = _npc.transform.position;
         }
     }
 }
