@@ -9,7 +9,7 @@ public class ChargeJumpPlaceHolder : MonoBehaviour
     [SerializeField] private CharacterMovementScript _characterMovementScript;
     [SerializeField] private Transform _jumpSprite;
     [SerializeField] private Transform _maxJumpSprite;
-    
+
     void Update()
     {
         _jumpSprite.gameObject.SetActive(_characterMovementScript.GetJumpCharged() > _characterMovementScript.GetMinimumChargeJumpValue());

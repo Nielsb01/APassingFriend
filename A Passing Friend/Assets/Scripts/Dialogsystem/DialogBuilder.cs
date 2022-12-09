@@ -17,7 +17,7 @@ public class DialogBuilder : MonoBehaviour
 
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
-    
+
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
     [SerializeField] private List<AudioClip> _eventAudio;
     [SerializeField] private CinemachineVirtualCamera _npcCamera;
@@ -120,12 +120,14 @@ public class DialogBuilder : MonoBehaviour
         foreach (var text in testTextList)
         {
             var checkForCamera = "Camera:";
+            var checkForAudio = "Audio:";
+
             if (text.Contains(checkForCamera))
             {
                 try
                 {
-                    string cameraNumberString = Regex.Replace(text, NUMBER_REGEX, "");
-                    int cameraNumber = int.Parse(cameraNumberString);
+                    var cameraNumberString = Regex.Replace(text, NUMBER_REGEX, "");
+                    var cameraNumber = int.Parse(cameraNumberString);
                     dialogObject.SetDialogCamera(_eventCameras[cameraNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
@@ -134,12 +136,12 @@ public class DialogBuilder : MonoBehaviour
                 }
             }
 
-            if (text.Contains("Audio:"))
+            if (text.Contains(checkForAudio))
             {
                 try
                 {
-                    string audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
-                    int audioNumber = int.Parse(audioNumberString);
+                    var audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
+                    var audioNumber = int.Parse(audioNumberString);
                     dialogObject.SetDialogAudio(_eventAudio[audioNumber]);
                 }
                 catch (ArgumentOutOfRangeException)
