@@ -140,7 +140,7 @@ public class UIController : MonoBehaviour
     }
 
     // Set the dialog system invisible.
-    public void SetDialogSystemInvisible()
+    private void SetDialogSystemInvisible()
     {
         _isInInteraction = false;
 
@@ -198,7 +198,7 @@ public class UIController : MonoBehaviour
         }
 
 
-        //If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
+        // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
@@ -288,7 +288,7 @@ public class UIController : MonoBehaviour
             dialogButton.visible = false;
             dialogButton.SetEnabled(false);
         }
-        Button button = tab.target as Button;
+        var button = tab.target as Button;
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
         _choiceClicked = Convert.ToInt32(buttonNr) - 1;
         SetDialogWithChoice();
@@ -335,7 +335,7 @@ public class UIController : MonoBehaviour
             return;
         }
 
-        this._dialogBuilder = dialogBuilder;
+        _dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
         foreach (var dialog in _dialogBuilder.GetAllDialogObjects())
