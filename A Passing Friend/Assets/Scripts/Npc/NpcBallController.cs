@@ -10,25 +10,22 @@ namespace Npc
         private NavMeshAgent _npcAgent;
         private bool _grounded;
         private Rigidbody _rb;
-        private bool _lockedToController = false;
+        private bool _lockedToController;
         [SerializeField] private float _bounceStrength = 2;
         [SerializeField] private float _followControllerSpeed = 3;
 
         public bool LockedToController
         {
-            get => _lockedToController;
             set => _lockedToController = value;
         }
 
         public float BounceStrength
         {
-            get => _bounceStrength;
             set => _bounceStrength = value;
         }
 
         public float FollowControllerSpeed
         {
-            get => _followControllerSpeed;
             set => _followControllerSpeed = value;
         }
 
