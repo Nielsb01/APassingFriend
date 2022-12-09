@@ -310,6 +310,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             if (hit.transform.CompareTag("ClimbingWall"))
             {
+                transform.forward = Vector3.Lerp(transform.forward,
+                    -hit.normal,
+                    10f * Time.fixedDeltaTime);
                 if (!_exitingClimbing)
                 {
                     _isClimbing = true;
