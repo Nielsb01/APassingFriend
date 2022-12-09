@@ -19,6 +19,8 @@ namespace Npc
         private GameObject _currentTravelDestinationNode;
         private const float MINIMUM_ROUNDING = 0.1f;
         private PathNodeController _pathNodeController;
+        private bool _teleportingToNextNode = false;
+        private bool _teleportingBallAfterTeleport = false;
 
         private void Start()
         {
@@ -35,7 +37,10 @@ namespace Npc
                 StartRoute(_route);
             }
 
-            GoToNextWaypoint(false);
+            if (_waypointsRoute.Count != 0)
+            {
+                GoToNextWaypoint(false);
+            }
         }
 
         private void Update()
@@ -88,6 +93,17 @@ namespace Npc
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             SetRoundingForNextNode();
             _skipNextNodeActions = false;
+
+            if (_teleportingToNextNode)
+            {
+                _teleportingToNextNode = false;
+                transform.position = _currentTravelDestinationNode.transform.position;
+                if (_teleportingBallAfterTeleport)
+                {
+                    _teleportingBallAfterTeleport = false;
+                    _followingChild.transform.position = transform.position;
+                }
+            }
         }
 
         private void SetRoundingForNextNode()
@@ -106,6 +122,11 @@ namespace Npc
 
         private void ExecuteNodeEffects()
         {
+            if (_pathNodeController.TeleportToNextNode)
+            {
+                _teleportingToNextNode = true;
+            }
+
             var newMovementSpeed = _pathNodeController.NewMovementSpeed;
             if (!SettingDisabled(newMovementSpeed))
             {
@@ -117,17 +138,30 @@ namespace Npc
             {
                 StartCoroutine(WaitForSeconds(waitTimeAtThisNode));
             }
-            
+
+            if (_pathNodeController.LockBallToController)
+            {
+                var controller = _followingChild.GetComponent<NpcBallController>();
+                controller.LockedToController = true;
+                _teleportingBallAfterTeleport = true;
+            }
+
+            if (_pathNodeController.UnlockBallFromController)
+            {
+                var controller = _followingChild.GetComponent<NpcBallController>();
+                controller.LockedToController = false;
+            }
+
             var newBallSpeed = _pathNodeController.BallFollowSpeedFromThisNode;
             if (!SettingDisabled(newBallSpeed))
             {
-                _followingChild.GetComponent<FollowDad>().FollowControllerSpeed = newBallSpeed;
+                _followingChild.GetComponent<NpcBallController>().FollowControllerSpeed = newBallSpeed;
             }
-            
+
             var bounceStrengthFromThisNode = _pathNodeController.BounceStrengthFromThisNode;
             if (!SettingDisabled(bounceStrengthFromThisNode))
             {
-                _followingChild.GetComponent<FollowDad>().BounceStrength = bounceStrengthFromThisNode;
+                _followingChild.GetComponent<NpcBallController>().BounceStrength = bounceStrengthFromThisNode;
             }
 
             if (_pathNodeController.TriggerScripts.Count > 0)

@@ -115,9 +115,12 @@ MonoBehaviour:
   _newMovementSpeed: -1
   _roundingForThisNode: -1
   _waitTimeAtThisNode: -1
+  _teleportToNextNode: 0
+  _triggerScripts: []
   _bounceStrengthFromThisNode: -1
   _ballFollowSpeedFromThisNode: -1
-  _triggerScripts: []
+  _lockBallToController: 0
+  _unlockBallFromController: 0
 --- !u!33 &4805259041890650635
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -223,4 +226,10 @@ MonoBehaviour:
     type: 2}
   _bounceNodeMaterial: {fileID: 2100000, guid: a708cc4dc9ed32f40bda559357f826fe, type: 2}
   _followBallSpeedChangeNodeMaterial: {fileID: 2100000, guid: 94aab9394f86e8543a901390ef2f7089,
+    type: 2}
+  _teleportToNextNodeMaterial: {fileID: 2100000, guid: b0ad0a4b995eb0343bdc8833ae8a6093,
+    type: 2}
+  _lockBallToControllerMaterial: {fileID: 2100000, guid: a708cc4dc9ed32f40bda559357f826fe,
+    type: 2}
+  _unlockBallToControllerMaterial: {fileID: 2100000, guid: 3310aaf43e1710846a34664ec7976553,
     type: 2}
