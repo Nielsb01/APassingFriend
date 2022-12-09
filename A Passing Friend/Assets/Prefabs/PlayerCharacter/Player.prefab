@@ -167,10 +167,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.66
     y: 0
-    width: 1
-    height: 1
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -181,7 +181,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 3d85aeda505709040ac81bfb471a9579, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325887783188}
-  m_LocalRotation: {x: 0.06652621, y: 0.01296791, z: -0.00086469465, w: 0.99770004}
+  m_LocalRotation: {x: 0.06652613, y: 0.012967901, z: -0.0008646931, w: 0.99770004}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -334,7 +334,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325920329672}
-  m_LocalRotation: {x: 0.04836755, y: 0.01298151, z: -0.00062867283, w: 0.9987451}
+  m_LocalRotation: {x: 0.048367467, y: 0.012981498, z: -0.0006286712, w: 0.9987451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326014005061}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 0.43400002, z: -1}
+  m_LocalPosition: {x: -0.026000008, y: 0.4339999, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -726,7 +726,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.030240903, y: 0.012990762, z: -0.00039306536, w: 0.9994582}
+  m_LocalRotation: {x: 0.030240813, y: 0.012990765, z: -0.00039306437, w: 0.9994582}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -878,6 +878,9 @@ MonoBehaviour:
   _chargeSpeed: 1
   _jumpOverchargeValue: 90
   _failjumpSpeed: 0
+  _chargeJumpUnlocked: 0
+  _jumpCharged: 0
+  _MinimumChargeJumpValue: 0.3
   _playerAnimator: {fileID: 8570522645684812507}
 --- !u!143 &8465396575841647880
 CharacterController:
@@ -1439,8 +1442,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239327884981037}
-  m_LocalRotation: {x: 0.16018225, y: -0, z: -0, w: 0.9870875}
-  m_LocalPosition: {x: -0.026, y: 0.234, z: -0.3}
+  m_LocalRotation: {x: 0.1601822, y: -0, z: -0, w: 0.9870875}
+  m_LocalPosition: {x: -0.026000008, y: 0.23399997, z: -0.3000002}
   m_LocalScale: {x: 0.41542396, y: 0.7748729, z: 2.8873506}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1601,10 +1604,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.66
+    y: 0.66
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.65
   field of view: 60
@@ -1615,7 +1618,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 9aa955ad246b04d4784562f7e22ab1bd, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1819,10 +1822,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.33
+    y: 0.66
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.41
   field of view: 60
@@ -1973,8 +1976,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -1985,7 +1988,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 0053936c71a64f74fa50b17f4375d203, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2092,8 +2095,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6123349668167258371}
-  m_LocalRotation: {x: -0, y: 0.9925076, z: -0.12218325, w: 0}
-  m_LocalPosition: {x: -0.026, y: 0.234, z: 0.4}
+  m_LocalRotation: {x: -0, y: 0.9925076, z: -0.12218341, w: 0}
+  m_LocalPosition: {x: -0.026000008, y: 0.23399997, z: 0.39999962}
   m_LocalScale: {x: 0.41542396, y: 0.7748729, z: 2.8873506}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2222,10 +2225,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.66
+    y: 0.33
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -2236,7 +2239,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 037644336c06d034e975bf95cde9f6a6, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2340,10 +2343,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.33
     y: 0
-    width: 1
-    height: 1
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -2354,7 +2357,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 3f799a44333e2704bbe324d1aa326f77, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2494,9 +2497,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.66
+    width: 0.33
+    height: 0.33
   near clip plane: 0.2
   far clip plane: 0.52
   field of view: 9.141037
@@ -2507,7 +2510,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 365c0f44d323281458d3730709724881, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2612,9 +2615,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1
-    height: 1
+    y: 0.33
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -2625,7 +2628,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 75b22dadb59a8264fb083a9c64bf1e5b, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2736,7 +2739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8929465137479921822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 0.209, z: 0.175}
+  m_LocalPosition: {x: -0.026000008, y: 0.20899999, z: 0.17500019}
   m_LocalScale: {x: 0.41542396, y: 0.7748729, z: 2.8873506}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2835,10 +2838,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.33
+    y: 0.33
+    width: 0.33
+    height: 0.33
   near clip plane: 0.3
   far clip plane: 0.45
   field of view: 60
@@ -2849,7 +2852,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 768
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: eb5d4cadd466027448776ddc05e86969, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
