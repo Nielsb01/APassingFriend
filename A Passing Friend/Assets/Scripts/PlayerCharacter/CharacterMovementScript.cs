@@ -49,7 +49,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
     //Interacting
-    [SerializeField] private float _interactDistance = 1.0f;
     private PlayerInteractionController _playerInteractionController;
     
     private void Awake()
@@ -251,9 +250,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     
     private void loadHoldingItem(GameData data)
     {
-        Transform itemHeldByPlayer = GameObject.Find(data.ItemHeldByPlayer).transform;
-        _playerInteractionController.CallPickupOnItem(itemHeldByPlayer.GetComponent<PickupAbleItem>());
-        _playerInteractionController.SetItemHolding(itemHeldByPlayer);
+        if (data.ItemHeldByPlayer != null && !data.ItemHeldByPlayer.Equals(String.Empty))
+        {
+            Transform itemHeldByPlayer = GameObject.Find(data.ItemHeldByPlayer).transform;
+            _playerInteractionController.CallPickupOnItem(itemHeldByPlayer.GetComponent<PickupAbleItem>());
+            _playerInteractionController.SetItemHolding(itemHeldByPlayer);
+        }
     }
     
     private void OnJumpRelease()
