@@ -102,7 +102,8 @@ public class HealthController : MonoBehaviour
     {
         transform.GetComponent<BoxCollider>().enabled = false;
         transform.GetComponent<CharacterController>().enabled = false;
-        transform.GetChild(2).gameObject.SetActive(false);
+        // Set model inactive
+        transform.GetChild(0).gameObject.SetActive(false);
 
         FindObjectOfType<CharacterMovementScript>().enabled = false;
 
