@@ -1,11 +1,6 @@
 #region
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 #endregion
@@ -18,7 +13,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private ParticleSystem _damageParticleSystem;
     [SerializeField] private ParticleSystem _dyingParticleSystem;
     [SerializeField] private float _maxHealth = 100;
-    [SerializeField] private float _minHealth = 0;
+    [SerializeField] private float _minHealth;
     [SerializeField] private int _lightToDamageThreshold = 3;
     [SerializeField] private float _damagePerFrame = 1;
     [SerializeField] private int _lightToHealingThreshold;
@@ -52,7 +47,7 @@ public class HealthController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_calculateLight || _isDead) return;
-        
+
         UpdateVignette();
 
         if (_lightLevel >= _lightToDamageThreshold)
@@ -63,7 +58,7 @@ public class HealthController : MonoBehaviour
         {
             _isParticling = false;
             _damageParticleSystem.Stop();
-            
+
             if (_lightLevel <= _lightToHealingThreshold)
             {
                 Heal();
@@ -83,13 +78,13 @@ public class HealthController : MonoBehaviour
             _health -= _damagePerFrame;
             CreateDamageParticles();
         }
-        
+
         if (_health < 0)
         {
             _isDead = true;
             _health = _minHealth;
         }
-        
+
         if (_isDead)
         {
             _damageParticleSystem.Stop();
@@ -108,11 +103,11 @@ public class HealthController : MonoBehaviour
         transform.GetComponent<BoxCollider>().enabled = false;
         transform.GetComponent<CharacterController>().enabled = false;
         transform.GetChild(2).gameObject.SetActive(false);
-        
+
         FindObjectOfType<CharacterMovementScript>().enabled = false;
 
         _dyingParticleSystem.Play();
-        
+
         Instantiate(_catBones, transform.position, transform.rotation);
     }
 
