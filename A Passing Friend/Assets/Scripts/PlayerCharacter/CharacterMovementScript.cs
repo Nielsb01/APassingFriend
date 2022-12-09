@@ -17,7 +17,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private CharacterController _characterController;
 
-    [SerializeField] private float _velocityY;
+    private float _velocityY;
     private float _velocityX;
     private readonly float _maxPositiveVelocity = 2.0f;
     private readonly float _maxNegativeVelocity = -2.0f;
@@ -85,6 +85,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
+        if (_movementImpaired) return;
+
         if (_holdingDownJump)
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
@@ -136,7 +138,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         else if (_velocityY < 0)
         {
             _velocityY += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityY, 0, CHECK_VALUE))
+            if (FloatIsBetween(_velocityY, 0, CHECK_VALUE))
             {
                 _velocityY = 0;
             }
@@ -158,7 +160,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         else if (_velocityX < 0)
         {
             _velocityX += Time.deltaTime * _deceleration;
-            if (floatIsBetween(_velocityX, 0, CHECK_VALUE))
+            if (FloatIsBetween(_velocityX, 0, CHECK_VALUE))
             {
                 _velocityX = 0;
             }
@@ -171,7 +173,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
     }
 
-    private static bool floatIsBetween(float number, float min, float max)
+    private static bool FloatIsBetween(float number, float min, float max)
     {
         return number >= min && number <= max;
     }
@@ -181,18 +183,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _movementImpaired = movementImpaired;
         _rotationFrozenDueToDialog = rotationFrozen;
 
-        if (movementImpaired)
+        if (_movementImpaired || _rotationFrozenDueToDialog)
         {
+            ResetJumpCharge();
             _doChargeJump = false;
-            _holdingDownJump = false;
             _doJump = false;
-            _jumpCharged = 0;
+            _moveVector = Vector3.zero;
+            _moveDirection.y = 0;
+            _moveDirection.x = 0;
+            _moveDirection.z = 0;
             _velocityY = 0;
+            _velocityX = 0;
             _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
         }
     }
 
-    private void resetJumpCharge()
+    private void ResetJumpCharge()
     {
         _holdingDownJump = false;
         _jumpCharged = 0;
@@ -206,11 +212,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         }
         else
         {
+            ResetJumpCharge();
+            _doChargeJump = false;
+            _doJump = false;
             _moveVector = Vector3.zero;
-            _velocityY = 0;
-            _velocityX = 0;
+            _moveDirection.y = 0;
             _moveDirection.x = 0;
             _moveDirection.z = 0;
+            _velocityY = 0;
+            _velocityX = 0;
         }
 
     }
@@ -229,7 +239,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnJumpRelease()
     {
-       
+        if (_movementImpaired) return;
+
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
             if (_characterController.isGrounded)
@@ -241,30 +252,32 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
                 {
                     OnJumpFail();
                 }
-                else 
+                else
                 {
                     _moveDirection.y = _jumpCharged;
                     _doJump = true;
                     _doChargeJump = true;
                 }
             }
-            
+
         }
-        else  if (_characterController.isGrounded)
+        else if (_characterController.isGrounded)
         {
             _doJump = true;
         }
-        resetJumpCharge();
+        ResetJumpCharge();
     }
 
     private void OnJumpHold()
     {
+        if (_movementImpaired) return;
+
         if (_chargeJumpUnlocked && _characterController.isGrounded)
-        { 
+        {
             _holdingDownJump = true;
         }
     }
-    
+
     private void OnJumpFail()
     {
         _moveDirection.y = _failjumpSpeed;
@@ -272,22 +285,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     }
 
     // Getters for making UI
-    public float getJumpCharged()
+    public float GetJumpCharged()
     {
         return _jumpCharged;
     }
 
-    public float getOverchargeLevel()
+    public float GetOverchargeLevel()
     {
         return _jumpOverchargeValue;
     }
 
     public float GetMinimumChargeJumpValue()
-    {   
+    {
         return _MinimumChargeJumpValue;
     }
 
-    public bool isInChargeZone()
+    public bool IsInChargeZone()
     {
         return _chargeJumpUnlocked;
     }
