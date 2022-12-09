@@ -421,7 +421,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return _MinimumChargeJumpValue;
     }
 
-    public bool IsInChargeZone()
+    public bool IsChargeJumpUnlocked()
     {
         return _chargeJumpUnlocked;
     }
