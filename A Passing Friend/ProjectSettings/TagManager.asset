@@ -9,6 +9,7 @@ TagManager:
   - SideToSideCamOverflowTrigger
   - RightSideCamTrigger
   - LeftSideCamTrigger
+  - DebugComponent
   layers:
   - Default
   - TransparentFX
@@ -19,14 +20,11 @@ TagManager:
   - 
   - 
   - Player
-  - LightObstacle
+  - Player Outline
   - 
-  - Player
-  - LightObstacle
+  - 
+  - 
   - Npc
-  - 
-  - 
-  - 
   - 
   - 
   - 
