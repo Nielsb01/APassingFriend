@@ -27,34 +27,37 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-     NpcInteracting();
+        if (_playerFov.pickup == null)
+        {
+            NpcInteracting();
+        }
     }
 
     private void NpcInteracting()
     {
-        if (_playerFov.CanSeeTarget && _characterController && _playerFov.pickup)
+        if (_playerFov.CanSeeTarget && _characterController)
         {
-            _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
-            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
+                _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
+                _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
 
         if (_outline != null)
         {
-            if (_playerFov.CanSeeTarget && _characterController.isGrounded)
-            {
-                _outline.enabled = true;
-                _ui.SetIsInInteractRange(true);
-                _ui.SetInteractBoxVisible();
-                _ui.SetDialogBuilder(_npcDialogBuilder);
-                _ui.SetIsDialogBuilderSet(true);
-            }
-            else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
-            {
-                _outline.enabled = false;
-                _ui.SetIsInInteractRange(false);
-                _ui.SetIsDialogBuilderSet(false);
-            }
+                if (_playerFov.CanSeeTarget && _characterController.isGrounded)
+                {
+                    _outline.enabled = true;
+                    _ui.SetIsInInteractRange(true);
+                    _ui.SetInteractBoxVisible();
+                    _ui.SetDialogBuilder(_npcDialogBuilder);
+                    _ui.SetIsDialogBuilderSet(true);
+                }
+                else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
+                {
+                    _outline.enabled = false;
+                    _ui.SetIsInInteractRange(false);
+                    _ui.SetIsDialogBuilderSet(false);
+                }
         }
     }
 

@@ -1,4 +1,4 @@
-using System;
+    using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Cinemachine;
@@ -225,14 +225,14 @@ public class UIController : MonoBehaviour
                 // If the option does not end conversation, reset dialogue.
                 ResetDialogue();
 
-                // If the option does not end conversation ánd there is more than one dialog option, show choices.
+                // If the option does not end conversation ï¿½nd there is more than one dialog option, show choices.
                 if (_dialogBuilder.GetAllDialogObjects().Count != 1)
                 {
                     ShowDialogChoices();
                 }
                 else
                 {
-                    // If the option does not end conversation ánd there is but one dialog option, reset dialogue.
+                    // If the option does not end conversation ï¿½nd there is but one dialog option, reset dialogue.
                     _choiceClicked = 0;
                     SetDialogWithChoice();
                     _currentTextNr = -1;
