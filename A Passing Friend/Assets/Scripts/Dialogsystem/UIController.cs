@@ -56,8 +56,16 @@ public class UIController : MonoBehaviour
     [SerializeField] private bool _isDialogBuilderSet;
 
 
+    // Light Vignette
+    private VisualElement _lightVignette;
+
+
     // Character Movement
     [SerializeField] CharacterMovementScript characterMovementScript;
+
+
+    // Calculate Light Damage
+    [SerializeField] CalculateLightDamage _calculateLightDamageScript;
 
 
 
@@ -78,6 +86,8 @@ public class UIController : MonoBehaviour
         _dialogBoxExitButton = _root.Q<Button>("dialog-box-exit-button");
         _dialogBox.visible = false;
         _interactBox.visible = false;
+
+        _lightVignette = _root.Q<VisualElement>("light-vignette");
 
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
@@ -110,6 +120,16 @@ public class UIController : MonoBehaviour
         }
 
         CheckForScreenResolutionChanges();
+    }
+
+    private void Update()
+    {
+        AlterLightVignette();
+    }
+
+    private void AlterLightVignette()
+    {
+        _lightVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _calculateLightDamageScript.GetVignetteTransparacy());
     }
 
     public void SetIsInInteractRange(bool isInInteractRange)
