@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 1491799}
   - component: {fileID: 1491798}
   - component: {fileID: 1491803}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-627558
+  m_Name: pb_Mesh29000
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 770029947}
   - component: {fileID: 770029946}
   - component: {fileID: 770029953}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5564,7 +5564,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-606262
+  m_Name: pb_Mesh28914
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -5993,7 +5993,17 @@ PrefabInstance:
         type: 3}
       propertyPath: _pickUpLocation
       value: 
-      objectReference: {fileID: 1086626882}
+      objectReference: {fileID: 1617218277}
+    - target: {fileID: 4537777650297205189, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _targetMask.m_Bits
+      value: 24576
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480609068412039239, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      propertyPath: _pickUpLocation
+      value: 
+      objectReference: {fileID: 1617218277}
     - target: {fileID: 8012747224378882956, guid: 49d07f82d153c1443b37441170df7a60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6010,7 +6020,11 @@ PrefabInstance:
       value: -0.12218322
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3359571292093531714, guid: 49d07f82d153c1443b37441170df7a60,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1617218277}
   m_SourcePrefab: {fileID: 100100000, guid: 49d07f82d153c1443b37441170df7a60, type: 3}
 --- !u!43 &1045417526
 Mesh:
@@ -6018,7 +6032,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-635408
+  m_Name: pb_Mesh28972
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -6704,12 +6718,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!4 &1086626882 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3912964924634154073, guid: 49d07f82d153c1443b37441170df7a60,
-    type: 3}
-  m_PrefabInstance: {fileID: 1035890428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1331256754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6773,6 +6781,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8132129077762207926, guid: dc1d1befc695f034db6aa697a9c539cb,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 25143
+      objectReference: {fileID: 0}
     - target: {fileID: 8132129077762207928, guid: dc1d1befc695f034db6aa697a9c539cb,
         type: 3}
       propertyPath: m_Name
@@ -6781,6 +6794,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1d1befc695f034db6aa697a9c539cb, type: 3}
+--- !u!4 &1555773714 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3359571292093531714, guid: 49d07f82d153c1443b37441170df7a60,
+    type: 3}
+  m_PrefabInstance: {fileID: 1035890428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1570907772
 GameObject:
   m_ObjectHideFlags: 0
@@ -7211,6 +7230,37 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1617218276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1617218277}
+  m_Layer: 0
+  m_Name: PickupLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1617218277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617218276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -4.08, z: -1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1555773714}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681547992
 GameObject:
   m_ObjectHideFlags: 0
