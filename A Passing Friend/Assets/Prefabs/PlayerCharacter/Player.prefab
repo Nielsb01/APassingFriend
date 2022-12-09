@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 1346305692970535388}
   - component: {fileID: 7007318329638088461}
   - component: {fileID: 1162968347373718781}
+  - component: {fileID: 4396110361084752913}
   m_Layer: 0
   m_Name: RightLightCamera (2)
   m_TagString: Untagged
@@ -232,6 +233,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &4396110361084752913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272364492966675351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &429239325887783188
 GameObject:
   m_ObjectHideFlags: 3
@@ -1522,6 +1536,7 @@ GameObject:
   - component: {fileID: 3022162494415862945}
   - component: {fileID: 7712957106739923379}
   - component: {fileID: 961232392189067707}
+  - component: {fileID: 7417186009317942156}
   m_Layer: 0
   m_Name: BackwardLightCamera (2)
   m_TagString: Untagged
@@ -1628,6 +1643,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &7417186009317942156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992257250386860030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &3606501358085163039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,6 +1768,7 @@ GameObject:
   - component: {fileID: 1161079958577921559}
   - component: {fileID: 4973049636277953426}
   - component: {fileID: 1787902213946663914}
+  - component: {fileID: -5344829915704625395}
   m_Layer: 0
   m_Name: BackwardLightCamera
   m_TagString: Untagged
@@ -1846,6 +1875,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &-5344829915704625395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787802322223632284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &5339863300464136053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1934,7 @@ GameObject:
   - component: {fileID: 7753620627571021001}
   - component: {fileID: 9216092638336719346}
   - component: {fileID: 2187928324020453916}
+  - component: {fileID: 3040419863851974564}
   m_Layer: 0
   m_Name: RightLightCamera
   m_TagString: Untagged
@@ -1998,6 +2041,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &3040419863851974564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5429427631057769237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &5767480513908946415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2143,6 +2199,7 @@ GameObject:
   - component: {fileID: 8230231583537600868}
   - component: {fileID: 7647458112104728631}
   - component: {fileID: 4726086249478615432}
+  - component: {fileID: 4360816016546552848}
   m_Layer: 0
   m_Name: LeftLightCamera (2)
   m_TagString: Untagged
@@ -2249,6 +2306,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &4360816016546552848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161925702251889723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &6614897929247349524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2331,7 @@ GameObject:
   - component: {fileID: 6748282191788625853}
   - component: {fileID: 4891370894584122931}
   - component: {fileID: 6099719804473014742}
+  - component: {fileID: -7956890769477519837}
   m_Layer: 0
   m_Name: RightLightCamera (1)
   m_TagString: Untagged
@@ -2367,6 +2438,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &-7956890769477519837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614897929247349524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &6813767783716392211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,6 +2498,7 @@ GameObject:
   - component: {fileID: 7358870364088779401}
   - component: {fileID: 9095513679674891698}
   - component: {fileID: 3201791327516463940}
+  - component: {fileID: -8627956376708170333}
   m_Layer: 0
   m_Name: ForwardLightCamera (4)
   m_TagString: Untagged
@@ -2520,6 +2605,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &-8627956376708170333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303843922655130969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &7930031588922122360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2532,6 +2630,7 @@ GameObject:
   - component: {fileID: 3136041734925367946}
   - component: {fileID: 1867522394520708475}
   - component: {fileID: 8371700097844403058}
+  - component: {fileID: -9044348110289135963}
   m_Layer: 0
   m_Name: LeftLightCamera
   m_TagString: Untagged
@@ -2638,6 +2737,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &-9044348110289135963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7930031588922122360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &8411842558919925308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,6 +2868,7 @@ GameObject:
   - component: {fileID: 8264965570088622746}
   - component: {fileID: 4837775483607532342}
   - component: {fileID: 6426552027719074096}
+  - component: {fileID: 8660290714139101946}
   m_Layer: 0
   m_Name: LeftLightCamera (1)
   m_TagString: Untagged
@@ -2862,6 +2975,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &8660290714139101946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9095935442993973536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1001 &5908354332223717866
 PrefabInstance:
   m_ObjectHideFlags: 0

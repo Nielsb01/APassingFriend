@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{2731dd6d-c9c6-4317-9a30-e9247802c62b}">
+		<property name="color">
+			<value>Red</value>
+		</property>
 		<property name="name">
 			<value>AshaMumbleEvent</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{4ee19992-735b-422b-aebe-e012e8469407}</destination>
+			<destination>{1049d8dc-319f-4465-b226-b0bd8a7d83a3}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{c27a82d9-630f-4aa6-835e-2ccef6a5f715}</destination>
@@ -56,7 +59,11 @@
 			<destination>{35c91db8-eecd-4473-bfbb-81e73ebe3319}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{20dcdab6-2d65-4a39-974f-8780724b319c}" />
+	<object class="EventAutomatableProperties" id="{20dcdab6-2d65-4a39-974f-8780724b319c}">
+		<property name="maxVoices">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{bf806fbc-65d2-47db-83c9-dc28fce86de9}" />
 	<object class="GroupTrack" id="{a31aa67b-2045-46a3-adba-c9d417ba5d7f}">
 		<relationship name="modules">
@@ -97,6 +104,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{3443f34b-c84f-4281-a46f-749d7db622fe}">
+		<property name="volume">
+			<value>-5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -113,6 +123,7 @@
 	<object class="MixerBusEffectChain" id="{d06489ed-00f3-4e9b-b16b-36b51da8fc73}">
 		<relationship name="effects">
 			<destination>{b70e3f03-0d00-4ab9-a541-42549f2c057f}</destination>
+			<destination>{5d104c45-27c0-4077-94ef-f25525b23195}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f3df8b2b-8033-41c2-9d9d-d903c3b82881}" />
@@ -124,5 +135,19 @@
 	</object>
 	<object class="MixerBusPanner" id="{e95ce4e7-5c3f-46b5-9f93-7f9c72a7f37e}" />
 	<object class="MixerBusFader" id="{b70e3f03-0d00-4ab9-a541-42549f2c057f}" />
+	<object class="SpatialiserEffect" id="{5d104c45-27c0-4077-94ef-f25525b23195}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
+		<property name="maximumDistance">
+			<value>4.5999999</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{ca301dc7-2369-405d-a56e-deea93b45ecd}" />
 </objects>
