@@ -70,7 +70,7 @@ public class UIController : MonoBehaviour
 
     // Character Movement
     [Header("Character Movement")]
-    [SerializeField] CharacterMovementScript characterMovementScript;
+    [SerializeField] CharacterMovementScript _characterMovementScript;
 
 
     // Screen
@@ -99,7 +99,7 @@ public class UIController : MonoBehaviour
 
         // Jump charge bar
         _jumpChargeBar = _root.Q<JumpChargeBar>("jump-charge-bar");
-        _maxJumpCharge = characterMovementScript.GetOverchargeLevel();
+        _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
         _jumpChargeBar.value = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.visible = false;
 
@@ -116,7 +116,7 @@ public class UIController : MonoBehaviour
         // Unfreeze the player when they are not in interact range with anything.
         if (!_isInInteractRange)
         {
-            characterMovementScript.FreezeMovement(false, false);
+            _characterMovementScript.FreezeMovement(false, false);
         }
 
     }
@@ -124,9 +124,11 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         // Charge or decharge the jump bar if the player is currently charging or not.
-        if (!characterMovementScript.GetHoldingDownJump())
+        if (!_characterMovementScript.GetHoldingDownJump())
         {
-            DechargeJump();
+            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
+
+            DeOrChargeJump();
 
             if (_currentJumpCharge == _minJumpCharge)
             {
@@ -135,9 +137,11 @@ public class UIController : MonoBehaviour
         }
         else
         {
+            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
+
             _jumpChargeBar.visible = true;
 
-            ChargeJump();
+            DeOrChargeJump();
         }
 
         /*
@@ -156,11 +160,11 @@ public class UIController : MonoBehaviour
             {
                 UnsetNpcCamera();
             }
-
-            return;
         }
-
-        CheckForScreenResolutionChanges();
+        else
+        {
+            CheckForScreenResolutionChanges();
+        }
     }
 
     private void OnValidate()
@@ -239,7 +243,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            characterMovementScript.FreezeMovement(true, true);
+            _characterMovementScript.FreezeMovement(true, true);
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -276,7 +280,7 @@ public class UIController : MonoBehaviour
                 _isInInteraction = false;
                 _isDialogBuilderSet = false;
 
-                characterMovementScript.FreezeMovement(false, false);
+                _characterMovementScript.FreezeMovement(false, false);
 
                 SetDialogSystemInvisible();
                 ResetDialogue();
@@ -311,7 +315,7 @@ public class UIController : MonoBehaviour
         _isInInteraction = true;
         _isDialogBuilderSet = false;
 
-        characterMovementScript.FreezeMovement(false, false);
+        _characterMovementScript.FreezeMovement(false, false);
 
         SetDialogSystemInvisible();
         ResetDialogue();
@@ -435,18 +439,12 @@ public class UIController : MonoBehaviour
     */
 
     // Charge the jump bar.
-    private void ChargeJump()
+    private void DeOrChargeJump()
     {
-        _currentJumpCharge += characterMovementScript.GetJumpCharged() * Time.deltaTime;
+        _currentJumpCharge = _characterMovementScript.GetJumpCharged();
         _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * 2));
         _jumpChargePercent = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.value = _jumpChargePercent;
-    }
-    
-    // Decharge the jump bar.
-    private void DechargeJump()
-    {
-        _currentJumpCharge = characterMovementScript.GetJumpCharged();
     }
 
     /* 
