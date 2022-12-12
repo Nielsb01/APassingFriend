@@ -270,7 +270,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325887783188}
-  m_LocalRotation: {x: 0.06652621, y: 0.01296791, z: -0.00086469465, w: 0.99770004}
+  m_LocalRotation: {x: 0.06652612, y: 0.0129679, z: -0.000864693, w: 0.99770004}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -348,7 +348,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325920329672}
-  m_LocalRotation: {x: 0.04836755, y: 0.01298151, z: -0.00062867283, w: 0.9987451}
+  m_LocalRotation: {x: 0.04836747, y: 0.012981497, z: -0.00062867114, w: 0.9987451}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -556,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326014005061}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 0.43400002, z: -1}
+  m_LocalPosition: {x: -0.026000008, y: 0.4339999, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -740,7 +740,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.030240903, y: 0.012990762, z: -0.00039306536, w: 0.9994582}
+  m_LocalRotation: {x: 0.030240815, y: 0.012990765, z: -0.0003930644, w: 0.99945813}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -892,7 +892,32 @@ MonoBehaviour:
   _chargeSpeed: 1
   _jumpOverchargeValue: 90
   _failjumpSpeed: 0
+  _chargeJumpUnlocked: 0
+  _jumpCharged: 0
+  _MinimumChargeJumpValue: 0.3
   _playerAnimator: {fileID: 8570522645684812507}
+  _footstepsEventPath:
+    Guid:
+      Data1: 174349728
+      Data2: 1156927616
+      Data3: 1941951647
+      Data4: -1507740780
+    Path: event:/Effects/Cat/Footsteps
+  _jumpingEventPath:
+    Guid:
+      Data1: 1536703412
+      Data2: 1114496134
+      Data3: -1615777869
+      Data4: 1476928479
+    Path: event:/Effects/Cat/Jump
+  _landingEventPath:
+    Guid:
+      Data1: -1796494419
+      Data2: 1294061890
+      Data3: 845267897
+      Data4: 1472760634
+    Path: event:/Effects/Cat/Land
+  _minimumDisplacementForSound: 100
 --- !u!143 &8465396575841647880
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2101,7 +2126,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8314227202312861111}
-  - component: {fileID: 4134452545570998248}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -2124,47 +2148,6 @@ Transform:
   m_Father: {fileID: 429239326883995323}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4134452545570998248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5767480513908946415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8deb925c2f79847bbb184a5fd5ab6606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FootstepsEventPath:
-    Guid:
-      Data1: 174349728
-      Data2: 1156927616
-      Data3: 1941951647
-      Data4: -1507740780
-    Path: event:/Effects/Cat/Footsteps
-  JumpingEventPath:
-    Guid:
-      Data1: 1536703412
-      Data2: 1114496134
-      Data3: -1615777869
-      Data4: 1476928479
-    Path: event:/Effects/Cat/Jump
-  LandingEventPath:
-    Guid:
-      Data1: -1796494419
-      Data2: 1294061890
-      Data3: 845267897
-      Data4: 1472760634
-    Path: event:/Effects/Cat/Land
-  MaterialParameterName: 
-  SpeedParameterName: 
-  JumpOrLandParameterName: 
-  StepDistance: 2
-  RayDistance: 1.2
-  StartRunningTime: 0.3
-  JumpInputName: 
-  MaterialTypes: []
 --- !u!1 &6123349668167258371
 GameObject:
   m_ObjectHideFlags: 0
