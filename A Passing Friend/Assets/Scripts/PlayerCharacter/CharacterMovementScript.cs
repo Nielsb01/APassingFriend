@@ -45,6 +45,17 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
     private bool _doChargeJump;
     private bool _holdingDownJump;
+
+    // Climbing
+    [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
+    private bool _inClimbingZone;
+    private bool _canClimb;
+    private bool _isClimbing; 
+    private bool _exitingClimbing;
+    private static string CLIMBING_ZONE_TAG = "ClimbingZone";
+    private static string CLIMBING_WALL_TAG = "ClimbingWall";
+    private static float CLIMBING_DISTANCE = 0.3f;
+    
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -56,10 +67,32 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _characterController = GetComponent<CharacterController>();
     }
 
+    private void Start()
+    {
+        _canClimb = true;
+    }
+
     private void FixedUpdate()
     {
-        Move();
-        Rotate();
+        if (_inClimbingZone)
+        {
+            CheckCanClimb();
+
+            if (_canClimb)
+            {
+                ClimbWall();
+            }
+        }
+
+        if (_isClimbing)
+        {
+            Climb();
+        }
+        else
+        {
+            Move();
+            Rotate();
+        }
     }
 
     public void OnFreeLook(InputValue value)
@@ -91,7 +124,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
         }
-
         if (!_characterController.isGrounded && _jumpCharged > 0)
         {
             _jumpCharged = 0;
@@ -222,7 +254,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _velocityY = 0;
             _velocityX = 0;
         }
-
     }
 
     public void LoadData(GameData data)
@@ -265,9 +296,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _doJump = true;
         }
+
+        if (_isClimbing)
+        {
+            _canClimb = false;
+            _isClimbing = false;
+        }
         ResetJumpCharge();
     }
-
+    
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
@@ -277,11 +314,101 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _holdingDownJump = true;
         }
     }
+    
+    private void OnTriggerEnter(Collider trigger)
+    {
+        if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
+        {
+            _inClimbingZone = true;
+        }
+    }
+    
+    private void OnTriggerExit(Collider trigger)
+    {
+        if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
+        {
+            _isClimbing = false;
+            _inClimbingZone = false;
+        }
+    }
 
     private void OnJumpFail()
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
+    }
+
+    private void CheckCanClimb()
+    {
+        if (_canClimb) return;
+        if (_characterController.isGrounded)
+        {
+            _canClimb = true;
+            //Resetting movement direction so the cat won't get slammed into the floor 
+            _moveDirection.y = 0;
+        }
+    }
+
+    private void Climb()
+    {
+        Vector3 climbingMovementDirection = new Vector3(_moveVector.x, _moveVector.y, 0);
+        _characterController.Move(transform.TransformDirection(climbingMovementDirection * Time.deltaTime));
+        // If the character is grounded and we press backward, we want to call the normal move to exit the climb zone.
+        if (_characterController.isGrounded && _moveVector.y <= -1)
+        {
+            _exitingClimbing = true;
+            _isClimbing = false;
+        }
+    }
+    private void ClimbWall()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward,out hit,CLIMBING_DISTANCE))
+        {
+            if (hit.transform.CompareTag(CLIMBING_WALL_TAG))
+            {
+                transform.forward = Vector3.Lerp(transform.forward,
+                    -hit.normal,
+                    10f * Time.fixedDeltaTime);
+                if (!_exitingClimbing)
+                {
+                    _isClimbing = true;
+                }
+            }
+            else if (_isClimbing)
+            {
+                // if the player isn't looking at the wall anymore exit climbing
+                {
+                    ExitClimbing();
+                }
+            }
+        }
+        else
+        {
+            if (_exitingClimbing)
+            {
+                _exitingClimbing = false;
+            }
+            else if(_isClimbing)
+            {
+                _isClimbing = false;
+            }
+        }
+    }
+    // This jumped is performed when failing a jump, but also when exiting a climb zone.
+    private void PerformSmallJump(float jumpPower)
+    {
+        _moveDirection.y = jumpPower;
+        _velocityY += jumpPower;
+    }
+
+    private void ExitClimbing()
+    {
+        _isClimbing = false;
+        _velocityX = 0;
+        _velocityY = 0;
+        PerformSmallJump(_climbZoneExitJumpSpeed);
+        _exitingClimbing = false;
     }
 
     // Getters for making UI
@@ -300,7 +427,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return _MinimumChargeJumpValue;
     }
 
-    public bool IsInChargeZone()
+    public bool IsChargeJumpUnlocked()
     {
         return _chargeJumpUnlocked;
     }
