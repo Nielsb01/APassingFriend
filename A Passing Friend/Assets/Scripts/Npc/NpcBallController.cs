@@ -60,7 +60,7 @@ namespace Npc
 
         private void Bounce()
         {
-            _rb.AddForce(new Vector3(0, _bounceStrength, 0), ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * _bounceStrength, ForceMode.Impulse);
         }
 
         private void TrackControllerGameObject()
