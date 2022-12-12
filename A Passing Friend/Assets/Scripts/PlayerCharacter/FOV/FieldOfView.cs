@@ -13,7 +13,8 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstructionMask;
 
-    [SerializeField] private bool _canSeeTarget;
+     private bool _canSeeTarget;
+     private Transform _pickup;
 
     public float Radius
     {
@@ -44,6 +45,14 @@ public class FieldOfView : MonoBehaviour
         get
         {
             return _canSeeTarget;
+        }
+    }
+
+    public Transform pickup
+    {
+        get
+        {
+            return _pickup;
         }
     }
 
@@ -80,20 +89,33 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                 {
                     _canSeeTarget = true;
+                    if (target.GetComponent<PickupAbleItem>() != null)
+                    {
+                        _pickup = target;
+                    }
                 }
                 else
                 {
                     _canSeeTarget = false;
+                    _pickup = null;
                 }
             }
             else
             {
                 _canSeeTarget = false;
+                _pickup = null;
             }
         }
-        else if (_canSeeTarget)
-        {
-            _canSeeTarget = false;
+        else{
+            if (_canSeeTarget)
+            {
+                _canSeeTarget = false;
+            }
+
+            if (pickup != null)
+            {
+                _pickup = null;
+            }
         }
     }
 }

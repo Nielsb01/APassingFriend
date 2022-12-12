@@ -59,12 +59,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
-
+    //Interacting
+    private PlayerInteractionController _playerInteractionController;
+    
     private void Awake()
     {
         _doJump = false;
         _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
+        _playerInteractionController = GetComponent<PlayerInteractionController>();
     }
 
     private void Start()
@@ -255,19 +258,37 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _velocityX = 0;
         }
     }
-
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
         this.transform.position = data.PlayerLocation;
         _characterController.enabled = true;
+        loadHoldingItem(data);
     }
 
     public void SaveData(ref GameData data)
     {
         data.PlayerLocation = this.transform.position;
+        if (_playerInteractionController.GetItemHolding() != null)
+        {
+            data.ItemHeldByPlayer = _playerInteractionController.GetItemHolding().name;
+        }
+        else
+        {
+            data.ItemHeldByPlayer = null;
+        }
     }
-
+    
+    private void loadHoldingItem(GameData data)
+    {
+        if (data.ItemHeldByPlayer != null && !data.ItemHeldByPlayer.Equals(String.Empty))
+        {
+            Transform itemHeldByPlayer = GameObject.Find(data.ItemHeldByPlayer).transform;
+            _playerInteractionController.CallPickupOnItem(itemHeldByPlayer.GetComponent<PickupAbleItem>());
+            _playerInteractionController.SetItemHolding(itemHeldByPlayer);
+        }
+    }
+    
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
