@@ -81,7 +81,7 @@ namespace Camera
 
         public void LockOrientation(float targetOrientation, bool allowMirroredDirectionLock)
         {
-            _characterMovementScript._rotationFrozenDueToSpecialArea = true;
+            _characterMovementScript.rotationFrozenDueToSpecialArea = true;
             if (!allowMirroredDirectionLock)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
@@ -115,7 +115,7 @@ namespace Camera
 
         public void UnlockOrientation()
         {
-            _characterMovementScript._rotationFrozenDueToSpecialArea = false;
+            _characterMovementScript.rotationFrozenDueToSpecialArea = false;
         }
         
         public void OnToggleHideMouse(InputValue inputValue)
