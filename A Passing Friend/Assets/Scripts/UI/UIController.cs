@@ -176,7 +176,7 @@ public class UIController : MonoBehaviour
         {
             _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
 
-            DeOrChargeJump();
+            ChargeJump();
 
             if (_currentJumpCharge == _minJumpCharge)
             {
@@ -189,7 +189,7 @@ public class UIController : MonoBehaviour
 
             _jumpChargeBar.visible = true;
 
-            DeOrChargeJump();
+            ChargeJump();
         }
     }
 
@@ -478,7 +478,7 @@ public class UIController : MonoBehaviour
     */
 
     // Charge the jump bar.
-    private void DeOrChargeJump()
+    private void ChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
         _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * _overchargeJumpModifier));
