@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public Vector3 PlayerLocation;
+    public Vector3 playerLocation;
     public bool isDay;
     public bool canChargeJump;
     public Vector3 ashaLocation;
@@ -13,7 +13,7 @@ public class GameData
 
     public GameData()
     {
-        PlayerLocation = Vector3.zero;
+        playerLocation = Vector3.zero;
         isDay = true;
         canChargeJump = false;
         ashaLocation = Vector3.zero;

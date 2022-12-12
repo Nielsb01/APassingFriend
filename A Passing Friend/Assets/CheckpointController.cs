@@ -39,7 +39,7 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         if (!_isActive) return;
 
         gameData.activeCheckpoint = _checkpointName;
-        gameData.PlayerLocation = transform.position;
+        gameData.playerLocation = transform.position;
         gameData.isDay = _gameData.isDay;
         gameData.canChargeJump = _gameData.canChargeJump;
         gameData.ashaLocation = _gameData.ashaLocation;
