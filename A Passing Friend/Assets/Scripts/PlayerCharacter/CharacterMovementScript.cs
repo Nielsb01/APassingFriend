@@ -261,22 +261,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
-        this.transform.position = data.PlayerLocation;
+        this.transform.position = data.playerLocation;
         _characterController.enabled = true;
         loadHoldingItem(data);
     }
 
     public void SaveData(ref GameData data)
     {
-        data.PlayerLocation = this.transform.position;
-        if (_playerInteractionController.GetItemHolding() != null)
-        {
-            data.ItemHeldByPlayer = _playerInteractionController.GetItemHolding().name;
-        }
-        else
-        {
-            data.ItemHeldByPlayer = null;
-        }
     }
     
     private void loadHoldingItem(GameData data)

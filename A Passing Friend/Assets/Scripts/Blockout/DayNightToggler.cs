@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayNightToggler : MonoBehaviour
+public class DayNightToggler : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject _directionalLight;
     [SerializeField] private float _dayRotation;
@@ -10,15 +10,9 @@ public class DayNightToggler : MonoBehaviour
     [SerializeField] private List<GameObject> _lights;
     private bool _isDay;
 
-    void Start()
-    {
-        // ensure that level starts in day time
-        _isDay = false;
-        ToggleDayNight();
-    }
-
     void Update()
     {
+        //TODO Remove 
         if (Input.GetKeyDown(KeyCode.Q))
         {
            ToggleDayNight();
@@ -27,15 +21,13 @@ public class DayNightToggler : MonoBehaviour
 
     private void ToggleDayNight()
     {
-        if (_isDay)
+        if (!_isDay)
         {
             ToNight();
-            _isDay = false;
         }
         else
         {
             ToDay();
-            _isDay = true;
         }
     }
 
@@ -56,4 +48,12 @@ public class DayNightToggler : MonoBehaviour
         }
         _directionalLight.transform.rotation = Quaternion.Euler(_dayRotation, 90f, _directionalLight.transform.rotation.z);
     }
+
+    public void LoadData(GameData gameData)
+    {
+        _isDay = gameData.isDay;
+        ToggleDayNight();
+    }
+
+    public void SaveData(ref GameData gameData) {}
 }
