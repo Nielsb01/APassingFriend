@@ -55,6 +55,5 @@ public class PlayerInteractionController : MonoBehaviour
         {
             _ui.ContinueDialog();
         }
-
     }
 }
