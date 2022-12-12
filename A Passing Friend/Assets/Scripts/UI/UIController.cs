@@ -68,7 +68,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private float _maxJumpCharge;
 
-    [SerializeField] private float _overchargeJumpModifier = 1.27f; // the modifier used to determine how far the bar overcharges visually, always 3 less than the width of the overcharge bar.
+    [SerializeField] private float _overchargeJumpModifier = 1.2f; // the modifier used to determine how far the bar overcharges visually, always 0.1 less than the width of the overcharge bar.
   
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
     
