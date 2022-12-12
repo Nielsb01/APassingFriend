@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <JumpChargeBar name="jump-charge-bar" style="left: 5%; top: 5%; position: absolute;" />
+    <JumpChargeBar name="jump-charge-bar" fill-color="#06A4BCFF" style="left: 5%; top: 5%; position: absolute;" />
     <ui:GroupBox name="interact-box" style="left: 42.5%; top: 45%; width: 12.5%; height: 10%; background-color: rgba(2, 2, 2, 0.13);">
         <ui:VisualElement style="left: 5%; top: 15%; width: 35%; height: 75%; background-color: rgba(2, 2, 2, 0.1); position: absolute;">
             <ui:Label tabindex="-1" text="E" display-tooltip-when-elided="true" style="left: 35%; top: 25%; width: auto; height: auto; font-size: 50px; -unity-font: url(&apos;project://database/Assets/UI/Fonts/Gabriola/Gabriola/Gabriola.ttf?fileID=12800000&amp;guid=1a11cb77721d01c40be60972ce57f1ed&amp;type=3#Gabriola&apos;); -unity-font-definition: none; white-space: normal;" />

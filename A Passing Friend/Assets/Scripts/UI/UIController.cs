@@ -63,8 +63,13 @@ public class UIController : MonoBehaviour
 
     [Header("Jump Charge Bar")]
     [SerializeField] private float _minJumpCharge = 0;
+
     [SerializeField] private float _maxJumpCharge;
+
+    [SerializeField] private float _overchargeJumpModifier = 1.27f; // the modifier used to determine how far the bar overcharges visually, always 3 less than the width of the overcharge bar.
+  
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
+    
     [SerializeField] [Range(0, 2)] private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
 
 
@@ -123,27 +128,6 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        // Charge or decharge the jump bar if the player is currently charging or not.
-        if (!_characterMovementScript.GetHoldingDownJump())
-        {
-            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
-
-            DeOrChargeJump();
-
-            if (_currentJumpCharge == _minJumpCharge)
-            {
-                _jumpChargeBar.visible = false;
-            }
-        }
-        else
-        {
-            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
-
-            _jumpChargeBar.visible = true;
-
-            DeOrChargeJump();
-        }
-
         /*
         Set the dialog system invisible when the player is not or no longer in the interaction range of a NPC.
         Currently coded for the dialog system, can be easily adapted for items as well.
@@ -164,6 +148,27 @@ public class UIController : MonoBehaviour
         else
         {
             CheckForScreenResolutionChanges();
+        }
+
+        // Charge or decharge the jump bar if the player is currently charging or not.
+        if (!_characterMovementScript.GetHoldingDownJump())
+        {
+            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
+
+            DeOrChargeJump();
+
+            if (_currentJumpCharge == _minJumpCharge)
+            {
+                _jumpChargeBar.visible = false;
+            }
+        }
+        else
+        {
+            _maxJumpCharge = _characterMovementScript.GetOverchargeLevel();
+
+            _jumpChargeBar.visible = true;
+
+            DeOrChargeJump();
         }
     }
 
@@ -442,7 +447,7 @@ public class UIController : MonoBehaviour
     private void DeOrChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
-        _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * 2));
+        _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * _overchargeJumpModifier));
         _jumpChargePercent = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.value = _jumpChargePercent;
     }

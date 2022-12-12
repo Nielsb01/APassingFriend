@@ -65,12 +65,11 @@ MonoBehaviour:
   _dialogBuilder: {fileID: 0}
   _activeCamera: {fileID: 0}
   _isDialogBuilderSet: 0
-  _currentlyChargingJump: 0
-  _jumpCharge: 5
   _minJumpCharge: 0
-  _maxJumpCharge: 100
+  _maxJumpCharge: 0
+  _overchargeJumpModifier: 1.27
   _currentJumpCharge: 0
   _jumpChargePercent: 0
-  characterMovementScript: {fileID: 0}
+  _characterMovementScript: {fileID: 0}
   _lastScreenWidth: 0
   _lastScreenHeight: 0

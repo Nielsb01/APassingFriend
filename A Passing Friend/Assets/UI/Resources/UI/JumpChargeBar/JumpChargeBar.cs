@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 {
-    [SerializeField] private int width { get; set; }
-    [SerializeField] private int height { get; set; }
+    [SerializeField] private int _width { get; set; }
+    [SerializeField] private int _height { get; set; }
 
     public void SetValueWithoutNotify(float newValue)
     {
@@ -15,13 +15,13 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
     private float m_value;
 
-    [SerializeField] private float minValue = 0;
-    [SerializeField] private float maxValue = 2;
+    [SerializeField] private float _minValue = 0;
+    [SerializeField] private float _maxValue = 2;
       
     public float value { 
         get
         {
-            m_value = Mathf.Clamp(m_value, minValue, maxValue);
+            m_value = Mathf.Clamp(m_value, _minValue, _maxValue);
             return m_value;
         }
 
@@ -55,14 +55,15 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
         Vertical
     }
 
-    [SerializeField] private FillType fillType;
+    [SerializeField] private FillType _fillType;
 
+    [SerializeField] private Color _fillColor;
 
-    private VisualElement hbParent;
+    private VisualElement _cbParent;
 
-    private VisualElement hbBackground;
+    private VisualElement _cbBackground;
 
-    private VisualElement hbForeground;
+    private VisualElement _cbForeground;
 
     public class UmxlFactory: UxmlFactory<JumpChargeBar, UxmlTraits> { }
 
@@ -72,6 +73,7 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
         UxmlIntAttributeDescription m_height = new UxmlIntAttributeDescription(){ name = "height", defaultValue = 100 };
         UxmlFloatAttributeDescription m_value = new UxmlFloatAttributeDescription(){ name = "value", defaultValue = 1 };
         UxmlEnumAttributeDescription<JumpChargeBar.FillType> m_fillType = new UxmlEnumAttributeDescription<JumpChargeBar.FillType>() { name = "fill-type", defaultValue = 0 };
+        UxmlColorAttributeDescription m_fillColor = new UxmlColorAttributeDescription() { name = "fill-color", defaultValue = new Color(6, 164, 188) };
 
         public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
         {
@@ -82,25 +84,28 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
         {
             base.Init(ve, bag, cc);
             var ate = ve as JumpChargeBar;
-            ate.width = m_width.GetValueFromBag(bag, cc);
-            ate.height = m_height.GetValueFromBag(bag, cc);
+            ate._width = m_width.GetValueFromBag(bag, cc);
+            ate._height = m_height.GetValueFromBag(bag, cc);
             ate.value = m_value.GetValueFromBag(bag, cc);
-            ate.fillType = m_fillType.GetValueFromBag(bag, cc);
+            ate._fillType = m_fillType.GetValueFromBag(bag, cc);
+            ate._fillColor = m_fillColor.GetValueFromBag(bag, cc);
 
             ate.Clear();
 
             VisualTreeAsset vt = Resources.Load<VisualTreeAsset>("UI/JumpChargeBar/JumpChargeBar");
             VisualElement jumpChargeBar = vt.Instantiate();
-            ate.hbParent = jumpChargeBar.Q<VisualElement>("jump-charge-bar");
-            ate.hbBackground = jumpChargeBar.Q<VisualElement>("background");
-            ate.hbForeground = jumpChargeBar.Q<VisualElement>("foreground");
+            ate._cbParent = jumpChargeBar.Q<VisualElement>("jump-charge-bar");
+            ate._cbBackground = jumpChargeBar.Q<VisualElement>("background");
+            ate._cbForeground = jumpChargeBar.Q<VisualElement>("foreground");
             ate.Add(jumpChargeBar);
 
-            ate.hbParent.style.width = ate.width;
-            ate.hbParent.style.height = ate.height;
+            ate._cbParent.style.width = ate._width;
+            ate._cbParent.style.height = ate._height;
 
-            ate.style.width = ate.width;
-            ate.style.height = ate.height;
+            ate.style.width = ate._width;
+            ate.style.height = ate._height;
+
+            ate._cbForeground.style.backgroundColor = ate._fillColor;
 
             ate.RegisterValueChangedCallback(ate.UpdateChargeBar);
 
@@ -115,13 +120,13 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
     private void FillChargeBar()
     {
-        if (fillType == FillType.Horizontal)
+        if (_fillType == FillType.Horizontal)
         {
-            hbForeground.style.scale = new Scale(new Vector3(value, 1, 1f));
+            _cbForeground.style.scale = new Scale(new Vector3(value, 1, 1f));
         }
         else
         {
-            hbForeground.style.scale = new Scale(new Vector3(1, value, 1f));
+            _cbForeground.style.scale = new Scale(new Vector3(1, value, 1f));
         }
     }
 }
