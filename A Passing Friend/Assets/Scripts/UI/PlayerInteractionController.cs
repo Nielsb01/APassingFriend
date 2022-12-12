@@ -11,25 +11,28 @@ public class PlayerInteractionController : MonoBehaviour
 
     private DialogBuilder _npcDialogBuilder;
 
-    [SerializeField] private FieldOfView playerFov;
+    private CharacterController _characterController;
+
+    [SerializeField] private FieldOfView _playerFov;
 
     private void Start()
     {
         _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        if (playerFov.CanSeeTarget)
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded)
         {
-            _outline = playerFov.TargetRef.transform.GetComponent<Outline>();
-            _npcDialogBuilder = playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
+            _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
+            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
 
         if (_outline != null)
         {
-            if (playerFov.CanSeeTarget)
+            if (_playerFov.CanSeeTarget && _characterController.isGrounded)
             {
                 _outline.enabled = true;
                 _ui.SetIsInInteractRange(true);
@@ -37,7 +40,7 @@ public class PlayerInteractionController : MonoBehaviour
                 _ui.SetDialogBuilder(_npcDialogBuilder);
                 _ui.SetIsDialogBuilderSet(true);
             }
-            else if (!playerFov.CanSeeTarget)
+            else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
             {
                 _outline.enabled = false;
                 _ui.SetIsInInteractRange(false);
@@ -48,7 +51,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void OnInteract()
     {
-        if (playerFov.CanSeeTarget)
+        if (_playerFov.CanSeeTarget)
         {
             _ui.ContinueDialog();
         }
