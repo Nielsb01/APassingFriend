@@ -21,7 +21,6 @@ public class CalculateLightDamage : MonoBehaviour
     private LightCheckScript _lightCheckScript;
     private int _lightLevel;
     private float _minDamage = 0;
-    public Image vignette;
 
     private void Awake()
     {
@@ -44,8 +43,6 @@ public class CalculateLightDamage : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_calculateLight) return;
-
-        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
@@ -106,4 +103,9 @@ public class CalculateLightDamage : MonoBehaviour
         Debug.Log("LightLevel: " + _lightLevel);
     }
 #endif
+
+    public float GetVignetteTransparacy()
+    {
+        return 1f - _health / 100f;
+    }
 }
