@@ -14,6 +14,10 @@ public class PlayerInteractionController : MonoBehaviour
     private CharacterController _characterController;
 
     [SerializeField] private FieldOfView _playerFov;
+    
+    // Item pickup
+    private Transform _holdingItem;
+    [SerializeField] private Transform _pickUpLocation;
 
     // HealthController
     [SerializeField] private HealthController _healthController;
@@ -27,10 +31,18 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-        if (_playerFov.CanSeeTarget && _characterController.isGrounded && _healthController._isDead)
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded && _healthController._isDead || _playerFov.pickup == null)
         {
-            _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
-            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
+            NpcInteracting();
+        }
+    }
+
+    private void NpcInteracting()
+    {
+        if (_playerFov.CanSeeTarget && _characterController)
+        {
+                _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
+                _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
         if (_outline != null)
@@ -52,11 +64,48 @@ public class PlayerInteractionController : MonoBehaviour
         }
     }
 
+    private void PickUpItem()
+    {
+        if (_holdingItem == null)
+        {
+            
+            PickupAbleItem pickupAbleItemScript = _playerFov.pickup.GetComponent<PickupAbleItem>();
+            CallPickupOnItem(pickupAbleItemScript);
+        }
+        else
+        {
+            _holdingItem.GetComponent<PickupAbleItem>().Drop();
+            _holdingItem = null;
+        }
+    }
+
     private void OnInteract()
     {
-        if (_playerFov.CanSeeTarget)
+        if (_playerFov.pickup != null && _playerFov.CanSeeTarget || _holdingItem != null)
+        {
+            PickUpItem();
+        }
+        else if (_playerFov.CanSeeTarget)
         {
             _ui.ContinueDialog();
+        }
+    }
+
+    public Transform GetItemHolding()
+    {
+        return _holdingItem;
+    }
+    public void SetItemHolding(Transform holdingItem)
+    {
+        _holdingItem = holdingItem;
+    }
+
+    public void CallPickupOnItem(PickupAbleItem pickupAbleItemScript)
+    {
+        if (pickupAbleItemScript != null)
+        {
+            pickupAbleItemScript.Pickup(_pickUpLocation);
+            _holdingItem = _playerFov.pickup;
         }
     }
 }

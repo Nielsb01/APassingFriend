@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameData
 {
     public Vector3 playerLocation;
+    public string ItemHeldByPlayer;
     public bool isDay;
     public bool canChargeJump;
     public Vector3 ashaLocation;
