@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PickupAbleItem : MonoBehaviour
 {
-    [SerializeField] private Transform pickUpHandel;
+    [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -15,12 +17,12 @@ public class PickupAbleItem : MonoBehaviour
     public void Pickup(Transform pickupLocationObject)
     {
         // If the object has a pickup handle this is used as an offset while picking it up.
-        if (pickUpHandel != null)
+        if (_pickUpHandel != null)
         {
             transform.rotation = quaternion.identity;
-            pickUpHandel.transform.parent = pickupLocationObject;
-            transform.parent = pickUpHandel;
-            pickUpHandel.position = pickupLocationObject.position;
+            _pickUpHandel.transform.parent = pickupLocationObject;
+            transform.parent = _pickUpHandel;
+            _pickUpHandel.position = pickupLocationObject.position;
         }
         else
         {
@@ -36,9 +38,9 @@ public class PickupAbleItem : MonoBehaviour
     public void Drop()
     {
         transform.parent = null;
-        if (pickUpHandel != null)
+        if (_pickUpHandel != null)
         {
-            pickUpHandel.transform.parent = transform;
+            _pickUpHandel.transform.parent = transform;
         }
 
         if (_rigidbody != null)
