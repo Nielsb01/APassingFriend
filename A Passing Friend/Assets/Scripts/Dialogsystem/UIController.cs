@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
+    [SerializeField] private bool _isDialogExitButtonVisible = false;
+
     private Button _dialogBoxExitButton;
 
 
@@ -57,7 +59,7 @@ public class UIController : MonoBehaviour
 
 
     // Character Movement
-    [SerializeField] CharacterMovementScript characterMovementScript;
+    [SerializeField] private CharacterMovementScript _characterMovementScript;
 
 
 
@@ -94,7 +96,7 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
-            characterMovementScript.FreezeMovement(false, false);
+            _characterMovementScript.FreezeMovement(false, false);
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -107,6 +109,12 @@ public class UIController : MonoBehaviour
             }
 
             return;
+        }
+
+        if (_isInInteraction)
+        {
+            _dialogBoxExitButton.visible = _isDialogExitButtonVisible;
+            _dialogBoxExitButton.SetEnabled(_isDialogExitButtonVisible);
         }
 
         CheckForScreenResolutionChanges();
@@ -132,7 +140,7 @@ public class UIController : MonoBehaviour
     }
 
     // Set the dialog system invisible.
-    public void SetDialogSystemInvisible()
+    private void SetDialogSystemInvisible()
     {
         _isInInteraction = false;
 
@@ -140,6 +148,7 @@ public class UIController : MonoBehaviour
         _dialogBox.visible = false;
         _dialogBoxChoices.visible = false;
         _dialogBoxDialog.visible = false;
+        _dialogBoxExitButton.visible = false;
 
         _dialogBoxExitButton.SetEnabled(false);
 
@@ -166,7 +175,7 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            characterMovementScript.FreezeMovement(true, true);
+            _characterMovementScript.FreezeMovement(true, true);
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -174,7 +183,7 @@ public class UIController : MonoBehaviour
             _dialogBoxExitButton.SetEnabled(true);
             _dialogBoxExitButton.clickable.clickedWithEventInfo += ClickedDialogBoxExitButton;
 
-            if (_dialogBuilder.getAllDialogObjects().Count != 1)
+            if (_dialogBuilder.GetAllDialogObjects().Count != 1)
             {
                 ShowDialogChoices();
             }
@@ -189,7 +198,7 @@ public class UIController : MonoBehaviour
         }
 
 
-        //If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
+        // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
@@ -198,12 +207,12 @@ public class UIController : MonoBehaviour
         else
         {
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
-            if (_chosenDialogOption.doesOptionEndConverstation())
+            if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 _isInInteraction = false;
                 _isDialogBuilderSet = false;
 
-                characterMovementScript.FreezeMovement(false, false);
+                _characterMovementScript.FreezeMovement(false, false);
 
                 SetDialogSystemInvisible();
                 ResetDialogue();
@@ -217,7 +226,7 @@ public class UIController : MonoBehaviour
                 ResetDialogue();
 
                 // If the option does not end conversation �nd there is more than one dialog option, show choices.
-                if (_dialogBuilder.getAllDialogObjects().Count != 1)
+                if (_dialogBuilder.GetAllDialogObjects().Count != 1)
                 {
                     ShowDialogChoices();
                 }
@@ -238,7 +247,7 @@ public class UIController : MonoBehaviour
         _isInInteraction = true;
         _isDialogBuilderSet = false;
 
-        characterMovementScript.FreezeMovement(false, false);
+        _characterMovementScript.FreezeMovement(false, false);
 
         SetDialogSystemInvisible();
         ResetDialogue();
@@ -256,15 +265,15 @@ public class UIController : MonoBehaviour
         ChangeButtonFontDynamically();
 
         var counter = 0;
-        foreach (var dialog in _dialogBuilder.getAllDialogObjects())
+        foreach (var dialog in _dialogBuilder.GetAllDialogObjects())
         {
             _dialogBoxChoiceButtons[counter].visible = true;
-            _dialogBoxChoiceButtons[counter].text = dialog.getDialogChoice();
+            _dialogBoxChoiceButtons[counter].text = dialog.GetDialogChoice();
             _dialogBoxChoiceButtons[counter].SetEnabled(true);
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
         }
-        SetDialogIntroText(_dialogBuilder.getIntroText());
+        SetDialogIntroText(_dialogBuilder.GetIntroText());
         UnsetDialogCamera();
     }
 
@@ -279,7 +288,7 @@ public class UIController : MonoBehaviour
             dialogButton.visible = false;
             dialogButton.SetEnabled(false);
         }
-        Button button = tab.target as Button;
+        var button = tab.target as Button;
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
         _choiceClicked = Convert.ToInt32(buttonNr) - 1;
         SetDialogWithChoice();
@@ -326,10 +335,10 @@ public class UIController : MonoBehaviour
             return;
         }
 
-        this._dialogBuilder = dialogBuilder;
+        _dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
-        foreach (var dialog in _dialogBuilder.getAllDialogObjects())
+        foreach (var dialog in _dialogBuilder.GetAllDialogObjects())
         {
             _dialogBoxChoiceButtons.Add(_root.Q<Button>("dialog-box-choice-button-" + counter));
             counter++;
@@ -347,11 +356,11 @@ public class UIController : MonoBehaviour
     // Set the dialog of the choice the player clicked on.
     private void SetDialogWithChoice()
     {
-        var dialogObjects = _dialogBuilder.getAllDialogObjects();
+        var dialogObjects = _dialogBuilder.GetAllDialogObjects();
         _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-        _dialogTextList = _chosenDialogOption.getDialog();
-        _npcName = _dialogBuilder.getNameOfNpc();
-        _npcCamera = _dialogBuilder.getNpcCamera();
+        _dialogTextList = _chosenDialogOption.GetDialog();
+        _npcName = _dialogBuilder.GetNameOfNpc();
+        _npcCamera = _dialogBuilder.GetNpcCamera();
 
     }
 
@@ -443,7 +452,7 @@ public class UIController : MonoBehaviour
 
     private void SetDialogCamera()
     {
-        _activeCamera = _chosenDialogOption.getDialogCamera();
+        _activeCamera = _chosenDialogOption.GetDialogCamera();
         if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Active;

@@ -44,7 +44,7 @@ public class CalculateLightDamage : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_calculateLight) return;
-        
+
         vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
 
         if (_lightLevel >= _lightToDamageThreshold)

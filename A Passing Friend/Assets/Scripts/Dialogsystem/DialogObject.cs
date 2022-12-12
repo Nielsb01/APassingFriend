@@ -21,47 +21,47 @@ public class DialogObject
         _dialog = dialog;
     }
 
-    public string getDialogChoice()
+    public string GetDialogChoice()
     {
         return _dialogChoice;
     }
 
-    public void setDialogChoice(string dialogChoice)
+    public void SetDialogChoice(string dialogChoice)
     {
         _dialogChoice = dialogChoice;
     }
 
-    public List<string> getDialog()
+    public List<string> GetDialog()
     {
         return _dialog;
     }
 
-    public void setEndsConverstation(bool endsConversation)
+    public void SetEndsConversation(bool endsConversation)
     {
         _endsConversation = endsConversation;
     }
 
-    public bool doesOptionEndConverstation()
+    public bool DoesOptionEndConversation()
     {
         return _endsConversation;
     }
 
-    public void setDialogCamera(CinemachineVirtualCamera dialogCamera)
+    public void SetDialogCamera(CinemachineVirtualCamera dialogCamera)
     {
         _dialogCamera = dialogCamera;
     }
 
-    public void setDialogAudio(AudioClip dialogAudio)
+    public void SetDialogAudio(AudioClip dialogAudio)
     {
         _dialogAudio = dialogAudio;
     }
 
-    public CinemachineVirtualCamera getDialogCamera()
+    public CinemachineVirtualCamera GetDialogCamera()
     {
         return _dialogCamera;
     }
 
-    public AudioClip getDialogAudio()
+    public AudioClip GetDialogAudio()
     {
         return _dialogAudio;
     }
