@@ -63,11 +63,11 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
     public new class UxmlTraits: VisualElement.UxmlTraits
     {
-        UxmlIntAttributeDescription m_width = new UxmlIntAttributeDescription(){ name = "width", defaultValue = 350 };
-        UxmlIntAttributeDescription m_height = new UxmlIntAttributeDescription(){ name = "height", defaultValue = 100 };
-        UxmlFloatAttributeDescription m_value = new UxmlFloatAttributeDescription(){ name = "value", defaultValue = 1 };
-        UxmlEnumAttributeDescription<FillType> m_fillType = new UxmlEnumAttributeDescription<FillType>() { name = "fill-type", defaultValue = 0 };
-        UxmlColorAttributeDescription m_fillColor = new UxmlColorAttributeDescription() { name = "fill-color", defaultValue = new Color(6, 164, 188) };
+        UxmlIntAttributeDescription m_width = new(){ name = "width", defaultValue = 350 };
+        UxmlIntAttributeDescription m_height = new(){ name = "height", defaultValue = 100 };
+        UxmlFloatAttributeDescription m_value = new(){ name = "value", defaultValue = 1 };
+        UxmlEnumAttributeDescription<FillType> m_fillType = new(){ name = "fill-type", defaultValue = 0 };
+        UxmlColorAttributeDescription m_fillColor = new(){ name = "fill-color", defaultValue = new Color(6, 164, 188) };
 
         public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
         {
@@ -107,7 +107,7 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
         }
     }
     
-    public void UpdateChargeBar(ChangeEvent<float> evt)
+    private void UpdateChargeBar(ChangeEvent<float> evt)
     {
         FillChargeBar();
     }
