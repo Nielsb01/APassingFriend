@@ -10,7 +10,7 @@ public class DataPersistenceManager : MonoBehaviour
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
-    private List<IDataPersistence> _dataPersistenceOpjects;
+    private List<IDataPersistence> _dataPersistenceObjects;
     private FileDataHandler _fileDataHandler;
 
     private void Awake()
@@ -25,12 +25,12 @@ public class DataPersistenceManager : MonoBehaviour
     private void Start()
     {
         _fileDataHandler = new FileDataHandler(_dirPath, _filename);
-        _dataPersistenceOpjects = GetAllDataPersistenceObjects();
+        _dataPersistenceObjects = GetAllDataPersistenceObjects();
         LoadGame();
     }
 
     //TODO This needs to be replaced during intergration with a propper way to call it
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
@@ -68,7 +68,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void SaveGame()
     {
-        foreach (var obj in _dataPersistenceOpjects)
+        foreach (var obj in _dataPersistenceObjects)
         {
             obj.SaveData(ref _gameData);
         }
@@ -85,7 +85,7 @@ public class DataPersistenceManager : MonoBehaviour
             NewGame();
         }
 
-        foreach (var obj in _dataPersistenceOpjects)
+        foreach (var obj in _dataPersistenceObjects)
         {
             obj.LoadData(_gameData);
         }
