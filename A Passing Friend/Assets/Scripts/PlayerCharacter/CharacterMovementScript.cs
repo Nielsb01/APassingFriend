@@ -48,9 +48,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     // Climbing
     [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
-    [SerializeField] private bool _inClimbingZone;
-    private bool _canClimb = true;
-    [SerializeField] private bool _isClimbing; 
+    private bool _inClimbingZone;
+    private bool _canClimb;
+    private bool _isClimbing; 
     private bool _exitingClimbing;
     private static string CLIMBING_ZONE_TAG = "ClimbingZone";
     private static string CLIMBING_WALL_TAG = "ClimbingWall";
@@ -65,6 +65,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _doJump = false;
         _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        _canClimb = true;
     }
 
     private void FixedUpdate()
