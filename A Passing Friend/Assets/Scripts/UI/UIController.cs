@@ -79,6 +79,7 @@ public class UIController : MonoBehaviour
     [Header("External scripts")]
     [SerializeField] private CharacterMovementScript _characterMovementScript;
 
+
     // Health
     [SerializeField] CalculateLightDamage _calculateLightDamageScript;
 
@@ -161,6 +162,12 @@ public class UIController : MonoBehaviour
         }
         else
         {
+            if (_isInInteraction)
+            {
+                _dialogBoxExitButton.visible = _isDialogExitButtonVisible;
+                _dialogBoxExitButton.SetEnabled(_isDialogExitButtonVisible);
+            }
+
             CheckForScreenResolutionChanges();
         }
 
