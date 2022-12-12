@@ -35,7 +35,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private bool _movementImpaired;
 
-
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
     [SerializeField] private float _jumpOverchargeValue = 90.0f;
@@ -45,6 +44,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _MinimumChargeJumpValue = 0.3f;
     private bool _doChargeJump;
     private bool _holdingDownJump;
+
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -296,8 +296,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return _MinimumChargeJumpValue;
     }
 
-    public bool IsInChargeZone()
+    // Getters for the UI.
+    public bool GetHoldingDownJump()
     {
-        return _chargeJumpUnlocked;
+        return _holdingDownJump;
     }
 }
