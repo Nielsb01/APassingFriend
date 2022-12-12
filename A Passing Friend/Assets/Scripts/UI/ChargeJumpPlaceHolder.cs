@@ -9,15 +9,15 @@ public class ChargeJumpPlaceHolder : MonoBehaviour
     [SerializeField] private CharacterMovementScript _characterMovementScript;
     [SerializeField] private Transform _jumpSprite;
     [SerializeField] private Transform _maxJumpSprite;
-    
+
     void Update()
     {
-        _jumpSprite.gameObject.SetActive(_characterMovementScript.getJumpCharged() > _characterMovementScript.GetMinimumChargeJumpValue());
-        _maxJumpSprite.gameObject.SetActive(_characterMovementScript.getJumpCharged() > _characterMovementScript.GetMinimumChargeJumpValue());
+        _jumpSprite.gameObject.SetActive(_characterMovementScript.GetJumpCharged() > _characterMovementScript.GetMinimumChargeJumpValue());
+        _maxJumpSprite.gameObject.SetActive(_characterMovementScript.GetJumpCharged() > _characterMovementScript.GetMinimumChargeJumpValue());
         float y = _jumpSprite.GetComponent<RectTransform>().sizeDelta.y;
         _jumpSprite.GetComponent<RectTransform>().sizeDelta =
-            new Vector2(_characterMovementScript.getJumpCharged() * 100, y);
+            new Vector2(_characterMovementScript.GetJumpCharged() * 100, y);
         _maxJumpSprite.GetComponent<RectTransform>().sizeDelta =
-            new Vector2(_characterMovementScript.getOverchargeLevel() * 100, y);
+            new Vector2(_characterMovementScript.GetOverchargeLevel() * 100, y);
     }
 }
