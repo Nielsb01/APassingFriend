@@ -1,5 +1,8 @@
 #region
 
+using System.Collections;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +11,7 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private GameObject _lightCheckController;
+    [SerializeField] private DataPersistenceManager _dataPersistenceManager;
     [SerializeField] private GameObject _catBones;
     [SerializeField] private Image vignette;
     [SerializeField] private ParticleSystem _damageParticleSystem;
@@ -24,7 +28,7 @@ public class HealthController : MonoBehaviour
     private bool _calculateLight;
     private int _lightLevel;
     private float _health;
-    private bool _isDead;
+    [HideInInspector] public bool _isDead;
     private bool _isParticling;
 
     private void Awake()
@@ -82,12 +86,8 @@ public class HealthController : MonoBehaviour
 
         if (_health < 0)
         {
-            _isDead = true;
             _health = _minHealth;
-        }
-
-        if (_isDead)
-        {
+            
             _damageParticleSystem.Stop();
             Die();
         }
@@ -101,16 +101,34 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        transform.GetComponent<BoxCollider>().enabled = false;
-        transform.GetComponent<CharacterController>().enabled = false;
-        // Set model inactive
-        transform.GetChild(0).gameObject.SetActive(false);
-
-        FindObjectOfType<CharacterMovementScript>().enabled = false;
+        SetPlayerInactive(true);
 
         _dyingParticleSystem.Play();
-
         Instantiate(_catBones, transform.position, transform.rotation);
+
+        StartCoroutine(Respawn());
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(3);
+        _dataPersistenceManager.LoadGame();
+        
+        SetPlayerInactive(false);
+
+        _health = _maxHealth;
+    }
+
+    private void SetPlayerInactive(bool boolean)
+    {
+        _isDead = boolean;
+        boolean = !boolean;
+        
+        transform.GetComponent<BoxCollider>().enabled = boolean;
+        transform.GetComponent<CharacterController>().enabled = boolean;
+        GetComponent<CharacterMovementScript>().enabled = boolean;
+        // Set model inactive
+        transform.GetChild(0).gameObject.SetActive(boolean);
     }
 
     private void UpdateVignette()

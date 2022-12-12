@@ -15,24 +15,27 @@ public class PlayerInteractionController : MonoBehaviour
 
     [SerializeField] private FieldOfView _playerFov;
 
+    // HealthController
+    [SerializeField] private HealthController _healthController;
+
     private void Start()
     {
         _ui = GameObject.Find("UIDocument").GetComponent<UIController>();
         _characterController = GetComponent<CharacterController>();
+        _healthController = GetComponent<HealthController>();
     }
 
     private void Update()
     {
-        if (_playerFov.CanSeeTarget && _characterController.isGrounded)
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded && _healthController._isDead)
         {
             _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
             _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
-
         if (_outline != null)
         {
-            if (_playerFov.CanSeeTarget && _characterController.isGrounded)
+            if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController._isDead)
             {
                 _outline.enabled = true;
                 _ui.SetIsInInteractRange(true);
@@ -55,6 +58,5 @@ public class PlayerInteractionController : MonoBehaviour
         {
             _ui.ContinueDialog();
         }
-
     }
 }

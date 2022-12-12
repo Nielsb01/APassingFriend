@@ -185,15 +185,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (_movementImpaired || _rotationFrozenDueToDialog)
         {
-            ResetJumpCharge();
-            _doChargeJump = false;
-            _doJump = false;
-            _moveVector = Vector3.zero;
-            _moveDirection.y = 0;
-            _moveDirection.x = 0;
-            _moveDirection.z = 0;
-            _velocityY = 0;
-            _velocityX = 0;
+            ResetAllMovement();
             _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
         }
     }
@@ -212,24 +204,30 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         }
         else
         {
-            ResetJumpCharge();
-            _doChargeJump = false;
-            _doJump = false;
-            _moveVector = Vector3.zero;
-            _moveDirection.y = 0;
-            _moveDirection.x = 0;
-            _moveDirection.z = 0;
-            _velocityY = 0;
-            _velocityX = 0;
+            ResetAllMovement();
         }
 
+    }
+
+    private void ResetAllMovement()
+    {
+        ResetJumpCharge();
+        _doChargeJump = false;
+        _doJump = false;
+        _moveVector = Vector3.zero;
+        _moveDirection.y = 0;
+        _moveDirection.x = 0;
+        _moveDirection.z = 0;
+        _velocityY = 0;
+        _velocityX = 0;
     }
 
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
-        this.transform.position = data.playerLocation;
+        transform.position = data.playerLocation;
         _characterController.enabled = true;
+        ResetAllMovement();
     }
 
     public void SaveData(ref GameData data)
