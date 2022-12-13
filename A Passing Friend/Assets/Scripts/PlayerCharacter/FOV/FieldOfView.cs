@@ -13,7 +13,8 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstructionMask;
 
-    [SerializeField] private bool _canSeeTarget;
+     private bool _canSeeTarget;
+     private Transform _pickup;
 
     public float Radius
     {
@@ -47,6 +48,14 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
+    public Transform pickup
+    {
+        get
+        {
+            return _pickup;
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(FOVRoutine());
@@ -54,7 +63,7 @@ public class FieldOfView : MonoBehaviour
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(_secondsBetweenChecks);
+        var wait = new WaitForSeconds(_secondsBetweenChecks);
 
         while (true)
         {
@@ -65,35 +74,48 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, _radius/2, _targetMask);
+        var rangeChecks = Physics.OverlapSphere(transform.position, _radius/2, _targetMask);
 
         if (rangeChecks.Length != 0)
         {
-            Transform target = rangeChecks[0].transform;
+            var target = rangeChecks[0].transform;
             _targetRef = target.gameObject;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
+            var directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < _angle / 2)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                
+                var distanceToTarget = Vector3.Distance(transform.position, target.position);
+
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, _obstructionMask))
                 {
                     _canSeeTarget = true;
+                    if (target.GetComponent<PickupAbleItem>() != null)
+                    {
+                        _pickup = target;
+                    }
                 }
                 else
                 {
                     _canSeeTarget = false;
+                    _pickup = null;
                 }
             }
             else
             {
                 _canSeeTarget = false;
+                _pickup = null;
             }
         }
-        else if (_canSeeTarget)
-        {
-            _canSeeTarget = false;
+        else {
+            if (_canSeeTarget)
+            {
+                _canSeeTarget = false;
+            }
+
+            if (pickup != null)
+            {
+                _pickup = null;
+            }
         }
     }
 }

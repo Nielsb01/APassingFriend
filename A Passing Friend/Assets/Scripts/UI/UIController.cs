@@ -78,7 +78,8 @@ public class UIController : MonoBehaviour
     // Character Movement
     [Header("External scripts")]
     [SerializeField] private CharacterMovementScript _characterMovementScript;
-
+    // HealthController
+    [SerializeField] private HealthController _healthController;
 
     // Health
     [SerializeField] CalculateLightDamage _calculateLightDamageScript;
@@ -142,6 +143,12 @@ public class UIController : MonoBehaviour
         // Alter the health vignette based on the amount of damage the player got.
         AlterHealthVignette();
 
+        if (_healthController.IsDead)
+        {
+            TurnOffDialog();
+            return;
+        }
+
         /*
         Set the dialog system invisible when the player is not or no longer in the interaction range of a NPC.
         Currently coded for the dialog system, can be easily adapted for items as well.
@@ -154,11 +161,8 @@ public class UIController : MonoBehaviour
             SetDialogSystemInvisible();
             ResetDialogue();
             UnsetDialogCamera();
-
-            if (_npcCamera != null && _npcCamera.Priority == (int)Camera.CameraState.Active)
-            {
-                UnsetNpcCamera();
-            }
+            UnsetNpcCamera(); 
+            return;
         }
         else
         {
@@ -256,6 +260,7 @@ public class UIController : MonoBehaviour
     // Cycle through the dialog.
     public void ContinueDialog()
     {
+        if (_healthController.IsDead) return;
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
         {
@@ -292,7 +297,6 @@ public class UIController : MonoBehaviour
             SetNpcCamera();
         }
 
-
         // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
@@ -304,15 +308,7 @@ public class UIController : MonoBehaviour
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
-                _isInInteraction = false;
-                _isDialogBuilderSet = false;
-
-                _characterMovementScript.FreezeMovement(false, false);
-
-                SetDialogSystemInvisible();
-                ResetDialogue();
-                UnsetDialogCamera();
-                UnsetNpcCamera();
+                TurnOffDialog();
                 return;
             }
             else
@@ -320,14 +316,14 @@ public class UIController : MonoBehaviour
                 // If the option does not end conversation, reset dialogue.
                 ResetDialogue();
 
-                // If the option does not end conversation �nd there is more than one dialog option, show choices.
+                // If the option does not end conversation ánd there is more than one dialog option, show choices.
                 if (_dialogBuilder.GetAllDialogObjects().Count != 1)
                 {
                     ShowDialogChoices();
                 }
                 else
                 {
-                    // If the option does not end conversation �nd there is but one dialog option, reset dialogue.
+                    // If the option does not end conversation ánd there is but one dialog option, reset dialogue.
                     _choiceClicked = 0;
                     SetDialogWithChoice();
                     _currentTextNr = -1;
@@ -336,10 +332,9 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // If a dialog choice button is clicked, set the following dialog to that choice.
-    private void ClickedDialogBoxExitButton(EventBase tab)
+    private void TurnOffDialog()
     {
-        _isInInteraction = true;
+        _isInInteraction = false;
         _isDialogBuilderSet = false;
 
         _characterMovementScript.FreezeMovement(false, false);
@@ -347,7 +342,17 @@ public class UIController : MonoBehaviour
         SetDialogSystemInvisible();
         ResetDialogue();
         UnsetDialogCamera();
-        UnsetNpcCamera();
+
+        if (_npcCamera != null)
+        {
+            UnsetNpcCamera();
+        }
+    }
+
+    // If a dialog choice button is clicked, set the following dialog to that choice.
+    private void ClickedDialogBoxExitButton(EventBase tab)
+    {
+        TurnOffDialog();
     }
 
     // Show the dialog choices visual element.
@@ -576,12 +581,18 @@ public class UIController : MonoBehaviour
 
     private void SetNpcCamera()
     {
-        _npcCamera.Priority = (int)Camera.CameraState.Active;
+        if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Active)
+        {
+            _npcCamera.Priority = (int)Camera.CameraState.Active;   
+        }
     }
 
     private void UnsetNpcCamera()
     {
-        _npcCamera.Priority = (int)Camera.CameraState.Inactive;
+        if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
+        {
+            _npcCamera.Priority = (int)Camera.CameraState.Inactive;   
+        }
     }
 
     private void SetDialogCamera()
