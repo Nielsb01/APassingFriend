@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 7555101222101325613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 3.1392, y: 2.0735, z: 2.7517}
+  m_LocalScale: {x: 1.6906788, y: 2.0735, z: 1.6664019}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1429920583906436334}
@@ -231,10 +231,10 @@ MonoBehaviour:
       Data2: 1125632454
       Data3: 619262106
       Data4: 734397048
-    Path: event:/AshaMumbleEvent
+    Path: event:/Gibberish/AshaMumbleEvent
   Event: 
   PlayEvent: 3
-  StopEvent: 4
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -332,7 +332,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2c48318a1975301449a8588180e1f430,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c48318a1975301449a8588180e1f430,
         type: 3}

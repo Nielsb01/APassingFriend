@@ -10,6 +10,8 @@ TagManager:
   - RightSideCamTrigger
   - LeftSideCamTrigger
   - DebugComponent
+  - ChargeJumpZone
+  - ClimbingZone
   layers:
   - Default
   - TransparentFX
@@ -25,10 +27,7 @@ TagManager:
   - 
   - 
   - Npc
-  - 
-  - 
-  - 
-  - 
+  - Pickup
   - 
   - 
   - 
