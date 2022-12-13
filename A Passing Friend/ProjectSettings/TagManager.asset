@@ -9,6 +9,7 @@ TagManager:
   - SideToSideCamOverflowTrigger
   - RightSideCamTrigger
   - LeftSideCamTrigger
+  - DebugComponent
   - ChargeJumpZone
   - ClimbingZone
   layers:
@@ -21,15 +22,12 @@ TagManager:
   - 
   - 
   - Player
-  - LightObstacle
+  - Player Outline
   - 
-  - Player
-  - LightObstacle
+  - 
+  - 
   - Npc
   - Pickup
-  - 
-  - 
-  - 
   - 
   - 
   - 

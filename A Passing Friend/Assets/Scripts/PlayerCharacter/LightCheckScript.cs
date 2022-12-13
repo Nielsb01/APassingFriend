@@ -1,7 +1,6 @@
 #region
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,33 +8,23 @@ using UnityEngine;
 
 public class LightCheckScript : MonoBehaviour
 {
+    private const int MIP_MAP_LEVEL = 6;
     [HideInInspector] public int lightLevel;
     public bool calculateLight;
-    [SerializeField] private int _initialObjectLightlevel = 44;
-    [SerializeField] private List<RenderTexture> _renderTextures;
-    private const int MIP_MAP_LEVEL = 6;
+    [SerializeField] private int _initialObjectLightlevel = 41;
+    [SerializeField] private RenderTexture _renderTexture;
     private Texture2D _tmp2DTexture;
 
     private void Awake()
     {
-        // All renderTextures have to be of the same size
-        _tmp2DTexture = new Texture2D(_renderTextures.First().width, _renderTextures.First().height);
+        _tmp2DTexture = new Texture2D(_renderTexture.width, _renderTexture.height);
     }
 
     private void Update()
     {
         if (!calculateLight) return;
 
-        var lightLevels = new List<float>();
-
-        foreach (var renderTexture in _renderTextures)
-        {
-            lightLevels.Add(GetLuminanceFromTexture(renderTexture));
-        }
-
-        var average = lightLevels.Average();
-
-        lightLevel = (int)Math.Round(average) - _initialObjectLightlevel;
+        lightLevel = (int)Math.Round(GetLuminanceFromTexture(_renderTexture)) - _initialObjectLightlevel;
 
         lightLevel = lightLevel < 0 ? 0 : lightLevel;
     }
