@@ -91,7 +91,7 @@ public class UIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_healthController._isDead)
+        if (_healthController.IsDead)
         {
             TurnOffDialog();
             return;
@@ -162,7 +162,7 @@ public class UIController : MonoBehaviour
     // Cycle through the dialog.
     public void ContinueDialog()
     {
-        if (FindObjectOfType<HealthController>()._isDead) return;
+        if (_healthController.IsDead) return;
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
         {

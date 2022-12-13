@@ -40,7 +40,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void NpcInteracting()
     {
-        if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController._isDead)
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
         {
                 _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
                 _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
@@ -48,7 +48,7 @@ public class PlayerInteractionController : MonoBehaviour
 
         if (_outline != null)
         {
-            if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController._isDead)
+            if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
             {
                 _outline.enabled = true;
                 _ui.SetIsInInteractRange(true);

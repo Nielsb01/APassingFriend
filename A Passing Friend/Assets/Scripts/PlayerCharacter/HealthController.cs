@@ -28,8 +28,13 @@ public class HealthController : MonoBehaviour
     private bool _calculateLight;
     private int _lightLevel;
     private float _health;
-    [HideInInspector] public bool _isDead;
+    private bool _isDead;
     private bool _isParticling;
+
+    public bool IsDead
+    {
+        get => _isDead;
+    }
 
     private void Awake()
     {
