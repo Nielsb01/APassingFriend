@@ -355,6 +355,7 @@ public class UIController : MonoBehaviour
     // Show the dialog choices visual element.
     private void ShowDialogChoices()
     {
+        SetNpcCamera();
         _dialogBox.visible = true;
         _dialogBoxChoices.visible = true;
 
