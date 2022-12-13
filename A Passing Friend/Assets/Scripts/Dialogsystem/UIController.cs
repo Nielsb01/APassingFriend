@@ -168,6 +168,11 @@ public class UIController : MonoBehaviour
             return;
         }
 
+        if (!UnityEngine.Cursor.visible) 
+        {
+            UnityEngine.Cursor.visible = true;
+        }
+
         /*
         If the dialog box is not visible, set it visible and start the dialog.
         If there is more than one option for dialog, show the choice menu.
@@ -218,6 +223,7 @@ public class UIController : MonoBehaviour
                 ResetDialogue();
                 UnsetDialogCamera();
                 UnsetNpcCamera();
+                UnityEngine.Cursor.visible = false;
                 return;
             }
             else
@@ -253,6 +259,7 @@ public class UIController : MonoBehaviour
         ResetDialogue();
         UnsetDialogCamera();
         UnsetNpcCamera();
+        UnityEngine.Cursor.visible = false;
     }
 
     // Show the dialog choices visual element.
