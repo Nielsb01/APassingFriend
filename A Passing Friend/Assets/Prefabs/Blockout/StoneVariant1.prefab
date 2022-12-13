@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2900011661564692323}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: StoneVariant1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GroteSteen1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a8ffd28a5e67bbe4b9e116677f68880c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
