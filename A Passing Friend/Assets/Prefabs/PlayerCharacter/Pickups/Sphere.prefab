@@ -66,7 +66,7 @@ Transform:
   m_Children:
   - {fileID: 6711592730212110600}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6711592730320833418
 MeshFilter:
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ac047ef2a62784e8de260eb3bd6e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpHandel: {fileID: 6711592730212110600}
+  _pickUpHandel: {fileID: 6711592730212110600}
 --- !u!54 &6711592730320833416
 Rigidbody:
   m_ObjectHideFlags: 0

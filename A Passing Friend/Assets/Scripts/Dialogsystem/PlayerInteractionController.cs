@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractionController : MonoBehaviour
 {
     private UIController _ui;
-
+[SerializeField]
     private Outline _outline;
 
     private DialogBuilder _npcDialogBuilder;
@@ -31,7 +32,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
-        if (_playerFov.CanSeeTarget && _characterController.isGrounded && _healthController._isDead || _playerFov.pickup == null)
+        if (_playerFov.pickup == null)
         {
             NpcInteracting();
         }
@@ -39,7 +40,7 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void NpcInteracting()
     {
-        if (_playerFov.CanSeeTarget && _characterController)
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController._isDead)
         {
                 _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
                 _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
