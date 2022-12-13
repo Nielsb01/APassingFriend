@@ -87,7 +87,8 @@ public class HealthController : MonoBehaviour
         if (_health < 0)
         {
             _health = _minHealth;
-            
+
+            _isParticling = false;
             _damageParticleSystem.Stop();
             Die();
         }
