@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
+    [Header("Movement Settings")]
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
     [SerializeField] private float _moveSpeed = 1.75f;
@@ -49,6 +51,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
 
+    [Header("Sound Settings")]
+    [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
+    [SerializeField] private FMODUnity.EventReference _jumpingEventPath;
+    [SerializeField] private FMODUnity.EventReference _landingEventPath;
+    [SerializeField] private float _minimumDisplacementForSound;
+    private Vector3 _prevSoundPosition;
+    private float _jumpThresholdSeconds = 1;
+
+
     private void Awake()
     {
         _doJump = false;
@@ -60,6 +71,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         Move();
         Rotate();
+        HandleMovementSound();
     }
 
     public void OnFreeLook(InputValue value)
@@ -261,6 +273,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _doJump = true;
         }
+
+        if (_doJump)
+        {
+            // Play jump sound
+            StartCoroutine(OnJumpStart());
+        }
+
         ResetJumpCharge();
     }
 
@@ -278,6 +297,39 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
+    }
+
+    // Methods for handling sound
+    private IEnumerator OnJumpStart()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(_jumpingEventPath);
+
+        // Wait 100 milliseconds for waiting for jump start
+        const float delay = 0.1f;
+        yield return new WaitForSeconds(delay);
+        while (_characterController.isGrounded == false)
+        {
+            // wait 100 milliseconds between checks
+            yield return new WaitForSeconds(_jumpThresholdSeconds);
+        }
+
+        OnJumpLand();
+        yield return null;
+    }
+
+    private void OnJumpLand()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
+    }
+
+    private void HandleMovementSound()
+    {
+        // if player moved
+        if (Vector3.Distance(_prevSoundPosition, transform.position) > _minimumDisplacementForSound)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(_footstepsEventPath);
+           _prevSoundPosition = transform.position;
+        }
     }
 
     // Getters for making UI
