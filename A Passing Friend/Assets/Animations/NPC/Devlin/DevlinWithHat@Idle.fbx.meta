@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Idle with hat
+    second: Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,7 +36,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle with hat
+      name: Idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
@@ -290,78 +290,78 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Asha(Clone)
+    - name: AshaOld(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Body
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -45.209038, z: -1.1071317}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Braid
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0.00000023291929, y: -47.952843, z: 10.399088}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.013197658, y: 0.013197658, z: 0.013197658}
     - name: T_Shirt
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -41.400673, z: 1.1593659}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Pants
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -21.022821, z: 1.7586823}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.010062689, y: 0.010062689, z: 0.010062689}
     - name: Eyebrows
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -73.56787, z: -12.696808}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Eyes
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -70.22074, z: -13.385201}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Shoes
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -3.999587, z: -0.5439826}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Mouth
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0.0049450104, y: -62.24671, z: -13.896846}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Hair
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -2.1847806, y: -75.15104, z: 0.55608505}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Hat
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: 1.0518868, y: -86.40088, z: 0.020877425}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Bag
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -4.0889535, y: -40.237724, z: 0.44567904}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Jacket
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0, y: -34.509914, z: 2.0341918}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: Necklace
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0.06503305, y: -53.29863, z: -0.18462645}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 0.01, y: 0.01, z: 0.01}
     - name: mixamorig:Hips
-      parentName: Asha(Clone)
+      parentName: AshaOld(Clone)
       position: {x: -0.000005224256, y: 0.26085997, z: 0.0008207452}
       rotation: {x: 0.0000035058522, y: -0.000023200599, z: -0.00005138419, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -497,8 +497,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 30f7932f805b11b4884fcea65a5ea555,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5f83b7479042ff4478580acf0bb9c0a6,
+    type: 2}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
