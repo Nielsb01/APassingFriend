@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour
 
 
     // // Dialog UI
-    [Header("Dialog")]
     private VisualElement _dialogBox;
 
     private GroupBox _dialogBoxDialog;
@@ -34,6 +33,7 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
+    [Header("Dialog")]
     [SerializeField] private bool _isDialogExitButtonVisible = false;
 
     private Button _dialogBoxExitButton;
@@ -78,11 +78,9 @@ public class UIController : MonoBehaviour
     // Character Movement
     [Header("External scripts")]
     [SerializeField] private CharacterMovementScript _characterMovementScript;
+    
     // HealthController
     [SerializeField] private HealthController _healthController;
-
-    // Health
-    [SerializeField] CalculateLightDamage _calculateLightDamageScript;
 
     private VisualElement _healthVignette;
 
@@ -90,6 +88,7 @@ public class UIController : MonoBehaviour
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
+
     [SerializeField] private int _lastScreenHeight;
 
 
@@ -161,8 +160,7 @@ public class UIController : MonoBehaviour
             SetDialogSystemInvisible();
             ResetDialogue();
             UnsetDialogCamera();
-            UnsetNpcCamera(); 
-            return;
+            UnsetNpcCamera();
         }
         else
         {
@@ -309,7 +307,6 @@ public class UIController : MonoBehaviour
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 TurnOffDialog();
-                return;
             }
             else
             {
@@ -473,7 +470,7 @@ public class UIController : MonoBehaviour
     // Alter the health vignette based on the amount of damage the player got.
     private void AlterHealthVignette()
     {
-        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _calculateLightDamageScript.GetVignetteTransparacy());
+        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparacy());
     }    
 
     /* 

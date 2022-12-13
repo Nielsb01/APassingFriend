@@ -13,7 +13,6 @@ public class HealthController : MonoBehaviour
     [SerializeField] private GameObject _lightCheckController;
     [SerializeField] private DataPersistenceManager _dataPersistenceManager;
     [SerializeField] private GameObject _catBones;
-    [SerializeField] private Image vignette;
     [SerializeField] private ParticleSystem _damageParticleSystem;
     [SerializeField] private ParticleSystem _dyingParticleSystem;
     [SerializeField] private int _maxDamageParticleEmission = 125;
@@ -57,8 +56,6 @@ public class HealthController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_calculateLight || _isDead) return;
-
-        UpdateVignette();
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
@@ -137,11 +134,6 @@ public class HealthController : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(boolean);
     }
 
-    private void UpdateVignette()
-    {
-        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
-    }
-
     private void CreateDamageParticles()
     {
         if (!_isParticling)
@@ -200,4 +192,9 @@ public class HealthController : MonoBehaviour
         Debug.Log("LightLevel: " + _lightLevel);
     }
 #endif
+
+    public float GetVignetteTransparacy()
+    {
+        return 1f - _health / 100f;
+    }
 }
