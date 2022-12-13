@@ -306,8 +306,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         FMODUnity.RuntimeManager.PlayOneShot(_jumpingEventPath);
 
-        // Wait 1 second for waiting for jump start
-        yield return new WaitForSeconds(1);
+        // Wait 100 milliseconds for waiting for jump start
+        const float delay = 0.1f;
+        yield return new WaitForSeconds(delay);
         while (_characterController.isGrounded == false)
         {
             // wait 100 milliseconds between checks
