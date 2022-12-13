@@ -33,9 +33,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [HideInInspector]
     public bool rotationFrozenDueToSpecialArea;
 
-    [SerializeField] private bool _movementImpaired;
-
     private const float CHECK_VALUE = 0.1f;
+
+    private bool _movementImpaired;
 
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
@@ -60,6 +60,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
+
     //Interacting
     private PlayerInteractionController _playerInteractionController;
 
@@ -117,8 +118,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnLook(InputValue inputValue)
     {
-        if (_movementImpaired) return;
-
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
@@ -126,6 +125,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Rotate()
     {
         if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
+
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -145,8 +145,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Move()
     {
-        if (_movementImpaired) return;
-
         if (_moveVector == null)
         {
             return;
@@ -486,6 +484,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public float GetMinimumChargeJumpValue()
     {
         return _MinimumChargeJumpValue;
+    }
+
+    public bool GetHoldingDownJump()
+    {
+        return _holdingDownJump;
     }
 
     public bool IsChargeJumpUnlocked()
