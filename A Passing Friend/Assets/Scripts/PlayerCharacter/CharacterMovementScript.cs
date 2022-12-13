@@ -279,7 +279,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         if (_doJump)
         {
             // Play jump sound
-            StartCoroutine("OnJumpStart", 0);
+            StartCoroutine(OnJumpStart());
         }
 
         ResetJumpCharge();
