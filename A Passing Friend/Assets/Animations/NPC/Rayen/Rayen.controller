@@ -86,7 +86,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 3207b14b1b1e3564c9e1820cafdaf31f,
+    m_Motion: {fileID: -203655887218126122, guid: 1b085ba14a0e700469fedf4031a5ab7e,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -95,7 +95,8 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 47ec22de000bfc24cb57d470c35ab71d, type: 2}
+    m_Motion: {fileID: -203655887218126122, guid: 366c92416cc317e418cd5b02ab64fa09,
+      type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -140,7 +141,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Devlin
+  m_Name: Rayen
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: speed
@@ -381,7 +382,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 27f0822fe1b9e504c9faf632783574ea, type: 2}
+  m_Motion: {fileID: -203655887218126122, guid: e0f236e028ce02743b0d9341c0be1a09,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
