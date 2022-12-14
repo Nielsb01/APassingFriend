@@ -9,6 +9,10 @@ public class DayNightToggler : MonoBehaviour, IDataPersistence
     [SerializeField] private float _nightRotation;
     [SerializeField] private List<GameObject> _lights;
     private bool _isDay;
+    public bool IsDay
+    {
+        get => _isDay;
+    }
 
     void Update()
     {
