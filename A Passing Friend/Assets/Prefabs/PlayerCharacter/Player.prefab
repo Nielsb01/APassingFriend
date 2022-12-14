@@ -5564,7 +5564,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.030240903, y: 0.012990761, z: -0.00039306533, w: 0.9994582}
+  m_LocalRotation: {x: 0.0302409, y: 0.012990764, z: -0.00039306542, w: 0.9994582}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27328,6 +27328,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightCheckController
       objectReference: {fileID: 0}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 9066632591583664999}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[1]
+      value: 
+      objectReference: {fileID: 3972155228057133464}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[2]
+      value: 
+      objectReference: {fileID: 7026670248271205869}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[3]
+      value: 
+      objectReference: {fileID: 5510583204060685026}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[4]
+      value: 
+      objectReference: {fileID: 424609959313788209}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[5]
+      value: 
+      objectReference: {fileID: 410606959041718749}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[6]
+      value: 
+      objectReference: {fileID: 5416347627559535363}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[7]
+      value: 
+      objectReference: {fileID: 5526623929221795587}
+    - target: {fileID: 478993901623565425, guid: df51dbfca1e90e847bad8dbeeb0705a9,
+        type: 3}
+      propertyPath: _cameras.Array.data[8]
+      value: 
+      objectReference: {fileID: 1806671913451658562}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: df51dbfca1e90e847bad8dbeeb0705a9, type: 3}
