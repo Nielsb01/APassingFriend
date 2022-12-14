@@ -32,6 +32,12 @@ public class DialogBuilder : MonoBehaviour
         ParseDialog();
     }
 
+    public void LoadDialog(TextAsset dialogTextFile)// muricaaaa fuck yea
+    {
+        _dialogTextFile = dialogTextFile;
+        ParseDialog();
+    }
+
     /**
      * Split the dialog in:
      * Intro text

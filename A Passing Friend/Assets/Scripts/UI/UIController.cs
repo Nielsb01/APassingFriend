@@ -90,6 +90,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private int _lastScreenWidth;
 
     [SerializeField] private int _lastScreenHeight;
+    
+    
+    // Event
+    public delegate void DialogEvent();
+    public static event DialogEvent DialogExited;
+    
+    private void OnEnable()
+    {
+        HealthController.Ded += PlayerDies;
+    }
+    private void OnDisable()
+    {
+        HealthController.Ded -= PlayerDies;
+    }
 
 
     private void Start()
@@ -144,7 +158,6 @@ public class UIController : MonoBehaviour
 
         if (_healthController.IsDead)
         {
-            TurnOffDialog();
             return;
         }
 
@@ -307,6 +320,7 @@ public class UIController : MonoBehaviour
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 TurnOffDialog();
+                // add event 
             }
             else
             {
@@ -344,6 +358,8 @@ public class UIController : MonoBehaviour
         {
             UnsetNpcCamera();
         }
+        Debug.Log("I get called too early");
+        DialogExited?.Invoke();
     }
 
     // If a dialog choice button is clicked, set the following dialog to that choice.
@@ -471,7 +487,12 @@ public class UIController : MonoBehaviour
     private void AlterHealthVignette()
     {
         _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparacy());
-    }    
+    }
+    
+    private void PlayerDies()
+    {
+        TurnOffDialog();
+    }
 
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
