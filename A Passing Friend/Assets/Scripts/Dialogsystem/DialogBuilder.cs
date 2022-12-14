@@ -17,6 +17,9 @@ public class DialogBuilder : MonoBehaviour
 
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
+    
+    private bool _oneTimeConversation;
+    private bool _endedConversation;
 
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
     [SerializeField] private List<AudioClip> _eventAudio;
@@ -46,6 +49,10 @@ public class DialogBuilder : MonoBehaviour
      */
     private void ParseDialog()
     {
+        _dialogOptions.Clear();
+        _oneTimeConversation = false;
+        _endedConversation = false;
+        
         var textToSet = GetIntroText(_dialogTextFile.ToString());
         var regex = "#";
         var dialogObjects = Regex.Split(textToSet, regex).ToList();
@@ -89,6 +96,11 @@ public class DialogBuilder : MonoBehaviour
             if (dialogTitle.Contains('$'))
             {
                 dialogObject.SetEndsConversation(true);
+            }
+
+            if (dialogTitle.Contains('~'))
+            {
+                _oneTimeConversation = true;
             }
 
             _dialogOptions.Add(dialogObject);
@@ -200,5 +212,25 @@ public class DialogBuilder : MonoBehaviour
     public string GetNameOfNpc()
     {
         return gameObject.name;
+    }
+    
+    public void SetOneTimeConversation(bool oneTimeConversation)
+    {
+        _oneTimeConversation = oneTimeConversation;
+    }
+    
+    public bool GetOneTimeConversation()
+    {
+        return _oneTimeConversation;
+    }
+
+    public void SetEndedConversation(bool endedConversation)
+    {
+        _endedConversation = endedConversation;
+    }
+
+    public bool GetEndedConversation()
+    {
+        return _endedConversation;
     }
 }

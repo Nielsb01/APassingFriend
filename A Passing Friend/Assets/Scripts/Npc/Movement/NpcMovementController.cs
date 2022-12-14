@@ -20,6 +20,7 @@ namespace Npc
         private PathNodeController _pathNodeController;
         private bool _teleportingToNextNode;
         private bool _teleportingBallAfterTeleport;
+        private float _resumeMovementSpeed;
 
         private void Start()
         {
@@ -164,7 +165,7 @@ namespace Npc
 
             if (_pathNodeController.TriggerScripts.Count > 0)
             {
-                _pathNodeController.Trigger(gameObject);
+                _pathNodeController.Trigger(this);
             }
         }
 
@@ -176,10 +177,20 @@ namespace Npc
 
         private IEnumerator WaitForSeconds(float time)
         {
-            var speed = _navMeshAgent.speed;
-            _navMeshAgent.speed = 0;
+            PauseNpc();
             yield return new WaitForSeconds(time);
-            _navMeshAgent.speed = speed;
+            UnpauseNpc();
+        }
+
+        public void PauseNpc()
+        {
+            _resumeMovementSpeed = _navMeshAgent.speed;
+            _navMeshAgent.speed = 0;
+        }
+
+        public void UnpauseNpc()
+        {
+            _navMeshAgent.speed = _resumeMovementSpeed;
         }
     }
 }

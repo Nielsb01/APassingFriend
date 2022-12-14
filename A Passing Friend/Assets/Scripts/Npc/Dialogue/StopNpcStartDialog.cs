@@ -1,15 +1,11 @@
-using System;
 using Npc;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class StopNpcStartDialog : TriggerScript
 {
     [SerializeField] private TextAsset _text;
-    private GameObject _npc;
-    private float _resumeSpeed;
-    private NavMeshAgent _navMeshAgent;
+    private NpcMovementController _npc;
 
     private void OnEnable()
     {
@@ -22,20 +18,16 @@ public class StopNpcStartDialog : TriggerScript
 
     private void ResumeMovement()
     {
-        Debug.Log("Here " + _resumeSpeed);
-        _navMeshAgent.speed = _resumeSpeed;
+        if (_npc == null) return;
+        
+        _npc.UnpauseNpc();
+        _npc = null;
     }
     
-    public override void ExecuteTrigger(GameObject npc)
+    public override void ExecuteTrigger(NpcMovementController npc)
     {
         _npc = npc;
-        var dialog = _npc.GetComponent<DialogBuilder>();
-        dialog.LoadDialog(_text);
-        _navMeshAgent = _npc.GetComponent<NavMeshAgent>();
-        _resumeSpeed = _navMeshAgent.speed;
-        _navMeshAgent.speed = 0;
-        dialog.LoadDialog(_text);
-        
-        
+        _npc.PauseNpc();
+        npc.GetComponent<DialogBuilder>().LoadDialog(_text);
     }
 }

@@ -65,7 +65,7 @@ namespace Npc
         public bool UnlockBallFromController => _unlockBallFromController;
 
 
-        public void Trigger(GameObject npc)
+        public void Trigger(NpcMovementController npc)
         {
             if (_triggerScripts.Count == 0)
             {

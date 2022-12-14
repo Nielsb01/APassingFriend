@@ -272,6 +272,9 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
+
+        if (_dialogBuilder.GetEndedConversation()) return;
+
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
         {
@@ -358,7 +361,9 @@ public class UIController : MonoBehaviour
         {
             UnsetNpcCamera();
         }
-        Debug.Log("I get called too early");
+        
+        _dialogBuilder.SetEndedConversation(true);
+        
         DialogExited?.Invoke();
     }
 
