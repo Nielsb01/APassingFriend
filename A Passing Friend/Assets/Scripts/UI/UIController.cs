@@ -361,9 +361,12 @@ public class UIController : MonoBehaviour
         {
             UnsetNpcCamera();
         }
-        
-        _dialogBuilder.SetEndedConversation(true);
-        
+
+        if (_dialogBuilder.GetOneTimeConversation())
+        {
+            _dialogBuilder.SetEndedConversation(true);
+        }
+
         DialogExited?.Invoke();
     }
 
