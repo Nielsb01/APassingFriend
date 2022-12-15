@@ -174,6 +174,12 @@ public class UIController : MonoBehaviour
             ResetDialogue();
             UnsetDialogCamera();
             UnsetNpcCamera();
+
+            if (UnityEngine.Cursor.visible) 
+            {
+                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+                UnityEngine.Cursor.visible = false;
+            }
         }
         else
         {
@@ -278,7 +284,7 @@ public class UIController : MonoBehaviour
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
         {
-            SetDialogSystemInvisible();
+            TurnOffDialog();
             return;
         }
 
@@ -296,6 +302,12 @@ public class UIController : MonoBehaviour
             _dialogBox.visible = true;
             _dialogBoxExitButton.SetEnabled(true);
             _dialogBoxExitButton.clickable.clickedWithEventInfo += ClickedDialogBoxExitButton;
+
+            if (!UnityEngine.Cursor.visible) 
+            {
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
+                UnityEngine.Cursor.visible = true;
+            }
 
             if (_dialogBuilder.GetAllDialogObjects().Count != 1)
             {
@@ -367,6 +379,12 @@ public class UIController : MonoBehaviour
             _dialogBuilder.SetEndedConversation(true);
         }
 
+        if (UnityEngine.Cursor.visible) 
+        {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+        }
+        
         DialogExited?.Invoke();
     }
 
@@ -379,6 +397,7 @@ public class UIController : MonoBehaviour
     // Show the dialog choices visual element.
     private void ShowDialogChoices()
     {
+        SetNpcCamera();
         _dialogBox.visible = true;
         _dialogBoxChoices.visible = true;
 
