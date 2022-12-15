@@ -1,6 +1,6 @@
 Asha house 
 --
-#Intro to quest 1
+#Intro to quest 1$
 *1 Here we are, make yourself at home. Your friend will be here any second
 *1 You are probably wondering why you are here
 *1 See, you are currently dreaming.
