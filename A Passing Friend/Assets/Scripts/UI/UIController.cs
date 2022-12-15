@@ -518,7 +518,14 @@ public class UIController : MonoBehaviour
     
     private void PlayerDies()
     {
-        TurnOffDialog();
+        try
+        {
+            TurnOffDialog();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("3631");
+        }
     }
 
     /* 
