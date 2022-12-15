@@ -19,7 +19,7 @@ public class DialogBuilder : MonoBehaviour
     [SerializeField] private TextAsset _dialogTextFile;
 
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
-    [SerializeField] private List<AudioClip> _eventAudio;
+    [SerializeField] private List<FMODUnity.EventReference> _eventAudio;
     [SerializeField] private CinemachineVirtualCamera _npcCamera;
 
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";

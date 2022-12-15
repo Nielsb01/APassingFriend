@@ -231,7 +231,7 @@ MonoBehaviour:
       Data2: 1125632454
       Data3: 619262106
       Data4: 734397048
-    Path: event:/Gibberish/AshaMumbleEvent
+    Path: event:/Gibberish/Part-1
   Event: 
   PlayEvent: 3
   StopEvent: 0
@@ -289,6 +289,111 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0].Path
+      value: event:/Gibberish/Part-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[1].Path
+      value: event:/Gibberish/Part-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[2].Path
+      value: event:/Gibberish/Part-3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[3].Path
+      value: event:/Gibberish/Part-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0].Guid.Data1
+      value: 657579373
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0].Guid.Data2
+      value: 1125632454
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0].Guid.Data3
+      value: 619262106
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0].Guid.Data4
+      value: 734397048
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[1].Guid.Data1
+      value: 1432290018
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[1].Guid.Data2
+      value: 1232016389
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[1].Guid.Data3
+      value: 936357528
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[1].Guid.Data4
+      value: 514351139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[2].Guid.Data1
+      value: 178952520
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[2].Guid.Data2
+      value: 1088112111
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[2].Guid.Data3
+      value: -2085576027
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[2].Guid.Data4
+      value: 1567179085
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[3].Guid.Data1
+      value: 599603931
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[3].Guid.Data2
+      value: 1287307285
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[3].Guid.Data3
+      value: -156874823
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[3].Guid.Data4
+      value: 410332473
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
