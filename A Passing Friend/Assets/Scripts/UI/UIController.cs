@@ -79,7 +79,8 @@ public class UIController : MonoBehaviour
     [Header("External scripts")]
     [SerializeField] private CharacterMovementScript _characterMovementScript;
     
-    // HealthController
+
+    // Health
     [SerializeField] private HealthController _healthController;
 
     private VisualElement _healthVignette;
@@ -259,6 +260,7 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
+
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
         {
@@ -303,6 +305,9 @@ public class UIController : MonoBehaviour
         }
         else
         {
+            // Reset dialogue.
+            ResetDialogue();
+
             // If the option ends conversation, it sets the dialog box invisible and resets the dialogue choices and cameras.
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
@@ -310,9 +315,6 @@ public class UIController : MonoBehaviour
             }
             else
             {
-                // If the option does not end conversation, reset dialogue.
-                ResetDialogue();
-
                 // If the option does not end conversation ánd there is more than one dialog option, show choices.
                 if (_dialogBuilder.GetAllDialogObjects().Count != 1)
                 {
@@ -344,6 +346,8 @@ public class UIController : MonoBehaviour
         {
             UnsetNpcCamera();
         }
+
+        _dialogBuilder.SetCanSwitchDialog(true);
     }
 
     // If a dialog choice button is clicked, set the following dialog to that choice.
@@ -372,6 +376,11 @@ public class UIController : MonoBehaviour
         }
         SetDialogIntroText(_dialogBuilder.GetIntroText());
         UnsetDialogCamera();
+
+        if (_choiceClicked == null)
+        {
+            _dialogBuilder.SetCanSwitchDialog(false);
+        }
     }
 
     // If a dialog choice button is clicked, set the following dialog to that choice.
@@ -391,6 +400,8 @@ public class UIController : MonoBehaviour
         SetDialogWithChoice();
         SetDialogCamera();
         _currentTextNr = 0;
+
+        _dialogBuilder.SetCanSwitchDialog(true);
     }
 
     // Reset the entire dialog.
