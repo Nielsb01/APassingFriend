@@ -96,9 +96,12 @@ namespace Npc
             if (_teleportingToNextNode)
             {
                 _teleportingToNextNode = false;
+                _navMeshAgent.enabled = false;
                 transform.position = _currentTravelDestinationNode.transform.position;
+                _navMeshAgent.enabled = true;
                 if (_teleportingBallAfterTeleport)
                 {
+                    Debug.Log("Including ball");
                     _teleportingBallAfterTeleport = false;
                     _followingChild.transform.position = transform.position;
                 }
@@ -141,14 +144,15 @@ namespace Npc
             if (_pathNodeController.LockBallToController)
             {
                 var controller = _followingChild.GetComponent<NpcBallController>();
-                controller.LockedToController = true;
+
+                controller.StartLockToController();
                 _teleportingBallAfterTeleport = true;
             }
 
             if (_pathNodeController.UnlockBallFromController)
             {
                 var controller = _followingChild.GetComponent<NpcBallController>();
-                controller.LockedToController = false;
+                controller.UnlockFromController();
             }
 
             var newBallSpeed = _pathNodeController.BallFollowSpeedFromThisNode;

@@ -29,6 +29,16 @@ namespace Npc
             set => _followControllerSpeed = value;
         }
 
+        public void UnlockFromController()
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _lockedToController = false;
+        }
+        public void StartLockToController()
+        {
+            _lockedToController = true;
+        }
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
@@ -41,7 +51,7 @@ namespace Npc
             {
                 LockToController();
                 return;
-            } 
+            }
 
             TrackControllerGameObject();
 
