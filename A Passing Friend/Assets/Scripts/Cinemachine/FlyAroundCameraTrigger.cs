@@ -20,7 +20,11 @@ public class FlyAroundCameraTrigger : MonoBehaviour
     private IEnumerator LockPlayerControlsForTime(float time, Collider collisionCollider)
     {
         collisionCollider.GetComponent<PlayerInput>().enabled = false;
+        FindObjectOfType<LightCheckScript>().calculateLight = false;
+        FindObjectOfType<LightCheckScript>().DisableLightCheckCameras();
         yield return new WaitForSeconds(time);
         collisionCollider.GetComponent<PlayerInput>().enabled = true;
+        FindObjectOfType<LightCheckScript>().EnableLightCheckCameras();
+        FindObjectOfType<LightCheckScript>().calculateLight = true;
     }
 }

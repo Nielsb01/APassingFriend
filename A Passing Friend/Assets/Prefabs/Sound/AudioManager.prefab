@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &800571192011835062
 MonoBehaviour:
@@ -49,4 +49,4 @@ MonoBehaviour:
   Banks:
   - Master
   CollisionTag: 
-  PreloadSamples: 0
+  PreloadSamples: 1

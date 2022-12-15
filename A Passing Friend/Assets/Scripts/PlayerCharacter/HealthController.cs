@@ -76,7 +76,7 @@ public class HealthController : MonoBehaviour
         }
 
 #if DEBUG
-        logHealth();
+        // logHealth();
         logLuminance();
 #endif
     }
