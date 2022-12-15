@@ -69,15 +69,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ToggleHideMouse",
-                    "type": "Button",
-                    "id": "83c68d5b-d551-4499-956f-1941ea3be976",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "JumpHold",
                     "type": "Button",
                     "id": "53682955-b3eb-41d5-be40-984d6dd46295",
@@ -338,17 +329,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "JumpRelease",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "79f74769-82d8-48af-89c3-384089ec4442",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ToggleHideMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -164,6 +164,7 @@ public class UIController : MonoBehaviour
 
             if (UnityEngine.Cursor.visible) 
             {
+                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
                 UnityEngine.Cursor.visible = false;
             }
         }
@@ -289,6 +290,7 @@ public class UIController : MonoBehaviour
 
             if (!UnityEngine.Cursor.visible) 
             {
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
                 UnityEngine.Cursor.visible = true;
             }
 
@@ -358,6 +360,7 @@ public class UIController : MonoBehaviour
 
         if (UnityEngine.Cursor.visible) 
         {
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
     }
