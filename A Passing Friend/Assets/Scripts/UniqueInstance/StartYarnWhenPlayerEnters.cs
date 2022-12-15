@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Npc;
 using UnityEngine;
 
@@ -12,18 +9,9 @@ public class StartYarnWhenPlayerEnters : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogError("1");
-        Debug.LogError(other.tag);
-
         if (other.CompareTag(_playertag))
         {
-            Debug.Log("Starting yarn movement");
             _npc.StartRoute(_route);
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.LogError("2");
     }
 }

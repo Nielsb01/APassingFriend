@@ -101,7 +101,6 @@ namespace Npc
                 _navMeshAgent.enabled = true;
                 if (_teleportingBallAfterTeleport)
                 {
-                    Debug.Log("Including ball");
                     _teleportingBallAfterTeleport = false;
                     _followingChild.transform.position = transform.position;
                 }
