@@ -25,21 +25,22 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [Header("Day night shizzle")]
     [SerializeField] private DayNightToggler _dayNightToggler;
 
+    [Header("Sound Objects")]
+    [SerializeField] private List<GameObject> _environmentObjects;
+
 
     private BackgroundMusicState _state;
 
     public void Awake()
     {
-        OnUpdateBackgroundMusic();
+        StartCoroutine(OnUpdateBackgroundMusic());
     }
 
 
     public void LoadData(GameData gameData)
     {
         StopAllSounds();
-        OnUpdateBackgroundMusic();
-
-        StartCoroutine(OnUpdateBackgroundMusic());
+        _state = BackgroundMusicState.UNDEFINED;
     }
 
     public void SaveData(ref GameData gameData)
@@ -48,6 +49,11 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     private void StopAllSounds()
     {
+        foreach (var obj in _environmentObjects)
+        {
+            obj.SetActive(false);
+        }
+
         var mainBus = FMODUnity.RuntimeManager.GetBus("bus:/");
         mainBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
@@ -59,7 +65,16 @@ public class SoundController : MonoBehaviour, IDataPersistence
         if (_state != newState)
         {
             StopAllSounds();
+
+            // Start the background music
             LoadBackgroundMusic(newState);
+
+            // Enable all other sound objects
+            foreach (var obj in _environmentObjects)
+            {
+                obj.SetActive(true);
+            }
+
             _state = newState;
         }
 
