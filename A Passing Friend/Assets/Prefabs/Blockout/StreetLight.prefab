@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4494136225260627433
 Transform:
@@ -48,7 +48,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7285142518207523720
 Transform:
@@ -77,12 +77,13 @@ GameObject:
   - component: {fileID: 7285142519672345901}
   - component: {fileID: 7285142519672345903}
   - component: {fileID: 7285142519672345900}
+  - component: {fileID: 5205772420731253669}
   m_Layer: 0
   m_Name: Light
-  m_TagString: Untagged
+  m_TagString: OffDuringNight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7285142519672345901
 Transform:
@@ -91,14 +92,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7285142519672345890}
-  m_LocalRotation: {x: 0.70383424, y: -0.067951806, z: -0.06795179, w: 0.70383424}
-  m_LocalPosition: {x: -0.787, y: 2.471, z: -0.009}
+  m_LocalRotation: {x: 0.69870114, y: -0.10870505, z: -0.10870505, w: 0.69870114}
+  m_LocalPosition: {x: -0.78, y: 2.471, z: -0.009}
   m_LocalScale: {x: 0.83059543, y: 1, z: 1.1623944}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4494136225260627433}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 78.971, y: -90, z: -90}
+  m_LocalEulerAnglesHint: {x: 72.313, y: -90, z: -90}
 --- !u!108 &7285142519672345903
 Light:
   m_ObjectHideFlags: 0
@@ -111,10 +112,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9622642, g: 0.960957, b: 0.7843361, a: 1}
-  m_Intensity: 7
+  m_Intensity: 9
   m_Range: 3.8501816
-  m_SpotAngle: 168.53714
-  m_InnerSpotAngle: 168.53714
+  m_SpotAngle: 135.38895
+  m_InnerSpotAngle: 124.339554
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -181,6 +182,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &5205772420731253669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7285142519672345890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c3ad366c8fea14ba4d363b25ef3235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7301367242093151080
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,9 +205,10 @@ GameObject:
   - component: {fileID: 3622200350716748392}
   - component: {fileID: 7005734841598703732}
   - component: {fileID: 7485702682910353243}
+  - component: {fileID: 4518886671491922683}
   m_Layer: 0
   m_Name: Particle System
-  m_TagString: Untagged
+  m_TagString: OffDuringNight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,14 +220,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7301367242093151080}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.70068395, y: 0.09508958, z: -0.09508961, w: 0.70068395}
   m_LocalPosition: {x: -0.8, y: 2.199, z: 0.079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4494136225260627433}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -74.543, y: 90, z: -90}
 --- !u!198 &7005734841598703732
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4969,10 +4983,10 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 1
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 15
+  m_LengthScale: 30
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
@@ -4995,6 +5009,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4518886671491922683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7301367242093151080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c3ad366c8fea14ba4d363b25ef3235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2673420943391413696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5062,6 +5088,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Lantaarnpaal
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ae4deb70357d4cf4b8ab5f4016bbd1fe,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
