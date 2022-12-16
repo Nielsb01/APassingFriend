@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Cinemachine;
 using UnityEngine;
@@ -26,10 +27,22 @@ public class DialogBuilder : MonoBehaviour
     private const string NUMBER_REGEX = "[^0-9]";
     private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
+    [SerializeField] private bool _canSwitchDialog = false;
+
     private void Awake()
     {
         // Read the dialog file and make it into the dialogobjects.
         ParseDialog();
+
+        _canSwitchDialog = false;
+    }
+
+    private void Update()
+    {
+        if (_canSwitchDialog)
+        {
+            ParseDialog();
+        }
     }
 
     /**
@@ -40,6 +53,9 @@ public class DialogBuilder : MonoBehaviour
      */
     private void ParseDialog()
     {
+        _dialogOptions.Clear();
+        _introText = string.Empty;
+
         var textToSet = GetIntroText(_dialogTextFile.ToString());
         var regex = "#";
         var dialogObjects = Regex.Split(textToSet, regex).ToList();
@@ -194,5 +210,10 @@ public class DialogBuilder : MonoBehaviour
     public string GetNameOfNpc()
     {
         return gameObject.name;
+    }
+
+    public void SetCanSwitchDialog(bool canSwitchDialog)
+    {
+        _canSwitchDialog = canSwitchDialog;
     }
 }
