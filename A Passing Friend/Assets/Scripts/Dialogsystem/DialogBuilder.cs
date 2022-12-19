@@ -18,6 +18,9 @@ public class DialogBuilder : MonoBehaviour
 
     // The text asset that contains all dialog.
     [SerializeField] private TextAsset _dialogTextFile;
+    
+    private bool _oneTimeConversation;
+    private bool _endedConversation;
 
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
     [SerializeField] private List<AudioClip> _eventAudio;
@@ -36,13 +39,11 @@ public class DialogBuilder : MonoBehaviour
 
         _canSwitchDialog = false;
     }
-
-    private void Update()
+    
+    public void LoadDialog(TextAsset dialogTextFile)
     {
-        if (_canSwitchDialog)
-        {
-            ParseDialog();
-        }
+        _dialogTextFile = dialogTextFile;
+        ParseDialog();
     }
 
     /**
@@ -54,6 +55,9 @@ public class DialogBuilder : MonoBehaviour
     private void ParseDialog()
     {
         _dialogOptions.Clear();
+        _oneTimeConversation = false;
+        _endedConversation = false;
+        
         _introText = string.Empty;
 
         var textToSet = GetIntroText(_dialogTextFile.ToString());
@@ -99,6 +103,11 @@ public class DialogBuilder : MonoBehaviour
             if (dialogTitle.Contains('$'))
             {
                 dialogObject.SetEndsConversation(true);
+            }
+
+            if (dialogTitle.Contains('~'))
+            {
+                _oneTimeConversation = true;
             }
 
             _dialogOptions.Add(dialogObject);
@@ -210,6 +219,26 @@ public class DialogBuilder : MonoBehaviour
     public string GetNameOfNpc()
     {
         return gameObject.name;
+    }
+    
+    public void SetOneTimeConversation(bool oneTimeConversation)
+    {
+        _oneTimeConversation = oneTimeConversation;
+    }
+    
+    public bool GetOneTimeConversation()
+    {
+        return _oneTimeConversation;
+    }
+
+    public void SetEndedConversation(bool endedConversation)
+    {
+        _endedConversation = endedConversation;
+    }
+
+    public bool GetEndedConversation()
+    {
+        return _endedConversation;
     }
 
     public void SetCanSwitchDialog(bool canSwitchDialog)
