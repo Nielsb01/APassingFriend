@@ -21,7 +21,7 @@ namespace Npc
         private bool _teleportingToNextNode;
         private bool _teleportingBallAfterTeleport;
 
-        [SerializeField] private NpcAnimationController _npcAnimationController;
+        private NpcAnimationController _npcAnimationController;
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
