@@ -315,6 +315,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _npcCamera
+      value: 
+      objectReference: {fileID: 6706293498501837490}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _dialogTextFile
+      value: 
+      objectReference: {fileID: 4900000, guid: 5fd3aee5a65942843a138342c13fe892, type: 3}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventCameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventCameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 6706293498501837490}
     m_RemovedComponents:
     - {fileID: 0}
     m_AddedGameObjects:
@@ -326,17 +346,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6492474042998559414}
-    - targetCorrespondingSourceObject: {fileID: 6844670140375931923, guid: 24c2933a3e903b04a87422d09cc5dd42,
+    - targetCorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8021017205097911904}
   m_SourcePrefab: {fileID: 100100000, guid: 24c2933a3e903b04a87422d09cc5dd42, type: 3}
---- !u!4 &311472721837517329 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6844670140375931923, guid: 24c2933a3e903b04a87422d09cc5dd42,
-    type: 3}
-  m_PrefabInstance: {fileID: 6534641627532490242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1429920583906436334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
@@ -349,7 +363,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 2
-    m_TransformParent: {fileID: 311472721837517329}
+    m_TransformParent: {fileID: 1429920583906436334}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d187f59394ad8e740952d344bedd562f,
         type: 3}
