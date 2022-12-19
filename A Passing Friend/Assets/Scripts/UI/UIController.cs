@@ -91,6 +91,20 @@ public class UIController : MonoBehaviour
     [SerializeField] private int _lastScreenWidth;
 
     [SerializeField] private int _lastScreenHeight;
+    
+    
+    // Event
+    public delegate void DialogEvent();
+    public static event DialogEvent DialogExited;
+    
+    private void OnEnable()
+    {
+        HealthController.Died += PlayerDies;
+    }
+    private void OnDisable()
+    {
+        HealthController.Died -= PlayerDies;
+    }
 
 
     private void Start()
@@ -145,7 +159,6 @@ public class UIController : MonoBehaviour
 
         if (_healthController.IsDead)
         {
-            TurnOffDialog();
             return;
         }
 
@@ -266,6 +279,8 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
+        
+        if (_dialogBuilder.GetEndedConversation()) return;
 
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
         if (!_isInInteractRange)
@@ -324,6 +339,7 @@ public class UIController : MonoBehaviour
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 TurnOffDialog();
+                // add event 
             }
             else
             {
@@ -359,6 +375,11 @@ public class UIController : MonoBehaviour
             UnsetNpcCamera();
         }
 
+        if (_dialogBuilder != null &&_dialogBuilder.GetOneTimeConversation())
+        {
+            _dialogBuilder.SetEndedConversation(true);
+        }
+        
         _dialogBuilder.SetCanSwitchDialog(true);
 
         if (UnityEngine.Cursor.visible) 
@@ -366,6 +387,8 @@ public class UIController : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
+        
+        DialogExited?.Invoke();
     }
 
     // If a dialog choice button is clicked, set the following dialog to that choice.
@@ -461,7 +484,6 @@ public class UIController : MonoBehaviour
         {
             return;
         }
-
         _dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
@@ -500,8 +522,21 @@ public class UIController : MonoBehaviour
     // Alter the health vignette based on the amount of damage the player got.
     private void AlterHealthVignette()
     {
-        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparacy());
-    }    
+        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparency());
+    }
+    
+    private void PlayerDies()
+    {
+        try
+        {
+            TurnOffDialog();
+        }
+        catch (Exception e)
+        {
+            var b = e;
+            Debug.Log("3631");
+        }
+    }
 
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
