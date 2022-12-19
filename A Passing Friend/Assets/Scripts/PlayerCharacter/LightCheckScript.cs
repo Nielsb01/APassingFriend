@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class LightCheckScript : MonoBehaviour
     [SerializeField] private int _initialObjectLightlevel = 41;
     [SerializeField] private RenderTexture _renderTexture;
     private Texture2D _tmp2DTexture;
+    [SerializeField] private List<UnityEngine.Camera> _cameras;
 
     private void Awake()
     {
@@ -49,5 +51,15 @@ public class LightCheckScript : MonoBehaviour
         var totalLuminance = pixels.Sum(pixel => 0.2126f * pixel.r + 0.7152f * pixel.g + 0.0722f * pixel.b);
 
         return totalLuminance / pixels.Length;
+    }
+
+    public void DisableLightCheckCameras()
+    {
+        _cameras.ForEach(camera => { camera.enabled = false;});
+        lightLevel = 0;
+    }
+    public void EnableLightCheckCameras()
+    {
+        _cameras.ForEach(camera => { camera.enabled = true; });
     }
 }
