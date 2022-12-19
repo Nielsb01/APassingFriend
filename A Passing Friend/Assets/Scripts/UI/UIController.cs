@@ -522,7 +522,7 @@ public class UIController : MonoBehaviour
     // Alter the health vignette based on the amount of damage the player got.
     private void AlterHealthVignette()
     {
-        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparacy());
+        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparency());
     }
     
     private void PlayerDies()
