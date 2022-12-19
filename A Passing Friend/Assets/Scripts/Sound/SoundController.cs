@@ -25,6 +25,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [Header("Sound Objects")]
     [SerializeField] private List<GameObject> _environmentObjects;
 
+    // Member variables for keeping track of the game state
     private bool _isDay = true;
     private BackgroundMusicState _state = BackgroundMusicState.UNDEFINED;
 
@@ -38,6 +39,9 @@ public class SoundController : MonoBehaviour, IDataPersistence
     public void LoadData(GameData gameData)
     {
         StopAllSounds();
+
+        // Update all member variables
+        _state = BackgroundMusicState.UNDEFINED;
         _isDay = gameData.isDay;
     }
 
@@ -76,8 +80,8 @@ public class SoundController : MonoBehaviour, IDataPersistence
             _state = newState;
         }
 
+        const float delay = 0.1f;
 
-        float delay = 0.1f;
         yield return new WaitForSeconds(delay);
 
         StartCoroutine(OnUpdateBackgroundMusic());

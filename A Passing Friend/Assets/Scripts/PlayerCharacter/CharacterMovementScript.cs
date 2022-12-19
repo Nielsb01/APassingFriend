@@ -321,8 +321,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _canClimb = false;
             _isClimbing = false;
         }
-        
-        if (_doJump)
+
+        // Only jump when cat is not dead
+        if (_doJump && isActiveAndEnabled)
         {
             // Play jump sound
             StartCoroutine(OnJumpStart());
