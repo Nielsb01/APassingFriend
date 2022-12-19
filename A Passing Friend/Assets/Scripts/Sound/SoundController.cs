@@ -22,7 +22,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
 
-    private bool _isDay;
+    private bool _isDay = true;
 
 
     private BackgroundMusicState _state;
