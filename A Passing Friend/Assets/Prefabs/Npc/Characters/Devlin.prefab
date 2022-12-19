@@ -310,6 +310,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Devlin
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 2889fccddf7cf3746abaa42641d73cc3,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e616e61a04bee5e4080c4773455b9514, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2889fccddf7cf3746abaa42641d73cc3, type: 3}
@@ -428,6 +433,25 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1539896164653961356}
   m_SourcePrefab: {fileID: 100100000, guid: 24c2933a3e903b04a87422d09cc5dd42, type: 3}
+--- !u!1 &1429920583906436328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5293889835202695914, guid: 24c2933a3e903b04a87422d09cc5dd42,
+    type: 3}
+  m_PrefabInstance: {fileID: 6534641627532490242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5573364927722442941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429920583906436328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca40760ad2d57644589b9d655452d4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcAnimator: {fileID: 0}
 --- !u!4 &1429920583906436334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,

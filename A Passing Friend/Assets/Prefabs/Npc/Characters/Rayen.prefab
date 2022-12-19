@@ -351,6 +351,25 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8021017205097911904}
   m_SourcePrefab: {fileID: 100100000, guid: 24c2933a3e903b04a87422d09cc5dd42, type: 3}
+--- !u!1 &1429920583906436328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5293889835202695914, guid: 24c2933a3e903b04a87422d09cc5dd42,
+    type: 3}
+  m_PrefabInstance: {fileID: 6534641627532490242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4449204753584880056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429920583906436328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca40760ad2d57644589b9d655452d4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcAnimator: {fileID: 0}
 --- !u!4 &1429920583906436334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
@@ -425,6 +444,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rayen
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d187f59394ad8e740952d344bedd562f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f61fc410d3436204682823d0c7a2a35c, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: d187f59394ad8e740952d344bedd562f, type: 3}
