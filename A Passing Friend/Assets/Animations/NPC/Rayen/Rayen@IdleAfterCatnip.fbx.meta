@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: d7e36913f728c8e4887cfbd52e42cf3b
+guid: daf49b3e47bf1254888438635edd2f78
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Rayen@Talking
+    second: Rayen@IdleAfterCatnip
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rayen@Talking
+      name: Rayen@IdleAfterCatnip
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 118
+      lastFrame: 353
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
