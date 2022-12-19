@@ -21,6 +21,7 @@ namespace Npc
         private bool _teleportingToNextNode;
         private bool _teleportingBallAfterTeleport;
 
+        [SerializeField] private NpcAnimationController _npcAnimationController;
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -40,6 +41,7 @@ namespace Npc
             {
                 GoToNextWaypoint(false);
             }
+            _npcAnimationController = GetComponent<NpcAnimationController>();
         }
 
         private void Update()
@@ -129,6 +131,11 @@ namespace Npc
             if (!SettingDisabled(newMovementSpeed))
             {
                 _navMeshAgent.speed = newMovementSpeed;
+            }
+            
+            if (_pathNodeController.GetAnimationToPlay != NpcAnimations.none && _npcAnimationController != null)
+            {
+                _npcAnimationController.setAnimationState(_pathNodeController.GetAnimationToPlay);
             }
 
             var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;
