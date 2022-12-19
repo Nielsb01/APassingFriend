@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Cinemachine;
 using UnityEngine;
@@ -29,13 +30,17 @@ public class DialogBuilder : MonoBehaviour
     private const string NUMBER_REGEX = "[^0-9]";
     private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
+    [SerializeField] private bool _canSwitchDialog = false;
+
     private void Awake()
     {
         // Read the dialog file and make it into the dialogobjects.
         ParseDialog();
-    }
 
-    public void LoadDialog(TextAsset dialogTextFile)// muricaaaa fuck yea
+        _canSwitchDialog = false;
+    }
+    
+    public void LoadDialog(TextAsset dialogTextFile)
     {
         _dialogTextFile = dialogTextFile;
         ParseDialog();
@@ -53,6 +58,8 @@ public class DialogBuilder : MonoBehaviour
         _oneTimeConversation = false;
         _endedConversation = false;
         
+        _introText = string.Empty;
+
         var textToSet = GetIntroText(_dialogTextFile.ToString());
         var regex = "#";
         var dialogObjects = Regex.Split(textToSet, regex).ToList();
@@ -232,5 +239,10 @@ public class DialogBuilder : MonoBehaviour
     public bool GetEndedConversation()
     {
         return _endedConversation;
+    }
+
+    public void SetCanSwitchDialog(bool canSwitchDialog)
+    {
+        _canSwitchDialog = canSwitchDialog;
     }
 }

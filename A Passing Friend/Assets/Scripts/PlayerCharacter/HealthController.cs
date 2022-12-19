@@ -1,10 +1,7 @@
 #region
 
 using System.Collections;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 #endregion
 
@@ -31,7 +28,7 @@ public class HealthController : MonoBehaviour
     private bool _isParticling;
     
     public delegate void PlayerEvent();
-    public static event PlayerEvent Ded;
+    public static event PlayerEvent Died;
 
     public bool IsDead
     {
@@ -74,11 +71,7 @@ public class HealthController : MonoBehaviour
                 Heal();
             }
         }
-
-#if DEBUG
-        // logHealth();
-        // logLuminance();
-#endif
+        
     }
 
     private void TakeDamage()
@@ -107,7 +100,7 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        Ded?.Invoke();
+        Died?.Invoke();
         SetPlayerInactive(true);
 
         _dyingParticleSystem.Play();
@@ -155,49 +148,7 @@ public class HealthController : MonoBehaviour
         particleSystemEmission.rateOverTime = emission;
     }
 
-#if DEBUG
-    private int _previousHigh;
-    private int _previousLightLevel;
-    private int _highestLevel;
-    private float _previousHealth;
-    private float _previousDamage;
-
-    private void logHealth()
-    {
-        if (_health == _previousHealth) return;
-        _previousHealth = _health;
-        Debug.Log("Health: " + _health);
-        if (_health == 0)
-        {
-            Debug.Log("I DIED");
-            Debug.Log("D:");
-        }
-    }
-
-    private void logDamageMultiplier(float damage)
-    {
-        if (damage == _previousDamage) return;
-        _previousDamage = damage;
-        Debug.Log("Damage: " + damage);
-    }
-
-    private void logHighestLuminance()
-    {
-        if (_lightLevel <= _highestLevel) return;
-        _highestLevel = _lightLevel;
-        _previousHigh = _highestLevel;
-        Debug.Log("Light: " + _highestLevel);
-    }
-
-    private void logLuminance()
-    {
-        if (_lightLevel == _previousLightLevel) return;
-        _previousLightLevel = _lightLevel;
-        Debug.Log("LightLevel: " + _lightLevel);
-    }
-#endif
-
-    public float GetVignetteTransparacy()
+    public float GetVignetteTransparency()
     {
         return 1f - _health / 100f;
     }

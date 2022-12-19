@@ -90,6 +90,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     private BackgroundMusicState GetNewState()
     {
         BackgroundMusicState newState = BackgroundMusicState.UNDEFINED;
+
         if (_forrestBoundaries.bounds.Contains(_player.transform.position))
         {
             // Player in forrest
