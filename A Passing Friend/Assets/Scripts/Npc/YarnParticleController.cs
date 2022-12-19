@@ -12,9 +12,9 @@ public class YarnParticleController : MonoBehaviour
 
     private void Update()
     {
-        var particleDir = _particleSystem.velocityOverLifetime;
-        particleDir.x = -transform.forward.x;
-        particleDir.z = -transform.forward.z;
+        //var particleDir = _particleSystem.velocityOverLifetime;
+        //particleDir.x = -transform.forward.x;
+        //particleDir.z = -transform.forward.z;
     }
 
     public void StartParticle()
