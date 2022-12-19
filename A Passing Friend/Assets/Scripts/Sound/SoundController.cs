@@ -22,13 +22,12 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
 
-    private bool _isDay = true;
-
     [Header("Sound Objects")]
     [SerializeField] private List<GameObject> _environmentObjects;
 
+    private bool _isDay = true;
+    private BackgroundMusicState _state = BackgroundMusicState.UNDEFINED;
 
-    private BackgroundMusicState _state;
 
     public void Awake()
     {
@@ -38,9 +37,8 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData gameData)
     {
-        _isDay = gameData.isDay;
         StopAllSounds();
-        _state = BackgroundMusicState.UNDEFINED;
+        _isDay = gameData.isDay;
     }
 
     public void SaveData(ref GameData gameData)
