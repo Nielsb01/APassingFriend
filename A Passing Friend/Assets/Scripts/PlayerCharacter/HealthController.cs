@@ -28,7 +28,7 @@ public class HealthController : MonoBehaviour
     private bool _isParticling;
     
     public delegate void PlayerEvent();
-    public static event PlayerEvent Ded;
+    public static event PlayerEvent Died;
 
     public bool IsDead
     {
@@ -100,7 +100,7 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        Ded?.Invoke();
+        Died?.Invoke();
         SetPlayerInactive(true);
 
         _dyingParticleSystem.Play();

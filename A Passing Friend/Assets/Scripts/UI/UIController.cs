@@ -99,11 +99,11 @@ public class UIController : MonoBehaviour
     
     private void OnEnable()
     {
-        HealthController.Ded += PlayerDies;
+        HealthController.Died += PlayerDies;
     }
     private void OnDisable()
     {
-        HealthController.Ded -= PlayerDies;
+        HealthController.Died -= PlayerDies;
     }
 
 
