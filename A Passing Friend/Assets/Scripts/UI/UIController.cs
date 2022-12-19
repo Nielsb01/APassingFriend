@@ -97,6 +97,10 @@ public class UIController : MonoBehaviour
     public delegate void DialogEvent();
     public static event DialogEvent DialogExited;
     
+    // Animations
+
+    private NpcAnimationController _npcAnimationController;
+    
     private void OnEnable()
     {
         HealthController.Died += PlayerDies;
@@ -320,7 +324,7 @@ public class UIController : MonoBehaviour
                 SetDialogWithChoice();
                 _currentTextNr = -1;
             }
-
+            StartDialogAnimation();
             SetNpcCamera();
         }
 
@@ -369,6 +373,7 @@ public class UIController : MonoBehaviour
         SetDialogSystemInvisible();
         ResetDialogue();
         UnsetDialogCamera();
+        StopDialogAnimation();
 
         if (_npcCamera != null)
         {
@@ -510,6 +515,7 @@ public class UIController : MonoBehaviour
         _dialogTextList = _chosenDialogOption.GetDialog();
         _npcName = _dialogBuilder.GetNameOfNpc();
         _npcCamera = _dialogBuilder.GetNpcCamera();
+        _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
 
     }
 
@@ -648,7 +654,7 @@ public class UIController : MonoBehaviour
             _npcCamera.Priority = (int)Camera.CameraState.Active;   
         }
     }
-
+    
     private void UnsetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
@@ -671,6 +677,21 @@ public class UIController : MonoBehaviour
         if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Inactive;
+        }
+    }
+    
+    private void StartDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.setAnimationState(NpcAnimations.startTalking);
+        }
+    }
+    private void StopDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.setAnimationState(NpcAnimations.stopTalking);
         }
     }
 }
