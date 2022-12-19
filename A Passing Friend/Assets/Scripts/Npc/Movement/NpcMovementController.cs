@@ -137,10 +137,7 @@ namespace Npc
                 _navMeshAgent.speed = newMovementSpeed;
             }
             
-            if (_pathNodeController.GetAnimationToPlay != NpcAnimations.none && _npcAnimationController != null)
-            {
-                _npcAnimationController.setAnimationState(_pathNodeController.GetAnimationToPlay);
-            }
+            SetAnimation(_pathNodeController.GetAnimationToPlay);
 
             var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;
             if (!SettingDisabled(waitTimeAtThisNode))
@@ -186,6 +183,14 @@ namespace Npc
             return value == -1;
         }
 
+        private void SetAnimation(NpcAnimations npcAnimation)
+        {
+            if (npcAnimation != NpcAnimations.none && _npcAnimationController != null)
+            {
+                _npcAnimationController.setAnimationState(npcAnimation);
+            }
+        }
+
         private IEnumerator WaitForSeconds(float time)
         {
             PauseNpc();
@@ -202,6 +207,7 @@ namespace Npc
         public void UnpauseNpc()
         {
             _navMeshAgent.speed = _resumeMovementSpeed;
+            SetAnimation(_pathNodeController.GetAnimationToPlayOnExit);
         }
     }
 }

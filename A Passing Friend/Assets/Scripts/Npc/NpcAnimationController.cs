@@ -56,7 +56,6 @@ public class NpcAnimationController : MonoBehaviour
                 return;
             case NpcAnimations.stopTalking:
                 setNpcTalking(false);
-                setNpcTalking(true);
                 return;
             case NpcAnimations.startWalking:
                 setNpcSpeed(1);
