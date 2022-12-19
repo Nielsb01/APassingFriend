@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +90,7 @@ namespace Npc
             }
 
             _currentTravelDestinationNode = _waypointsRoute.First();
+            Debug.Log(name);
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             SetRoundingForNextNode();

@@ -39,16 +39,8 @@ public class DialogBuilder : MonoBehaviour
 
         _canSwitchDialog = false;
     }
-
-    private void Update()
-    {
-        if (_canSwitchDialog)
-        {
-            ParseDialog();
-        }
-    }
-
-    public void LoadDialog(TextAsset dialogTextFile)// muricaaaa fuck yea
+    
+    public void LoadDialog(TextAsset dialogTextFile)
     {
         _dialogTextFile = dialogTextFile;
         ParseDialog();

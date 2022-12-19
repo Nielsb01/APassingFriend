@@ -279,7 +279,7 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
-
+        
         if (_dialogBuilder.GetEndedConversation()) return;
 
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
@@ -379,6 +379,7 @@ public class UIController : MonoBehaviour
         {
             _dialogBuilder.SetEndedConversation(true);
         }
+        
         _dialogBuilder.SetCanSwitchDialog(true);
 
         if (UnityEngine.Cursor.visible) 
@@ -483,7 +484,6 @@ public class UIController : MonoBehaviour
         {
             return;
         }
-
         _dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
@@ -533,6 +533,7 @@ public class UIController : MonoBehaviour
         }
         catch (Exception e)
         {
+            var b = e;
             Debug.Log("3631");
         }
     }

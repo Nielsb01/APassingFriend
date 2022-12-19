@@ -7,15 +7,14 @@ using UnityEngine.InputSystem;
 public class PlayerInteractionController : MonoBehaviour
 {
     private UIController _ui;
-[SerializeField]
-    private Outline _outline;
+    [SerializeField] private Outline _outline;
 
     private DialogBuilder _npcDialogBuilder;
 
     private CharacterController _characterController;
 
     [SerializeField] private FieldOfView _playerFov;
-    
+
     // Item pickup
     private Transform _holdingItem;
     [SerializeField] private Transform _pickUpLocation;
@@ -42,8 +41,8 @@ public class PlayerInteractionController : MonoBehaviour
     {
         if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
         {
-                _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
-                _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
+            _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
+            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
         if (_outline != null)
@@ -69,7 +68,6 @@ public class PlayerInteractionController : MonoBehaviour
     {
         if (_holdingItem == null)
         {
-            
             PickupAbleItem pickupAbleItemScript = _playerFov.pickup.GetComponent<PickupAbleItem>();
             CallPickupOnItem(pickupAbleItemScript);
         }
@@ -96,6 +94,7 @@ public class PlayerInteractionController : MonoBehaviour
     {
         return _holdingItem;
     }
+
     public void SetItemHolding(Transform holdingItem)
     {
         _holdingItem = holdingItem;
