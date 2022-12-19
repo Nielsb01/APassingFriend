@@ -22,8 +22,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
 
-    [Header("Day night shizzle")]
-    [SerializeField] private DayNightToggler _dayNightToggler;
+    private bool _isDay = true;
 
     [Header("Sound Objects")]
     [SerializeField] private List<GameObject> _environmentObjects;
@@ -39,6 +38,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData gameData)
     {
+        _isDay = gameData.isDay;
         StopAllSounds();
         _state = BackgroundMusicState.UNDEFINED;
     }
@@ -99,7 +99,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
         else if (_villageBoundaries.bounds.Contains(_player.transform.position))
         {
             // Player in village
-            if (_dayNightToggler.IsDay)
+            if (_isDay)
             {
                 // Day
                 newState = BackgroundMusicState.VILLAGE_DAY;
