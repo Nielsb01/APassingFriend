@@ -10,13 +10,6 @@ public class YarnParticleController : MonoBehaviour
         _particleSystem = GetComponent<ParticleSystem>();
     }
 
-    private void Update()
-    {
-        //var particleDir = _particleSystem.velocityOverLifetime;
-        //particleDir.x = -transform.forward.x;
-        //particleDir.z = -transform.forward.z;
-    }
-
     public void StartParticle()
     {
         _particleSystem.Play();
