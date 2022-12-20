@@ -1,6 +1,6 @@
 Missie 1
 --
-#Wat is er met die domme poort? [Camera:0]
+#Wat is er met die domme poort? [Camera: 0]
 *1 We Moeten door deze poort heen om de andere kant te bereiken.
 *2 Deze poort is gemaakt van het mooiste steen
 *3 Zoals je kan zien is deze poort gemaakt door de beste architect in het hele land.
