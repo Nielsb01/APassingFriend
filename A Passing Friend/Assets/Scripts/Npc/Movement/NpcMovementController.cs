@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Npc
 {
-    public class NpcMovementController : MonoBehaviour
+    public class NpcMovementController : MonoBehaviour, IDataPersistence
     {
         [SerializeField] private List<GameObject> _waypointsRoute = new();
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
         [SerializeField] private bool _patrolling;
         [SerializeField] private WaypointRoute _route;
         [SerializeField] private GameObject _followingChild;
+        [SerializeField] private GameObject _npcLoadLocation;
         private NavMeshAgent _navMeshAgent;
         private float _waypointRoundingForNextNode;
         private GameObject _currentTravelDestinationNode;
@@ -88,8 +90,8 @@ namespace Npc
                     if (_waypointsRoute.Count == 0) return;
                 }
             }
-
             _currentTravelDestinationNode = _waypointsRoute.First();
+            Debug.Log(name + " Hugo ik ben dit null: " + (_navMeshAgent == null));
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             SetRoundingForNextNode();
@@ -196,5 +198,27 @@ namespace Npc
         {
             _navMeshAgent.speed = _resumeMovementSpeed;
         }
+        
+        public void LoadData(GameData gameData)
+        {
+            if (_npcLoadLocation == null) return;
+
+            if (name.Equals("Asha") && gameData.ashaIsAtHouse)
+            {
+                _waypointsRoute.Clear();
+                _waypointsRoute.Add(_npcLoadLocation);
+                transform.position = _npcLoadLocation.transform.position;
+                GoToNextWaypoint(false);
+                transform.rotation = _npcLoadLocation.transform.rotation;
+            }
+
+            if (gameObject.name.Equals("Yarn") && gameData.questOneState == QuestState.PickedUp)
+            {
+                transform.parent.gameObject.active = false;
+                //Implement ball being picked up by cat
+            }
+        }
+
+        public void SaveData(ref GameData gameData) { }
     }
 }
