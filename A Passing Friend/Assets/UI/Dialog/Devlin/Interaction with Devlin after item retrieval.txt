@@ -1,0 +1,15 @@
+Intro
+--
+# Interaction with Devlin after item retrieval$ [Camera: 0]
+*1 Have I left it somewhere? I can’t remember.
+*2 Oh… uhm… hello there, you are back.
+*3 Have you found my ball of wool?
+*4 You did! I have been looking all over the place for it. Thank you.
+*5 You even found one of your memories when you caught the ball?
+*6 Looks like we both finally found what we were looking for.
+*7 Hopefully I’m finally able to start working on my project.
+*8 Since you are looking for your memories you might want to pay a visit to Rayen. 
+*9 Rayen is the witch from the potion shop. She is like a mother to all the villagers.
+*10 She might be able to help you out.
+*11 Thank you again for finding my ball of wool. Do come by again. I’ll show you what I made.
+

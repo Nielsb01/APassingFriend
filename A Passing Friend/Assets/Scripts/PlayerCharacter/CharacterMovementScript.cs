@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
+    [Header("Movement Settings")]
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
     [SerializeField] private float _moveSpeed = 1.75f;
@@ -31,10 +33,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [HideInInspector]
     public bool rotationFrozenDueToSpecialArea;
 
-    [SerializeField] private bool _movementImpaired;
-
     private const float CHECK_VALUE = 0.1f;
 
+    private bool _movementImpaired;
 
     //Charge jumping
     [SerializeField] private float _chargeSpeed = 1.0f;
@@ -60,11 +61,23 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
 
+    //Interacting
+    private PlayerInteractionController _playerInteractionController;
+
+    [Header("Sound Settings")]
+    [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
+    [SerializeField] private FMODUnity.EventReference _jumpingEventPath;
+    [SerializeField] private FMODUnity.EventReference _landingEventPath;
+    [SerializeField] private float _minimumDisplacementForSound;
+    private Vector3 _prevSoundPosition;
+    private float _jumpThresholdSeconds = 1;
+
     private void Awake()
     {
         _doJump = false;
         _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
+        _playerInteractionController = GetComponent<PlayerInteractionController>();
     }
 
     private void Start()
@@ -92,6 +105,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             Move();
             Rotate();
+            HandleMovementSound();
         }
     }
 
@@ -104,8 +118,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnLook(InputValue inputValue)
     {
-        if (_movementImpaired) return;
-
         var inputVector = inputValue.Get<Vector2>();
         _rotation = Vector3.up * inputVector.x;
     }
@@ -113,6 +125,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void Rotate()
     {
         if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
+
         transform.Rotate(_rotation * _rotationSpeed);
     }
 
@@ -132,8 +145,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Move()
     {
-        if (_movementImpaired) return;
-
         if (_moveVector == null)
         {
             return;
@@ -217,15 +228,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (_movementImpaired || _rotationFrozenDueToDialog)
         {
-            ResetJumpCharge();
-            _doChargeJump = false;
-            _doJump = false;
-            _moveVector = Vector3.zero;
-            _moveDirection.y = 0;
-            _moveDirection.x = 0;
-            _moveDirection.z = 0;
-            _velocityY = 0;
-            _velocityX = 0;
+            ResetAllMovement();
             _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
         }
     }
@@ -244,30 +247,46 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         }
         else
         {
-            ResetJumpCharge();
-            _doChargeJump = false;
-            _doJump = false;
-            _moveVector = Vector3.zero;
-            _moveDirection.y = 0;
-            _moveDirection.x = 0;
-            _moveDirection.z = 0;
-            _velocityY = 0;
-            _velocityX = 0;
+            ResetAllMovement();
         }
+    }
+
+    private void ResetAllMovement()
+    {
+        ResetJumpCharge();
+        _doChargeJump = false;
+        _doJump = false;
+        _moveVector = Vector3.zero;
+        _moveDirection.y = 0;
+        _moveDirection.x = 0;
+        _moveDirection.z = 0;
+        _velocityY = 0;
+        _velocityX = 0;
     }
 
     public void LoadData(GameData data)
     {
         _characterController.enabled = false;
-        this.transform.position = data.PlayerLocation;
+        transform.position = data.playerLocation;
         _characterController.enabled = true;
+        ResetAllMovement();
+        loadHoldingItem(data);
     }
 
     public void SaveData(ref GameData data)
     {
-        data.PlayerLocation = this.transform.position;
     }
-
+    
+    private void loadHoldingItem(GameData data)
+    {
+        if (data.ItemHeldByPlayer != null && !data.ItemHeldByPlayer.Equals(String.Empty))
+        {
+            Transform itemHeldByPlayer = GameObject.Find(data.ItemHeldByPlayer).transform;
+            _playerInteractionController.CallPickupOnItem(itemHeldByPlayer.GetComponent<PickupAbleItem>());
+            _playerInteractionController.SetItemHolding(itemHeldByPlayer);
+        }
+    }
+    
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
@@ -302,6 +321,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _canClimb = false;
             _isClimbing = false;
         }
+        
+        if (_doJump)
+        {
+            // Play jump sound
+            StartCoroutine(OnJumpStart());
+        }
+
         ResetJumpCharge();
     }
     
@@ -337,7 +363,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
     }
-
+    
     private void CheckCanClimb()
     {
         if (_canClimb) return;
@@ -411,6 +437,39 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _exitingClimbing = false;
     }
 
+    // Methods for handling sound
+    private IEnumerator OnJumpStart()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(_jumpingEventPath);
+
+        // Wait 100 milliseconds for waiting for jump start
+        const float delay = 0.1f;
+        yield return new WaitForSeconds(delay);
+        while (_characterController.isGrounded == false)
+        {
+            // wait 100 milliseconds between checks
+            yield return new WaitForSeconds(_jumpThresholdSeconds);
+        }
+
+        OnJumpLand();
+        yield return null;
+    }
+
+    private void OnJumpLand()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
+    }
+
+    private void HandleMovementSound()
+    {
+        // if player moved
+        if (Vector3.Distance(_prevSoundPosition, transform.position) > _minimumDisplacementForSound)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot(_footstepsEventPath);
+           _prevSoundPosition = transform.position;
+        }
+    }
+
     // Getters for making UI
     public float GetJumpCharged()
     {
@@ -425,6 +484,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public float GetMinimumChargeJumpValue()
     {
         return _MinimumChargeJumpValue;
+    }
+
+    public bool GetHoldingDownJump()
+    {
+        return _holdingDownJump;
     }
 
     public bool IsChargeJumpUnlocked()

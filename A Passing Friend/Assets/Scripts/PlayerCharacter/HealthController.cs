@@ -1,15 +1,15 @@
 #region
 
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 #endregion
 
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private GameObject _lightCheckController;
+    [SerializeField] private DataPersistenceManager _dataPersistenceManager;
     [SerializeField] private GameObject _catBones;
-    [SerializeField] private Image vignette;
     [SerializeField] private ParticleSystem _damageParticleSystem;
     [SerializeField] private ParticleSystem _dyingParticleSystem;
     [SerializeField] private int _maxDamageParticleEmission = 125;
@@ -26,6 +26,14 @@ public class HealthController : MonoBehaviour
     private float _health;
     private bool _isDead;
     private bool _isParticling;
+    
+    public delegate void PlayerEvent();
+    public static event PlayerEvent Died;
+
+    public bool IsDead
+    {
+        get => _isDead;
+    }
 
     private void Awake()
     {
@@ -49,8 +57,6 @@ public class HealthController : MonoBehaviour
     {
         if (!_calculateLight || _isDead) return;
 
-        UpdateVignette();
-
         if (_lightLevel >= _lightToDamageThreshold)
         {
             TakeDamage();
@@ -65,11 +71,7 @@ public class HealthController : MonoBehaviour
                 Heal();
             }
         }
-
-#if DEBUG
-        logHealth();
-        logLuminance();
-#endif
+        
     }
 
     private void TakeDamage()
@@ -82,12 +84,9 @@ public class HealthController : MonoBehaviour
 
         if (_health < 0)
         {
-            _isDead = true;
             _health = _minHealth;
-        }
 
-        if (_isDead)
-        {
+            _isParticling = false;
             _damageParticleSystem.Stop();
             Die();
         }
@@ -101,21 +100,35 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        transform.GetComponent<BoxCollider>().enabled = false;
-        transform.GetComponent<CharacterController>().enabled = false;
-        // Set model inactive
-        transform.GetChild(0).gameObject.SetActive(false);
-
-        FindObjectOfType<CharacterMovementScript>().enabled = false;
+        Died?.Invoke();
+        SetPlayerInactive(true);
 
         _dyingParticleSystem.Play();
-
         Instantiate(_catBones, transform.position, transform.rotation);
+
+        StartCoroutine(Respawn());
     }
 
-    private void UpdateVignette()
+    private IEnumerator Respawn()
     {
-        vignette.color = new Color(vignette.color.r, vignette.color.g, vignette.color.b, 1f - _health / 100f);
+        yield return new WaitForSeconds(3);
+        _dataPersistenceManager.LoadGame();
+        
+        SetPlayerInactive(false);
+
+        _health = _maxHealth;
+    }
+
+    private void SetPlayerInactive(bool boolean)
+    {
+        _isDead = boolean;
+        boolean = !boolean;
+        
+        transform.GetComponent<BoxCollider>().enabled = boolean;
+        transform.GetComponent<CharacterController>().enabled = boolean;
+        GetComponent<CharacterMovementScript>().enabled = boolean;
+        // Set model inactive
+        transform.GetChild(0).gameObject.SetActive(boolean);
     }
 
     private void CreateDamageParticles()
@@ -135,45 +148,8 @@ public class HealthController : MonoBehaviour
         particleSystemEmission.rateOverTime = emission;
     }
 
-#if DEBUG
-    private int _previousHigh;
-    private int _previousLightLevel;
-    private int _highestLevel;
-    private float _previousHealth;
-    private float _previousDamage;
-
-    private void logHealth()
+    public float GetVignetteTransparency()
     {
-        if (_health == _previousHealth) return;
-        _previousHealth = _health;
-        Debug.Log("Health: " + _health);
-        if (_health == 0)
-        {
-            Debug.Log("I DIED");
-            Debug.Log("D:");
-        }
+        return 1f - _health / 100f;
     }
-
-    private void logDamageMultiplier(float damage)
-    {
-        if (damage == _previousDamage) return;
-        _previousDamage = damage;
-        Debug.Log("Damage: " + damage);
-    }
-
-    private void logHighestLuminance()
-    {
-        if (_lightLevel <= _highestLevel) return;
-        _highestLevel = _lightLevel;
-        _previousHigh = _highestLevel;
-        Debug.Log("Light: " + _highestLevel);
-    }
-
-    private void logLuminance()
-    {
-        if (_lightLevel == _previousLightLevel) return;
-        _previousLightLevel = _lightLevel;
-        Debug.Log("LightLevel: " + _lightLevel);
-    }
-#endif
 }
