@@ -134,7 +134,7 @@ public class HealthController : MonoBehaviour
     private void Die()
     {
         Died?.Invoke();
-        SetPlayerInactive(true);
+        SetPlayerActivity(true);
 
         _dyingParticleSystem.Play();
         Instantiate(_catBones, transform.position, transform.rotation);
@@ -147,21 +147,19 @@ public class HealthController : MonoBehaviour
         yield return new WaitForSeconds(3);
         _dataPersistenceManager.LoadGame();
         
-        SetPlayerInactive(false);
+        SetPlayerActivity(false);
 
         _health = _maxHealth;
     }
 
-    private void SetPlayerInactive(bool boolean)
+    private void SetPlayerActivity(bool state)
     {
-        _isDead = boolean;
-        boolean = !boolean;
+        _isDead = state;
         
-        transform.GetComponent<BoxCollider>().enabled = boolean;
-        transform.GetComponent<CharacterController>().enabled = boolean;
-        GetComponent<CharacterMovementScript>().enabled = boolean;
+        transform.GetComponent<CharacterController>().enabled = !state;
+        GetComponent<CharacterMovementScript>().enabled = !state;
         // Set model inactive
-        transform.GetChild(0).gameObject.SetActive(boolean);
+        transform.GetChild(0).gameObject.SetActive(!state);
     }
 
     private void CreateDamageParticles()
