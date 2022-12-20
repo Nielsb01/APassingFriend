@@ -60,6 +60,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
+    private bool _playerInAir;
 
     //Interacting
     private PlayerInteractionController _playerInteractionController;
@@ -141,6 +142,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged = 0;
         }
+
+        if (_characterController.isGrounded && _playerInAir)
+        {
+            _playerInAir = false;
+            _playerAnimator.SetTrigger("Land");
+        }
     }
 
     private void Move()
@@ -153,6 +160,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         if (_doJump)
         {
             _playerAnimator.SetTrigger("Jump");
+            _playerInAir = true;
             if (!_doChargeJump)
             {
                 _moveDirection.y = _jumpSpeed;
@@ -457,7 +465,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpLand()
     {
         FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
-        _playerAnimator.SetTrigger("Land");
     }
 
     private void HandleMovementSound()
