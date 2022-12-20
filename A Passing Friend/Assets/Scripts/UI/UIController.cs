@@ -10,93 +10,64 @@ public class UIController : MonoBehaviour
     // UI
     [Header("Interaction")]
     private GroupBox _interactBox;
-
     private bool _isInInteractRange;
-
     private bool _isInInteraction;
 
-
     // // Dialog UI
-    private VisualElement _dialogBox;
-
-    private GroupBox _dialogBoxDialog;
-
-    private Label _dialogBoxCharName;
-
-    private Label _dialogBoxIntroText;
-
-    private Label _dialogBoxText;
-
-    private GroupBox _dialogBoxChoices;
-
-    private List<Button> _dialogBoxChoiceButtons = new List<Button>();
-
-    private VisualElement _root;
-
     [Header("Dialog")]
+    private VisualElement _dialogBox;
+    private GroupBox _dialogBoxDialog;
+    private Label _dialogBoxCharName;
+    private Label _dialogBoxIntroText;
+    private Label _dialogBoxText;
+    private GroupBox _dialogBoxChoices;
+    private List<Button> _dialogBoxChoiceButtons = new List<Button>();
+    private VisualElement _root;
     [SerializeField] private bool _isDialogExitButtonVisible = false;
-
     private Button _dialogBoxExitButton;
 
-
     // // Dialog Builder
-    private List<string> _dialogTextList;
-
-    private string _npcName;
-
     [Header("Dialog Builder")]
+    private List<string> _dialogTextList;
+    private string _npcName;
     [SerializeField] private DialogBuilder _dialogBuilder;
-
     private DialogObject _chosenDialogOption;
-
     private int? _currentTextNr = null; // the current number of text in the text list.
-
     private int? _choiceClicked = null; // the choice of dialog clicked.
-
     [SerializeField] private CinemachineVirtualCamera _activeCamera;
-
     private CinemachineVirtualCamera _npcCamera;
-
     [SerializeField] private bool _isDialogBuilderSet;
 
-
     // Jump charge bar
-    private JumpChargeBar _jumpChargeBar;
-
     [Header("Jump Charge Bar")]
+    private JumpChargeBar _jumpChargeBar;
     [SerializeField] private float _minJumpCharge = 0;
-
     [SerializeField] private float _maxJumpCharge;
-
     [SerializeField] private float _overchargeJumpModifier = 1.2f; // the modifier used to determine how far the bar overcharges visually, always 0.1 less than the width of the overcharge bar.
-  
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
-    
     [SerializeField] [Range(0, 2)] private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
-
 
     // Character Movement
     [Header("External scripts")]
     [SerializeField] private CharacterMovementScript _characterMovementScript;
-    
 
     // Health
     [SerializeField] private HealthController _healthController;
-
     private VisualElement _healthVignette;
-
 
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
-
     [SerializeField] private int _lastScreenHeight;
-    
     
     // Event
     public delegate void DialogEvent();
     public static event DialogEvent DialogExited;
-    
+
+    // Audio
+    private FMOD.Studio.EventInstance? _currentAudioEventInstance = null;
+
+    // Generic Methods
     private void OnEnable()
     {
         HealthController.Died += PlayerDies;
@@ -105,7 +76,6 @@ public class UIController : MonoBehaviour
     {
         HealthController.Died -= PlayerDies;
     }
-
 
     private void Start()
     {
@@ -328,7 +298,7 @@ public class UIController : MonoBehaviour
         if (_currentTextNr < (_dialogTextList.Count - 1))
         {
             _currentTextNr++;
-            SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
+            SetDialogBoxCharTextAndPlayAudio(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         }
         else
         {
@@ -387,7 +357,12 @@ public class UIController : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
-        
+
+        if (_currentAudioEventInstance.HasValue)
+        {
+            _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        }
+
         DialogExited?.Invoke();
     }
 
@@ -430,7 +405,7 @@ public class UIController : MonoBehaviour
     {
         _dialogBoxIntroText.visible = false;
         _dialogBoxChoices.visible = false;
-        SetDialogBoxCharText(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
+        SetDialogBoxCharTextAndPlayAudio(_npcName, _dialogTextList[_currentTextNr ?? default(int)]);
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.visible = false;
@@ -470,8 +445,26 @@ public class UIController : MonoBehaviour
     }
 
     // Set the actual dialog text and character name.
-    private void SetDialogBoxCharText(string charName, string text)
+    private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
+        var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
+
+        if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
+        {
+            if (_currentAudioEventInstance.HasValue)
+            {
+                _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            }
+
+            var rEvent = audioEventList[_currentTextNr ?? default];
+            _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
+            _currentAudioEventInstance.Value.start();
+        }
+        else if (_currentTextNr.HasValue)
+        {
+            throw new Exception("Dialog can't find audio event for: " + text);
+        }
+
         _dialogBoxDialog.visible = true;
         _dialogBoxCharName.text = charName;
         _dialogBoxText.text = text;
@@ -510,7 +503,6 @@ public class UIController : MonoBehaviour
         _dialogTextList = _chosenDialogOption.GetDialog();
         _npcName = _dialogBuilder.GetNameOfNpc();
         _npcCamera = _dialogBuilder.GetNpcCamera();
-
     }
 
     /* 
@@ -575,13 +567,6 @@ public class UIController : MonoBehaviour
     // Change the font size so it looks/feels dynamic.
     private void ChangeFontDynamically()
     {
-        // Full HD
-        if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
-        {
-            _dialogBoxCharName.style.fontSize = 35;
-            _dialogBoxIntroText.style.fontSize = 50;
-            _dialogBoxText.style.fontSize = 50;
-        }
         // WXGA
         if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
         {
@@ -590,18 +575,25 @@ public class UIController : MonoBehaviour
             _dialogBoxText.style.fontSize = 30;
         }
         // QHD
-        if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
+        else if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
         {
             _dialogBoxCharName.style.fontSize = 50;
             _dialogBoxIntroText.style.fontSize = 60;
             _dialogBoxText.style.fontSize = 60;
         }
         // 4K UHD
-        if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
+        else if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
         {
             _dialogBoxCharName.style.fontSize = 70;
             _dialogBoxIntroText.style.fontSize = 80;
             _dialogBoxText.style.fontSize = 80;
+        }
+        // Full HD and other resolutions
+        else
+        {
+            _dialogBoxCharName.style.fontSize = 35;
+            _dialogBoxIntroText.style.fontSize = 50;
+            _dialogBoxText.style.fontSize = 15;
         }
     }
 
@@ -611,25 +603,25 @@ public class UIController : MonoBehaviour
         {
             foreach (var dialogButton in _dialogBoxChoiceButtons)
             {
-                // Full HD
-                if (_lastScreenWidth == 1920 && _lastScreenHeight == 1080)
-                {
-                    dialogButton.style.fontSize = 30;
-                }
                 // WXGA
                 if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
                 {
                     dialogButton.style.fontSize = 20;
                 }
                 // QHD
-                if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
+                else if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
                 {
                     dialogButton.style.fontSize = 50;
                 }
                 // 4K UHD
-                if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
+                else if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
                 {
                     dialogButton.style.fontSize = 70;
+                }
+                // Full HD and other resolutions
+                else
+                {
+                    dialogButton.style.fontSize = 15;
                 }
             }
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum BackgroundMusicState : ushort
+enum SoundState : ushort
 {
     UNDEFINED = 0,
     FORREST = 1,
@@ -27,7 +27,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     // Member variables for keeping track of the game state
     private bool _isDay = true;
-    private BackgroundMusicState _state = BackgroundMusicState.UNDEFINED;
+    private SoundState _state = SoundState.UNDEFINED;
 
 
     public void Awake()
@@ -41,7 +41,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
         StopAllSounds();
 
         // Update all member variables
-        _state = BackgroundMusicState.UNDEFINED;
+        _state = SoundState.UNDEFINED;
         _isDay = gameData.isDay;
     }
 
@@ -62,7 +62,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     private IEnumerator OnUpdateBackgroundMusic()
     {
-        BackgroundMusicState newState = GetNewState();
+        SoundState newState = GetNewState();
 
         if (_state != newState)
         {
@@ -89,14 +89,14 @@ public class SoundController : MonoBehaviour, IDataPersistence
         yield return null;
     }
 
-    private BackgroundMusicState GetNewState()
+    private SoundState GetNewState()
     {
-        BackgroundMusicState newState = BackgroundMusicState.UNDEFINED;
+        SoundState newState = SoundState.UNDEFINED;
 
         if (_forrestBoundaries.bounds.Contains(_player.transform.position))
         {
             // Player in forrest
-            newState = BackgroundMusicState.FORREST;
+            newState = SoundState.FORREST;
         }
         else if (_villageBoundaries.bounds.Contains(_player.transform.position))
         {
@@ -104,33 +104,33 @@ public class SoundController : MonoBehaviour, IDataPersistence
             if (_isDay)
             {
                 // Day
-                newState = BackgroundMusicState.VILLAGE_DAY;
+                newState = SoundState.VILLAGE_DAY;
             }
             else
             {
                 // Night
-                newState = BackgroundMusicState.VILLAGE_NIGHT;
+                newState = SoundState.VILLAGE_NIGHT;
             }
         }
 
         return newState;
     }
 
-    private void LoadBackgroundMusic(BackgroundMusicState newState)
+    private void LoadBackgroundMusic(SoundState newState)
     {
         switch (newState)
         {
-            case BackgroundMusicState.FORREST:
+            case SoundState.FORREST:
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(_forrestMusicEventPath);
                     break;
                 }
-            case BackgroundMusicState.VILLAGE_DAY:
+            case SoundState.VILLAGE_DAY:
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(_villageDayEventPath);
                     break;
                 }
-            case BackgroundMusicState.VILLAGE_NIGHT:
+            case SoundState.VILLAGE_NIGHT:
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(_villageNightEventPath);
                     break;
