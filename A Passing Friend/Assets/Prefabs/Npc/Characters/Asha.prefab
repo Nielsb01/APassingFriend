@@ -239,6 +239,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _dialogTextFile
+      value: 
+      objectReference: {fileID: 4900000, guid: ec8c9e403308b594f9c90a5e79877dfd, type: 3}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _eventAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 69e273027dd3d4f838756e21bb888db2,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 0}
     m_AddedGameObjects:
