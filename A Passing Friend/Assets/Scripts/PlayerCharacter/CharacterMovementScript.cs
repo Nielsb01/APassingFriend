@@ -152,11 +152,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (_doJump)
         {
+            _playerAnimator.SetTrigger("Jump");
             if (!_doChargeJump)
             {
                 _moveDirection.y = _jumpSpeed;
             }
-
             _doJump = false;
             _doChargeJump = false;
         }
@@ -334,7 +334,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
-
         if (_chargeJumpUnlocked && _characterController.isGrounded)
         {
             _holdingDownJump = true;
@@ -458,6 +457,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpLand()
     {
         FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
+        _playerAnimator.SetTrigger("Land");
     }
 
     private void HandleMovementSound()
