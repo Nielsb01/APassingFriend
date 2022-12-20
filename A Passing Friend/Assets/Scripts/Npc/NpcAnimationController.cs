@@ -7,15 +7,14 @@ using UnityEngine.Rendering;
 
 public class NpcAnimationController : MonoBehaviour
 {
-    private Animator _npcAnimator;
+    [SerializeField] private Animator _npcAnimator;
     private float _npcSpeed;
     private bool _npcIsTalking; 
     private bool _npcIsPickingUp;
     private NavMeshAgent _navMeshAgent;
     public void Awake()
     {
-      _npcAnimator = GetComponentInChildren(typeof(Animator)) as Animator;
-      _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
