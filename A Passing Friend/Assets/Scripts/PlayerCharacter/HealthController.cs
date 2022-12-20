@@ -55,36 +55,11 @@ public class HealthController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger enter");
         if (other.gameObject.layer == LayerMask.NameToLayer("Wator"))
         {
-            Debug.Log("wator");
             Die();
-            // _health -= _damagePerFrame * 2;
-            // StartCoroutine(DieByWater());
         }
-        // else
-        // {
-        //     _dyingByWater = false;
-        // }
     }
-    
-    // private void OnTriggerExit(Collider other)
-    // {
-    //     Debug.Log("Trigger exit");
-    //     if (other.gameObject.layer == LayerMask.NameToLayer("Wator"))
-    //     {
-    //         _onWater = false;
-    //     }
-    // }
-    
-    
-
-    // private IEnumerator DieByWater()
-    // {
-    //     yield return new WaitForEndOfFrame();
-    //     _health -= _damagePerFrame * 2;
-    // }
 
     private void FixedUpdate()
     {
