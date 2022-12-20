@@ -534,7 +534,6 @@ public class UIController : MonoBehaviour
         catch (Exception e)
         {
             var b = e;
-            Debug.Log("3631");
         }
     }
 

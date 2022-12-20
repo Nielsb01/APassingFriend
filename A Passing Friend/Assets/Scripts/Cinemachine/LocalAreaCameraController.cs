@@ -9,7 +9,7 @@ namespace Camera
         [SerializeField] private float _lockOrientation = -1;
         [SerializeField] private bool _allowMirroredDirectionLock = true;
         private CameraController _cameraController;
-        
+
 
         public void ActivateLocalCam(Transform followTarget, CameraController cameraController)
         {
