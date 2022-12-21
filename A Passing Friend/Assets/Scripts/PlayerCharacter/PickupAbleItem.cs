@@ -8,6 +8,13 @@ public class PickupAbleItem : MonoBehaviour
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
+
+    // Questing
+    public delegate void PickedUpQuestItemEvent(QuestState questState, int memoryNr);
+    public static event PickedUpQuestItemEvent PickedUpQuestItem;
+    [SerializeField] private bool _isQuestItem = false;
+    [SerializeField] private int memoryNr = 0;
+
     
     private void Awake()
     {
@@ -16,6 +23,11 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
+        if (_isQuestItem)
+        {
+            InvokePickedUpQuestItem();
+        }
+
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
@@ -33,6 +45,17 @@ public class PickupAbleItem : MonoBehaviour
         {
             _rigidbody.isKinematic = true;
         }
+    }
+
+    private void OnTest()
+    {
+        // to be deleted when PR is approved.
+        InvokePickedUpQuestItem();
+    }
+
+    private void InvokePickedUpQuestItem()
+    {
+        PickedUpQuestItem?.Invoke(QuestState.Completed, memoryNr);
     }
 
     public void Drop()
