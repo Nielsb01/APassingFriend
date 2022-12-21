@@ -29,7 +29,6 @@ namespace Npc
 
         private void Start()
         {
-            //_navMeshAgent = GetComponent<NavMeshAgent>();
             if (_defaultWaypointRounding < MINIMUM_ROUNDING)
             {
                 _defaultWaypointRounding = MINIMUM_ROUNDING;
@@ -219,11 +218,11 @@ namespace Npc
             if (_npcLoadLocation == null) return;
 
             if (name.Equals("Asha") && gameData.ashaIsAtHouse)
-            {
-                _waypointsRoute.Clear();
-                _waypointsRoute.Add(_npcLoadLocation);
+            {;
                 transform.position = _npcLoadLocation.transform.position;
-                GoToNextWaypoint(false);
+                _route.waypoints.Clear();
+                _route.waypoints.Add(_npcLoadLocation);
+                StartRoute(_route);
                 transform.rotation = _npcLoadLocation.transform.rotation;
             }
 
