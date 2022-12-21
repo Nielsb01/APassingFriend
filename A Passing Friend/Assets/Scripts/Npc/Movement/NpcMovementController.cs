@@ -187,7 +187,7 @@ namespace Npc
         {
             if (npcAnimation != NpcAnimations.none && _npcAnimationController != null)
             {
-                _npcAnimationController.setAnimationState(npcAnimation);
+                _npcAnimationController.SetAnimationState(npcAnimation);
             }
         }
 

@@ -12,6 +12,7 @@ public class NpcAnimationController : MonoBehaviour
     private bool _npcIsTalking; 
     private bool _npcIsPickingUp;
     private NavMeshAgent _navMeshAgent;
+    
     public void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -19,48 +20,47 @@ public class NpcAnimationController : MonoBehaviour
 
     private void Update()
     {
-        setNpcSpeed(_navMeshAgent.velocity.magnitude);
+        SetNpcSpeed(_navMeshAgent.velocity.magnitude);
     }
 
-    public void setNpcSpeed(float npcSpeed)
+    public void SetNpcSpeed(float npcSpeed)
     {
         _npcSpeed = npcSpeed;
         _npcAnimator.SetFloat("speed",_npcSpeed);
     }
-
-    public void setNpcTalking(bool npcIsTalking)
+    public void SetNpcTalking(bool npcIsTalking)
     {
         _npcIsTalking = npcIsTalking;
         _npcAnimator.SetBool("isTalking",_npcIsTalking);
     }
 
-    public void setNpcIsPickingup(bool npcIsPickingUp)
+    public void SetNpcIsPickingup(bool npcIsPickingUp)
     {
         _npcIsPickingUp = npcIsPickingUp;
         _npcAnimator.SetBool("isTakingItem",_npcIsPickingUp);
     }
 
-    public void setAnimationState(NpcAnimations animation)
+    public void SetAnimationState(NpcAnimations animation)
     {
         switch (animation)
         {
             case NpcAnimations.startPickup:
-                setNpcIsPickingup(true);
+                SetNpcIsPickingup(true);
                 return;
             case NpcAnimations.stopPickup:
-                setNpcIsPickingup(false);
+                SetNpcIsPickingup(false);
                 return;
             case NpcAnimations.startTalking:
-                setNpcTalking(true);
+                SetNpcTalking(true);
                 return;
             case NpcAnimations.stopTalking:
-                setNpcTalking(false);
+                SetNpcTalking(false);
                 return;
             case NpcAnimations.startWalking:
-                setNpcSpeed(1);
+                SetNpcSpeed(1);
                 return;
             case NpcAnimations.stopWalking:
-                setNpcSpeed(0);
+                SetNpcSpeed(0);
                 return;
         }
     }

@@ -684,14 +684,14 @@ public class UIController : MonoBehaviour
     {
         if (_npcAnimationController != null)
         {
-            _npcAnimationController.setAnimationState(NpcAnimations.startTalking);
+            _npcAnimationController.SetAnimationState(NpcAnimations.startTalking);
         }
     }
     private void StopDialogAnimation()
     {
         if (_npcAnimationController != null)
         {
-            _npcAnimationController.setAnimationState(NpcAnimations.stopTalking);
+            _npcAnimationController.SetAnimationState(NpcAnimations.stopTalking);
         }
     }
 }
