@@ -55,7 +55,7 @@ public class PickupAbleItem : MonoBehaviour
 
     private void InvokePickedUpQuestItem()
     {
-        PickedUpQuestItem?.Invoke(QuestState.Completed, memoryNr);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp, memoryNr);
     }
 
     public void Drop()
