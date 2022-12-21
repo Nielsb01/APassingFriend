@@ -8,7 +8,5 @@ public enum NpcAnimations
     startPickup,
     stopPickup,
     startTalking,
-    stopTalking,
-    startWalking,
-    stopWalking
+    stopTalking
 }
