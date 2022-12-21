@@ -26,7 +26,7 @@ public class HealthController : MonoBehaviour
     private float _health;
     private bool _isDead;
     private bool _isParticling;
-    
+
     public delegate void PlayerEvent();
     public static event PlayerEvent Died;
 
@@ -79,7 +79,6 @@ public class HealthController : MonoBehaviour
                 Heal();
             }
         }
-        
     }
 
     private void TakeDamage()
@@ -109,7 +108,7 @@ public class HealthController : MonoBehaviour
     private void Die()
     {
         Died?.Invoke();
-        SetPlayerActivity(true);
+        DisablePlayer(true);
 
         _dyingParticleSystem.Play();
         Instantiate(_catBones, transform.position, transform.rotation);
@@ -121,16 +120,16 @@ public class HealthController : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         _dataPersistenceManager.LoadGame();
-        
-        SetPlayerActivity(false);
+
+        DisablePlayer(false);
 
         _health = _maxHealth;
     }
 
-    private void SetPlayerActivity(bool state)
+    private void DisablePlayer(bool state)
     {
         _isDead = state;
-        
+
         transform.GetComponent<CharacterController>().enabled = !state;
         GetComponent<CharacterMovementScript>().enabled = !state;
         // Set model inactive
