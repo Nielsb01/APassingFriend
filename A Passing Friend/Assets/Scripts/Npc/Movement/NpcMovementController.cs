@@ -250,5 +250,7 @@ namespace Npc
                 }
             }
         }
+
+        public void SaveData(ref GameData gameData){}
     }
 }
