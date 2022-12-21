@@ -124,7 +124,6 @@ public class HealthController : MonoBehaviour
         _isDead = boolean;
         boolean = !boolean;
         
-        transform.GetComponent<BoxCollider>().enabled = boolean;
         transform.GetComponent<CharacterController>().enabled = boolean;
         GetComponent<CharacterMovementScript>().enabled = boolean;
         // Set model inactive
