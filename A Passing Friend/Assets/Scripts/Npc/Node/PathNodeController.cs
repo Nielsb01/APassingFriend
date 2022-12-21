@@ -45,8 +45,8 @@ namespace Npc
         [SerializeField] private bool _lockBallToController = false;
 
         [SerializeField] private bool _unlockBallFromController = false;
-
-
+        [SerializeField] private NpcAnimations _animationToPlay;
+        [SerializeField] private NpcAnimations _animationToPlayOnExit;
         public float NewMovementSpeed => _newMovementSpeed;
 
         public float RoundingForThisNode => _roundingForThisNode;
@@ -64,6 +64,8 @@ namespace Npc
         public bool LockBallToController => _lockBallToController;
         public bool UnlockBallFromController => _unlockBallFromController;
 
+        public NpcAnimations GetAnimationToPlay => _animationToPlay;
+        public NpcAnimations GetAnimationToPlayOnExit => _animationToPlayOnExit;
 
         public void Trigger(NpcMovementController npc)
         {
