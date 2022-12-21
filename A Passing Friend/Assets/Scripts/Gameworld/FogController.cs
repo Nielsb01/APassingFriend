@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FogController : MonoBehaviour
+public class FogController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private float _woodsFogDensity = 0.1f;
     [SerializeField] private float _villageFogDensity = 0.03f;
@@ -35,5 +35,17 @@ public class FogController : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    public void LoadData(GameData gameData)
+    {
+        RenderSettings.fogDensity = gameData.fogDensity;
+        Debug.Log(RenderSettings.fogDensity);
+    }
+
+    public void SaveData(ref GameData gameData)
+    {
+        gameData.fogDensity = RenderSettings.fogDensity;
+        Debug.Log(gameData.fogDensity);
     }
 }
