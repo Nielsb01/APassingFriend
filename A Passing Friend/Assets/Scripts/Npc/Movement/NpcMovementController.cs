@@ -93,6 +93,7 @@ namespace Npc
                     if (_waypointsRoute.Count == 0) return;
                 }
             }
+
             _currentTravelDestinationNode = _waypointsRoute.First();
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
@@ -211,18 +212,19 @@ namespace Npc
             _navMeshAgent.speed = _resumeMovementSpeed;
             SetAnimation(_pathNodeController.GetAnimationToPlayOnExit);
         }
-        
-        
+
+
         public void LoadData(GameData gameData)
         {
             if (_npcLoadLocation == null) return;
 
             if (name.Equals("Asha") && gameData.ashaIsAtHouse)
-            {;
+            {
                 transform.position = _npcLoadLocation.transform.position;
-                _route.waypoints.Clear();
-                _route.waypoints.Add(_npcLoadLocation);
-                StartRoute(_route);
+                _waypointsRoute = new List<GameObject> { _npcLoadLocation };
+                _patrolling = false;
+                _route = null;
+                GoToNextWaypoint(false);
                 transform.rotation = _npcLoadLocation.transform.rotation;
             }
 
@@ -238,7 +240,8 @@ namespace Npc
                         StartRoute(GameObject.FindGameObjectWithTag("YarnRoute").GetComponent<WaypointRoute>());
                         break;
                     case QuestState.PickedUp:
-                        transform.parent.gameObject.active = false;
+                        Destroy(transform.parent.gameObject);
+                        // transform.parent.gameObject.active = false;
                         //Implement ball being picked up by cat
                         break;
                     case QuestState.Completed:
@@ -249,6 +252,8 @@ namespace Npc
             }
         }
 
-        public void SaveData(ref GameData gameData){}
+        public void SaveData(ref GameData gameData)
+        {
+        }
     }
 }
