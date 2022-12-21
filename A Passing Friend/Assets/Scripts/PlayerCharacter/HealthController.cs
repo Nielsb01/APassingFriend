@@ -26,7 +26,7 @@ public class HealthController : MonoBehaviour
     private float _health;
     private bool _isDead;
     private bool _isParticling;
-    
+
     public delegate void PlayerEvent();
     public static event PlayerEvent Died;
 
@@ -53,6 +53,14 @@ public class HealthController : MonoBehaviour
         _lightLevel = _lightCheckScript.lightLevel;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wator"))
+        {
+            Die();
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!_calculateLight || _isDead) return;
@@ -71,7 +79,6 @@ public class HealthController : MonoBehaviour
                 Heal();
             }
         }
-        
     }
 
     private void TakeDamage()
@@ -101,7 +108,7 @@ public class HealthController : MonoBehaviour
     private void Die()
     {
         Died?.Invoke();
-        SetPlayerInactive(true);
+        DisablePlayer(true);
 
         _dyingParticleSystem.Play();
         Instantiate(_catBones, transform.position, transform.rotation);
@@ -113,21 +120,20 @@ public class HealthController : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         _dataPersistenceManager.LoadGame();
-        
-        SetPlayerInactive(false);
+
+        DisablePlayer(false);
 
         _health = _maxHealth;
     }
 
-    private void SetPlayerInactive(bool boolean)
+    private void DisablePlayer(bool state)
     {
-        _isDead = boolean;
-        boolean = !boolean;
-        
-        transform.GetComponent<CharacterController>().enabled = boolean;
-        GetComponent<CharacterMovementScript>().enabled = boolean;
+        _isDead = state;
+
+        transform.GetComponent<CharacterController>().enabled = !state;
+        GetComponent<CharacterMovementScript>().enabled = !state;
         // Set model inactive
-        transform.GetChild(0).gameObject.SetActive(boolean);
+        transform.GetChild(0).gameObject.SetActive(!state);
     }
 
     private void CreateDamageParticles()
