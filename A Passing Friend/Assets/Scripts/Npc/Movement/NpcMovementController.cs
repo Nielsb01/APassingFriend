@@ -24,6 +24,7 @@ namespace Npc
         private float _resumeMovementSpeed;
 
         private NpcAnimationController _npcAnimationController;
+
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -43,6 +44,7 @@ namespace Npc
             {
                 GoToNextWaypoint(false);
             }
+
             _npcAnimationController = GetComponent<NpcAnimationController>();
         }
 
@@ -136,7 +138,7 @@ namespace Npc
             {
                 _navMeshAgent.speed = newMovementSpeed;
             }
-            
+
             SetAnimation(_pathNodeController.GetAnimationToPlay);
 
             var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;

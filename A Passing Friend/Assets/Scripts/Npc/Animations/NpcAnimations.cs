@@ -3,4 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum NpcAnimations
-{ none, startPickup, stopPickup, startTalking, stopTalking, startWalking, stopWalking}
+{
+    none,
+    startPickup,
+    stopPickup,
+    startTalking,
+    stopTalking,
+    startWalking,
+    stopWalking
+}

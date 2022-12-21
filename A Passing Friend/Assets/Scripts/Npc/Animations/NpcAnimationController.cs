@@ -9,11 +9,11 @@ public class NpcAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator _npcAnimator;
     private float _npcSpeed;
-    private bool _npcIsTalking; 
+    private bool _npcIsTalking;
     private bool _npcIsPickingUp;
     private NavMeshAgent _navMeshAgent;
-    
-    public void Awake()
+
+    public void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -26,18 +26,19 @@ public class NpcAnimationController : MonoBehaviour
     public void SetNpcSpeed(float npcSpeed)
     {
         _npcSpeed = npcSpeed;
-        _npcAnimator.SetFloat("speed",_npcSpeed);
+        _npcAnimator.SetFloat("speed", _npcSpeed);
     }
+
     public void SetNpcTalking(bool npcIsTalking)
     {
         _npcIsTalking = npcIsTalking;
-        _npcAnimator.SetBool("isTalking",_npcIsTalking);
+        _npcAnimator.SetBool("isTalking", _npcIsTalking);
     }
 
     public void SetNpcIsPickingup(bool npcIsPickingUp)
     {
         _npcIsPickingUp = npcIsPickingUp;
-        _npcAnimator.SetBool("isTakingItem",_npcIsPickingUp);
+        _npcAnimator.SetBool("isTakingItem", _npcIsPickingUp);
     }
 
     public void SetAnimationState(NpcAnimations animation)
