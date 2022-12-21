@@ -25,6 +25,8 @@ namespace Npc
         private bool _teleportingBallAfterTeleport;
         private float _resumeMovementSpeed;
 
+        private NpcAnimationController _npcAnimationController;
+
         private void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -44,6 +46,8 @@ namespace Npc
             {
                 GoToNextWaypoint(false);
             }
+
+            _npcAnimationController = GetComponent<NpcAnimationController>();
         }
 
         private void Update()
@@ -137,6 +141,8 @@ namespace Npc
                 _navMeshAgent.speed = newMovementSpeed;
             }
 
+            SetAnimation(_pathNodeController.GetAnimationToPlay);
+
             var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;
             if (!SettingDisabled(waitTimeAtThisNode))
             {
@@ -181,6 +187,14 @@ namespace Npc
             return value == -1;
         }
 
+        private void SetAnimation(NpcAnimations npcAnimation)
+        {
+            if (npcAnimation != NpcAnimations.none && _npcAnimationController != null)
+            {
+                _npcAnimationController.SetAnimationState(npcAnimation);
+            }
+        }
+
         private IEnumerator WaitForSeconds(float time)
         {
             PauseNpc();
@@ -197,7 +211,9 @@ namespace Npc
         public void UnpauseNpc()
         {
             _navMeshAgent.speed = _resumeMovementSpeed;
+            SetAnimation(_pathNodeController.GetAnimationToPlayOnExit);
         }
+        
         
         public void LoadData(GameData gameData)
         {
@@ -234,7 +250,5 @@ namespace Npc
                 }
             }
         }
-
-        public void SaveData(ref GameData gameData) { }
     }
 }
