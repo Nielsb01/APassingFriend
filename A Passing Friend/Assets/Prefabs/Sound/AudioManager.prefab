@@ -66,6 +66,7 @@ MonoBehaviour:
   _player: {fileID: 0}
   _forrestBoundaries: {fileID: 0}
   _villageBoundaries: {fileID: 0}
+  _treeBoundaries: {fileID: 0}
   _forrestMusicEventPath:
     Guid:
       Data1: 1493820879
@@ -87,7 +88,13 @@ MonoBehaviour:
       Data3: -176017277
       Data4: 183396299
     Path: event:/Music/VillageNightMusicEvent
-  _dayNightToggler: {fileID: 0}
+  _treeEventPath:
+    Guid:
+      Data1: 1695962927
+      Data2: 1284503958
+      Data3: 1984409000
+      Data4: -284681011
+    Path: event:/Music/TreeMusic
   _environmentObjects:
   - {fileID: 0}
   - {fileID: 0}

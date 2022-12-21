@@ -7,7 +7,8 @@ enum SoundState : ushort
     UNDEFINED = 0,
     FORREST = 1,
     VILLAGE_DAY = 2,
-    VILLAGE_NIGHT = 3
+    VILLAGE_NIGHT = 3,
+    TREE_VIEW = 4
 }
 
 public class SoundController : MonoBehaviour, IDataPersistence
@@ -16,11 +17,13 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject _player;
     [SerializeField] private Collider _forrestBoundaries;
     [SerializeField] private Collider _villageBoundaries;
-    
+    [SerializeField] private Collider _treeBoundaries;
+
     [Header("Sound Events")]
     [SerializeField] private FMODUnity.EventReference _forrestMusicEventPath;
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
+    [SerializeField] private FMODUnity.EventReference _treeEventPath;
 
     [Header("Sound Objects")]
     [SerializeField] private List<GameObject> _environmentObjects;
@@ -28,6 +31,8 @@ public class SoundController : MonoBehaviour, IDataPersistence
     // Member variables for keeping track of the game state
     private bool _isDay = true;
     private SoundState _state = SoundState.UNDEFINED;
+    private bool _playerEnteredTreeViewPlatform = false;
+    private bool _treeMusicPlayed = false;
 
 
     public void Awake()
@@ -111,6 +116,19 @@ public class SoundController : MonoBehaviour, IDataPersistence
                 // Night
                 newState = SoundState.VILLAGE_NIGHT;
             }
+
+            bool playerInTree = _treeBoundaries.bounds.Contains(_player.transform.position);
+            if ((_treeMusicPlayed == false) && playerInTree)
+            {
+                // Player in tree
+                newState = SoundState.TREE_VIEW;
+                _playerEnteredTreeViewPlatform = true;
+            }
+            else if ((_treeMusicPlayed == false) && (playerInTree == false) && (_playerEnteredTreeViewPlatform))
+            {
+                // Wait for player to leave the tree view spot before changing music
+                _treeMusicPlayed = true;
+            }
         }
 
         return newState;
@@ -133,6 +151,11 @@ public class SoundController : MonoBehaviour, IDataPersistence
             case SoundState.VILLAGE_NIGHT:
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(_villageNightEventPath);
+                    break;
+                }
+            case SoundState.TREE_VIEW:
+                {
+                    FMODUnity.RuntimeManager.PlayOneShot(_treeEventPath);
                     break;
                 }
         }
