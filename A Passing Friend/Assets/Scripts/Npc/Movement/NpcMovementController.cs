@@ -27,7 +27,7 @@ namespace Npc
 
         private NpcAnimationController _npcAnimationController;
 
-        private void Start()
+        private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             if (_defaultWaypointRounding < MINIMUM_ROUNDING)
@@ -95,7 +95,6 @@ namespace Npc
                 }
             }
             _currentTravelDestinationNode = _waypointsRoute.First();
-            Debug.Log(name + " Hugo ik ben dit null: " + (_navMeshAgent == null));
             _navMeshAgent.destination = _currentTravelDestinationNode.transform.position;
             _pathNodeController = _currentTravelDestinationNode.GetComponent<PathNodeController>();
             SetRoundingForNextNode();
