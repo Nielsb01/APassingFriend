@@ -212,10 +212,26 @@ namespace Npc
                 transform.rotation = _npcLoadLocation.transform.rotation;
             }
 
-            if (gameObject.name.Equals("Yarn") && gameData.questOneState == QuestState.PickedUp)
+            if (gameObject.name.Equals("Yarn"))
             {
-                transform.parent.gameObject.active = false;
-                //Implement ball being picked up by cat
+                switch (gameData.questOneState)
+                {
+                    case QuestState.Unavailable:
+                        break;
+                    case QuestState.Available:
+                        break;
+                    case QuestState.Active:
+                        StartRoute(GameObject.FindGameObjectWithTag("YarnRoute").GetComponent<WaypointRoute>());
+                        break;
+                    case QuestState.PickedUp:
+                        transform.parent.gameObject.active = false;
+                        //Implement ball being picked up by cat
+                        break;
+                    case QuestState.Completed:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
