@@ -441,7 +441,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     // Methods for handling sound
     private IEnumerator OnJumpStart()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(_jumpingEventPath);
+        var audioEvent = FMODUnity.RuntimeManager.CreateInstance(_jumpingEventPath);
+        audioEvent.start();
 
         // Wait 100 milliseconds for waiting for jump start
         const float delay = 0.1f;
@@ -458,7 +459,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnJumpLand()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
+        var audioEvent = FMODUnity.RuntimeManager.CreateInstance(_landingEventPath);
+        audioEvent.start();
     }
 
     private void HandleMovementSound()

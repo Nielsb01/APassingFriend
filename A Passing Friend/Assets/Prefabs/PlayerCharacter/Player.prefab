@@ -5792,6 +5792,20 @@ MonoBehaviour:
   _damagePerFrame: 1
   _lightToHealingThreshold: 0
   _regenerationMultiplier: 5
+  _dyingAudioEvent:
+    Guid:
+      Data1: 1043789581
+      Data2: 1254738157
+      Data3: 285934502
+      Data4: -1098244858
+    Path: event:/Effects/Cat/Hit
+  _deadAudioEvent:
+    Guid:
+      Data1: -634616605
+      Data2: 1231246099
+      Data3: 155573403
+      Data4: -1867060161
+    Path: event:/Effects/Cat/Falling Bones
 --- !u!114 &7332943536989260280
 MonoBehaviour:
   m_ObjectHideFlags: 0
