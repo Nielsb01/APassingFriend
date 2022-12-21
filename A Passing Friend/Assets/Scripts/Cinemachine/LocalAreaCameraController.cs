@@ -11,6 +11,7 @@ namespace Camera
         private CameraController _cameraController;
 
 
+        //used by visual state machine
         public void ActivateLocalCam(Transform followTarget, CameraController cameraController)
         {
             CamErrorHandler.ThrowErrorIfCamIsNotSet(_virtualCamera);
@@ -24,6 +25,7 @@ namespace Camera
             }
         }
 
+        //used by visual state machine
         public void DeactivateLocalCam()
         {
             _virtualCamera.Priority = (int)CameraState.Inactive;
