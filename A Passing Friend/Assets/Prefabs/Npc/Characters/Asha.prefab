@@ -293,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,
         type: 3}
@@ -315,6 +315,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5293889835202695919, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _navMeshAgent
+      value: 
+      objectReference: {fileID: 1429920583906436331}
     m_RemovedComponents:
     - {fileID: 0}
     m_AddedGameObjects:
@@ -356,6 +361,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcAnimator: {fileID: 4003830786832051848}
+--- !u!195 &1429920583906436331 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 5293889835202695913, guid: 24c2933a3e903b04a87422d09cc5dd42,
+    type: 3}
+  m_PrefabInstance: {fileID: 6534641627532490242}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1429920583906436334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5293889835202695916, guid: 24c2933a3e903b04a87422d09cc5dd42,

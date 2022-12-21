@@ -16,7 +16,7 @@ namespace Npc
         [SerializeField] private WaypointRoute _route;
         [SerializeField] private GameObject _followingChild;
         [SerializeField] private GameObject _npcLoadLocation;
-        private NavMeshAgent _navMeshAgent;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
         private float _waypointRoundingForNextNode;
         private GameObject _currentTravelDestinationNode;
         private const float MINIMUM_ROUNDING = 0.1f;
@@ -27,9 +27,9 @@ namespace Npc
 
         private NpcAnimationController _npcAnimationController;
 
-        private void Awake()
+        private void Start()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
+            //_navMeshAgent = GetComponent<NavMeshAgent>();
             if (_defaultWaypointRounding < MINIMUM_ROUNDING)
             {
                 _defaultWaypointRounding = MINIMUM_ROUNDING;
