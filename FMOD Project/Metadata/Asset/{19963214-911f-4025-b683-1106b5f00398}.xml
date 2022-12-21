@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="EncodableAsset" id="{19963214-911f-4025-b683-1106b5f00398}">
 		<property name="assetPath">
-			<value>Asha/Gibberish/1st interaction /</value>
+			<value>Asha/Gibberish/1. 1st interaction/</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{f3ccfe0a-4f9d-4604-8324-417a2d72bdb7}</destination>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{60417101-872e-4da4-b4e3-f4cc622c156b}">
 		<property name="assetPath">
-			<value>Asha/Gibberish/1st interaction /1_1.wav</value>
+			<value>Asha/Gibberish/1. 1st interaction/1_1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
