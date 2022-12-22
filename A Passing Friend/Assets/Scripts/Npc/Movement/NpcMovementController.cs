@@ -241,7 +241,6 @@ namespace Npc
                         break;
                     case QuestState.PickedUp:
                         Destroy(transform.parent.gameObject);
-                        // transform.parent.gameObject.active = false;
                         //Implement ball being picked up by cat
                         break;
                     case QuestState.Completed:
