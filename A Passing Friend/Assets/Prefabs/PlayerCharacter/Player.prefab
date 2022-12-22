@@ -144,7 +144,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -5555,7 +5555,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.030240905, y: 0.012990761, z: -0.00039306536, w: 0.9994582}
+  m_LocalRotation: {x: 0.030240903, y: 0.012990762, z: -0.00039306536, w: 0.9994582}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5621,7 +5621,6 @@ GameObject:
   - component: {fileID: 1511284601380852664}
   - component: {fileID: 2329919025992493583}
   - component: {fileID: 8465396575841647880}
-  - component: {fileID: 4623823328939751203}
   - component: {fileID: 1496128325689347110}
   - component: {fileID: 7332943536989260280}
   - component: {fileID: 2641950050642521462}
@@ -5751,21 +5750,8 @@ CharacterController:
   m_Radius: 0.15
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.2, z: 0}
---- !u!65 &4623823328939751203
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429239326883995322}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!114 &1496128325689347110
 MonoBehaviour:
@@ -6458,7 +6444,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -11439,7 +11425,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -11582,7 +11568,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -11691,7 +11677,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -16803,7 +16789,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -21940,7 +21926,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -22049,7 +22035,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
@@ -22190,7 +22176,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8759
+    m_Bits: 26167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 3a4798ec85f642f46b61aa7288bcf333, type: 2}
   m_TargetDisplay: 0
