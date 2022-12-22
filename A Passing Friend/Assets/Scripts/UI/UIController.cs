@@ -675,8 +675,6 @@ public class UIController : MonoBehaviour
 
             _isInMemory = true;
 
-            _characterMovementScript.FreezeMovement(true, true);
-
             _memoryImage.visible = true;
 
             var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
@@ -698,13 +696,15 @@ public class UIController : MonoBehaviour
     private IEnumerator HideMemoryImage()
 #pragma warning restore S2190
     {
+        Time.timeScale = 0;
+
         yield return new WaitForSecondsRealtime(5);
 
         _isInMemory = false;
 
         _memoryImage.visible = false;
 
-        _characterMovementScript.FreezeMovement(false, false);
+        Time.timeScale = 1;
 
         StopCoroutine(HideMemoryImage());
     }
