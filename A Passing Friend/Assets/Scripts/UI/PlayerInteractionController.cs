@@ -69,7 +69,7 @@ public class PlayerInteractionController : MonoBehaviour
             _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
-        if (_outline != null)
+        if (_playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc"))
         {
             if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
             {
