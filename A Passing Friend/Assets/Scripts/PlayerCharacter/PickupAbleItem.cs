@@ -45,12 +45,8 @@ public class PickupAbleItem : MonoBehaviour
         {
             _rigidbody.isKinematic = true;
         }
-    }
 
-    private void OnTest()
-    {
-        // to be deleted when PR is approved.
-        InvokePickedUpQuestItem();
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     private void InvokePickedUpQuestItem()
@@ -69,6 +65,8 @@ public class PickupAbleItem : MonoBehaviour
         if (_rigidbody != null)
         {
             _rigidbody.isKinematic = false;
-        } 
+        }
+
+        gameObject.layer = LayerMask.NameToLayer("Pickup");
     }
 }

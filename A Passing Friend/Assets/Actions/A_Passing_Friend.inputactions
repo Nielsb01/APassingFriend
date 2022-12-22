@@ -76,15 +76,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Test",
-                    "type": "Button",
-                    "id": "fae56d87-6153-4e76-bd1a-a6833d8e6f8d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -360,17 +351,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d45fbcea-9fe3-4ae0-8797-b6f279fb510e",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -93,6 +94,10 @@ public class UIController : MonoBehaviour
     [Header("Memories")]
     [SerializeField] private List<Texture2D> _memoryImages = new List<Texture2D>();
 
+    private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
+
+    private bool isInMemory = false;
+
 
     // Screen
     [Header("Screen")]
@@ -148,6 +153,11 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
+        foreach (var memory in _memoryImages)
+        {
+            _memoryImagesDictionairy.Add(memory, false);
+        }
+
         // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
@@ -159,7 +169,7 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
     {
         // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange)
+        if (!_isInInteractRange && !isInMemory)
         {
             _characterMovementScript.FreezeMovement(false, false);
         }
@@ -647,11 +657,18 @@ public class UIController : MonoBehaviour
     **/
     private void ShowMemoryImage(QuestState questState, int memoryNr)
     {
+        isInMemory = true;
+
         _characterMovementScript.FreezeMovement(true, true);
         _memoryImage.visible = true;
-        _memoryImage.style.backgroundImage = _memoryImages[memoryNr];
+
+        var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
+        var memoryKey = memory.Key;
+        _memoryImage.style.backgroundImage = memoryKey;
 
         StartCoroutine(HideMemoryImage());
+
+        _memoryImagesDictionairy.Remove(memory.Key);
     }
 
     /**
@@ -665,8 +682,11 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(5);
 
+        isInMemory = false;
+
         _memoryImage.visible = false;
         _characterMovementScript.FreezeMovement(false, false);
+
         StopCoroutine(HideMemoryImage());
     }
 

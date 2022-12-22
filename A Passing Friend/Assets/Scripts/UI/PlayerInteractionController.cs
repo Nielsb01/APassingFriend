@@ -31,18 +31,19 @@ public class PlayerInteractionController : MonoBehaviour
 
     private void Update()
     {
+        ShowPlayerCanInteract();
+
         if (_playerFov.pickup == null)
         {
             NpcInteracting();
         }
     }
 
-    private void NpcInteracting()
+    private void ShowPlayerCanInteract()
     {
         if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
         {
             _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
-            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
         }
 
         if (_outline != null)
@@ -52,13 +53,31 @@ public class PlayerInteractionController : MonoBehaviour
                 _outline.enabled = true;
                 _ui.SetIsInInteractRange(true);
                 _ui.SetInteractBoxVisible();
+            }
+            else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
+            {
+                _ui.SetIsInInteractRange(false);
+                _outline.enabled = false;
+            }
+        }
+    }
+
+    private void NpcInteracting()
+    {
+        if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
+        {
+            _npcDialogBuilder = _playerFov.TargetRef.transform.GetComponent<DialogBuilder>();
+        }
+
+        if (_outline != null)
+        {
+            if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
+            {
                 _ui.SetDialogBuilder(_npcDialogBuilder);
                 _ui.SetIsDialogBuilderSet(true);
             }
             else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
             {
-                _outline.enabled = false;
-                _ui.SetIsInInteractRange(false);
                 _ui.SetIsDialogBuilderSet(false);
             }
         }
