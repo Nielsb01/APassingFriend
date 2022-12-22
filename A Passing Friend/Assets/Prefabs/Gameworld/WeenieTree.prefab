@@ -463,7 +463,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 813491669989109722}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &7275428355684639188
+--- !u!64 &2647263746928752895
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -477,7 +477,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 362072582840180946, guid: fbce3aa9dcfd2634cbe6b1c75b73d0f1, type: 3}
---- !u!64 &2647263746928752895
+--- !u!64 &7275428355684639188
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -737,7 +737,7 @@ PrefabInstance:
     - target: {fileID: 1527812422597967029, guid: c6629a9edf638084488df3e857a987f8,
         type: 3}
       propertyPath: _lockOrientation
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1527812422597967033, guid: c6629a9edf638084488df3e857a987f8,
         type: 3}
