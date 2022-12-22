@@ -450,27 +450,34 @@ public class UIController : MonoBehaviour
     // Set the actual dialog text and character name.
     private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
-        var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
-
-        if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
+        try
         {
-            if (_currentAudioEventInstance.HasValue)
+            var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
+
+            if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
             {
-                _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                if (_currentAudioEventInstance.HasValue)
+                {
+                    _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                }
+
+                var rEvent = audioEventList[_currentTextNr ?? default];
+                _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
+                _currentAudioEventInstance.Value.start();
+            }
+            else if (_currentTextNr.HasValue)
+            {
+                throw new Exception("Dialog can't find audio event for: " + text);
             }
 
-            var rEvent = audioEventList[_currentTextNr ?? default];
-            _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
-            _currentAudioEventInstance.Value.start();
+            _dialogBoxDialog.visible = true;
+            _dialogBoxCharName.text = charName;
+            _dialogBoxText.text = text;
         }
-        else if (_currentTextNr.HasValue)
+        catch
         {
-            throw new Exception("Dialog can't find audio event for: " + text);
+            Debug.LogError("no audio events found for: " + text);
         }
-
-        _dialogBoxDialog.visible = true;
-        _dialogBoxCharName.text = charName;
-        _dialogBoxText.text = text;
     }
 
     // Set the dialog builder from the NPC.
