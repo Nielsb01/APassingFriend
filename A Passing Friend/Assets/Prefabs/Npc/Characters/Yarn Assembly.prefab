@@ -130,6 +130,8 @@ MonoBehaviour:
   _patrolling: 1
   _route: {fileID: 0}
   _followingChild: {fileID: 4428121691826300924}
+  _npcLoadLocation: {fileID: 0}
+  _navMeshAgent: {fileID: 4428121692145940621}
 --- !u!195 &4428121692145940621
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -201,7 +203,7 @@ Transform:
   - {fileID: 4428121692145940611}
   - {fileID: 4428121691826300913}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6761924802564070635
 PrefabInstance:
