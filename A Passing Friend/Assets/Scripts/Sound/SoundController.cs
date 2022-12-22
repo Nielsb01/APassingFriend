@@ -13,20 +13,23 @@ enum SoundState : ushort
 
 public class SoundController : MonoBehaviour, IDataPersistence
 {
-    [Header("Geopositional Settings")]
-    [SerializeField] private GameObject _player;
+    [Header("Geopositional Settings")] [SerializeField]
+    private GameObject _player;
+
     [SerializeField] private Collider _forrestBoundaries;
     [SerializeField] private Collider _villageBoundaries;
     [SerializeField] private Collider _treeBoundaries;
 
-    [Header("Sound Events")]
-    [SerializeField] private FMODUnity.EventReference _forrestMusicEventPath;
+    [Header("Sound Events")] [SerializeField]
+    private FMODUnity.EventReference _forrestMusicEventPath;
+
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
     [SerializeField] private FMODUnity.EventReference _treeEventPath;
 
-    [Header("Sound Objects")]
-    [SerializeField] private List<GameObject> _environmentObjects;
+    [Header("Sound Objects")] [SerializeField]
+    private List<GameObject> _environmentObjects;
+
     [SerializeField] private List<GameObject> _environmentDayObjects;
     [SerializeField] private List<GameObject> _environmentNightObjects;
 
@@ -35,6 +38,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     private SoundState _state = SoundState.UNDEFINED;
     private bool _playerEnteredTreeViewPlatform = false;
     private bool _treeMusicPlayed = false;
+    private bool _playerInTree = false;
 
 
     public void Awake()
@@ -100,7 +104,6 @@ public class SoundController : MonoBehaviour, IDataPersistence
                 {
                     obj.SetActive(true);
                 }
-
             }
             else
             {
@@ -145,14 +148,13 @@ public class SoundController : MonoBehaviour, IDataPersistence
                 newState = SoundState.VILLAGE_NIGHT;
             }
 
-            bool playerInTree = _treeBoundaries.bounds.Contains(_player.transform.position);
-            if ((_treeMusicPlayed == false) && playerInTree)
+            if ((_treeMusicPlayed == false) && _playerInTree)
             {
                 // Player in tree
                 newState = SoundState.TREE_VIEW;
                 _playerEnteredTreeViewPlatform = true;
             }
-            else if ((_treeMusicPlayed == false) && (playerInTree == false) && (_playerEnteredTreeViewPlatform))
+            else if ((_treeMusicPlayed == false) && (_playerInTree == false) && (_playerEnteredTreeViewPlatform))
             {
                 // Wait for player to leave the tree view spot before changing music
                 _treeMusicPlayed = true;
@@ -162,31 +164,35 @@ public class SoundController : MonoBehaviour, IDataPersistence
         return newState;
     }
 
+    public void SetPlayerInTree(bool state)
+    {
+        _playerInTree = state;
+    }
+
     private void LoadBackgroundMusic(SoundState newState)
     {
         switch (newState)
         {
             case SoundState.FORREST:
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot(_forrestMusicEventPath);
-                    break;
-                }
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(_forrestMusicEventPath);
+                break;
+            }
             case SoundState.VILLAGE_DAY:
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot(_villageDayEventPath);
-                    break;
-                }
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(_villageDayEventPath);
+                break;
+            }
             case SoundState.VILLAGE_NIGHT:
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot(_villageNightEventPath);
-                    break;
-                }
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(_villageNightEventPath);
+                break;
+            }
             case SoundState.TREE_VIEW:
-                {
-                    FMODUnity.RuntimeManager.PlayOneShot(_treeEventPath);
-                    break;
-                }
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(_treeEventPath);
+                break;
+            }
         }
     }
-
 }
