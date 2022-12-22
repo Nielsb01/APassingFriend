@@ -27,6 +27,8 @@ public class SoundController : MonoBehaviour, IDataPersistence
 
     [Header("Sound Objects")]
     [SerializeField] private List<GameObject> _environmentObjects;
+    [SerializeField] private List<GameObject> _environmentDayObjects;
+    [SerializeField] private List<GameObject> _environmentNightObjects;
 
     // Member variables for keeping track of the game state
     private bool _isDay = true;
@@ -61,6 +63,16 @@ public class SoundController : MonoBehaviour, IDataPersistence
             obj.SetActive(false);
         }
 
+        foreach (var obj in _environmentDayObjects)
+        {
+            obj.SetActive(false);
+        }
+
+        foreach (var obj in _environmentNightObjects)
+        {
+            obj.SetActive(false);
+        }
+
         var mainBus = FMODUnity.RuntimeManager.GetBus("bus:/");
         mainBus.stopAllEvents(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
@@ -80,6 +92,22 @@ public class SoundController : MonoBehaviour, IDataPersistence
             foreach (var obj in _environmentObjects)
             {
                 obj.SetActive(true);
+            }
+
+            if (newState == SoundState.VILLAGE_NIGHT)
+            {
+                foreach (var obj in _environmentNightObjects)
+                {
+                    obj.SetActive(true);
+                }
+
+            }
+            else
+            {
+                foreach (var obj in _environmentDayObjects)
+                {
+                    obj.SetActive(true);
+                }
             }
 
             _state = newState;
