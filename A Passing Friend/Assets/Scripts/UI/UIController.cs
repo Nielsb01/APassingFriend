@@ -45,7 +45,8 @@ public class UIController : MonoBehaviour
 
     private string _npcName;
 
-    [Header("Dialog Builder")] [SerializeField]
+    [Header("Dialog Builder")]
+    [SerializeField]
     private DialogBuilder _dialogBuilder;
 
     private DialogObject _chosenDialogOption;
@@ -64,21 +65,24 @@ public class UIController : MonoBehaviour
     // Jump charge bar
     private JumpChargeBar _jumpChargeBar;
 
-    [Header("Jump Charge Bar")] [SerializeField]
+    [Header("Jump Charge Bar")]
+    [SerializeField]
     private float _minJumpCharge = 0;
 
     [SerializeField] private float _maxJumpCharge;
 
     [SerializeField] private float _overchargeJumpModifier = 1f; // the modifier used to determine how far the bar overcharges visually.
-  
+
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
 
-    [SerializeField] [Range(0, 2)]
+    [SerializeField]
+    [Range(0, 2)]
     private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
 
 
     // Character Movement
-    [Header("External scripts")] [SerializeField]
+    [Header("External scripts")]
+    [SerializeField]
     private CharacterMovementScript _characterMovementScript;
 
 
@@ -669,7 +673,7 @@ public class UIController : MonoBehaviour
     **/
     private void ShowMemoryImage(QuestState questState)
     {
-        if (_memoryImagesDictionairy.ContainsValue(false)) 
+        if (_memoryImagesDictionairy.ContainsValue(false))
         {
             _interactBox.visible = false;
 
@@ -682,7 +686,7 @@ public class UIController : MonoBehaviour
             _memoryImage.style.backgroundImage = memoryKey;
 
             StartCoroutine(HideMemoryImage());
-            
+
             _memoryImagesDictionairy[memory.Key] = true;
         }
     }

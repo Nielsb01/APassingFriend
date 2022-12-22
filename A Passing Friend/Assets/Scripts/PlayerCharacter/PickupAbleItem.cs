@@ -13,6 +13,7 @@ public class PickupAbleItem : MonoBehaviour
     public delegate void PickedUpQuestItemEvent(QuestState questState);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
     [SerializeField] private bool _isQuestItem = false;
+    private bool _memoryHasPlayed = false;
 
     
     private void Awake()
@@ -22,7 +23,7 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_isQuestItem)
+        if (_isQuestItem && !_memoryHasPlayed)
         {
             InvokePickedUpQuestItem();
         }
@@ -51,6 +52,7 @@ public class PickupAbleItem : MonoBehaviour
     private void InvokePickedUpQuestItem()
     {
         PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        _memoryHasPlayed = true;
     }
 
     public void Drop()
