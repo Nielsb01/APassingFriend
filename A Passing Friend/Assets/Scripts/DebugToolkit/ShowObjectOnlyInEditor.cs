@@ -8,9 +8,14 @@ namespace DebugToolkit
         {
             GetComponent<Renderer>().enabled = false;
             var lightComp = GetComponent<Light>();
+            var meshCollider = GetComponent<MeshCollider>();
             if (lightComp != null)
             {
                 lightComp.enabled = false;
+            }
+            if (meshCollider != null)
+            {
+                meshCollider.enabled = false;
             }
         }
     }

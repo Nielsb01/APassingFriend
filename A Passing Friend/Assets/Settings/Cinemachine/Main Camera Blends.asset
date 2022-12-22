@@ -89,11 +89,11 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 0
-  - m_From: CM Follow cam DEFAULT
+  - m_From: '**ANY CAMERA**'
     m_To: CM Flyby
     m_Blend:
       m_Style: 1
-      m_Time: 2
+      m_Time: 4
       m_CustomCurve:
         serializedVersion: 2
         m_Curve:
