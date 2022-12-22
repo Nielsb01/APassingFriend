@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 public class UIController : MonoBehaviour
 {
     // UI
-    [Header("Interaction")]
-    private GroupBox _interactBox;
+    [Header("Interaction")] private GroupBox _interactBox;
 
     private bool _isInInteractRange;
 
@@ -33,8 +32,7 @@ public class UIController : MonoBehaviour
 
     private VisualElement _root;
 
-    [Header("Dialog")]
-    [SerializeField] private bool _isDialogExitButtonVisible = false;
+    [Header("Dialog")] [SerializeField] private bool _isDialogExitButtonVisible = false;
 
     private Button _dialogBoxExitButton;
 
@@ -44,8 +42,8 @@ public class UIController : MonoBehaviour
 
     private string _npcName;
 
-    [Header("Dialog Builder")]
-    [SerializeField] private DialogBuilder _dialogBuilder;
+    [Header("Dialog Builder")] [SerializeField]
+    private DialogBuilder _dialogBuilder;
 
     private DialogObject _chosenDialogOption;
 
@@ -63,22 +61,26 @@ public class UIController : MonoBehaviour
     // Jump charge bar
     private JumpChargeBar _jumpChargeBar;
 
-    [Header("Jump Charge Bar")]
-    [SerializeField] private float _minJumpCharge = 0;
+    [Header("Jump Charge Bar")] [SerializeField]
+    private float _minJumpCharge = 0;
 
     [SerializeField] private float _maxJumpCharge;
 
-    [SerializeField] private float _overchargeJumpModifier = 1.2f; // the modifier used to determine how far the bar overcharges visually, always 0.1 less than the width of the overcharge bar.
-  
+    [SerializeField]
+    private float
+        _overchargeJumpModifier =
+            1.2f; // the modifier used to determine how far the bar overcharges visually, always 0.1 less than the width of the overcharge bar.
+
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
-    
-    [SerializeField] [Range(0, 2)] private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
+
+    [SerializeField] [Range(0, 2)]
+    private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
 
 
     // Character Movement
-    [Header("External scripts")]
-    [SerializeField] private CharacterMovementScript _characterMovementScript;
-    
+    [Header("External scripts")] [SerializeField]
+    private CharacterMovementScript _characterMovementScript;
+
 
     // Health
     [SerializeField] private HealthController _healthController;
@@ -87,20 +89,21 @@ public class UIController : MonoBehaviour
 
 
     // Screen
-    [Header("Screen")]
-    [SerializeField] private int _lastScreenWidth;
+    [Header("Screen")] [SerializeField] private int _lastScreenWidth;
 
     [SerializeField] private int _lastScreenHeight;
-    
-    
+
+
     // Event
     public delegate void DialogEvent();
+
     public static event DialogEvent DialogExited;
-    
+
     private void OnEnable()
     {
         HealthController.Died += PlayerDies;
     }
+
     private void OnDisable()
     {
         HealthController.Died -= PlayerDies;
@@ -110,10 +113,10 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         _root = GetComponent<UIDocument>().rootVisualElement;
-        
+
         // Interaction
         _interactBox = _root.Q<GroupBox>("interact-box");
-        
+
         // Dialog
         _dialogBox = _root.Q<VisualElement>("dialog-box");
         _dialogBoxDialog = _root.Q<GroupBox>("dialog-box-dialog");
@@ -149,7 +152,6 @@ public class UIController : MonoBehaviour
         {
             _characterMovementScript.FreezeMovement(false, false);
         }
-
     }
 
     private void Update()
@@ -176,7 +178,7 @@ public class UIController : MonoBehaviour
             UnsetDialogCamera();
             UnsetNpcCamera();
 
-            if (UnityEngine.Cursor.visible) 
+            if (UnityEngine.Cursor.visible)
             {
                 UnityEngine.Cursor.lockState = CursorLockMode.Locked;
                 UnityEngine.Cursor.visible = false;
@@ -279,7 +281,7 @@ public class UIController : MonoBehaviour
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
-        
+
         if (_dialogBuilder.GetEndedConversation()) return;
 
         // If the interaction box is not visible (A.K.A. if the player is not in interaction range with a NPC.) do not start or continue dialog.
@@ -304,7 +306,7 @@ public class UIController : MonoBehaviour
             _dialogBoxExitButton.SetEnabled(true);
             _dialogBoxExitButton.clickable.clickedWithEventInfo += ClickedDialogBoxExitButton;
 
-            if (!UnityEngine.Cursor.visible) 
+            if (!UnityEngine.Cursor.visible)
             {
                 UnityEngine.Cursor.lockState = CursorLockMode.None;
                 UnityEngine.Cursor.visible = true;
@@ -321,7 +323,14 @@ public class UIController : MonoBehaviour
                 _currentTextNr = -1;
             }
 
-            SetNpcCamera();
+            if (_chosenDialogOption != null && _chosenDialogOption.GetDialogCamera() != null)
+            {
+                SetDialogCamera();
+            }
+            else
+            {
+                SetNpcCamera(); 
+            }
         }
 
         // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
@@ -375,19 +384,19 @@ public class UIController : MonoBehaviour
             UnsetNpcCamera();
         }
 
-        if (_dialogBuilder != null &&_dialogBuilder.GetOneTimeConversation())
+        if (_dialogBuilder != null && _dialogBuilder.GetOneTimeConversation())
         {
             _dialogBuilder.SetEndedConversation(true);
         }
-        
+
         _dialogBuilder.SetCanSwitchDialog(true);
 
-        if (UnityEngine.Cursor.visible) 
+        if (UnityEngine.Cursor.visible)
         {
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
-        
+
         DialogExited?.Invoke();
     }
 
@@ -416,6 +425,7 @@ public class UIController : MonoBehaviour
             _dialogBoxChoiceButtons[counter].clickable.clickedWithEventInfo += ClickedDialogBoxChoiceButton;
             counter++;
         }
+
         SetDialogIntroText(_dialogBuilder.GetIntroText());
         UnsetDialogCamera();
 
@@ -436,6 +446,7 @@ public class UIController : MonoBehaviour
             dialogButton.visible = false;
             dialogButton.SetEnabled(false);
         }
+
         var button = tab.target as Button;
         var buttonNr = Regex.Match(button.name, @"\d+").Value;
         _choiceClicked = Convert.ToInt32(buttonNr) - 1;
@@ -484,6 +495,7 @@ public class UIController : MonoBehaviour
         {
             return;
         }
+
         _dialogBuilder = dialogBuilder;
         SetDialogWithChoice();
         var counter = 1;
@@ -492,6 +504,7 @@ public class UIController : MonoBehaviour
             _dialogBoxChoiceButtons.Add(_root.Q<Button>("dialog-box-choice-button-" + counter));
             counter++;
         }
+
         foreach (var dialogButton in _dialogBoxChoiceButtons)
         {
             dialogButton.visible = false;
@@ -499,7 +512,6 @@ public class UIController : MonoBehaviour
         }
 
         ChangeButtonFontDynamically();
-
     }
 
     // Set the dialog of the choice the player clicked on.
@@ -510,7 +522,6 @@ public class UIController : MonoBehaviour
         _dialogTextList = _chosenDialogOption.GetDialog();
         _npcName = _dialogBuilder.GetNameOfNpc();
         _npcCamera = _dialogBuilder.GetNpcCamera();
-
     }
 
     /* 
@@ -522,19 +533,19 @@ public class UIController : MonoBehaviour
     // Alter the health vignette based on the amount of damage the player got.
     private void AlterHealthVignette()
     {
-        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b, _healthController.GetVignetteTransparency());
+        _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b,
+            _healthController.GetVignetteTransparency());
     }
-    
+
     private void PlayerDies()
     {
         try
         {
             TurnOffDialog();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            var b = e;
-            Debug.Log("3631");
+            // ignored Super hard
         }
     }
 
@@ -548,7 +559,8 @@ public class UIController : MonoBehaviour
     private void ChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
-        _currentJumpCharge = Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * _overchargeJumpModifier));
+        _currentJumpCharge =
+            Mathf.Clamp(_currentJumpCharge, _minJumpCharge, (_maxJumpCharge * _overchargeJumpModifier));
         _jumpChargePercent = _currentJumpCharge / _maxJumpCharge;
         _jumpChargeBar.value = _jumpChargePercent;
     }
@@ -582,6 +594,7 @@ public class UIController : MonoBehaviour
             _dialogBoxIntroText.style.fontSize = 50;
             _dialogBoxText.style.fontSize = 50;
         }
+
         // WXGA
         if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
         {
@@ -589,6 +602,7 @@ public class UIController : MonoBehaviour
             _dialogBoxIntroText.style.fontSize = 30;
             _dialogBoxText.style.fontSize = 30;
         }
+
         // QHD
         if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
         {
@@ -596,6 +610,7 @@ public class UIController : MonoBehaviour
             _dialogBoxIntroText.style.fontSize = 60;
             _dialogBoxText.style.fontSize = 60;
         }
+
         // 4K UHD
         if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
         {
@@ -616,16 +631,19 @@ public class UIController : MonoBehaviour
                 {
                     dialogButton.style.fontSize = 30;
                 }
+
                 // WXGA
                 if (_lastScreenWidth == 1366 && _lastScreenHeight == 768)
                 {
                     dialogButton.style.fontSize = 20;
                 }
+
                 // QHD
                 if (_lastScreenWidth == 2560 && _lastScreenHeight == 1440)
                 {
                     dialogButton.style.fontSize = 50;
                 }
+
                 // 4K UHD
                 if (_lastScreenWidth == 3840 && _lastScreenHeight == 2160)
                 {
@@ -645,7 +663,7 @@ public class UIController : MonoBehaviour
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Active)
         {
-            _npcCamera.Priority = (int)Camera.CameraState.Active;   
+            _npcCamera.Priority = (int)Camera.CameraState.Active;
         }
     }
 
@@ -653,7 +671,7 @@ public class UIController : MonoBehaviour
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
         {
-            _npcCamera.Priority = (int)Camera.CameraState.Inactive;   
+            _npcCamera.Priority = (int)Camera.CameraState.Inactive;
         }
     }
 
