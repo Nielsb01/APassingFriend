@@ -12,6 +12,7 @@ TagManager:
   - DebugComponent
   - ChargeJumpZone
   - ClimbingZone
+  - ClimbingWall
   layers:
   - Default
   - TransparentFX
@@ -23,11 +24,14 @@ TagManager:
   - 
   - Player
   - Player Outline
-  - 
+  - Wator
   - 
   - 
   - Npc
   - Pickup
+  - 
+  - 
+  - 
   - 
   - 
   - 
