@@ -543,10 +543,9 @@ public class UIController : MonoBehaviour
         {
             TurnOffDialog();
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            var b = e;
-            Debug.Log("3631");
+            // ignored Super hard
         }
     }
 
