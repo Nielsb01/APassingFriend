@@ -96,7 +96,7 @@ public class UIController : MonoBehaviour
 
     private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
 
-    private bool isInMemory = false;
+    private bool _isInMemory = false;
 
 
     // Screen
@@ -169,7 +169,7 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
     {
         // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange && !isInMemory)
+        if (!_isInInteractRange && !_isInMemory)
         {
             _characterMovementScript.FreezeMovement(false, false);
         }
@@ -276,6 +276,16 @@ public class UIController : MonoBehaviour
         {
             _interactBox.visible = true;
         }
+    }
+
+    /**
+      <summary>
+        Make the interaction box invisible.
+      </summary>
+    **/
+    public void SetInteractBoxInvisible()
+    {
+        _interactBox.visible = false;
     }
 
     /* 
@@ -657,18 +667,24 @@ public class UIController : MonoBehaviour
     **/
     private void ShowMemoryImage(QuestState questState, int memoryNr)
     {
-        isInMemory = true;
+        if (_memoryImagesDictionairy.ContainsValue(false)) 
+        {
+            _interactBox.visible = false;
 
-        _characterMovementScript.FreezeMovement(true, true);
-        _memoryImage.visible = true;
+            _isInMemory = true;
 
-        var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
-        var memoryKey = memory.Key;
-        _memoryImage.style.backgroundImage = memoryKey;
+            _characterMovementScript.FreezeMovement(true, true);
 
-        StartCoroutine(HideMemoryImage());
+            _memoryImage.visible = true;
 
-        _memoryImagesDictionairy.Remove(memory.Key);
+            var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
+            var memoryKey = memory.Key;
+            _memoryImage.style.backgroundImage = memoryKey;
+
+            StartCoroutine(HideMemoryImage());
+            
+            _memoryImagesDictionairy[memory.Key] = true;
+        }
     }
 
     /**
@@ -682,9 +698,10 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(5);
 
-        isInMemory = false;
+        _isInMemory = false;
 
         _memoryImage.visible = false;
+
         _characterMovementScript.FreezeMovement(false, false);
 
         StopCoroutine(HideMemoryImage());

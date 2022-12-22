@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8998143088709367642}
   - component: {fileID: 8998143088709367643}
   - component: {fileID: 8998143088709367652}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: PolyShape (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 8998143089288490609}
   - component: {fileID: 8998143089288490610}
   - component: {fileID: 8998143089288490611}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: PolyShape (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +728,7 @@ GameObject:
   - component: {fileID: 8998143090375131403}
   - component: {fileID: 8998143090375131412}
   - component: {fileID: 8998143090375131413}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: PolyShape
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -33,7 +33,7 @@ public class PlayerInteractionController : MonoBehaviour
     {
         ShowPlayerCanInteract();
 
-        if (_playerFov.pickup == null)
+        if (_playerFov.pickup == null && _playerFov.TargetRef)
         {
             NpcInteracting();
         }
@@ -56,8 +56,9 @@ public class PlayerInteractionController : MonoBehaviour
             }
             else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
             {
-                _ui.SetIsInInteractRange(false);
                 _outline.enabled = false;
+                _ui.SetIsInInteractRange(false);
+                _ui.SetInteractBoxInvisible();
             }
         }
     }
@@ -103,7 +104,7 @@ public class PlayerInteractionController : MonoBehaviour
         {
             PickUpItem();
         }
-        else if (_playerFov.CanSeeTarget)
+        else if (_playerFov.CanSeeTarget && _playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc"))
         {
             _ui.ContinueDialog();
         }
