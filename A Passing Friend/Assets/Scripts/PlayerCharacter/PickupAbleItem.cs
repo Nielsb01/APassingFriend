@@ -10,10 +10,9 @@ public class PickupAbleItem : MonoBehaviour
     private Rigidbody _rigidbody;
 
     // Questing
-    public delegate void PickedUpQuestItemEvent(QuestState questState, int memoryNr);
+    public delegate void PickedUpQuestItemEvent(QuestState questState);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
     [SerializeField] private bool _isQuestItem = false;
-    [SerializeField] private int memoryNr = 0;
 
     
     private void Awake()
@@ -51,7 +50,7 @@ public class PickupAbleItem : MonoBehaviour
 
     private void InvokePickedUpQuestItem()
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp, memoryNr);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
     }
 
     public void Drop()

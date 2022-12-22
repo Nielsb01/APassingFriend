@@ -667,7 +667,7 @@ public class UIController : MonoBehaviour
         Show a memory image/picture on the screen.
       </summary>
     **/
-    private void ShowMemoryImage(QuestState questState, int memoryNr)
+    private void ShowMemoryImage(QuestState questState)
     {
         if (_memoryImagesDictionairy.ContainsValue(false)) 
         {
