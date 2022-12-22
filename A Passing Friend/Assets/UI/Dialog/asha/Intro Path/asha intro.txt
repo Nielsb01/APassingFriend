@@ -2,3 +2,8 @@ Asha forest path
 --
 #Dialog 1$~
 *1 Hello, you, dreamer, welcome!
+*2 Oh of course! Nice to meet you, I am the nature witch Asha.
+*3 One of my tasks is to find dreamers, like you. That’s the reason I was searching for you.
+*4 Come with me, I will bring you to an old friend.
+*5 It’s to be expected that you don’t know much about this place.
+*6 I will explain more once we get to my home in the village. Come along!
