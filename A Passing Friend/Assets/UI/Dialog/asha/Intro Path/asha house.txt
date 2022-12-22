@@ -1,6 +1,6 @@
 Asha house 
 --
-#Warning outside house$
+#Warning outside house$ [Audio: 2]
 *1 Oh no, little cat! I almost forgot to tell you. Avoid the sun as much as possible.
 *2 Because you are a spirit, you are very sensitive to light from the sun and fires. Make sure to stay in the shade and avoid it as much as possible.$
 
