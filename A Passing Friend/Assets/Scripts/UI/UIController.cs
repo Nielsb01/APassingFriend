@@ -600,7 +600,7 @@ public class UIController : MonoBehaviour
         {
             _dialogBoxCharName.style.fontSize = 35;
             _dialogBoxIntroText.style.fontSize = 50;
-            _dialogBoxText.style.fontSize = 15;
+            _dialogBoxText.style.fontSize = 50;
         }
     }
 
@@ -630,7 +630,7 @@ public class UIController : MonoBehaviour
                 // Full HD and other resolutions
                 else
                 {
-                    dialogButton.style.fontSize = 15;
+                    dialogButton.style.fontSize = 50;
                 }
             }
         }
