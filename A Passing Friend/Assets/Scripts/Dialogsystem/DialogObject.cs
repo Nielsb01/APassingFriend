@@ -11,7 +11,7 @@ public class DialogObject
     private readonly List<string> _dialog;
     private string _dialogChoice;
     private bool _endsConversation;
-    private bool _activateNextCheckpoint;
+    private int? _nextCheckpoint;
 
     private CinemachineVirtualCamera _dialogCamera;
     private DialogChoiceAudioSO _dialogAudio;
@@ -67,13 +67,13 @@ public class DialogObject
         return _dialogAudio;
     }
 
-    public void ActivateNextCheckpoint()
+    public void SetNextCheckpoint(int nextCheckpoint)
     {
-        _activateNextCheckpoint = true;
+        _nextCheckpoint = nextCheckpoint;
     }
 
-    public bool DoesOptionConversationActivateNextCheckpoint()
+    public int? GetNextCheckpoint()
     {
-        return _activateNextCheckpoint;
+        return _nextCheckpoint;
     }
 }

@@ -1,6 +1,6 @@
 Asha interior
 --
-#Intro to quest 2$~ [Camera: 0] [Audio: 1] [Checkpoint]
+#Intro to quest 2$~ [Camera: 0] [Audio: 1] [Checkpoint: 1]
 *1 Here we are, make yourself at home. Your friend will be here any second
 *2 You are probably wondering why you are here
 *3 See, you are currently dreaming.

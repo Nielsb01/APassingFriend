@@ -158,7 +158,7 @@ public class DialogBuilder : MonoBehaviour
         {
             var checkForCamera = "Camera:";
             var checkForAudio = "Audio:";
-            var checkForNextCheckpoint = "Checkpoint";
+            var checkForNextCheckpoint = "Checkpoint:";
 
             if (text.Contains(checkForCamera))
             {
@@ -190,7 +190,7 @@ public class DialogBuilder : MonoBehaviour
 
             if (text.Contains(checkForNextCheckpoint))
             {
-                dialogObject.ActivateNextCheckpoint();
+                dialogObject.SetNextCheckpoint(int.Parse(Regex.Replace(text, NUMBER_REGEX, "")));
             }
         }
 
