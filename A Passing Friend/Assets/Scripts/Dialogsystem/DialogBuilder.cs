@@ -158,6 +158,7 @@ public class DialogBuilder : MonoBehaviour
         {
             var checkForCamera = "Camera:";
             var checkForAudio = "Audio:";
+            var checkForNextCheckpoint = "Checkpoint";
 
             if (text.Contains(checkForCamera))
             {
@@ -185,6 +186,11 @@ public class DialogBuilder : MonoBehaviour
                 {
                     Debug.Log("No audio set for event");
                 }
+            }
+
+            if (text.Contains(checkForNextCheckpoint))
+            {
+                dialogObject.ActivateNextCheckpoint();
             }
         }
 
