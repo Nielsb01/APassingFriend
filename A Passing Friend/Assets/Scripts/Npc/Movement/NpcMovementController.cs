@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Npc
 {
-    public class NpcMovementController : MonoBehaviour
+    public class NpcMovementController : MonoBehaviour, IDataPersistence
     {
         [SerializeField] private List<GameObject> _waypointsRoute = new();
         [SerializeField] private float _defaultWaypointRounding = 0.3f;
         [SerializeField] private bool _patrolling;
         [SerializeField] private WaypointRoute _route;
         [SerializeField] private GameObject _followingChild;
-        private NavMeshAgent _navMeshAgent;
+        [SerializeField] private GameObject _npcLoadLocation;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
         private float _waypointRoundingForNextNode;
         private GameObject _currentTravelDestinationNode;
         private const float MINIMUM_ROUNDING = 0.1f;
@@ -23,9 +25,10 @@ namespace Npc
         private bool _teleportingBallAfterTeleport;
         private float _resumeMovementSpeed;
 
+        private NpcAnimationController _npcAnimationController;
+
         private void Start()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>();
             if (_defaultWaypointRounding < MINIMUM_ROUNDING)
             {
                 _defaultWaypointRounding = MINIMUM_ROUNDING;
@@ -43,6 +46,8 @@ namespace Npc
             {
                 GoToNextWaypoint(false);
             }
+
+            _npcAnimationController = GetComponent<NpcAnimationController>();
         }
 
         private void Update()
@@ -146,6 +151,8 @@ namespace Npc
                 _navMeshAgent.speed = newMovementSpeed;
             }
 
+            SetAnimation(_pathNodeController.GetAnimationToPlay);
+
             var waitTimeAtThisNode = _pathNodeController.WaitTimeAtThisNode;
             if (!SettingDisabled(waitTimeAtThisNode))
             {
@@ -190,6 +197,14 @@ namespace Npc
             return value == -1;
         }
 
+        private void SetAnimation(NpcAnimations npcAnimation)
+        {
+            if (npcAnimation != NpcAnimations.none && _npcAnimationController != null)
+            {
+                _npcAnimationController.SetAnimationState(npcAnimation);
+            }
+        }
+
         private IEnumerator WaitForSeconds(float time)
         {
             PauseNpc();
@@ -206,6 +221,49 @@ namespace Npc
         public void UnpauseNpc()
         {
             _navMeshAgent.speed = _resumeMovementSpeed;
+            SetAnimation(_pathNodeController.GetAnimationToPlayOnExit);
+        }
+
+
+        public void LoadData(GameData gameData)
+        {
+            if (_npcLoadLocation == null) return;
+
+            if (name.Equals("Asha") && gameData.ashaIsAtHouse)
+            {
+                transform.position = _npcLoadLocation.transform.position;
+                _waypointsRoute = new List<GameObject> { _npcLoadLocation };
+                _patrolling = false;
+                _route = null;
+                GoToNextWaypoint(false);
+                transform.rotation = _npcLoadLocation.transform.rotation;
+            }
+
+            if (gameObject.name.Equals("Yarn"))
+            {
+                switch (gameData.questOneState)
+                {
+                    case QuestState.Unavailable:
+                        break;
+                    case QuestState.Available:
+                        break;
+                    case QuestState.Active:
+                        StartRoute(GameObject.FindGameObjectWithTag("YarnRoute").GetComponent<WaypointRoute>());
+                        break;
+                    case QuestState.PickedUp:
+                        Destroy(transform.parent.gameObject);
+                        //Implement ball being picked up by cat
+                        break;
+                    case QuestState.Completed:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
         }
     }
 }

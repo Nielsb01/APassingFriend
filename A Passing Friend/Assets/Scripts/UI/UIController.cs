@@ -114,6 +114,10 @@ public class UIController : MonoBehaviour
 
     public static event DialogEvent DialogExited;
 
+    // Animations
+
+    private NpcAnimationController _npcAnimationController;
+
     private void OnEnable()
     {
         HealthController.Died += PlayerDies;
@@ -388,6 +392,8 @@ public class UIController : MonoBehaviour
             {
                 SetNpcCamera(); 
             }
+
+            StartDialogAnimation();
         }
 
         // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
@@ -440,6 +446,7 @@ public class UIController : MonoBehaviour
         SetDialogSystemInvisible();
         ResetDialogue();
         UnsetDialogCamera();
+        StopDialogAnimation();
 
         if (_npcCamera != null)
         {
@@ -618,6 +625,7 @@ public class UIController : MonoBehaviour
                 _dialogTextList = _chosenDialogOption.GetDialog();
                 _npcName = _dialogBuilder.GetNameOfNpc();
                 _npcCamera = _dialogBuilder.GetNpcCamera();
+                _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
             }
     }
 
@@ -880,6 +888,22 @@ public class UIController : MonoBehaviour
         if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Inactive;
+        }
+    }
+
+    private void StartDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.SetAnimationState(NpcAnimations.startTalking);
+        }
+    }
+
+    private void StopDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.SetAnimationState(NpcAnimations.stopTalking);
         }
     }
 }

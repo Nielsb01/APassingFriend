@@ -271,6 +271,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _characterController.enabled = true;
         ResetAllMovement();
         loadHoldingItem(data);
+        _chargeJumpUnlocked = data.canChargeJump;
     }
 
     public void SaveData(ref GameData data)

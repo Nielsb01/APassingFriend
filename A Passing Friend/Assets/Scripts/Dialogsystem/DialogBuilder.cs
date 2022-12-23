@@ -31,6 +31,8 @@ public class DialogBuilder : MonoBehaviour
     private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
     [SerializeField] private bool _canSwitchDialog = false;
+    
+    private NpcAnimationController _npcAnimationController;
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ public class DialogBuilder : MonoBehaviour
             ParseDialog();
         }
         _canSwitchDialog = false;
+        _npcAnimationController = GetComponent<NpcAnimationController>();
     }
     
     public void LoadDialog(TextAsset dialogTextFile)
@@ -249,5 +252,9 @@ public class DialogBuilder : MonoBehaviour
     public void SetCanSwitchDialog(bool canSwitchDialog)
     {
         _canSwitchDialog = canSwitchDialog;
+    }
+    public  NpcAnimationController GetNpcAnimationController()
+    {
+        return _npcAnimationController;
     }
 }
