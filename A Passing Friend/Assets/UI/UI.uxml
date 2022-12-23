@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" MemoryProfiler="Unity.MemoryProfiler.Editor" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="health-vignette" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Materials/Textures/PlayerCharacter/Vignette.png?fileID=2800000&amp;guid=f9ad46ac7cb502a4fa1496b502ff29c9&amp;type=3#Vignette&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0);" />
+    <ui:VisualElement name="memory-image" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); background-image: none; -unity-background-image-tint-color: rgb(255, 255, 255); visibility: hidden;" />
     <JumpChargeBar name="jump-charge-bar" fill-color="#06A4BCFF" style="left: 5%; top: 5%; position: absolute;" />
     <ui:GroupBox name="interact-box" style="left: 42.5%; top: 45%; width: 12.5%; height: 10%; background-color: rgba(2, 2, 2, 0.13);">
         <ui:VisualElement style="left: 5%; top: 15%; width: 35%; height: 75%; background-color: rgba(2, 2, 2, 0.1); position: absolute;">

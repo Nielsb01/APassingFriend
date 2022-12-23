@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDay: 0
   canChargeJump: 1
-  ashaLocation: {x: -3, y: 1, z: 57.5}
+  ashaIsAtHouse: 1
   questOneState: 4
   questTwoState: 1

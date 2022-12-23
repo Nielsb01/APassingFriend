@@ -42,7 +42,7 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         gameData.playerLocation = transform.position;
         gameData.isDay = _gameData.isDay;
         gameData.canChargeJump = _gameData.canChargeJump;
-        gameData.ashaLocation = _gameData.ashaLocation;
+        gameData.ashaIsAtHouse = _gameData.ashaIsAtHouse;
         gameData.questOneState = _gameData.questOneState;
         gameData.questTwoState = _gameData.questTwoState;
         _isActive = false;
