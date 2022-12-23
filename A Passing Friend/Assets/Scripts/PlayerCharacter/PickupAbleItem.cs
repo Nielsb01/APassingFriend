@@ -52,6 +52,13 @@ public class PickupAbleItem : MonoBehaviour
     private void InvokePickedUpQuestItem()
     {
         PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        if (name.Equals("Model"))
+        {
+            FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
+        } else if (name.Equals("Catnip"))
+        {
+            FindObjectOfType<DataPersistenceManager>().NextCheckpoint(7);
+        }
         _memoryHasPlayed = true;
     }
 
