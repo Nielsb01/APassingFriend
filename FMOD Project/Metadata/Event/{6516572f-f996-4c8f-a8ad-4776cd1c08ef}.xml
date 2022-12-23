@@ -136,8 +136,11 @@
 		<property name="initialValue">
 			<value>-80</value>
 		</property>
+		<property name="releaseTime">
+			<value>4807.69287</value>
+		</property>
 		<property name="finalValue">
-			<value>-80</value>
+			<value>-76.1481476</value>
 		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{f4e57b79-3ce8-4165-8cbf-727ac640d886}">
