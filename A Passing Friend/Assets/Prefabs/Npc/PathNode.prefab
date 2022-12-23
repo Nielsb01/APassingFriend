@@ -121,6 +121,8 @@ MonoBehaviour:
   _ballFollowSpeedFromThisNode: -1
   _lockBallToController: 0
   _unlockBallFromController: 0
+  _animationToPlay: 0
+  _animationToPlayOnExit: 0
 --- !u!33 &4805259041890650635
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -12,11 +12,9 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
     [SerializeField] private float _minValue = 0;
 
-    [SerializeField] private float _maxValue = 2;
+    [SerializeField] private float _maxValue = 1.175f;
 
     [SerializeField] private FillType _fillType;
-
-    [SerializeField] private Color _fillColor;
 
     private VisualElement _cbParent;
 
@@ -67,7 +65,6 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
         UxmlIntAttributeDescription m_height = new(){ name = "height", defaultValue = 100 };
         UxmlFloatAttributeDescription m_value = new(){ name = "value", defaultValue = 1 };
         UxmlEnumAttributeDescription<FillType> m_fillType = new(){ name = "fill-type", defaultValue = 0 };
-        UxmlColorAttributeDescription m_fillColor = new(){ name = "fill-color", defaultValue = new Color(6, 164, 188) };
 
         public override IEnumerable<UxmlChildElementDescription> uxmlChildElementsDescription
         {
@@ -82,7 +79,6 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
             ate._height = m_height.GetValueFromBag(bag, cc);
             ate.value = m_value.GetValueFromBag(bag, cc);
             ate._fillType = m_fillType.GetValueFromBag(bag, cc);
-            ate._fillColor = m_fillColor.GetValueFromBag(bag, cc);
 
             ate.Clear();
 
@@ -98,8 +94,6 @@ public class JumpChargeBar : VisualElement, INotifyValueChanged<float>
 
             ate.style.width = ate._width;
             ate.style.height = ate._height;
-
-            ate._cbForeground.style.backgroundColor = ate._fillColor;
 
             ate.RegisterValueChangedCallback(ate.UpdateChargeBar);
 

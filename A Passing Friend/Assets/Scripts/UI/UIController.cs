@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Cinemachine;
@@ -14,7 +16,6 @@ public class UIController : MonoBehaviour
     private bool _isInInteraction;
 
     // // Dialog UI
-    [Header("Dialog")]
     private VisualElement _dialogBox;
     private GroupBox _dialogBoxDialog;
     private Label _dialogBoxCharName;
@@ -23,13 +24,16 @@ public class UIController : MonoBehaviour
     private GroupBox _dialogBoxChoices;
     private List<Button> _dialogBoxChoiceButtons = new List<Button>();
     private VisualElement _root;
-    [SerializeField] private bool _isDialogExitButtonVisible = false;
     private Button _dialogBoxExitButton;
 
+    [Header("Dialog")]
+    [SerializeField] private bool _isDialogExitButtonVisible = false;
+
     // // Dialog Builder
-    [Header("Dialog Builder")]
     private List<string> _dialogTextList;
     private string _npcName;
+
+    [Header("Dialog Builder")]
     [SerializeField] private DialogBuilder _dialogBuilder;
     private DialogObject _chosenDialogOption;
     private int? _currentTextNr = null; // the current number of text in the text list.
@@ -39,11 +43,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private bool _isDialogBuilderSet;
 
     // Jump charge bar
-    [Header("Jump Charge Bar")]
     private JumpChargeBar _jumpChargeBar;
+
+    [Header("Jump Charge Bar")]
     [SerializeField] private float _minJumpCharge = 0;
     [SerializeField] private float _maxJumpCharge;
-    [SerializeField] private float _overchargeJumpModifier = 1.2f; // the modifier used to determine how far the bar overcharges visually, always 0.1 less than the width of the overcharge bar.
+    [SerializeField] private float _overchargeJumpModifier = 1f; // the modifier used to determine how far the bar overcharges visually.
     [SerializeField] private float _currentJumpCharge = 0; // the current charge on the bar.
     [SerializeField] [Range(0, 2)] private float _jumpChargePercent = 0; // the percent of the bar that is filled (1 = 100%).
 
@@ -55,6 +60,14 @@ public class UIController : MonoBehaviour
     [SerializeField] private HealthController _healthController;
     private VisualElement _healthVignette;
 
+    // Memories
+    private VisualElement _memoryImage;
+
+    [Header("Memories")]
+    [SerializeField] private List<Texture2D> _memoryImages = new List<Texture2D>();
+    private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
+    private bool _isInMemory = false;
+
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
@@ -62,21 +75,27 @@ public class UIController : MonoBehaviour
     
     // Event
     public delegate void DialogEvent();
-
     public static event DialogEvent DialogExited;
 
     // Audio
     private FMOD.Studio.EventInstance? _currentAudioEventInstance = null;
 
+    // Animations
+    private NpcAnimationController _npcAnimationController;
+
+
+
     // Generic Methods
     private void OnEnable()
     {
         HealthController.Died += PlayerDies;
+        PickupAbleItem.PickedUpQuestItem += ShowMemoryImage;
     }
 
     private void OnDisable()
     {
         HealthController.Died -= PlayerDies;
+        PickupAbleItem.PickedUpQuestItem -= ShowMemoryImage;
     }
 
     private void Start()
@@ -106,6 +125,14 @@ public class UIController : MonoBehaviour
         // Health
         _healthVignette = _root.Q<VisualElement>("health-vignette");
 
+        // Memory
+        _memoryImage = _root.Q<VisualElement>("memory-image");
+
+        foreach (var memory in _memoryImages)
+        {
+            _memoryImagesDictionairy.Add(memory, false);
+        }
+
         // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
@@ -117,7 +144,7 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
     {
         // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange)
+        if (!_isInInteractRange && !_isInMemory)
         {
             _characterMovementScript.FreezeMovement(false, false);
         }
@@ -202,12 +229,21 @@ public class UIController : MonoBehaviour
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
+    /**
+      <summary>
+        Change the bool that dictates if the player is in interact range with a item or npc.
+      </summary>
+    **/
     public void SetIsInInteractRange(bool isInInteractRange)
     {
         _isInInteractRange = isInInteractRange;
     }
 
-    // Set the interact box visible.
+    /**
+      <summary>
+        Make the interaction box visible.
+      </summary>
+    **/
     public void SetInteractBoxVisible()
     {
         if (!_isInInteraction)
@@ -216,18 +252,37 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+        Make the interaction box invisible.
+      </summary>
+    **/
+    public void SetInteractBoxInvisible()
+    {
+        _interactBox.visible = false;
+    }
+
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
      *                                  DIALOG
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
+    /**
+      <summary>
+        Get the bool that dictates if the dialog builder is set or not.
+      </summary>
+    **/
     public void SetIsDialogBuilderSet(bool isDialogBuilderSet)
     {
         _isDialogBuilderSet = isDialogBuilderSet;
     }
 
-    // Set the dialog system invisible.
+    /**
+      <summary>
+        Set the dialog system invisible.
+      </summary>
+    **/
     private void SetDialogSystemInvisible()
     {
         _isInInteraction = false;
@@ -246,7 +301,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Cycle through the dialog.
+    /**
+      <summary>
+        Cycle through the dialog.
+      </summary>
+    **/
     public void ContinueDialog()
     {
         if (_healthController.IsDead) return;
@@ -300,6 +359,8 @@ public class UIController : MonoBehaviour
             {
                 SetNpcCamera(); 
             }
+
+            StartDialogAnimation();
         }
 
         // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
@@ -337,6 +398,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+        Turn off the dialog box completely.
+      </summary>
+    **/
     private void TurnOffDialog()
     {
         _isInInteraction = false;
@@ -347,6 +413,7 @@ public class UIController : MonoBehaviour
         SetDialogSystemInvisible();
         ResetDialogue();
         UnsetDialogCamera();
+        StopDialogAnimation();
 
         if (_npcCamera != null)
         {
@@ -374,13 +441,21 @@ public class UIController : MonoBehaviour
         DialogExited?.Invoke();
     }
 
-    // If a dialog choice button is clicked, set the following dialog to that choice.
+    /**
+      <summary>
+        If a dialog choice button is clicked, set the following dialog to that choice.
+      </summary>
+    **/
     private void ClickedDialogBoxExitButton(EventBase tab)
     {
         TurnOffDialog();
     }
 
-    // Show the dialog choices visual element.
+    /**
+      <summary>
+        Show the dialog choices visual element.
+      </summary>
+    **/
     private void ShowDialogChoices()
     {
         SetNpcCamera();
@@ -409,7 +484,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // If a dialog choice button is clicked, set the following dialog to that choice.
+    /**
+      <summary>
+        If a dialog choice button is clicked, set the following dialog to that choice.
+      </summary>
+    **/
     private void ClickedDialogBoxChoiceButton(EventBase tab)
     {
         _dialogBoxIntroText.visible = false;
@@ -431,7 +510,11 @@ public class UIController : MonoBehaviour
         _dialogBuilder.SetCanSwitchDialog(true);
     }
 
-    // Reset the entire dialog.
+    /**
+      <summary>
+        Reset the entire dialog.
+      </summary>
+    **/
     private void ResetDialogue()
     {
         _choiceClicked = null;
@@ -446,7 +529,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Set the intro dialog text.
+    /**
+      <summary>
+        Set the intro dialog text.
+      </summary>
+    **/
     private void SetDialogIntroText(string text)
     {
         _dialogBoxDialog.visible = true;
@@ -454,7 +541,11 @@ public class UIController : MonoBehaviour
         _dialogBoxIntroText.text = text;
     }
 
-    // Set the actual dialog text and character name.
+    /**
+      <summary>
+        Set the actual dialog text and character name.
+      </summary>
+    **/
     private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
         try
@@ -487,7 +578,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Set the dialog builder from the NPC.
+    /**
+      <summary>
+        Set the dialog builder from the NPC.
+      </summary>
+    **/
     public void SetDialogBuilder(DialogBuilder dialogBuilder)
     {
         if (_isDialogBuilderSet)
@@ -513,14 +608,22 @@ public class UIController : MonoBehaviour
         ChangeButtonFontDynamically();
     }
 
-    // Set the dialog of the choice the player clicked on.
+    /**
+      <summary>
+        Set the dialog of the choice the player clicked on.
+      </summary>
+    **/
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
-        _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-        _dialogTextList = _chosenDialogOption.GetDialog();
-        _npcName = _dialogBuilder.GetNameOfNpc();
-        _npcCamera = _dialogBuilder.GetNpcCamera();
+            if (dialogObjects.Count > 0)
+            {
+                _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
+                _dialogTextList = _chosenDialogOption.GetDialog();
+                _npcName = _dialogBuilder.GetNameOfNpc();
+                _npcCamera = _dialogBuilder.GetNpcCamera();
+                _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
+            }
     }
 
     /* 
@@ -529,7 +632,11 @@ public class UIController : MonoBehaviour
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
-    // Alter the health vignette based on the amount of damage the player got.
+    /**
+      <summary>
+        Alter the health vignette based on the amount of damage the player got.
+      </summary>
+    **/
     private void AlterHealthVignette()
     {
         _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b,
@@ -554,7 +661,11 @@ public class UIController : MonoBehaviour
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
-    // Charge the jump bar.
+    /**
+      <summary>
+        Charge the jump bar.
+      </summary>
+    **/
     private void ChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
@@ -566,11 +677,68 @@ public class UIController : MonoBehaviour
 
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+     *                                  MEMORIES
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    */
+
+    /**
+      <summary>
+        Show a memory image/picture on the screen.
+      </summary>
+    **/
+    private void ShowMemoryImage(QuestState questState)
+    {
+        if (_memoryImagesDictionairy.ContainsValue(false))
+        {
+            _interactBox.visible = false;
+
+            _isInMemory = true;
+
+            _memoryImage.visible = true;
+
+            var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
+            var memoryKey = memory.Key;
+            _memoryImage.style.backgroundImage = memoryKey;
+
+            StartCoroutine(HideMemoryImage());
+
+            _memoryImagesDictionairy[memory.Key] = true;
+        }
+    }
+
+    /**
+      <summary>
+        Hide a memory image/picture on the screen.
+      </summary>
+    **/
+#pragma warning disable S2190 // Recursion should not be infinite. Fixed with the StopCoroutine at the end of the coroutine.
+    private IEnumerator HideMemoryImage()
+#pragma warning restore S2190
+    {
+        Time.timeScale = 0;
+
+        yield return new WaitForSecondsRealtime(5);
+
+        _isInMemory = false;
+
+        _memoryImage.visible = false;
+
+        Time.timeScale = 1;
+
+        StopCoroutine(HideMemoryImage());
+    }
+
+    /* 
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
      *                                  SCREEN & FONTS
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
-    // Check if the screen resolution changes.
+    /**
+      <summary>
+        Check if the screen resolution changes.
+      </summary>
+    **/
     private void CheckForScreenResolutionChanges()
     {
         if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
@@ -583,7 +751,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    // Change the font size so it looks/feels dynamic.
+    /**
+      <summary>
+        Change the dialog text font size according to the screen resolution so it looks/feels dynamic.
+      </summary>
+    **/
     private void ChangeFontDynamically()
     {
         // WXGA
@@ -618,6 +790,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+        Change the dialog option text according to the screen resolution so it looks/feels dynamic.
+      </summary>
+    **/
     private void ChangeButtonFontDynamically()
     {
         if (_dialogBoxChoiceButtons != null)
@@ -656,6 +833,11 @@ public class UIController : MonoBehaviour
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
+    /**
+      <summary>
+        Set the camera which focuses on the npc when in dialog.
+      </summary>
+    **/
     private void SetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Active)
@@ -664,6 +846,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+       Unset the camera which focuses on the npc when in dialog.
+      </summary>
+    **/
     private void UnsetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
@@ -672,6 +859,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+        Set the camera which focuses on a npc, a item or a building when in a dialog option.
+      </summary>
+    **/
     private void SetDialogCamera()
     {
         _activeCamera = _chosenDialogOption.GetDialogCamera();
@@ -681,11 +873,32 @@ public class UIController : MonoBehaviour
         }
     }
 
+    /**
+      <summary>
+        Unset the camera which focuses on a npc, a item or a building when in a dialog option.
+      </summary>
+    **/
     private void UnsetDialogCamera()
     {
         if (_activeCamera != null)
         {
             _activeCamera.Priority = (int)Camera.CameraState.Inactive;
+        }
+    }
+
+    private void StartDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.SetAnimationState(NpcAnimations.startTalking);
+        }
+    }
+
+    private void StopDialogAnimation()
+    {
+        if (_npcAnimationController != null)
+        {
+            _npcAnimationController.SetAnimationState(NpcAnimations.stopTalking);
         }
     }
 }
