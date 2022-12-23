@@ -74,7 +74,7 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        var rangeChecks = Physics.OverlapSphere(transform.position, _radius/2, _targetMask);
+        var rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
         if (rangeChecks.Length != 0)
         {
