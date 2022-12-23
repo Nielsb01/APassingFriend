@@ -12,7 +12,6 @@ using UnityEngine;
 
 public class DialogBuilder : MonoBehaviour
 {
-    [Header("Dialog Options")]
     private readonly List<DialogObject> _dialogOptions = new();
 
     private string _introText;
@@ -24,6 +23,7 @@ public class DialogBuilder : MonoBehaviour
     private bool _endedConversation;
 
     [SerializeField] private List<CinemachineVirtualCamera> _eventCameras;
+    [SerializeField] private List<AudioClip> _eventAudio;
     [SerializeField] private CinemachineVirtualCamera _npcCamera;
 
     private const string DIALOG_EVENT_REGEX = "\\[((.*?)\\])";
@@ -31,12 +31,6 @@ public class DialogBuilder : MonoBehaviour
     private const string DIALOG_OPTIONS_REGEX = "(\\*)([0-9]+)";
 
     [SerializeField] private bool _canSwitchDialog = false;
-    
-    private NpcAnimationController _npcAnimationController;
-
-    [Header("Sound Settings")]
-    [SerializeField] private List<DialogChoiceAudioSO> _eventAudio;
-
 
     private void Awake()
     {
@@ -46,7 +40,6 @@ public class DialogBuilder : MonoBehaviour
             ParseDialog();
         }
         _canSwitchDialog = false;
-        _npcAnimationController = GetComponent<NpcAnimationController>();
     }
     
     public void LoadDialog(TextAsset dialogTextFile)
@@ -256,9 +249,5 @@ public class DialogBuilder : MonoBehaviour
     public void SetCanSwitchDialog(bool canSwitchDialog)
     {
         _canSwitchDialog = canSwitchDialog;
-    }
-    public  NpcAnimationController GetNpcAnimationController()
-    {
-        return _npcAnimationController;
     }
 }

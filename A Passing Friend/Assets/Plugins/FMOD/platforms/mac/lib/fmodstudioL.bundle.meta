@@ -23,14 +23,12 @@ PluginImporter:
       enabled: 1
       settings:
         CPU: AnyCPU
-        DefaultValueInitialized: true
         OS: OSX
   - first:
       Standalone: OSXUniversal
     second:
-      enabled: 0
-      settings:
-        CPU: AnyCPU
+      enabled: 1
+      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

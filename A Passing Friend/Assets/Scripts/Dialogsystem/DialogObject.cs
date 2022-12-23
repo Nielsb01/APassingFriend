@@ -13,7 +13,7 @@ public class DialogObject
     private bool _endsConversation;
 
     private CinemachineVirtualCamera _dialogCamera;
-    private DialogChoiceAudioSO _dialogAudio;
+    private AudioClip _dialogAudio;
 
     public DialogObject(string dialogChoice, List<string> dialog)
     {
@@ -51,7 +51,7 @@ public class DialogObject
         _dialogCamera = dialogCamera;
     }
 
-    public void SetDialogAudio(DialogChoiceAudioSO dialogAudio)
+    public void SetDialogAudio(AudioClip dialogAudio)
     {
         _dialogAudio = dialogAudio;
     }
@@ -61,7 +61,7 @@ public class DialogObject
         return _dialogCamera;
     }
 
-    public DialogChoiceAudioSO GetDialogAudio()
+    public AudioClip GetDialogAudio()
     {
         return _dialogAudio;
     }

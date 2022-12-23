@@ -271,7 +271,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _characterController.enabled = true;
         ResetAllMovement();
         loadHoldingItem(data);
-        _chargeJumpUnlocked = data.canChargeJump;
     }
 
     public void SaveData(ref GameData data)
@@ -322,9 +321,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _canClimb = false;
             _isClimbing = false;
         }
-
-        // Only jump when cat is not dead
-        if (_doJump && isActiveAndEnabled)
+        
+        if (_doJump)
         {
             // Play jump sound
             StartCoroutine(OnJumpStart());
@@ -442,8 +440,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     // Methods for handling sound
     private IEnumerator OnJumpStart()
     {
-        var audioEvent = FMODUnity.RuntimeManager.CreateInstance(_jumpingEventPath);
-        audioEvent.start();
+        FMODUnity.RuntimeManager.PlayOneShot(_jumpingEventPath);
 
         // Wait 100 milliseconds for waiting for jump start
         const float delay = 0.1f;
@@ -460,8 +457,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnJumpLand()
     {
-        var audioEvent = FMODUnity.RuntimeManager.CreateInstance(_landingEventPath);
-        audioEvent.start();
+        FMODUnity.RuntimeManager.PlayOneShot(_landingEventPath);
     }
 
     private void HandleMovementSound()

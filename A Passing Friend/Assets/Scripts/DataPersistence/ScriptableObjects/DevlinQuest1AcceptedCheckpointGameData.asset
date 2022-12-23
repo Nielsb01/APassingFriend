@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DevlinQuest1AcceptedCheckpointGameData
   m_EditorClassIdentifier: 
   isDay: 1
-  canChargeJump: 1
-  ashaIsAtHouse: 1
+  canChargeJump: 0
+  ashaLocation: {x: -3, y: 1, z: 57.5}
   questOneState: 2
   questTwoState: 0
