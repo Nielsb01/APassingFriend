@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{df6539c0-85bd-4879-ad82-200073fe5723}">
+		<property name="assetPath">
+			<value>Devlin/Gibberish/2. #Interaction with Devlin after item retrieval/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f3ccfe0a-4f9d-4604-8324-417a2d72bdb7}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,6 +1,6 @@
-Asha interior 
+Asha interior
 --
-#Intro to quest 2$~ [Camera: 0]
+#Intro to quest 2$~ [Camera: 0] [Audio: 1]
 *1 Here we are, make yourself at home. Your friend will be here any second
 *2 You are probably wondering why you are here
 *3 See, you are currently dreaming.
@@ -9,8 +9,4 @@ Asha interior
 *6 These memories are scattered throughout this village.
 *7 To find them, make sure to interact with the other villagers. They might be able to help you.
 *8 Oh look at that, here they come!
-Animal starts appearing
 *9 Now that you know what to do, go on your last adventure together. Goodluck!
-*10 Make sure to climb into the (giant shrine tree). From there you are able to oversee the entire village. This will help you navigate the area.$
-
-

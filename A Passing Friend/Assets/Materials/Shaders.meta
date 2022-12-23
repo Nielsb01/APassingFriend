@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:A Passing Friend/Assets/Scenes/Sound/GameWorld.unity.meta
+guid: 3ea9dc961a3e948ba82016db699f1378
+========
 guid: 69f93ec9c1e9c044da58926e906a5ea7
 folderAsset: yes
+>>>>>>>> df65241665eabc408efa27288530f7e553f22d52:A Passing Friend/Assets/Materials/Shaders.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
