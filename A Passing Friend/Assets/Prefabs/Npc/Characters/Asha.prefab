@@ -441,6 +441,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asha
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1aa6c3e9c956d3d4989e289723171b93,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bceabbf5988d8b74d81a67403a15cfd2, type: 2}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 1aa6c3e9c956d3d4989e289723171b93, type: 3}

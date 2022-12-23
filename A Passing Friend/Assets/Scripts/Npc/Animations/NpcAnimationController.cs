@@ -20,7 +20,10 @@ public class NpcAnimationController : MonoBehaviour
 
     private void Update()
     {
-        SetNpcSpeed(_navMeshAgent.velocity.magnitude);
+        if (_navMeshAgent != null)
+        {
+            SetNpcSpeed(_navMeshAgent.velocity.magnitude);
+        }
     }
 
     public void SetNpcSpeed(float npcSpeed)
