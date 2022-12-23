@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb08f5cd9306462db1df7f5524f06c0, type: 3}
+  m_Name: 2. Interaction with Devlin after item retrieval
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - Guid:
+      Data1: -766948706
+      Data2: 1317706268
+      Data3: 1368776597
+      Data4: -1763080539
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_1
+  - Guid:
+      Data1: 38716630
+      Data2: 1124740412
+      Data3: 2040331397
+      Data4: 2104227064
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_2
+  - Guid:
+      Data1: 467423041
+      Data2: 1317477642
+      Data3: 2003198349
+      Data4: -498361198
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_3
+  - Guid:
+      Data1: -1956005186
+      Data2: 1309451703
+      Data3: 1670845879
+      Data4: -1477291661
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_4
+  - Guid:
+      Data1: -421881375
+      Data2: 1090098459
+      Data3: 454138526
+      Data4: 1004303438
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_5
+  - Guid:
+      Data1: -1746788913
+      Data2: 1217053716
+      Data3: 785412747
+      Data4: 891004694
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_6
+  - Guid:
+      Data1: 2067480796
+      Data2: 1261079571
+      Data3: 1172442282
+      Data4: 1521734703
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_7
+  - Guid:
+      Data1: 223063592
+      Data2: 1327850706
+      Data3: 55790516
+      Data4: 2106827162
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_8
+  - Guid:
+      Data1: 452602583
+      Data2: 1097217085
+      Data3: 2031812237
+      Data4: 1833314396
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_9
+  - Guid:
+      Data1: -405766906
+      Data2: 1099161640
+      Data3: 1272732055
+      Data4: -1602007676
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_10
+  - Guid:
+      Data1: -991429365
+      Data2: 1337695572
+      Data3: 1160171664
+      Data4: -562173985
+    Path: event:/Gibberish/Devlin/2. Interaction with Devlin after item retrieval/D2_11
