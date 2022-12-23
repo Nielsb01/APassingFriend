@@ -63,6 +63,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     //Interacting
     private PlayerInteractionController _playerInteractionController;
+    
+    [Header("Fog")]
+    [SerializeField] private FogController _fogController;
 
     [Header("Sound Settings")]
     [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
@@ -347,6 +350,14 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _inClimbingZone = true;
         }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer("Woods"))
+        {
+            _fogController.GoToWoodsFog();
+        }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer("ShimmerWoodsVillage"))
+        {
+            _fogController.GoToVillageFog();
+        }
     }
     
     private void OnTriggerExit(Collider trigger)
@@ -355,6 +366,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _isClimbing = false;
             _inClimbingZone = false;
+        }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer("Woods"))
+        {
+            _fogController.GoToVillageFog();
         }
     }
 
