@@ -320,7 +320,14 @@ public class UIController : MonoBehaviour
                 _currentTextNr = -1;
             }
 
-            SetNpcCamera();
+            if (_chosenDialogOption != null && _chosenDialogOption.GetDialogCamera() != null)
+            {
+                SetDialogCamera();
+            }
+            else
+            {
+                SetNpcCamera(); 
+            }
         }
 
         // If there is still dialog left (dialogTextList.Count - 1 because the list works upwards from 0) show next dialog line.
