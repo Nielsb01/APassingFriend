@@ -36,6 +36,7 @@ namespace Npc
             if (_route != null)
             {
                 StartRoute(_route);
+                _route = null;
             }
 
             if (_waypointsRoute.Count != 0)
@@ -46,6 +47,16 @@ namespace Npc
 
         private void Update()
         {
+            if (_waypointsRoute.Count == 0)
+            {
+                if (_route != null)
+                {
+                    StartRoute(_route);
+                }
+                else return;
+            }
+            
+            
             if (!IsNpcAtDestination()) return;
 
             ExecuteNodeEffects();
