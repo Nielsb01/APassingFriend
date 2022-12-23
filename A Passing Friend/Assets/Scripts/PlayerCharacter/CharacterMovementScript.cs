@@ -447,6 +447,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _playerAnimator.SetFloat("velocityX",_moveDirection.y);
         _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
         _playerAnimator.SetBool("Climbing",_isClimbing);
+        _playerAnimator.SetFloat("ClimbingSpeed",_moveVector.y);
     }
 
     // Methods for handling sound
