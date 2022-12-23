@@ -35,15 +35,20 @@ public class DialogBuilder : MonoBehaviour
     private void Awake()
     {
         // Read the dialog file and make it into the dialogobjects.
-        ParseDialog();
-
+        if (_dialogTextFile != null)
+        {
+            ParseDialog();
+        }
         _canSwitchDialog = false;
     }
     
     public void LoadDialog(TextAsset dialogTextFile)
     {
         _dialogTextFile = dialogTextFile;
-        ParseDialog();
+        if (_dialogTextFile != null)
+        {
+            ParseDialog();
+        }
     }
 
     /**

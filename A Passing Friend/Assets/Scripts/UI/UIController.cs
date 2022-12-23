@@ -612,10 +612,13 @@ public class UIController : MonoBehaviour
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
-        _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-        _dialogTextList = _chosenDialogOption.GetDialog();
-        _npcName = _dialogBuilder.GetNameOfNpc();
-        _npcCamera = _dialogBuilder.GetNpcCamera();
+            if (dialogObjects.Count > 0)
+            {
+                _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
+                _dialogTextList = _chosenDialogOption.GetDialog();
+                _npcName = _dialogBuilder.GetNameOfNpc();
+                _npcCamera = _dialogBuilder.GetNpcCamera();
+            }
     }
 
     /* 

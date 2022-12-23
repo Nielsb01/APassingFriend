@@ -104,7 +104,7 @@ public class PlayerInteractionController : MonoBehaviour
         {
             PickUpItem();
         }
-        else if (_playerFov.CanSeeTarget && _playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc"))
+        else if (_playerFov.CanSeeTarget && _playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc") && _npcDialogBuilder != null)
         {
             _ui.ContinueDialog();
         }
