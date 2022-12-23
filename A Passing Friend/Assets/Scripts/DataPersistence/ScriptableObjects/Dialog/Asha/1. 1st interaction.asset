@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb08f5cd9306462db1df7f5524f06c0, type: 3}
+  m_Name: 1. 1st interaction
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - Guid:
+      Data1: 1687035845
+      Data2: 1316633679
+      Data3: 329672862
+      Data4: 2143262578
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_1
+  - Guid:
+      Data1: 1166270168
+      Data2: 1121712438
+      Data3: -1629172604
+      Data4: -1723161315
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_2
+  - Guid:
+      Data1: 2054964145
+      Data2: 1074486609
+      Data3: 2137638562
+      Data4: 1514869719
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_3
+  - Guid:
+      Data1: -1396192854
+      Data2: 1261229247
+      Data3: -1684012368
+      Data4: -1731406790
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_4
+  - Guid:
+      Data1: -776747704
+      Data2: 1300588208
+      Data3: 1710665130
+      Data4: 1493774031
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_5
+  - Guid:
+      Data1: 1120375866
+      Data2: 1208622497
+      Data3: 1698452893
+      Data4: 2112913994
+    Path: event:/Gibberish/Asha/1. 1st interaction/1_6

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{2d7a68c8-fdd7-4c49-95cd-825c9c2f0f17}">
+		<property name="name">
+			<value>3. 1st Cutscene Asha’s Home</value>
+		</property>
+		<relationship name="folder">
+			<destination>{9f736d08-e881-4616-bc90-8cd0d74bc0d0}</destination>
+		</relationship>
+	</object>
+</objects>

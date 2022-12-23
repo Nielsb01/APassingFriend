@@ -5,7 +5,7 @@ public class CheckpointGameDataSO : ScriptableObject
 {
     public bool isDay;
     public bool canChargeJump;
-    public Vector3 ashaLocation;
+    public bool ashaIsAtHouse;
     public QuestState questOneState;
     public QuestState questTwoState;
 }

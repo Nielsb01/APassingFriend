@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{c20d866f-d31d-4441-baca-deaf8604c545}">
+		<property name="assetPath">
+			<value>Asha/Gibberish/4. # Interaction with Asha at her doorstep → after this tutorial /</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f3ccfe0a-4f9d-4604-8324-417a2d72bdb7}</destination>
+		</relationship>
+	</object>
+</objects>
