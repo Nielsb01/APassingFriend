@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1695338361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1695338362}
+  m_Layer: 8
+  m_Name: Pickup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1695338362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695338361}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -6.05, z: 2.61}
+  m_LocalScale: {x: 0.5828526, y: 0.81049055, z: 0.6061457}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4128614980052244994}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201485460005974670
 GameObject:
   m_ObjectHideFlags: 0
@@ -5085,7 +5116,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239325887783188}
-  m_LocalRotation: {x: 0.06652621, y: 0.012967914, z: -0.00086469494, w: 0.99770004}
+  m_LocalRotation: {x: 0.06652621, y: 0.01296791, z: -0.00086469465, w: 0.99770004}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5555,7 +5586,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.0302409, y: 0.012990758, z: -0.00039306522, w: 0.9994582}
+  m_LocalRotation: {x: 0.030240903, y: 0.012990761, z: -0.00039306533, w: 0.9994582}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5855,7 +5886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _outline: {fileID: 0}
   _playerFov: {fileID: 4537777650297205189}
-  _pickUpLocation: {fileID: 0}
+  _pickUpLocation: {fileID: 1695338362}
   _healthController: {fileID: 1496128325689347110}
 --- !u!114 &4537777650297205189
 MonoBehaviour:
@@ -28184,8 +28215,18 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8955228026289529320, guid: 69f713e6fd1313e4a9799170b7dbcc2e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1695338362}
   m_SourcePrefab: {fileID: 100100000, guid: 69f713e6fd1313e4a9799170b7dbcc2e, type: 3}
+--- !u!4 &4128614980052244994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8955228026289529320, guid: 69f713e6fd1313e4a9799170b7dbcc2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4975515525665979370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4793567778017614849 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 69f713e6fd1313e4a9799170b7dbcc2e,
