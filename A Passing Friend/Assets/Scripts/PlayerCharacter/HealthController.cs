@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
+    [Header("General Settings")]
     [SerializeField] private GameObject _lightCheckController;
     [SerializeField] private DataPersistenceManager _dataPersistenceManager;
     [SerializeField] private GameObject _catBones;
@@ -29,6 +30,12 @@ public class HealthController : MonoBehaviour
 
     public delegate void PlayerEvent();
     public static event PlayerEvent Died;
+
+    [Header("Sound Settings")]
+    [SerializeField] private FMODUnity.EventReference _dyingAudioEvent;
+    [SerializeField] private FMODUnity.EventReference _deadAudioEvent;
+
+    private FMOD.Studio.EventInstance? _dyingAudioEventInstance = null;
 
     public bool IsDead
     {
@@ -67,6 +74,12 @@ public class HealthController : MonoBehaviour
 
         if (_lightLevel >= _lightToDamageThreshold)
         {
+            if (_dyingAudioEventInstance.HasValue == false)
+            {
+                _dyingAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(_dyingAudioEvent);
+                _dyingAudioEventInstance.Value.start();
+            }
+
             TakeDamage();
         }
         else
@@ -103,12 +116,28 @@ public class HealthController : MonoBehaviour
     {
         _health += _regenerationMultiplier;
         _health = _health > _maxHealth ? _maxHealth : _health;
+
+        if (_dyingAudioEventInstance.HasValue)
+        {
+            _dyingAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _dyingAudioEventInstance = null;
+        }
     }
 
     private void Die()
     {
+        // stop dying audio sound
+        if (_dyingAudioEventInstance.HasValue)
+        {
+            _dyingAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            _dyingAudioEventInstance = null;
+        }
+
         Died?.Invoke();
         DisablePlayer(true);
+
+        var audioEvent = FMODUnity.RuntimeManager.CreateInstance(_deadAudioEvent);
+        audioEvent.start();
 
         _dyingParticleSystem.Play();
         Instantiate(_catBones, transform.position, transform.rotation);

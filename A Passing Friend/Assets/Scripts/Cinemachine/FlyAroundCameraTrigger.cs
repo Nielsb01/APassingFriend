@@ -21,13 +21,24 @@ namespace Camera
 
         private IEnumerator LockPlayerControlsForTime(float time, Collider collisionCollider)
         {
+            var soundController = FindObjectOfType<SoundController>();
+            var lightCheckScript = FindObjectOfType<LightCheckScript>();
+
+            soundController.SetPlayerInTree(true);
+
             collisionCollider.GetComponent<PlayerInput>().enabled = false;
-            FindObjectOfType<LightCheckScript>().calculateLight = false;
-            FindObjectOfType<LightCheckScript>().DisableLightCheckCameras();
+            lightCheckScript.calculateLight = false;
+            lightCheckScript.DisableLightCheckCameras();
+
+
             yield return new WaitForSeconds(time);
+
+
+            soundController.SetPlayerInTree(false);
+
             collisionCollider.GetComponent<PlayerInput>().enabled = true;
-            FindObjectOfType<LightCheckScript>().EnableLightCheckCameras();
-            FindObjectOfType<LightCheckScript>().calculateLight = true;
+            lightCheckScript.EnableLightCheckCameras();
+            lightCheckScript.calculateLight = true;
         }
 
         public void LoadData(GameData gameData)
