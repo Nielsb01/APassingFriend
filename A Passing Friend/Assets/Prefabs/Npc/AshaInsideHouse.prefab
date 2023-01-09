@@ -793,7 +793,7 @@ Transform:
   - {fileID: 7216124173648592105}
   - {fileID: 7182796968041000309}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3277300309607933407
 GameObject:
@@ -2570,6 +2570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7182796968041000309}
   - component: {fileID: 7182796968041000308}
+  - component: {fileID: 6784589403726305212}
   m_Layer: 0
   m_Name: CM vcam Asha inside house
   m_TagString: Untagged
@@ -2631,6 +2632,18 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 7182796967014144896}
+--- !u!114 &6784589403726305212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182796968041000311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4961a2ddf77e65f499c82122e11b6d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7182796968611497367
 GameObject:
   m_ObjectHideFlags: 0
