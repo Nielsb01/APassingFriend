@@ -28,6 +28,8 @@ namespace Camera
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(NEXT_CHECKPOINT);
 
             soundController.SetPlayerInTree(true);
+            var fogDensity = RenderSettings.fogDensity;
+            RenderSettings.fogDensity = 0;
 
             collisionCollider.GetComponent<PlayerInput>().enabled = false;
             lightCheckScript.calculateLight = false;
@@ -38,6 +40,7 @@ namespace Camera
 
 
             soundController.SetPlayerInTree(false);
+            RenderSettings.fogDensity = fogDensity;
 
             collisionCollider.GetComponent<PlayerInput>().enabled = true;
             lightCheckScript.EnableLightCheckCameras();

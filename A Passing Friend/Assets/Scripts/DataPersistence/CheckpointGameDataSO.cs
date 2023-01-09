@@ -9,4 +9,5 @@ public class CheckpointGameDataSO : ScriptableObject
     public bool ashaIsAtHouse;
     public QuestState questOneState;
     public QuestState questTwoState;
+    public bool hasBeenEagle;
 }

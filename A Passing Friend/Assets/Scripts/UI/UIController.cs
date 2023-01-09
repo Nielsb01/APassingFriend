@@ -351,6 +351,11 @@ public class UIController : MonoBehaviour
                 _currentTextNr = -1;
             }
 
+            if (_chosenDialogOption == null)
+            {
+                throw new Exception("DialogOptions not found, the dialog text file may be missing from this script");
+            }
+
             if (_chosenDialogOption != null && _chosenDialogOption.GetDialogCamera() != null)
             {
                 SetDialogCamera();
@@ -552,10 +557,10 @@ public class UIController : MonoBehaviour
     **/
     private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
+        if(_chosenDialogOption.GetDialogAudio() != null){
         try
         {
             var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
-
             if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
             {
                 if (_currentAudioEventInstance.HasValue)
@@ -571,15 +576,15 @@ public class UIController : MonoBehaviour
             {
                 throw new Exception("Dialog can't find audio event for: " + text);
             }
-
-            _dialogBoxDialog.visible = true;
-            _dialogBoxCharName.text = charName;
-            _dialogBoxText.text = text;
         }
         catch
         {
             Debug.LogError("no audio events found for: " + text);
         }
+        }
+        _dialogBoxDialog.visible = true;
+        _dialogBoxCharName.text = charName;
+        _dialogBoxText.text = text;
     }
 
     /**
