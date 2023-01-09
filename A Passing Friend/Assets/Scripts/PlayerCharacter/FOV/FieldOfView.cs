@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class FieldOfView : MonoBehaviour
 
     private bool _canSeeTarget;
     private Transform _pickup;
+    private bool _statusCheckedThisUpdate;
 
     public float Radius
     {
@@ -28,22 +30,51 @@ public class FieldOfView : MonoBehaviour
 
     public GameObject TargetRef
     {
-        get { return _targetRef; }
+        get
+        {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
+            return _targetRef;
+        }
     }
 
     public bool CanSeeTarget
     {
-        get { return _canSeeTarget; }
+        get
+        {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
+            return _canSeeTarget;
+        }
     }
 
     public Transform pickup
     {
-        get { return _pickup; }
+        get
+        {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
+            return _pickup;
+        }
     }
 
     private void Start()
     {
         StartCoroutine(FOVRoutine());
+    }
+
+    private void LateUpdate()
+    {
+        _statusCheckedThisUpdate = false;
     }
 
     private IEnumerator FOVRoutine()
@@ -59,6 +90,7 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
+        _statusCheckedThisUpdate = true;
         var rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
         if (rangeChecks.Length == 0)

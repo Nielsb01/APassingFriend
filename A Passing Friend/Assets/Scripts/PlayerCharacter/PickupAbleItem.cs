@@ -19,11 +19,6 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_memory != null && !_memoryHasPlayed)
-        {
-            InvokePickedUpQuestItem();
-        }
-
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
@@ -37,12 +32,18 @@ public class PickupAbleItem : MonoBehaviour
             transform.parent = pickupLocationObject;
             transform.position = pickupLocationObject.position;
         }
+        
         if (_rigidbody != null)
         {
             _rigidbody.isKinematic = true;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
+        
+        if (_memory != null && !_memoryHasPlayed)
+        {
+            InvokePickedUpQuestItem();
+        }
     }
 
     private void InvokePickedUpQuestItem()
