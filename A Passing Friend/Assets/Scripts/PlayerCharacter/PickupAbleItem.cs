@@ -52,9 +52,11 @@ public class PickupAbleItem : MonoBehaviour
     private void InvokePickedUpQuestItem()
     {
         PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        Debug.Log("Next");
         if (name.Equals("Model"))
         {
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
+            Debug.Log("THis is YArn");
         } else if (name.Equals("Catnip"))
         {
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(7);
