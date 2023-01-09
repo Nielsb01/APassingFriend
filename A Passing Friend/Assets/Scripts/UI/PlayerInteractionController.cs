@@ -128,4 +128,9 @@ public class PlayerInteractionController : MonoBehaviour
             _holdingItem = _playerFov.pickup;
         }
     }
+
+    private void OnStartGame()
+    {
+        _ui.StartGame();
+    }
 }
