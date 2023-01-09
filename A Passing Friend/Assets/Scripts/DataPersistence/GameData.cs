@@ -11,6 +11,7 @@ public class GameData
     public QuestState questOneState;
     public QuestState questTwoState;
     public string activeCheckpoint;
+    public float fogDensity;
     public bool hasBeenEagle;
 
     public GameData()

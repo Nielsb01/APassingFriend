@@ -63,6 +63,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     //Interacting
     private PlayerInteractionController _playerInteractionController;
+    
+    [Header("Fog")]
+    [SerializeField] private FogController _fogController;
+    
+    private const string WOODS_LAYER_NAME = "Woods";
+    private const string VILLAGE_LAYER_NAME = "ShimmerWoodsVillage";
 
     [Header("Sound Settings")]
     [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
@@ -156,7 +162,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             {
                 _moveDirection.y = _jumpSpeed;
             }
-
             _doJump = false;
             _doChargeJump = false;
         }
@@ -214,6 +219,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
         _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
+        _playerAnimator.SetFloat("velocityX",_moveDirection.y);
+        _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
     }
 
     private static bool FloatIsBetween(float number, float min, float max)
@@ -305,12 +312,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
                 }
                 else
                 {
+                    
                     _moveDirection.y = _jumpCharged;
                     _doJump = true;
                     _doChargeJump = true;
                 }
             }
-
+            _playerAnimator.SetBool("Charge",false);
         }
         else if (_characterController.isGrounded)
         {
@@ -336,9 +344,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
-
         if (_chargeJumpUnlocked && _characterController.isGrounded)
         {
+            _playerAnimator.SetBool("Charge",true);
             _holdingDownJump = true;
         }
     }
@@ -349,6 +357,14 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _inClimbingZone = true;
         }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(WOODS_LAYER_NAME))
+        {
+            _fogController.GoToWoodsFog();
+        }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(VILLAGE_LAYER_NAME))
+        {
+            _fogController.GoToVillageFog();
+        }
     }
     
     private void OnTriggerExit(Collider trigger)
@@ -358,12 +374,17 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _isClimbing = false;
             _inClimbingZone = false;
         }
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(WOODS_LAYER_NAME))
+        {
+            _fogController.GoToVillageFog();
+        }
     }
 
     private void OnJumpFail()
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
+        _playerAnimator.SetTrigger("Land");
     }
     
     private void CheckCanClimb()
