@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Npc;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class StartYarnWhenPlayerEnters : MonoBehaviour
