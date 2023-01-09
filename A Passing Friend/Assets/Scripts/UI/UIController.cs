@@ -64,6 +64,10 @@ public class UIController : MonoBehaviour
     private VisualElement _memoryImage;
     private bool _isInMemory;
 
+    // Menu Screen
+    private VisualElement _menuScreenBackground;
+
+
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
@@ -124,12 +128,22 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
+        foreach (var memory in _memoryImages)
+        {
+            _memoryImagesDictionairy.Add(memory, false);
+        }
+
+        // Menu Screen
+        _menuScreenBackground = _root.Q<VisualElement>("Menu-screen-background");
+
         // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
 
         ChangeFontDynamically();
         ChangeButtonFontDynamically();
+
+        Time.timeScale = 0;
     }
 
     private void Update()
@@ -710,6 +724,19 @@ public class UIController : MonoBehaviour
         _memoryImage.visible = false;
 
         Time.timeScale = 1;
+    }
+
+
+    /* 
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+     *                                  MENU SCREEN
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    */
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        _menuScreenBackground.visible = false;
     }
 
     /* 
