@@ -132,16 +132,6 @@ public class UIController : MonoBehaviour
         ChangeButtonFontDynamically();
     }
 
-    // TODO: remove endless calls
-    private void FixedUpdate()
-    {
-        // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange && !_isInMemory)
-        {
-            _characterMovementScript.FreezeMovement(false, false);
-        }
-    }
-
     private void Update()
     {
         // Alter the health vignette based on the amount of damage the player got.
@@ -158,7 +148,11 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
-            _characterMovementScript.FreezeMovement(false, false);
+            // Unfreeze the player when they are not in interact range with anything.
+            if (!_isInMemory)
+            {
+                _characterMovementScript.FreezeMovement(false, false);
+            }
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
