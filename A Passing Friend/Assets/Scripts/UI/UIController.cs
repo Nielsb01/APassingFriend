@@ -62,11 +62,7 @@ public class UIController : MonoBehaviour
 
     // Memories
     private VisualElement _memoryImage;
-
-    [Header("Memories")]
-    [SerializeField] private List<Texture2D> _memoryImages = new List<Texture2D>();
-    private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
-    private bool _isInMemory = false;
+    private bool _isInMemory;
 
     // Screen
     [Header("Screen")]
@@ -128,26 +124,12 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
-        foreach (var memory in _memoryImages)
-        {
-            _memoryImagesDictionairy.Add(memory, false);
-        }
-
         // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
 
         ChangeFontDynamically();
         ChangeButtonFontDynamically();
-    }
-
-    private void FixedUpdate()
-    {
-        // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange && !_isInMemory)
-        {
-            _characterMovementScript.FreezeMovement(false, false);
-        }
     }
 
     private void Update()
@@ -166,7 +148,12 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
-            _characterMovementScript.FreezeMovement(false, false);
+            // Unfreeze the player when they are not in interact range with anything.
+            if (!_isInMemory)
+            {
+                PlayerFreezer.ReleaseMovementFreeze();
+                PlayerFreezer.ReleaseRotationFreeze();
+            }
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -326,7 +313,9 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            _characterMovementScript.FreezeMovement(true, true);
+            PlayerFreezer.FreezeMovement();
+            PlayerFreezer.FreezeRotation();
+
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -408,7 +397,8 @@ public class UIController : MonoBehaviour
         _isInInteraction = false;
         _isDialogBuilderSet = false;
 
-        _characterMovementScript.FreezeMovement(false, false);
+        PlayerFreezer.ReleaseMovementFreeze();
+        PlayerFreezer.ReleaseRotationFreeze();
 
         SetDialogSystemInvisible();
         ResetDialogue();
@@ -686,24 +676,17 @@ public class UIController : MonoBehaviour
         Show a memory image/picture on the screen.
       </summary>
     **/
-    private void ShowMemoryImage(QuestState questState)
+    private void ShowMemoryImage(QuestState questState, StyleBackground memory)
     {
-        if (_memoryImagesDictionairy.ContainsValue(false))
-        {
-            _interactBox.visible = false;
+        _interactBox.visible = false;
 
-            _isInMemory = true;
+        _isInMemory = true;
 
-            _memoryImage.visible = true;
+        _memoryImage.visible = true;
 
-            var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
-            var memoryKey = memory.Key;
-            _memoryImage.style.backgroundImage = memoryKey;
+        _memoryImage.style.backgroundImage = memory;
 
-            StartCoroutine(HideMemoryImage());
-
-            _memoryImagesDictionairy[memory.Key] = true;
-        }
+        StartCoroutine(HideMemoryImage());
     }
 
     /**
@@ -711,9 +694,7 @@ public class UIController : MonoBehaviour
         Hide a memory image/picture on the screen.
       </summary>
     **/
-#pragma warning disable S2190 // Recursion should not be infinite. Fixed with the StopCoroutine at the end of the coroutine.
     private IEnumerator HideMemoryImage()
-#pragma warning restore S2190
     {
         Time.timeScale = 0;
 
@@ -724,8 +705,6 @@ public class UIController : MonoBehaviour
         _memoryImage.visible = false;
 
         Time.timeScale = 1;
-
-        StopCoroutine(HideMemoryImage());
     }
 
     /* 

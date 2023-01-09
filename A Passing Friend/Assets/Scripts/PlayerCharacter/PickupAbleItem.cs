@@ -1,19 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class PickupAbleItem : MonoBehaviour
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
-
-    // Questing
-    public delegate void PickedUpQuestItemEvent(QuestState questState);
+    public delegate void PickedUpQuestItemEvent(QuestState questState, StyleBackground styleBackground);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
-    [SerializeField] private bool _isQuestItem = false;
-    private bool _memoryHasPlayed = false;
+    [SerializeField] private Texture2D _memory;
+    private bool _memoryHasPlayed;
 
     
     private void Awake()
@@ -23,11 +19,6 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_isQuestItem && !_memoryHasPlayed)
-        {
-            InvokePickedUpQuestItem();
-        }
-
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
@@ -41,17 +32,23 @@ public class PickupAbleItem : MonoBehaviour
             transform.parent = pickupLocationObject;
             transform.position = pickupLocationObject.position;
         }
+        
         if (_rigidbody != null)
         {
             _rigidbody.isKinematic = true;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
+        
+        if (_memory != null && !_memoryHasPlayed)
+        {
+            InvokePickedUpQuestItem();
+        }
     }
 
     private void InvokePickedUpQuestItem()
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp, _memory);
         _memoryHasPlayed = true;
     }
 
