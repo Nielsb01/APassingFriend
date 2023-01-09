@@ -6,7 +6,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private string _filename;
     [SerializeField] private string _dirPath = "C:\\temp";
-    [SerializeField] private List<GameObject> _checkpoints;
+    [SerializeField] private List<CheckpointController> _checkpoints;
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
@@ -29,19 +29,6 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
-    //TODO This needs to be replaced during intergration with a propper way to call it
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            NextWaypoint();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadGame();
-        }
-    }
-
     private List<IDataPersistence> GetAllDataPersistenceObjects()
     {
         var result = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
@@ -62,7 +49,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         else
         {
-            SetWaypoint(0);
+            SetCheckpoint(0);
         }
     }
 
@@ -91,20 +78,23 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
-    public void NextWaypoint()
+    public void NextCheckpoint(int nextCheckpoint)
     {
+        if (nextCheckpoint <= 0)
+        {
+            Debug.LogError("The chosen index needs to be higher than 0, nextCheckpointIndex cannot be 0.");
+            return;
+        }
+
         var nameActive = _gameData.activeCheckpoint;
 
-        for (int i = 0; i < _checkpoints.Count - 1; i++)
+        if (_checkpoints[nextCheckpoint-1].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
         {
-            if (_checkpoints[i].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
-            {
-                SetWaypoint(i + 1);
-            }
+            SetCheckpoint(nextCheckpoint);
         }
     }
 
-    private void SetWaypoint(int index)
+    private void SetCheckpoint(int index)
     {
         var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
         checkpoint.SetIsActiveTrue();
