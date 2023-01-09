@@ -29,7 +29,7 @@ public class PlayerInteractionController : MonoBehaviour
     {
         ShowPlayerCanInteract();
 
-        if (_playerFov.pickup.Equals(null) && _playerFov.TargetRef)
+        if (_playerFov.pickup == null && _playerFov.TargetRef)
         {
             NpcInteracting();
         }
@@ -42,7 +42,7 @@ public class PlayerInteractionController : MonoBehaviour
             _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
         }
 
-        if (_outline.Equals(null))
+        if (_outline == null)
         {
             return;
         }
