@@ -364,7 +364,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
-        _playerAnimator.SetTrigger("Land");
+        _playerAnimator.SetTrigger("Fall");
     }
     
     private void CheckCanClimb()
