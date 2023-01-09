@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2072108747830110385}
   - component: {fileID: 2072108747830110397}
   - component: {fileID: 2072108747830110398}
-  - component: {fileID: 2072108747830110399}
+  - component: {fileID: 8068497233717594807}
   - component: {fileID: 2072108747830110384}
   m_Layer: 0
   m_Name: -Sun Tzu
@@ -117,8 +117,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2072108747830110399
-BoxCollider:
+--- !u!64 &8068497233717594807
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,9 +127,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!114 &2072108747830110384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3702,7 +3703,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7377
+  m_VersionIndex: 7380
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
