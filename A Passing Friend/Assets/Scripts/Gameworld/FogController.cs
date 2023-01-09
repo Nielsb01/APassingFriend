@@ -10,7 +10,7 @@ public class FogController : MonoBehaviour, IDataPersistence
     [SerializeField] private float _woodsFogDensity = 0.1f;
     [SerializeField] private float _villageFogDensity = 0.03f;
     [SerializeField] private float _fogSwitchingMultiplier = 0.03f;
-    private bool running;
+    private bool _updatingFog;
 
     public void LoadData(GameData gameData)
     {
@@ -34,8 +34,8 @@ public class FogController : MonoBehaviour, IDataPersistence
 
     private IEnumerator SlowlyUpdateFogDensity(float endDensityValue)
     {
-        if (running) yield break;
-        running = true;
+        if (_updatingFog) yield break;
+        _updatingFog = true;
 
         if (RenderSettings.fogDensity >= endDensityValue)
         {
@@ -54,6 +54,6 @@ public class FogController : MonoBehaviour, IDataPersistence
             }
         }
 
-        running = false;
+        _updatingFog = false;
     }
 }

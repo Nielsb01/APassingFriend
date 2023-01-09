@@ -63,6 +63,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     //Interacting
     private PlayerInteractionController _playerInteractionController;
+    
+    [Header("Fog")]
+    [SerializeField] private FogController _fogController;
+    
+    private const string WOODS_LAYER_NAME = "Woods";
+    private const string VILLAGE_LAYER_NAME = "ShimmerWoodsVillage";
 
     [Header("Fog")] [SerializeField] private FogController _fogController;
 
@@ -384,11 +390,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _inClimbingZone = true;
         }
-        else if (trigger.gameObject.layer == LayerMask.NameToLayer("Woods"))
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(WOODS_LAYER_NAME))
         {
             _fogController.GoToWoodsFog();
         }
-        else if (trigger.gameObject.layer == LayerMask.NameToLayer("ShimmerWoodsVillage"))
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(VILLAGE_LAYER_NAME))
         {
             _fogController.GoToVillageFog();
         }
@@ -401,7 +407,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _isClimbing = false;
             _inClimbingZone = false;
         }
-        else if (trigger.gameObject.layer == LayerMask.NameToLayer("Woods"))
+        else if (trigger.gameObject.layer == LayerMask.NameToLayer(WOODS_LAYER_NAME))
         {
             _fogController.GoToVillageFog();
         }
