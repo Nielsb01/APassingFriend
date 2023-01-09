@@ -743,8 +743,6 @@ public class UIController : MonoBehaviour
 
         Time.timeScale = 1;
 
-        FindObjectOfType<DataPersistenceManager>().LoadGame();
-
         StopCoroutine(HideMemoryImage());
     }
 

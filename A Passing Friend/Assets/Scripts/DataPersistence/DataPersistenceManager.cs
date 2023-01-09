@@ -99,5 +99,6 @@ public class DataPersistenceManager : MonoBehaviour
         var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
         checkpoint.SetIsActiveTrue();
         SaveGame();
+        LoadGame();
     }
 }
