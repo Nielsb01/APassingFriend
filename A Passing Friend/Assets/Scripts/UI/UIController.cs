@@ -233,7 +233,7 @@ public class UIController : MonoBehaviour
     **/
     public void SetInteractBoxVisible()
     {
-        if (!_isInInteraction )
+        if (!_isInInteraction)
         {
             _interactBox.visible = true;
         }
