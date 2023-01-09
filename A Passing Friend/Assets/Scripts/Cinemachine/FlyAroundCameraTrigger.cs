@@ -28,7 +28,7 @@ namespace Camera
             var fogDensity = RenderSettings.fogDensity;
             RenderSettings.fogDensity = 0;
 
-            collisionCollider.GetComponent<PlayerInput>().enabled = false;
+            PlayerFreezer.FreezeAllInput();
             lightCheckScript.calculateLight = false;
             lightCheckScript.DisableLightCheckCameras();
 
@@ -39,7 +39,7 @@ namespace Camera
             soundController.SetPlayerInTree(false);
             RenderSettings.fogDensity = fogDensity;
 
-            collisionCollider.GetComponent<PlayerInput>().enabled = true;
+            PlayerFreezer.ReleaseAllInputFreeze();
             lightCheckScript.EnableLightCheckCameras();
             lightCheckScript.calculateLight = true;
         }

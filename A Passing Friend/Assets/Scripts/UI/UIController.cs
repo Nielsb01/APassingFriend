@@ -151,7 +151,8 @@ public class UIController : MonoBehaviour
             // Unfreeze the player when they are not in interact range with anything.
             if (!_isInMemory)
             {
-                _characterMovementScript.FreezeMovement(false, false);
+                PlayerFreezer.ReleaseMovementFreeze();
+                PlayerFreezer.ReleaseRotationFreeze();
             }
             _isInInteraction = false;
 
@@ -234,7 +235,6 @@ public class UIController : MonoBehaviour
     {
         if (!_isInInteraction )
         {
-            Debug.LogWarning("Setting Visible " + name);
             _interactBox.visible = true;
         }
     }
@@ -313,7 +313,9 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            _characterMovementScript.FreezeMovement(true, true);
+            PlayerFreezer.FreezeMovement();
+            PlayerFreezer.FreezeRotation();
+
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -395,7 +397,8 @@ public class UIController : MonoBehaviour
         _isInInteraction = false;
         _isDialogBuilderSet = false;
 
-        _characterMovementScript.FreezeMovement(false, false);
+        PlayerFreezer.ReleaseMovementFreeze();
+        PlayerFreezer.ReleaseRotationFreeze();
 
         SetDialogSystemInvisible();
         ResetDialogue();
