@@ -351,6 +351,11 @@ public class UIController : MonoBehaviour
                 _currentTextNr = -1;
             }
 
+            if (_chosenDialogOption == null)
+            {
+                throw new Exception("DialogOptions not found, the dialog text file may be missing from this script");
+            }
+
             if (_chosenDialogOption != null && _chosenDialogOption.GetDialogCamera() != null)
             {
                 SetDialogCamera();

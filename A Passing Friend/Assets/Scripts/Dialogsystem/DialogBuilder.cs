@@ -175,7 +175,6 @@ public class DialogBuilder : MonoBehaviour
 
             if (text.Contains(checkForAudio))
             {
-                print(text);
                 try
                 {
                     var audioNumberString = Regex.Replace(text, NUMBER_REGEX, "");
