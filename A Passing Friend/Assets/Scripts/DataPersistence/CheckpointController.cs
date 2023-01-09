@@ -45,6 +45,7 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         gameData.ashaIsAtHouse = _gameData.ashaIsAtHouse;
         gameData.questOneState = _gameData.questOneState;
         gameData.questTwoState = _gameData.questTwoState;
+        gameData.hasBeenEagle = _gameData.hasBeenEagle;
         _isActive = false;
     }
 }

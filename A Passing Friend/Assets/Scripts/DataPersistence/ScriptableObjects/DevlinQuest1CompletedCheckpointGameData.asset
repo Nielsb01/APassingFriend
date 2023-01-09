@@ -17,3 +17,4 @@ MonoBehaviour:
   ashaIsAtHouse: 1
   questOneState: 4
   questTwoState: 1
+  hasBeenEagle: 1
