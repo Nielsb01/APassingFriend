@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractionController : MonoBehaviour
 {
@@ -29,7 +33,7 @@ public class PlayerInteractionController : MonoBehaviour
     {
         ShowPlayerCanInteract();
 
-        if (_playerFov.pickup.Equals(null) && _playerFov.TargetRef)
+        if (_playerFov.pickup == null && _playerFov.TargetRef)
         {
             NpcInteracting();
         }
@@ -42,22 +46,20 @@ public class PlayerInteractionController : MonoBehaviour
             _outline = _playerFov.TargetRef.transform.GetComponent<Outline>();
         }
 
-        if (_outline.Equals(null))
+        if (_outline != null)
         {
-            return;
-        }
-
-        if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
-        {
-            _outline.enabled = true;
-            _ui.SetIsInInteractRange(true);
-            _ui.SetInteractBoxVisible();
-        }
-        else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
-        {
-            _outline.enabled = false;
-            _ui.SetIsInInteractRange(false);
-            _ui.SetInteractBoxInvisible();
+            if (_playerFov.CanSeeTarget && _characterController.isGrounded && !_healthController.IsDead)
+            {
+                _outline.enabled = true;
+                _ui.SetIsInInteractRange(true);
+                _ui.SetInteractBoxVisible();
+            }
+            else if (!_playerFov.CanSeeTarget || !_characterController.isGrounded)
+            {
+                _outline.enabled = false;
+                _ui.SetIsInInteractRange(false);
+                _ui.SetInteractBoxInvisible();
+            }
         }
     }
 
@@ -102,11 +104,15 @@ public class PlayerInteractionController : MonoBehaviour
         {
             PickUpItem();
         }
-        else if (_playerFov.CanSeeTarget && _playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc") &&
-                 _npcDialogBuilder != null)
+        else if (_playerFov.CanSeeTarget && _playerFov.TargetRef.layer == LayerMask.NameToLayer("Npc") && _npcDialogBuilder != null)
         {
             _ui.ContinueDialog();
         }
+    }
+
+    public Transform GetItemHolding()
+    {
+        return _holdingItem;
     }
 
     public void SetItemHolding(Transform holdingItem)
