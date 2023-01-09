@@ -64,14 +64,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Interacting
     private PlayerInteractionController _playerInteractionController;
     
-    [Header("Fog")]
-    [SerializeField] private FogController _fogController;
+    [Header("Fog")] [SerializeField] private FogController _fogController;
     
     private const string WOODS_LAYER_NAME = "Woods";
     private const string VILLAGE_LAYER_NAME = "ShimmerWoodsVillage";
-
-    [Header("Fog")] [SerializeField] private FogController _fogController;
-
+    
     [Header("Sound Settings")] [SerializeField]
     private FMODUnity.EventReference _footstepsEventPath;
 
