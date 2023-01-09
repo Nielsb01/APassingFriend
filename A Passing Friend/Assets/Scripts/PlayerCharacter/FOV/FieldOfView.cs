@@ -13,32 +13,47 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstructionMask;
 
-    private bool _canSeeTarget;
-    private Transform _pickup;
+     private bool _canSeeTarget;
+     private Transform _pickup;
 
     public float Radius
     {
-        get { return _radius; }
+        get
+        {
+            return _radius;
+        }
     }
 
     public float Angle
     {
-        get { return _angle; }
+        get
+        {
+            return _angle;
+        }
     }
 
     public GameObject TargetRef
     {
-        get { return _targetRef; }
+        get
+        {
+            return _targetRef;
+        }
     }
 
     public bool CanSeeTarget
     {
-        get { return _canSeeTarget; }
+        get
+        {
+            return _canSeeTarget;
+        }
     }
 
     public Transform pickup
     {
-        get { return _pickup; }
+        get
+        {
+            return _pickup;
+        }
     }
 
     private void Start()
@@ -61,19 +76,7 @@ public class FieldOfView : MonoBehaviour
     {
         var rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
-        if (rangeChecks.Length == 0)
-        {
-            if (_canSeeTarget)
-            {
-                _canSeeTarget = false;
-            }
-
-            if (pickup != null)
-            {
-                _pickup = null;
-            }
-        }
-        else
+        if (rangeChecks.Length != 0)
         {
             var target = rangeChecks[0].transform;
             _targetRef = target.gameObject;
@@ -100,6 +103,17 @@ public class FieldOfView : MonoBehaviour
             else
             {
                 _canSeeTarget = false;
+                _pickup = null;
+            }
+        }
+        else {
+            if (_canSeeTarget)
+            {
+                _canSeeTarget = false;
+            }
+
+            if (pickup != null)
+            {
                 _pickup = null;
             }
         }

@@ -1,15 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Serialization;
 
 public class PickupAbleItem : MonoBehaviour
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
-    public delegate void PickedUpQuestItemEvent(QuestState questState, StyleBackground styleBackground);
+
+    // Questing
+    public delegate void PickedUpQuestItemEvent(QuestState questState);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
-    [SerializeField] private Texture2D _memory;
-    private bool _memoryHasPlayed;
+    [SerializeField] private bool _isQuestItem = false;
+    private bool _memoryHasPlayed = false;
 
     
     private void Awake()
@@ -19,7 +23,7 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_memory != null && !_memoryHasPlayed)
+        if (_isQuestItem && !_memoryHasPlayed)
         {
             InvokePickedUpQuestItem();
         }
@@ -47,7 +51,7 @@ public class PickupAbleItem : MonoBehaviour
 
     private void InvokePickedUpQuestItem()
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp, _memory);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
         _memoryHasPlayed = true;
     }
 
