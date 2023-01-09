@@ -13,6 +13,7 @@ public class PickupAbleItem : MonoBehaviour
     public delegate void PickedUpQuestItemEvent(QuestState questState);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
     [SerializeField] private bool _isQuestItem = false;
+    [SerializeField] private TextAsset _questCompletedText;
     private bool _memoryHasPlayed = false;
 
     
@@ -55,9 +56,12 @@ public class PickupAbleItem : MonoBehaviour
         if (name.Equals("Model"))
         {
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
-        } else if (name.Equals("Catnip"))
+            GameObject.Find("DevlinWithHat").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
+        }
+        else if (name.Equals("Catnip"))
         {
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(7);
+            GameObject.Find("Rayen").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
         }
         _memoryHasPlayed = true;
     }
