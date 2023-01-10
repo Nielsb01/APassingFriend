@@ -96,6 +96,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         PlayerFreezer.FreezeInputManager -= SetInputHandlerDisabledStatus;
     }
 
+    private static string WATORLAYORNAME = "Wator";
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
@@ -578,8 +580,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool isGrounded()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit,
-            _jumpCheckHeight);
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight))
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer(WATORLAYORNAME)) return false;
+            return true;
+        }
+        return false;
     }
 
     public void OnExitGame()
