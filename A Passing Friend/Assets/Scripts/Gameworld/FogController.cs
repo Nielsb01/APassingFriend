@@ -5,21 +5,12 @@ using UnityEngine;
 
 #endregion
 
-public class FogController : MonoBehaviour, IDataPersistence
+public class FogController : MonoBehaviour
 {
     [SerializeField] private float _woodsFogDensity = 0.1f;
     [SerializeField] private float _villageFogDensity = 0.03f;
     [SerializeField] private float _fogSwitchingMultiplier = 0.03f;
     private bool _updatingFog;
-
-    public void LoadData(GameData gameData)
-    {
-        RenderSettings.fogDensity = gameData.fogDensity;
-    }
-
-    public void SaveData(ref GameData gameData)
-    {
-    }
 
     public void GoToWoodsFog()
     {

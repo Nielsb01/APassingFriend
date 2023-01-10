@@ -15,6 +15,8 @@ MonoBehaviour:
   checkpointName: Spawn
   isDay: 1
   canChargeJump: 0
-  ashaIsAtHouse: 0
+  ashaCutsceneComplete: 0
   questOneState: 0
   questTwoState: 0
+  hasBeenEagle: 0
+  fogDensity: 0.1

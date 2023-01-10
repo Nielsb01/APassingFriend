@@ -15,7 +15,8 @@ MonoBehaviour:
   checkpointName: RayenQuest2Completed
   isDay: 1
   canChargeJump: 1
-  ashaIsAtHouse: 1
+  ashaCutsceneComplete: 0
   questOneState: 4
   questTwoState: 4
   hasBeenEagle: 1
+  fogDensity: 0.03

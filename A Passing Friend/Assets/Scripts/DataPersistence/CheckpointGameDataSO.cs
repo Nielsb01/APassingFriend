@@ -10,4 +10,5 @@ public class CheckpointGameDataSO : ScriptableObject
     public QuestState questOneState;
     public QuestState questTwoState;
     public bool hasBeenEagle;
+    public float fogDensity;
 }
