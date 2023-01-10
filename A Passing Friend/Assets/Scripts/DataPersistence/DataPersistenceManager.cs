@@ -116,5 +116,6 @@ public class DataPersistenceManager : MonoBehaviour
     {
         Debug.Log("Manually deleted save game");
         NewGame();
+        LoadGame();
     }
 }
