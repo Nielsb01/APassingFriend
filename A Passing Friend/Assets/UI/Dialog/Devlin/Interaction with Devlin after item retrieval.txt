@@ -1,6 +1,6 @@
 Intro
 --
-# Interaction with Devlin after item retrieval$ [Camera: 0]
+# Interaction with Devlin after item retrieval$ [Camera: 0] [Checkpoint: 5]
 *1 Have I left it somewhere? I can’t remember.
 *2 Oh… uhm… hello there, you are back.
 *3 Have you found my ball of wool?
