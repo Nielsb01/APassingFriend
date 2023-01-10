@@ -60,8 +60,8 @@ namespace Npc
                 }
                 else return;
             }
-            
-            
+
+
             if (!IsNpcAtDestination()) return;
 
             ExecuteNodeEffects();
@@ -228,9 +228,9 @@ namespace Npc
         public void LoadData(GameData gameData)
         {
             if (_npcLoadLocation == null) return;
+
             if (name.Equals("Asha") && gameData.ashaIsAtHouse)
             {
-
                 transform.position = _npcLoadLocation.transform.position;
                 _waypointsRoute = new List<GameObject> { _npcLoadLocation };
                 _patrolling = false;

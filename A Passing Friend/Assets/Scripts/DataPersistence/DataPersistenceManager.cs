@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.LogError(this.name + "More than one DPM found in scene");
         }
+
         instance = this;
     }
 
@@ -45,7 +47,8 @@ public class DataPersistenceManager : MonoBehaviour
         _gameData = new GameData();
         if (_checkpoints.Count < 1 || _checkpoints[0] == null)
         {
-            Debug.LogError(this.name + ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
+            Debug.LogError(this.name +
+                           ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
         }
         else
         {
@@ -74,6 +77,17 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (var obj in _dataPersistenceObjects)
         {
+            try
+            {
+                var crash = ((MonoBehaviour)obj).name;
+            }
+            catch (Exception e)
+            {
+                var b = e;
+                Debug.LogWarning("Sit 1");
+                return;
+            }
+
             obj.LoadData(_gameData);
         }
     }
@@ -88,7 +102,8 @@ public class DataPersistenceManager : MonoBehaviour
 
         var nameActive = _gameData.activeCheckpoint;
 
-        if (_checkpoints[nextCheckpoint-1].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
+        if (_checkpoints[nextCheckpoint - 1].GetComponent<CheckpointController>().GetCheckpointName()
+            .Equals(nameActive))
         {
             SetCheckpoint(nextCheckpoint);
         }
