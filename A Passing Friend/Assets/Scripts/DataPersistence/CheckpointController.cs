@@ -6,6 +6,7 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private CheckpointGameDataSO _gameData;
     [SerializeField] private string _checkpointName;
+    [SerializeField] private float fogDensity;
     private bool _isActive;
 
     public void Start()
@@ -46,6 +47,7 @@ public class CheckpointController : MonoBehaviour, IDataPersistence
         gameData.questOneState = _gameData.questOneState;
         gameData.questTwoState = _gameData.questTwoState;
         gameData.hasBeenEagle = _gameData.hasBeenEagle;
+        gameData.fogDensity = fogDensity;
         _isActive = false;
     }
 }
