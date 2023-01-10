@@ -13,6 +13,7 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
     private bool _memoryHasPlayed;
     [SerializeField] private TextAsset _questCompletedText;
     [SerializeField] private Transform _questNpc;
+    private Transform heldBy;
 
     
     private void Awake()
@@ -30,20 +31,23 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
-            transform.rotation = quaternion.identity;
+            
             _pickUpHandel.transform.parent = pickupLocationObject;
             transform.parent = _pickUpHandel;
             _pickUpHandel.position = pickupLocationObject.position;
         }
         else
         {
-            transform.parent = pickupLocationObject;
+           // transform.SetParent(pickupLocationObject,true);
             transform.position = pickupLocationObject.position;
         }
         
         if (_rigidbody != null)
         {
-            _rigidbody.isKinematic = true;
+            transform.rotation = quaternion.identity;
+            pickupLocationObject.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
+            transform.GetComponent<Collider>().enabled = false;
+            heldBy = pickupLocationObject;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
@@ -60,10 +64,6 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
         if (name.Equals("Model"))
         {
             Destroy(GetComponent<NpcBallController>());
-            if (transform.parent.gameObject != null)
-            {
-                Destroy(parrent);
-            }
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
             GameObject.Find("DevlinWithHat").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
         }
@@ -77,7 +77,7 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
 
     public void Drop()
     {
-        transform.parent = null;
+        transform.SetParent(null);
         if (_pickUpHandel != null)
         {
             _pickUpHandel.transform.parent = transform;
@@ -85,7 +85,8 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
 
         if (_rigidbody != null)
         {
-            _rigidbody.isKinematic = false;
+            heldBy.GetComponent<FixedJoint>().connectedBody = null;
+            transform.GetComponent<Collider>().enabled = true;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Pickup");
