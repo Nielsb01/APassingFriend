@@ -83,6 +83,8 @@ public class UIController : MonoBehaviour
     // Animations
     private NpcAnimationController _npcAnimationController;
 
+    public bool stopUnfreezingPls;
+
 
 
     // Generic Methods
@@ -158,7 +160,7 @@ public class UIController : MonoBehaviour
         if (!_isInInteractRange)
         {
             // Unfreeze the player when they are not in interact range with anything.
-            if (!_isInMemory)
+            if (!_isInMemory && !stopUnfreezingPls)
             {
                 PlayerFreezer.ReleaseMovementFreeze();
                 PlayerFreezer.ReleaseRotationFreeze();

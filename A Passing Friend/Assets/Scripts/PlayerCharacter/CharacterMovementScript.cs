@@ -87,15 +87,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void OnEnable()
     {
-        PlayerFreezer.FreezeMovementEvent += SetFreezeRotationStatus;
-        PlayerFreezer.FreezeCameraEvent += SetFreezeMovementStatus;
+        PlayerFreezer.FreezeMovementEvent += SetFreezeMovementStatus;
+        PlayerFreezer.FreezeCameraEvent += SetFreezeRotationStatus;
         PlayerFreezer.FreezeInputManager += SetInputHandlerDisabledStatus;
     }
 
     private void OnDisable()
     {
-        PlayerFreezer.FreezeMovementEvent -= SetFreezeRotationStatus;
-        PlayerFreezer.FreezeCameraEvent -= SetFreezeMovementStatus;
+        PlayerFreezer.FreezeMovementEvent -= SetFreezeMovementStatus;
+        PlayerFreezer.FreezeCameraEvent -= SetFreezeRotationStatus;
         PlayerFreezer.FreezeInputManager -= SetInputHandlerDisabledStatus;
     }
 
@@ -151,6 +151,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Rotate()
     {
+        Debug.Log("Status: " + _rotationFrozen);
         if (_rotationFrozenDueToFreeLook || _rotationFrozen) return;
 
         transform.Rotate(_rotation * _rotationSpeed);
@@ -251,10 +252,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void SetFreezeRotationStatus(bool status)
     {
         _rotationFrozen = status;
-        if (status)
-        {
-            RemoveVelocity();
-        }
+        Debug.LogWarning("Setting rotation freeze: " + _rotationFrozen);
     }
 
     private void SetFreezeMovementStatus(bool status)
