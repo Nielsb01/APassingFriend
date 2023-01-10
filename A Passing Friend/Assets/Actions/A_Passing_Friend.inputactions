@@ -324,7 +324,7 @@
                 {
                     "name": "",
                     "id": "c5cf8e4f-b1a9-41b8-bda2-3f8de2f34d0d",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
@@ -335,7 +335,7 @@
                 {
                     "name": "",
                     "id": "8439f8bf-de41-48e1-ad00-1e399b5c1a6f",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

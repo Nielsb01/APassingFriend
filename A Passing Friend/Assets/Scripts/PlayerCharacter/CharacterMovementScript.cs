@@ -301,7 +301,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
-
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
             if (isGrounded())
@@ -323,11 +322,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             }
             _playerAnimator.SetBool("Charge",false);
         }
-        else if (isGrounded())
-        {
-            _doJump = true;
-        }
-
+        else 
         if (_isClimbing)
         {
             _canClimb = false;
@@ -343,7 +338,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         ResetJumpCharge();
     }
-    
+
+    private void OnJump()
+    {
+        if (_movementImpaired) return;
+        if (isGrounded() && !_holdingDownJump)
+        {
+            _doJump = true;
+        }
+        // Only jump when cat is not dead
+        if (_doJump && isActiveAndEnabled)
+        {
+            // Play jump sound
+            StartCoroutine(OnJumpStart());
+        }
+    }
+
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
