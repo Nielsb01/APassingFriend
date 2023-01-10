@@ -9,8 +9,10 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
-    [Header("Movement Settings")] [SerializeField]
-    private float _acceleration = 0.8f;
+    // @formatter:off
+
+    [Header("Movement Settings")] 
+    [SerializeField] private float _acceleration = 0.8f;
 
     [SerializeField] private float _deceleration = 1.6f;
     [SerializeField] private float _moveSpeed = 1.75f;
@@ -34,7 +36,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
     private bool _rotationFrozen;
-    [HideInInspector] public bool rotationFrozenDueToSpecialArea;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -67,19 +68,22 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Interacting
     private PlayerInteractionController _playerInteractionController;
     
-    [Header("Fog")] [SerializeField] private FogController _fogController;
+    [Header("Fog")] 
+    [SerializeField] private FogController _fogController;
     
     private const string WOODS_LAYER_NAME = "Woods";
     private const string VILLAGE_LAYER_NAME = "ShimmerWoodsVillage";
     
-    [Header("Sound Settings")] [SerializeField]
-    private FMODUnity.EventReference _footstepsEventPath;
+    [Header("Sound Settings")] 
+    [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
 
     [SerializeField] private FMODUnity.EventReference _jumpingEventPath;
     [SerializeField] private FMODUnity.EventReference _landingEventPath;
     [SerializeField] private float _minimumDisplacementForSound;
     private Vector3 _prevSoundPosition;
     private float _jumpThresholdSeconds = 1;
+    // @formatter:on 
+
 
     private void OnEnable()
     {
@@ -128,6 +132,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             Rotate();
             HandleMovementSound();
         }
+
         SetAnimatorVariables();
     }
 
@@ -146,7 +151,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozen) return;
+        if (_rotationFrozenDueToFreeLook || _rotationFrozen) return;
 
         transform.Rotate(_rotation * _rotationSpeed);
     }
@@ -251,7 +256,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             RemoveVelocity();
         }
     }
-    
+
     private void SetFreezeMovementStatus(bool status)
     {
         _movementImpaired = status;
@@ -267,7 +272,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
     }
 
-    
 
     private void ResetJumpCharge()
     {
@@ -348,8 +352,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
             _playerAnimator.SetBool("Charge", false);
         }
-        else 
-        if (_isClimbing)
+        else if (_isClimbing)
         {
             _canClimb = false;
             _isClimbing = false;
@@ -372,6 +375,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _doJump = true;
         }
+
         // Only jump when cat is not dead
         if (_doJump && isActiveAndEnabled)
         {
@@ -504,11 +508,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void SetAnimatorVariables()
     {
         _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
-        _playerAnimator.SetFloat("velocityZ",_moveDirection.x);
-        _playerAnimator.SetFloat("velocityX",_moveDirection.y);
-        _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
-        _playerAnimator.SetBool("Climbing",_isClimbing);
-        _playerAnimator.SetFloat("ClimbingSpeed",_moveVector.y);
+        _playerAnimator.SetFloat("velocityZ", _moveDirection.x);
+        _playerAnimator.SetFloat("velocityX", _moveDirection.y);
+        _playerAnimator.SetBool("Grounded", _characterController.isGrounded);
+        _playerAnimator.SetBool("Climbing", _isClimbing);
+        _playerAnimator.SetFloat("ClimbingSpeed", _moveVector.y);
     }
 
     // Methods for handling sound
@@ -576,10 +580,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         GetComponent<PlayerInput>().enabled = !status;
     }
-    
+
     private bool isGrounded()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight);
+        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit,
+            _jumpCheckHeight);
     }
 }
