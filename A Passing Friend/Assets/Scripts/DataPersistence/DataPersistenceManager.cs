@@ -80,15 +80,13 @@ public class DataPersistenceManager : MonoBehaviour
             try
             {
                 var crash = ((MonoBehaviour)obj).name;
+                obj.LoadData(_gameData);
             }
             catch (Exception e)
             {
                 var b = e;
                 Debug.LogWarning("Sit 1");
-                return;
-            }
-
-            obj.LoadData(_gameData);
+            }  
         }
     }
 

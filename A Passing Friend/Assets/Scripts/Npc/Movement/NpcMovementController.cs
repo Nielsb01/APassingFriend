@@ -251,10 +251,10 @@ namespace Npc
                         StartRoute(GameObject.FindGameObjectWithTag("YarnRoute").GetComponent<WaypointRoute>());
                         break;
                     case QuestState.PickedUp:
-                        Destroy(transform.parent.gameObject);
-                        //Implement ball being picked up by cat
+                        StartRoute(GameObject.FindGameObjectWithTag("YarnRoute").GetComponent<WaypointRoute>());
                         break;
                     case QuestState.Completed:
+                        Destroy(transform.parent.gameObject);
                         break;
                     default:
                         break;

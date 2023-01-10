@@ -2,10 +2,12 @@ using Npc;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Serialization;
 
-public class PickupAbleItem : MonoBehaviour
+public class PickupAbleItem : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
@@ -15,6 +17,7 @@ public class PickupAbleItem : MonoBehaviour
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
     [SerializeField] private bool _isQuestItem = false;
     [SerializeField] private TextAsset _questCompletedText;
+    [SerializeField] private Transform _questNpc;
     private bool _memoryHasPlayed = false;
 
     
@@ -26,7 +29,7 @@ public class PickupAbleItem : MonoBehaviour
     public void Pickup(Transform pickupLocationObject)
     {
         GameObject parrent = null;
-        if(transform.parent.gameObject != null)
+        if(transform.parent?.gameObject != null)
         {
             parrent = transform.parent.gameObject;
         }
@@ -91,5 +94,20 @@ public class PickupAbleItem : MonoBehaviour
         }
 
         gameObject.layer = LayerMask.NameToLayer("Pickup");
+
+        if (Vector3.Distance(transform.position, _questNpc.position) <= 2)
+        {
+            gameObject.SetActive(false);
+        }
     }
+
+    public void LoadData(GameData gameData)
+    {
+        if ((name.Equals("Model") && gameData.questOneState.Equals(QuestState.Completed)) || (name.Equals("Catnip") && gameData.questTwoState.Equals(QuestState.Completed)))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SaveData(ref GameData gameData) {}
 }
