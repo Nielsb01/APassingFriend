@@ -68,8 +68,9 @@ public class UIController : MonoBehaviour
     private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
     private bool _isInMemory = false;
 
-    // Menu Screen
-    private VisualElement _menuScreenBackground;
+    // Start & End Screens
+    private VisualElement _startScreenBackground;
+    private VisualElement _endScreenBackground;
 
 
     // Screen
@@ -137,8 +138,9 @@ public class UIController : MonoBehaviour
             _memoryImagesDictionairy.Add(memory, false);
         }
 
-        // Menu Screen
-        _menuScreenBackground = _root.Q<VisualElement>("Menu-screen-background");
+        // Start & End Screens
+        _startScreenBackground = _root.Q<VisualElement>("Start-screen-background");
+        _endScreenBackground = _root.Q<VisualElement>("End-screen-background");
 
         // Screen
         _lastScreenWidth = Screen.width;
@@ -745,19 +747,35 @@ public class UIController : MonoBehaviour
 
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  MENU SCREEN
+     *                                  START & END SCREENS
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
+    /**
+      <summary>
+        When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
+      </summary>
+    **/
     public void StartGame()
     {
         Time.timeScale = 1;
-        _menuScreenBackground.visible = false;
+        _startScreenBackground.visible = false;
+    }
+
+    /**
+      <summary>
+        When in the game, completing the quest from Rayen will show the end screen. This freezes the game's time and makes the end screen visible.
+      </summary>
+    **/
+    public void EndGame()
+    {
+        Time.timeScale = 0;
+        _endScreenBackground.visible = true;
     }
 
     /* 
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  SCREEN & FONTS
+     *                                  SCREEN RESOLUTION & FONTS
      * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     */
 
