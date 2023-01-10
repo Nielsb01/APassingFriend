@@ -20,8 +20,10 @@ public class GameData
         isDay = true;
         canChargeJump = false;
         ashaIsAtHouse = false;
+        hasBeenEagle = false;
         questOneState = QuestState.Unavailable;
         questTwoState = QuestState.Unavailable;
         activeCheckpoint = "";
+        fogDensity = 0.1f;
     }
 }
