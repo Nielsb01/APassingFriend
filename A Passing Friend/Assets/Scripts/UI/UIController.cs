@@ -632,10 +632,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Set the dialog of the choice the player clicked on.
-  </summary>
-**/
+      <summary>
+        Set the dialog of the choice the player clicked on.
+      </summary>
+    **/
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
@@ -656,10 +656,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    Alter the health vignette based on the amount of damage the player got.
-  </summary>
-**/
+      <summary>
+        Alter the health vignette based on the amount of damage the player got.
+      </summary>
+    **/
     private void AlterHealthVignette()
     {
         _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b,
@@ -685,10 +685,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    Charge the jump bar.
-  </summary>
-**/
+      <summary>
+        Charge the jump bar.
+      </summary>
+    **/
     private void ChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
@@ -705,10 +705,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    Show a memory image/picture on the screen.
-  </summary>
-**/
+      <summary>
+        Show a memory image/picture on the screen.
+      </summary>
+    **/
     private void ShowMemoryImage(QuestState questState, StyleBackground memory)
     {
         _interactBox.visible = false;
@@ -723,10 +723,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Hide a memory image/picture on the screen.
-  </summary>
-**/
+      <summary>
+        Hide a memory image/picture on the screen.
+      </summary>
+    **/
     private IEnumerator HideMemoryImage()
     {
         Time.timeScale = 0;
@@ -748,10 +748,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
-  </summary>
-**/
+      <summary>
+        When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
+      </summary>
+    **/
     public void StartGame()
     {
         Time.timeScale = 1;
@@ -765,10 +765,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    Check if the screen resolution changes.
-  </summary>
-**/
+      <summary>
+        Check if the screen resolution changes.
+      </summary>
+    **/
     private void CheckForScreenResolutionChanges()
     {
         if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
@@ -782,10 +782,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Change the dialog text font size according to the screen resolution so it looks/feels dynamic.
-  </summary>
-**/
+      <summary>
+        Change the dialog text font size according to the screen resolution so it looks/feels dynamic.
+      </summary>
+    **/
     private void ChangeFontDynamically()
     {
         // WXGA
@@ -821,10 +821,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Change the dialog option text according to the screen resolution so it looks/feels dynamic.
-  </summary>
-**/
+      <summary>
+        Change the dialog option text according to the screen resolution so it looks/feels dynamic.
+      </summary>
+    **/
     private void ChangeButtonFontDynamically()
     {
         if (_dialogBoxChoiceButtons != null)
@@ -864,10 +864,10 @@ public class UIController : MonoBehaviour
 */
 
     /**
-  <summary>
-    Set the camera which focuses on the npc when in dialog.
-  </summary>
-**/
+      <summary>
+        Set the camera which focuses on the npc when in dialog.
+      </summary>
+    **/
     private void SetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Active)
@@ -877,10 +877,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-   Unset the camera which focuses on the npc when in dialog.
-  </summary>
-**/
+      <summary>
+       Unset the camera which focuses on the npc when in dialog.
+      </summary>
+    **/
     private void UnsetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
@@ -890,10 +890,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Set the camera which focuses on a npc, a item or a building when in a dialog option.
-  </summary>
-**/
+      <summary>
+        Set the camera which focuses on a npc, a item or a building when in a dialog option.
+      </summary>
+    **/
     private void SetDialogCamera()
     {
         _activeCamera = _chosenDialogOption.GetDialogCamera();
@@ -904,10 +904,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-  <summary>
-    Unset the camera which focuses on a npc, a item or a building when in a dialog option.
-  </summary>
-**/
+      <summary>
+        Unset the camera which focuses on a npc, a item or a building when in a dialog option.
+      </summary>
+    **/
     private void UnsetDialogCamera()
     {
         if (_activeCamera != null)
