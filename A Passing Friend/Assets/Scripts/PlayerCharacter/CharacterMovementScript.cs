@@ -329,7 +329,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
-            if (isGrounded())
+            if (IsGrounded())
             {
                 // Minimum charge value determines how long the jump key should be held down, we want to subtract this from the charge so everything before that
                 // threshold wont matter for the jump
@@ -367,7 +367,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJump()
     {
         if (_movementImpaired) return;
-        if (isGrounded() && !_holdingDownJump)
+        if (IsGrounded() && !_holdingDownJump)
         {
             _doJump = true;
         }
@@ -383,7 +383,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
-        if (_chargeJumpUnlocked && isGrounded())
+        if (_chargeJumpUnlocked && IsGrounded())
         {
             _playerAnimator.SetBool("Charge", true);
             _holdingDownJump = true;
@@ -577,14 +577,17 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         GetComponent<PlayerInput>().enabled = !status;
     }
 
-    private bool isGrounded()
+    private bool IsGrounded()
     {
+        if (_characterController.isGrounded) return true;
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight))
         {
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer(WATORLAYORNAME)) return false;
             return true;
         }
+
         return false;
     }
 
