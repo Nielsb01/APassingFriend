@@ -15,7 +15,8 @@ MonoBehaviour:
   checkpointName: DevlinQuest1Accepted
   isDay: 1
   canChargeJump: 1
-  ashaIsAtHouse: 1
+  ashaCutsceneComplete: 1
   questOneState: 2
   questTwoState: 0
   hasBeenEagle: 1
+  fogDensity: 0.03
