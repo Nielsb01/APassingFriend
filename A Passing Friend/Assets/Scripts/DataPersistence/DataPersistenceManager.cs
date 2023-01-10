@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -124,8 +125,8 @@ public class DataPersistenceManager : MonoBehaviour
         
     private void OnDeleteSave()
     {
-        Debug.Log("Manually deleted save game");
         NewGame();
-        LoadGame();
+        SaveGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

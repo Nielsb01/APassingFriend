@@ -23,6 +23,5 @@ public class GameData
         questOneState = QuestState.Unavailable;
         questTwoState = QuestState.Unavailable;
         activeCheckpoint = "";
-        fogDensity = 0.1f;
     }
 }
