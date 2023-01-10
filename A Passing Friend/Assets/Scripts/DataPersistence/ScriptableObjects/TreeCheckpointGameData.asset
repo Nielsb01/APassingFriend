@@ -15,7 +15,7 @@ MonoBehaviour:
   checkpointName: Tree
   isDay: 1
   canChargeJump: 0
-  ashaCutsceneComplete: 0
+  ashaCutsceneComplete: 1
   questOneState: 1
   questTwoState: 0
   hasBeenEagle: 1

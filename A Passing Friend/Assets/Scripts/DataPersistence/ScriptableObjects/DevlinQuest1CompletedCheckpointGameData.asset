@@ -15,7 +15,7 @@ MonoBehaviour:
   checkpointName: DevlinQuest1Completed
   isDay: 0
   canChargeJump: 1
-  ashaCutsceneComplete: 0
+  ashaCutsceneComplete: 1
   questOneState: 4
   questTwoState: 1
   hasBeenEagle: 1

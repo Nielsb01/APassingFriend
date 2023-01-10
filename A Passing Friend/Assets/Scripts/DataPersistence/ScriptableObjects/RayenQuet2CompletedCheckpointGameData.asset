@@ -15,7 +15,7 @@ MonoBehaviour:
   checkpointName: RayenQuest2Completed
   isDay: 1
   canChargeJump: 1
-  ashaCutsceneComplete: 0
+  ashaCutsceneComplete: 1
   questOneState: 4
   questTwoState: 4
   hasBeenEagle: 1

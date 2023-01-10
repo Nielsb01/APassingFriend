@@ -15,7 +15,7 @@ MonoBehaviour:
   checkpointName: AshaHouse
   isDay: 1
   canChargeJump: 0
-  ashaCutsceneComplete: 0
+  ashaCutsceneComplete: 1
   questOneState: 0
   questTwoState: 0
   hasBeenEagle: 0
