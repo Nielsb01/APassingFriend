@@ -5730,15 +5730,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461b0de1c900d30468abdb9794540d3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _acceleration: 0.8
+  _acceleration: 1.2
   _deceleration: 1.6
-  _moveSpeed: 1.75
+  _moveSpeed: 1.25
   _jumpSpeed: 4.5
   _gravity: 9.81
   _rotationSpeed: 0.09
   rotationFrozenDueToSpecialArea: 0
   _chargeSpeed: 4
-  _jumpOverchargeValue: 9
+  _jumpOverchargeValue: 7
   _failjumpSpeed: 0.2
   _chargeJumpUnlocked: 0
   _jumpCharged: 0
