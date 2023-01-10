@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f4a5435bac77e449f4131b1b5638b4, type: 3}
   m_Name: RayenQuest2AcceptedCheckpointGameData
   m_EditorClassIdentifier: 
+  checkpointName: RayenQuest2Accepted
   isDay: 0
   canChargeJump: 1
-  ashaLocation: {x: -3, y: 1, z: 57.5}
+  ashaCutsceneComplete: 1
   questOneState: 4
   questTwoState: 2
+  hasBeenEagle: 1
+  fogDensity: 0.03

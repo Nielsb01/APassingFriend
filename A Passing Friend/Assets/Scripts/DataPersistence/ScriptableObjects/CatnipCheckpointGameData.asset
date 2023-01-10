@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f4a5435bac77e449f4131b1b5638b4, type: 3}
   m_Name: CatnipCheckpointGameData
   m_EditorClassIdentifier: 
+  checkpointName: Catnip
   isDay: 1
   canChargeJump: 1
-  ashaLocation: {x: -3, y: 1, z: 57.5}
+  ashaCutsceneComplete: 1
   questOneState: 4
   questTwoState: 3
+  hasBeenEagle: 1
+  fogDensity: 0.03

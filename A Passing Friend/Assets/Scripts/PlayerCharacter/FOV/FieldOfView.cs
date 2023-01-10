@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,29 +14,29 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private LayerMask _obstructionMask;
 
-     private bool _canSeeTarget;
-     private Transform _pickup;
+    private bool _canSeeTarget;
+    private Transform _pickup;
+    private bool _statusCheckedThisUpdate;
 
     public float Radius
     {
-        get
-        {
-            return _radius;
-        }
+        get { return _radius; }
     }
 
     public float Angle
     {
-        get
-        {
-            return _angle;
-        }
+        get { return _angle; }
     }
 
     public GameObject TargetRef
     {
         get
         {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
             return _targetRef;
         }
     }
@@ -44,6 +45,11 @@ public class FieldOfView : MonoBehaviour
     {
         get
         {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
             return _canSeeTarget;
         }
     }
@@ -52,6 +58,11 @@ public class FieldOfView : MonoBehaviour
     {
         get
         {
+            if (!_statusCheckedThisUpdate)
+            {
+                FieldOfViewCheck();
+            }
+
             return _pickup;
         }
     }
@@ -59,6 +70,11 @@ public class FieldOfView : MonoBehaviour
     private void Start()
     {
         StartCoroutine(FOVRoutine());
+    }
+
+    private void LateUpdate()
+    {
+        _statusCheckedThisUpdate = false;
     }
 
     private IEnumerator FOVRoutine()
@@ -74,9 +90,22 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        var rangeChecks = Physics.OverlapSphere(transform.position, _radius/2, _targetMask);
+        _statusCheckedThisUpdate = true;
+        var rangeChecks = Physics.OverlapSphere(transform.position, _radius, _targetMask);
 
-        if (rangeChecks.Length != 0)
+        if (rangeChecks.Length == 0)
+        {
+            if (_canSeeTarget)
+            {
+                _canSeeTarget = false;
+            }
+
+            if (pickup != null)
+            {
+                _pickup = null;
+            }
+        }
+        else
         {
             var target = rangeChecks[0].transform;
             _targetRef = target.gameObject;
@@ -103,17 +132,6 @@ public class FieldOfView : MonoBehaviour
             else
             {
                 _canSeeTarget = false;
-                _pickup = null;
-            }
-        }
-        else {
-            if (_canSeeTarget)
-            {
-                _canSeeTarget = false;
-            }
-
-            if (pickup != null)
-            {
                 _pickup = null;
             }
         }

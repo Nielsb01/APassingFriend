@@ -130,5 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dayRotation: 30
   _nightRotation: -65
-  _nightSkyBox: {fileID: 2100000, guid: fa3abbc164bd295469573f2755b09e15, type: 2}
-  _daySkyBox: {fileID: 2100000, guid: 795bada9767ae6043bc3bffa8cc8faae, type: 2}
+  _nightSkyBox: {fileID: 2100000, guid: 5822c4074886a884b93f35578bdc30b3, type: 2}
+  _daySkyBox: {fileID: 2100000, guid: 8f4db0497b5be444ab7b58db25fcf295, type: 2}

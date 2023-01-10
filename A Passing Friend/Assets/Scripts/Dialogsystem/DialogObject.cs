@@ -11,9 +11,10 @@ public class DialogObject
     private readonly List<string> _dialog;
     private string _dialogChoice;
     private bool _endsConversation;
+    private int? _nextCheckpoint;
 
     private CinemachineVirtualCamera _dialogCamera;
-    private AudioClip _dialogAudio;
+    private DialogChoiceAudioSO _dialogAudio;
 
     public DialogObject(string dialogChoice, List<string> dialog)
     {
@@ -51,7 +52,7 @@ public class DialogObject
         _dialogCamera = dialogCamera;
     }
 
-    public void SetDialogAudio(AudioClip dialogAudio)
+    public void SetDialogAudio(DialogChoiceAudioSO dialogAudio)
     {
         _dialogAudio = dialogAudio;
     }
@@ -61,8 +62,18 @@ public class DialogObject
         return _dialogCamera;
     }
 
-    public AudioClip GetDialogAudio()
+    public DialogChoiceAudioSO GetDialogAudio()
     {
         return _dialogAudio;
+    }
+
+    public void SetNextCheckpoint(int nextCheckpoint)
+    {
+        _nextCheckpoint = nextCheckpoint;
+    }
+
+    public int? GetNextCheckpoint()
+    {
+        return _nextCheckpoint;
     }
 }

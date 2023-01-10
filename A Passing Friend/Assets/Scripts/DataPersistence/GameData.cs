@@ -7,17 +7,18 @@ public class GameData
     public string ItemHeldByPlayer;
     public bool isDay;
     public bool canChargeJump;
-    public Vector3 ashaLocation;
+    public bool ashaCutsceneComplete;
     public QuestState questOneState;
     public QuestState questTwoState;
     public string activeCheckpoint;
+    public bool hasBeenEagle;
 
     public GameData()
     {
         playerLocation = Vector3.zero;
         isDay = true;
         canChargeJump = false;
-        ashaLocation = Vector3.zero;
+        ashaCutsceneComplete = false;
         questOneState = QuestState.Unavailable;
         questTwoState = QuestState.Unavailable;
         activeCheckpoint = "";

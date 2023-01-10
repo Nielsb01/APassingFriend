@@ -1,16 +1,7 @@
 Asha house 
 --
-#Intro to quest 1$
-*1 Here we are, make yourself at home. Your friend will be here any second
-*1 You are probably wondering why you are here
-*1 See, you are currently dreaming.
-*1 Unfortunately your best friend is dying. I‘m one of the witches, who will help you have one last adventure with your best friend.
-*1 In order to cross over to the afterlife, they need your help to collect the memories.
-*1 These memories are scattered throughout this village.
-*1 To find them, make sure to interact with the other villagers. They might be able to help you.
-*1 Oh look at that, here they come!
-*1 *Animal starts appearing*
-*1 Now that you know what to do, go on your last adventure together. Goodluck!
-*1 Make sure to climb into the (giant shrine tree). From there you are able to oversee the entire village. This will help you navigate the area.
-
+#Warning outside house$ [Audio: 2]
+*1 Oh no, little cat! I almost forgot to tell you. Avoid the sun as much as possible.
+*2 Because you are a spirit, you are very sensitive to light from the sun and fires.
+*3 Make sure to stay in the shade and avoid it as much as possible.
 

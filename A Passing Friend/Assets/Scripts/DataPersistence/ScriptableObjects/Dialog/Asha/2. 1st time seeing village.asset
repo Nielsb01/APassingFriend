@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb08f5cd9306462db1df7f5524f06c0, type: 3}
+  m_Name: 2. 1st time seeing village
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - Guid:
+      Data1: 592796712
+      Data2: 1155528752
+      Data3: -2080847461
+      Data4: 727976774
+    Path: event:/Gibberish/Asha/2. 1st time seeing village/2_1
+  - Guid:
+      Data1: -19926033
+      Data2: 1341609780
+      Data3: 702728881
+      Data4: -1480732745
+    Path: event:/Gibberish/Asha/2. 1st time seeing village/2_2

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb08f5cd9306462db1df7f5524f06c0, type: 3}
+  m_Name: 1. 1st Interaction with Devlin
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - Guid:
+      Data1: 1888153264
+      Data2: 1086086770
+      Data3: -1910825072
+      Data4: 870109047
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_1
+  - Guid:
+      Data1: 1157292258
+      Data2: 1088405541
+      Data3: -1135973470
+      Data4: -882048641
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_2
+  - Guid:
+      Data1: -681798419
+      Data2: 1228964351
+      Data3: 360954292
+      Data4: 563865321
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_3
+  - Guid:
+      Data1: 267050351
+      Data2: 1145611281
+      Data3: -1456790611
+      Data4: -587343141
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_4
+  - Guid:
+      Data1: 1030377004
+      Data2: 1244252325
+      Data3: 950751887
+      Data4: -1441713938
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_5
+  - Guid:
+      Data1: 1957633549
+      Data2: 1084892804
+      Data3: -722275696
+      Data4: 2106282848
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_6
+  - Guid:
+      Data1: 1694903877
+      Data2: 1294995762
+      Data3: 1759159425
+      Data4: -1812480817
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_7
+  - Guid:
+      Data1: 2060110765
+      Data2: 1079521774
+      Data3: -704305022
+      Data4: -128858634
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_8
+  - Guid:
+      Data1: 1030377004
+      Data2: 1244252325
+      Data3: 950751887
+      Data4: -1441713938
+    Path: event:/Gibberish/Devlin/1. 1st Interaction with Devlin/D1_5
