@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
+    // @formatter:off
+
     // UI
     [Header("Interaction")]
     private GroupBox _interactBox;
@@ -87,7 +89,8 @@ public class UIController : MonoBehaviour
 
     // Animations
     private NpcAnimationController _npcAnimationController;
-
+    
+    // @formatter:on
 
 
     // Generic Methods
@@ -373,7 +376,7 @@ public class UIController : MonoBehaviour
             }
             else
             {
-                SetNpcCamera(); 
+                SetNpcCamera();
             }
 
             StartDialogAnimation();
@@ -402,7 +405,7 @@ public class UIController : MonoBehaviour
 
                 if (FindObjectOfType<DataPersistenceManager>().AllCheckpointsPassed())
                 {
-                    StartCoroutine(EndGame());
+                    _endScreenBackground.visible = true;
                 }
             }
             else
@@ -573,31 +576,33 @@ public class UIController : MonoBehaviour
     **/
     private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
-        if(_chosenDialogOption.GetDialogAudio() != null){
-        try
+        if (_chosenDialogOption.GetDialogAudio() != null)
         {
-            var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
-            if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
+            try
             {
-                if (_currentAudioEventInstance.HasValue)
+                var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
+                if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
                 {
-                    _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                }
+                    if (_currentAudioEventInstance.HasValue)
+                    {
+                        _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    }
 
-                var rEvent = audioEventList[_currentTextNr ?? default];
-                _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
-                _currentAudioEventInstance.Value.start();
+                    var rEvent = audioEventList[_currentTextNr ?? default];
+                    _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
+                    _currentAudioEventInstance.Value.start();
+                }
+                else if (_currentTextNr.HasValue)
+                {
+                    throw new Exception("Dialog can't find audio event for: " + text);
+                }
             }
-            else if (_currentTextNr.HasValue)
+            catch
             {
-                throw new Exception("Dialog can't find audio event for: " + text);
+                Debug.LogError("no audio events found for: " + text);
             }
         }
-        catch
-        {
-            Debug.LogError("no audio events found for: " + text);
-        }
-        }
+
         _dialogBoxDialog.visible = true;
         _dialogBoxCharName.text = charName;
         _dialogBoxText.text = text;
@@ -641,14 +646,14 @@ public class UIController : MonoBehaviour
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
-            if (dialogObjects.Count > 0)
-            {
-                _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-                _dialogTextList = _chosenDialogOption.GetDialog();
-                _npcName = _dialogBuilder.GetNameOfNpc();
-                _npcCamera = _dialogBuilder.GetNpcCamera();
-                _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
-            }
+        if (dialogObjects.Count > 0)
+        {
+            _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
+            _dialogTextList = _chosenDialogOption.GetDialog();
+            _npcName = _dialogBuilder.GetNameOfNpc();
+            _npcCamera = _dialogBuilder.GetNpcCamera();
+            _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
+        }
     }
 
     /* 
@@ -736,9 +741,7 @@ public class UIController : MonoBehaviour
         Hide a memory image/picture on the screen.
       </summary>
     **/
-#pragma warning disable S2190 // Recursion should not be infinite. Fixed with the StopCoroutine at the end of the coroutine.
     private IEnumerator HideMemoryImage()
-#pragma warning restore S2190
     {
         Time.timeScale = 0;
 
@@ -749,8 +752,6 @@ public class UIController : MonoBehaviour
         _memoryImage.visible = false;
 
         Time.timeScale = 1;
-
-        StopCoroutine(HideMemoryImage());
     }
 
 
@@ -769,25 +770,6 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 1;
         _startScreenBackground.visible = false;
-    }
-
-    /**
-      <summary>
-        When in the game, completing the quest from Rayen will show the end screen. This freezes the game's time and makes the end screen visible.
-      </summary>
-    **/
-    public IEnumerator EndGame()
-    {
-        _endScreenBackground.visible = true;
-
-        Time.timeScale = 0;
-
-        yield return new WaitForSecondsRealtime(5);
-
-        Time.timeScale = 1;
-        _endScreenBackground.visible = false;
-
-        StopCoroutine(EndGame());
     }
 
     /* 
