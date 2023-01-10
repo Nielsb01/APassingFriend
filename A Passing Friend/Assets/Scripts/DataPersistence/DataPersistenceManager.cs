@@ -120,5 +120,12 @@ public class DataPersistenceManager : MonoBehaviour
         var currentCheckpoint = _gameData.activeCheckpoint;
 
         return _checkpoints.Last().GetCheckpointName() == currentCheckpoint;
+    }        
+        
+    private void OnDeleteSave()
+    {
+        Debug.Log("Manually deleted save game");
+        NewGame();
+        LoadGame();
     }
 }
