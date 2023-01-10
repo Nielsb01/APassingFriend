@@ -128,11 +128,6 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
-        foreach (var memory in _memoryImages)
-        {
-            _memoryImagesDictionairy.Add(memory, false);
-        }
-
         // Menu Screen
         _menuScreenBackground = _root.Q<VisualElement>("Menu-screen-background");
 
