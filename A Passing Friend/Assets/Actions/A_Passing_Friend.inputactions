@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "StartGame",
+                    "type": "Button",
+                    "id": "f08668a2-1d46-4437-909d-e8c23d3d04c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -324,7 +333,7 @@
                 {
                     "name": "",
                     "id": "c5cf8e4f-b1a9-41b8-bda2-3f8de2f34d0d",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
@@ -335,7 +344,7 @@
                 {
                     "name": "",
                     "id": "8439f8bf-de41-48e1-ad00-1e399b5c1a6f",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/shift",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -351,6 +360,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d3bbe11-320a-49cf-a10e-19828a1b6ce0",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "StartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

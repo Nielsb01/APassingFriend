@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 90, z: 0}
 --- !u!108 &3461118731980887081
 Light:
@@ -130,3 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dayRotation: 30
   _nightRotation: -65
+  _nightSkyBox: {fileID: 2100000, guid: fa3abbc164bd295469573f2755b09e15, type: 2}
+  _daySkyBox: {fileID: 2100000, guid: 795bada9767ae6043bc3bffa8cc8faae, type: 2}

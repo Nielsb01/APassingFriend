@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{82e7235e-7e5a-4d0e-9519-56bd288ed81e}">
+		<property name="assetPath">
+			<value>Devlin/Gibberish/2. #Interaction with Devlin after item retrieval/D2_4.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.8333333333333335</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f3ccfe0a-4f9d-4604-8324-417a2d72bdb7}</destination>
+		</relationship>
+	</object>
+</objects>
