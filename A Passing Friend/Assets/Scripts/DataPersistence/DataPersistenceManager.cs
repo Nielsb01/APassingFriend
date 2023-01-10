@@ -114,4 +114,11 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
         LoadGame();
     }
+
+    private void OnDeleteSave()
+    {
+        Debug.Log("Manually deleted save game");
+        NewGame();
+        LoadGame();
+    }
 }
