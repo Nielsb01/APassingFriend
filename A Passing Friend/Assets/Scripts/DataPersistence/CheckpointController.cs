@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckpointController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private CheckpointGameDataSO _gameData;
-    private bool _isActive;
+    [SerializeField] private bool _isActive;
 
     public void Start()
     {

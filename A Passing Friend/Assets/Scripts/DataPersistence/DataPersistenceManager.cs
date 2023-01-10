@@ -114,4 +114,11 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
         LoadGame();
     }
+
+    public bool AllCheckpointsPassed()
+    {
+        var currentCheckpoint = _gameData.activeCheckpoint;
+
+        return _checkpoints.Last().GetCheckpointName() == currentCheckpoint;
+    }
 }

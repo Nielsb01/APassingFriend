@@ -399,6 +399,11 @@ public class UIController : MonoBehaviour
                 {
                     FindObjectOfType<DataPersistenceManager>().NextCheckpoint((int)nextCheckpoint);
                 }
+
+                if (FindObjectOfType<DataPersistenceManager>().AllCheckpointsPassed())
+                {
+                    StartCoroutine(EndGame());
+                }
             }
             else
             {
@@ -771,10 +776,18 @@ public class UIController : MonoBehaviour
         When in the game, completing the quest from Rayen will show the end screen. This freezes the game's time and makes the end screen visible.
       </summary>
     **/
-    public void EndGame()
+    public IEnumerator EndGame()
     {
-        Time.timeScale = 0;
         _endScreenBackground.visible = true;
+
+        Time.timeScale = 0;
+
+        yield return new WaitForSecondsRealtime(5);
+
+        Time.timeScale = 1;
+        _endScreenBackground.visible = false;
+
+        StopCoroutine(EndGame());
     }
 
     /* 
