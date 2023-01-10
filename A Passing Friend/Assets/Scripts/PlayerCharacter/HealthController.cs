@@ -46,6 +46,7 @@ public class HealthController : MonoBehaviour
     {
         _lightCheckScript = _lightCheckController.GetComponent<LightCheckScript>();
         _health = _maxHealth;
+        SetPlayerInvisible(true);
     }
 
     private void Start()
@@ -161,7 +162,11 @@ public class HealthController : MonoBehaviour
 
         transform.GetComponent<CharacterController>().enabled = !state;
         GetComponent<CharacterMovementScript>().enabled = !state;
-        // Set model inactive
+        SetPlayerInvisible(state);
+    }
+
+    public void SetPlayerInvisible(bool state)
+    {
         transform.GetChild(0).gameObject.SetActive(!state);
     }
 
