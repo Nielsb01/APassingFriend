@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 2645115158772417799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 18.69, y: 0.225, z: 83.19}
-  m_LocalScale: {x: 1.4999999, y: 1.4999999, z: 1.4999999}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2645115157410574242}
@@ -78,6 +78,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloseFollowCamArea
       objectReference: {fileID: 0}
+    - target: {fileID: 5332110016254581604, guid: 890a48236a3b383439e19dcd03e3bff9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5332110016254581606, guid: 890a48236a3b383439e19dcd03e3bff9,
         type: 3}
       propertyPath: m_RootOrder
@@ -96,7 +101,7 @@ PrefabInstance:
     - target: {fileID: 5332110016254581606, guid: 890a48236a3b383439e19dcd03e3bff9,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.1523423
+      value: 3.0260746
       objectReference: {fileID: 0}
     - target: {fileID: 5332110016254581606, guid: 890a48236a3b383439e19dcd03e3bff9,
         type: 3}
@@ -234,6 +239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014709731102849147, guid: e26e2fbf275b5874ba77b38d442e03ec,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.68661
       objectReference: {fileID: 0}
     - target: {fileID: 1014709731102849147, guid: e26e2fbf275b5874ba77b38d442e03ec,
         type: 3}

@@ -1,24 +1,18 @@
 using Npc;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class PickupAbleItem : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
-
-    // Questing
-    public delegate void PickedUpQuestItemEvent(QuestState questState);
+    public delegate void PickedUpQuestItemEvent(QuestState questState, StyleBackground styleBackground);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
-    [SerializeField] private bool _isQuestItem = false;
+    [SerializeField] private Texture2D _memory;
+    private bool _memoryHasPlayed;
     [SerializeField] private TextAsset _questCompletedText;
     [SerializeField] private Transform _questNpc;
-    private bool _memoryHasPlayed = false;
 
     
     private void Awake()
@@ -46,14 +40,15 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
             transform.parent = pickupLocationObject;
             transform.position = pickupLocationObject.position;
         }
+        
         if (_rigidbody != null)
         {
             _rigidbody.isKinematic = true;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
-
-        if (_isQuestItem && !_memoryHasPlayed)
+        
+        if (_memory != null && !_memoryHasPlayed)
         {
             InvokePickedUpQuestItem(parrent);
         }
@@ -61,7 +56,7 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
 
     private void InvokePickedUpQuestItem(GameObject parrent)
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp, _memory);
         if (name.Equals("Model"))
         {
             Destroy(GetComponent<NpcBallController>());
