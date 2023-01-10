@@ -5586,7 +5586,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 429239326176224710}
-  m_LocalRotation: {x: 0.030240903, y: 0.012990761, z: -0.00039306533, w: 0.9994582}
+  m_LocalRotation: {x: 0.0302409, y: 0.012990764, z: -0.00039306542, w: 0.9994582}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5731,7 +5731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceleration: 1.2
-  _deceleration: 1.6
+  _deceleration: 2.5
   _moveSpeed: 1.25
   _jumpSpeed: 4.5
   _gravity: 9.81
@@ -5808,7 +5808,7 @@ MonoBehaviour:
   _maxHealth: 100
   _minHealth: 0
   _lightToDamageThreshold: 3
-  _damagePerFrame: 1
+  _damagePerFrame: 1.4
   _lightToHealingThreshold: 0
   _regenerationMultiplier: 5
   _dyingAudioEvent:
