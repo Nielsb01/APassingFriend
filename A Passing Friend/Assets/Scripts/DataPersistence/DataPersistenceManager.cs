@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -109,5 +110,12 @@ public class DataPersistenceManager : MonoBehaviour
         var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
         checkpoint.SetIsActiveTrue();
         SaveGame();
+    }
+
+    private void OnDeleteSave()
+    {
+        Debug.Log("Manually deleted save game");
+        NewGame();
+        LoadGame();
     }
 }

@@ -25,7 +25,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private float _velocityX;
     private readonly float _maxPositiveVelocity = 2.0f;
     private readonly float _maxNegativeVelocity = -2.0f;
-    
 
     private Vector2 _moveVector;
     private Vector2 _rotation;
@@ -301,6 +300,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
+
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
             if (isGrounded())
@@ -538,5 +538,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         RaycastHit hit;
         return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight);
+    }
+
+    public void OnExitGame()
+    {
+        Debug.Log("QuitGame");
+        Application.Quit();
     }
 }
