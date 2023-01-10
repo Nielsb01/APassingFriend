@@ -402,6 +402,7 @@ public class UIController : MonoBehaviour
                     _endScreenBackground.visible = true;
                     PlayerFreezer.FreezeRotation();
                     PlayerFreezer.FreezeMovement();
+                    stopUnfreezingPls = true;
                 }
             }
             else
