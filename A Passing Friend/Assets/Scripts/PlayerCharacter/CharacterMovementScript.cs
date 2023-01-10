@@ -16,6 +16,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     [SerializeField] private float _jumpSpeed = 4.5f;
     [SerializeField] private float _gravity = 9.81f;
     [SerializeField] private float _rotationSpeed = 0.3f;
+    
+    [SerializeField] private float _jumpCheckHeight = 0.5f;
 
     private CharacterController _characterController;
 
@@ -23,6 +25,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private float _velocityX;
     private readonly float _maxPositiveVelocity = 2.0f;
     private readonly float _maxNegativeVelocity = -2.0f;
+    
 
     private Vector2 _moveVector;
     private Vector2 _rotation;
@@ -298,10 +301,9 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
-
         if (_chargeJumpUnlocked && _jumpCharged > _MinimumChargeJumpValue)
         {
-            if (_characterController.isGrounded)
+            if (isGrounded())
             {
                 // Minimum charge value determines how long the jump key should be held down, we want to subtract this from the charge so everything before that
                 // threshold wont matter for the jump
@@ -320,11 +322,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             }
             _playerAnimator.SetBool("Charge",false);
         }
-        else if (_characterController.isGrounded)
-        {
-            _doJump = true;
-        }
-
+        else 
         if (_isClimbing)
         {
             _canClimb = false;
@@ -340,11 +338,26 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
         ResetJumpCharge();
     }
-    
+
+    private void OnJump()
+    {
+        if (_movementImpaired) return;
+        if (isGrounded() && !_holdingDownJump)
+        {
+            _doJump = true;
+        }
+        // Only jump when cat is not dead
+        if (_doJump && isActiveAndEnabled)
+        {
+            // Play jump sound
+            StartCoroutine(OnJumpStart());
+        }
+    }
+
     private void OnJumpHold()
     {
         if (_movementImpaired) return;
-        if (_chargeJumpUnlocked && _characterController.isGrounded)
+        if (_chargeJumpUnlocked && isGrounded())
         {
             _playerAnimator.SetBool("Charge",true);
             _holdingDownJump = true;
@@ -519,5 +532,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public bool IsChargeJumpUnlocked()
     {
         return _chargeJumpUnlocked;
+    }
+
+    private bool isGrounded()
+    {
+        RaycastHit hit;
+        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight);
     }
 }
