@@ -68,6 +68,10 @@ public class UIController : MonoBehaviour
     private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
     private bool _isInMemory = false;
 
+    // Menu Screen
+    private VisualElement _menuScreenBackground;
+
+
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
@@ -133,12 +137,17 @@ public class UIController : MonoBehaviour
             _memoryImagesDictionairy.Add(memory, false);
         }
 
+        // Menu Screen
+        _menuScreenBackground = _root.Q<VisualElement>("Menu-screen-background");
+
         // Screen
         _lastScreenWidth = Screen.width;
         _lastScreenHeight = Screen.height;
 
         ChangeFontDynamically();
         ChangeButtonFontDynamically();
+
+        Time.timeScale = 0;
     }
 
     private void FixedUpdate()
@@ -383,7 +392,11 @@ public class UIController : MonoBehaviour
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 TurnOffDialog();
-                // add event 
+                var nextCheckpoint = _chosenDialogOption.GetNextCheckpoint();
+                if (nextCheckpoint != null)
+                {
+                    FindObjectOfType<DataPersistenceManager>().NextCheckpoint((int)nextCheckpoint);
+                }
             }
             else
             {
@@ -731,6 +744,19 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
 
         StopCoroutine(HideMemoryImage());
+    }
+
+
+    /* 
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+     *                                  MENU SCREEN
+     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    */
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
+        _menuScreenBackground.visible = false;
     }
 
     /* 
