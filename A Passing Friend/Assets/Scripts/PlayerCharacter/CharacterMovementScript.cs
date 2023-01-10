@@ -88,14 +88,12 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void OnDisable()
     {
         PlayerFreezer.FreezeMovementEvent -= SetFreezeRotationStatus;
-        PlayerFreezer.FreezeCameraEvent += SetFreezeMovementStatus;
-        PlayerFreezer.FreezeInputManager += SetInputHandlerDisabledStatus;
+        PlayerFreezer.FreezeCameraEvent -= SetFreezeMovementStatus;
+        PlayerFreezer.FreezeInputManager -= SetInputHandlerDisabledStatus;
     }
 
     private void Awake()
     {
-        _doJump = false;
-        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
         _playerInteractionController = GetComponent<PlayerInteractionController>();
     }
