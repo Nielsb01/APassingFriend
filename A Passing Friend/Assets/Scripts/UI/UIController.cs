@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
+    // @formatter:off
+
     // UI
     [Header("Interaction")]
     private GroupBox _interactBox;
@@ -64,8 +66,9 @@ public class UIController : MonoBehaviour
     private VisualElement _memoryImage;
     private bool _isInMemory;
 
-    // Menu Screen
-    private VisualElement _menuScreenBackground;
+    // Start & End Screens
+    private VisualElement _startScreenBackground;
+    private VisualElement _endScreenBackground;
 
     // Screen
     [Header("Screen")]
@@ -87,6 +90,7 @@ public class UIController : MonoBehaviour
     [Header("Other")]
     public bool stopUnfreezingPls;
 
+    // @formatter:on
 
     // Generic Methods
     private void OnEnable()
@@ -131,8 +135,9 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
-        // Menu Screen
-        _menuScreenBackground = _root.Q<VisualElement>("Menu-screen-background");
+        // Start & End Screens
+        _startScreenBackground = _root.Q<VisualElement>("Start-screen-background");
+        _endScreenBackground = _root.Q<VisualElement>("End-screen-background");
 
         // Screen
         _lastScreenWidth = Screen.width;
@@ -167,6 +172,7 @@ public class UIController : MonoBehaviour
                 PlayerFreezer.ReleaseMovementFreeze();
                 PlayerFreezer.ReleaseRotationFreeze();
             }
+
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -364,7 +370,7 @@ public class UIController : MonoBehaviour
             }
             else
             {
-                SetNpcCamera(); 
+                SetNpcCamera();
             }
 
             StartDialogAnimation();
@@ -389,6 +395,15 @@ public class UIController : MonoBehaviour
                 if (nextCheckpoint != null)
                 {
                     FindObjectOfType<DataPersistenceManager>().NextCheckpoint((int)nextCheckpoint);
+                }
+
+                if (FindObjectOfType<DataPersistenceManager>().AllCheckpointsPassed())
+                {
+                    _endScreenBackground.visible = true;
+                    PlayerFreezer.FreezeRotation();
+                    PlayerFreezer.FreezeMovement();
+                    stopUnfreezingPls = true;
+                    Time.timeScale = 0;
                 }
             }
             else
@@ -560,31 +575,33 @@ public class UIController : MonoBehaviour
     **/
     private void SetDialogBoxCharTextAndPlayAudio(string charName, string text)
     {
-        if(_chosenDialogOption.GetDialogAudio() != null){
-        try
+        if (_chosenDialogOption.GetDialogAudio() != null)
         {
-            var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
-            if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
+            try
             {
-                if (_currentAudioEventInstance.HasValue)
+                var audioEventList = _chosenDialogOption.GetDialogAudio().audioEvents;
+                if ((_currentTextNr.HasValue) && (_currentTextNr < audioEventList.Count))
                 {
-                    _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                }
+                    if (_currentAudioEventInstance.HasValue)
+                    {
+                        _currentAudioEventInstance.Value.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    }
 
-                var rEvent = audioEventList[_currentTextNr ?? default];
-                _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
-                _currentAudioEventInstance.Value.start();
+                    var rEvent = audioEventList[_currentTextNr ?? default];
+                    _currentAudioEventInstance = FMODUnity.RuntimeManager.CreateInstance(rEvent);
+                    _currentAudioEventInstance.Value.start();
+                }
+                else if (_currentTextNr.HasValue)
+                {
+                    throw new Exception("Dialog can't find audio event for: " + text);
+                }
             }
-            else if (_currentTextNr.HasValue)
+            catch
             {
-                throw new Exception("Dialog can't find audio event for: " + text);
+                Debug.LogWarning("no audio events found for: " + text);
             }
         }
-        catch
-        {
-            Debug.LogWarning("no audio events found for: " + text);
-        }
-        }
+
         _dialogBoxDialog.visible = true;
         _dialogBoxCharName.text = charName;
         _dialogBoxText.text = text;
@@ -628,21 +645,21 @@ public class UIController : MonoBehaviour
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
-            if (dialogObjects.Count > 0)
-            {
-                _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
-                _dialogTextList = _chosenDialogOption.GetDialog();
-                _npcName = _dialogBuilder.GetNameOfNpc();
-                _npcCamera = _dialogBuilder.GetNpcCamera();
-                _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
-            }
+        if (dialogObjects.Count > 0)
+        {
+            _chosenDialogOption = dialogObjects[_choiceClicked ?? default(int)];
+            _dialogTextList = _chosenDialogOption.GetDialog();
+            _npcName = _dialogBuilder.GetNameOfNpc();
+            _npcCamera = _dialogBuilder.GetNpcCamera();
+            _npcAnimationController = _dialogBuilder.GetNpcAnimationController();
+        }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  HEALTH
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  HEALTH
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
       <summary>
@@ -667,11 +684,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  JUMP CHARGE BAR
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  JUMP CHARGE BAR
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
       <summary>
@@ -687,11 +704,11 @@ public class UIController : MonoBehaviour
         _jumpChargeBar.value = _jumpChargePercent;
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  MEMORIES
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  MEMORIES
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
       <summary>
@@ -734,23 +751,28 @@ public class UIController : MonoBehaviour
     }
 
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  MENU SCREEN
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  START & END SCREENS
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
+    /**
+      <summary>
+        When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
+      </summary>
+    **/
     public void StartGame()
     {
         Time.timeScale = 1;
-        _menuScreenBackground.visible = false;
+        _startScreenBackground.visible = false;
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  SCREEN & FONTS
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  SCREEN RESOLUTION & FONTS
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
       <summary>
@@ -845,11 +867,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  CAMERA'S
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  CAMERA'S
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
       <summary>
