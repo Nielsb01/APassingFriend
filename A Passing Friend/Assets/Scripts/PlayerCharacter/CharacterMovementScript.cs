@@ -81,6 +81,8 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private Vector3 _prevSoundPosition;
     private float _jumpThresholdSeconds = 1;
 
+    private static string WATORLAYORNAME = "Wator";
+
     private void Awake()
     {
         _doJump = false;
@@ -545,6 +547,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool isGrounded()
     {
         RaycastHit hit;
-        return Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight);
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, _jumpCheckHeight))
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer(WATORLAYORNAME)) return false;
+            return true;
+        }
+        return false;
     }
 }
