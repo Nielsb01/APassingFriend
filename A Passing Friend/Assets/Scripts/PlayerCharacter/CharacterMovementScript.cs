@@ -13,13 +13,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     [Header("Movement Settings")] 
     [SerializeField] private float _acceleration = 0.8f;
-
     [SerializeField] private float _deceleration = 1.6f;
     [SerializeField] private float _moveSpeed = 1.75f;
     [SerializeField] private float _jumpSpeed = 4.5f;
     [SerializeField] private float _gravity = 9.81f;
     [SerializeField] private float _rotationSpeed = 0.3f;
-    
     [SerializeField] private float _jumpCheckHeight = 0.5f;
 
     private CharacterController _characterController;
