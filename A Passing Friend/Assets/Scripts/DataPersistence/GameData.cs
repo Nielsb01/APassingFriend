@@ -7,11 +7,10 @@ public class GameData
     public string ItemHeldByPlayer;
     public bool isDay;
     public bool canChargeJump;
-    public bool ashaIsAtHouse;
+    public bool ashaCutsceneComplete;
     public QuestState questOneState;
     public QuestState questTwoState;
     public string activeCheckpoint;
-    public float fogDensity;
     public bool hasBeenEagle;
 
     public GameData()
@@ -19,8 +18,8 @@ public class GameData
         playerLocation = Vector3.zero;
         isDay = true;
         canChargeJump = false;
-        ashaIsAtHouse = false;
         hasBeenEagle = false;
+        ashaCutsceneComplete = false;
         questOneState = QuestState.Unavailable;
         questTwoState = QuestState.Unavailable;
         activeCheckpoint = "";
