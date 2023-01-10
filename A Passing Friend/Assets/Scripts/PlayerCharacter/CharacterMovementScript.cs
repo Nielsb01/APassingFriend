@@ -115,6 +115,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             Rotate();
             HandleMovementSound();
         }
+        SetAnimatorVariables();
     }
 
     public void OnFreeLook(InputValue value)
@@ -220,9 +221,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _moveDirection.z = _moveSpeed * (float)Math.Round(_velocityY, 4);
         _moveDirection.y -= _gravity * Time.deltaTime;
         _characterController.Move(transform.TransformDirection(_moveDirection * Time.deltaTime));
-        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
-        _playerAnimator.SetFloat("velocityX",_moveDirection.y);
-        _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
     }
 
     private static bool FloatIsBetween(float number, float min, float max)
@@ -397,7 +395,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         _moveDirection.y = _failjumpSpeed;
         _velocityY += _failjumpSpeed;
-        _playerAnimator.SetTrigger("Land");
+        _playerAnimator.SetTrigger("Fall");
     }
     
     private void CheckCanClimb()
@@ -471,6 +469,16 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _velocityY = 0;
         PerformSmallJump(_climbZoneExitJumpSpeed);
         _exitingClimbing = false;
+    }
+
+    private void SetAnimatorVariables()
+    {
+        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
+        _playerAnimator.SetFloat("velocityZ",_moveDirection.x);
+        _playerAnimator.SetFloat("velocityX",_moveDirection.y);
+        _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
+        _playerAnimator.SetBool("Climbing",_isClimbing);
+        _playerAnimator.SetFloat("ClimbingSpeed",_moveVector.y);
     }
 
     // Methods for handling sound
