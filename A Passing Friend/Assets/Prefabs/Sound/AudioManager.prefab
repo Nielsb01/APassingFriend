@@ -95,6 +95,13 @@ MonoBehaviour:
       Data3: 1984409000
       Data4: -284681011
     Path: event:/Music/TreeMusic
+  _memoryMusic:
+    Guid:
+      Data1: -1291515622
+      Data2: 1243059763
+      Data3: -522706003
+      Data4: 2093017756
+    Path: event:/Music/MemoryMusic
   _environmentObjects:
   - {fileID: 0}
   - {fileID: 0}

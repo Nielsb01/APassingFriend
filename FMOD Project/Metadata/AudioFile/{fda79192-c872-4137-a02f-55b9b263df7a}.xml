@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{fda79192-c872-4137-a02f-55b9b263df7a}">
+		<property name="assetPath">
+			<value>Rayen/1. # 1st Interaction with Rayen/R1_2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.8666666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{f3ccfe0a-4f9d-4604-8324-417a2d72bdb7}</destination>
+		</relationship>
+	</object>
+</objects>
