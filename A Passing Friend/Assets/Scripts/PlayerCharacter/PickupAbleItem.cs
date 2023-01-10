@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using Npc;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
-public class PickupAbleItem : MonoBehaviour
+public class PickupAbleItem : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Transform _pickUpHandel;
     private Rigidbody _rigidbody;
-
-    // Questing
-    public delegate void PickedUpQuestItemEvent(QuestState questState);
+    public delegate void PickedUpQuestItemEvent(QuestState questState, StyleBackground styleBackground);
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
-    [SerializeField] private bool _isQuestItem = false;
-    private bool _memoryHasPlayed = false;
+    [SerializeField] private Texture2D _memory;
+    private bool _memoryHasPlayed;
+    [SerializeField] private TextAsset _questCompletedText;
+    [SerializeField] private Transform _questNpc;
 
     
     private void Awake()
@@ -23,11 +22,11 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_isQuestItem && !_memoryHasPlayed)
+        GameObject parrent = null;
+        if(transform.parent?.gameObject != null)
         {
-            InvokePickedUpQuestItem();
+            parrent = transform.parent.gameObject;
         }
-
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
@@ -41,17 +40,38 @@ public class PickupAbleItem : MonoBehaviour
             transform.parent = pickupLocationObject;
             transform.position = pickupLocationObject.position;
         }
+        
         if (_rigidbody != null)
         {
             _rigidbody.isKinematic = true;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
+        
+        if (_memory != null && !_memoryHasPlayed)
+        {
+            InvokePickedUpQuestItem(parrent);
+        }
     }
 
-    private void InvokePickedUpQuestItem()
+    private void InvokePickedUpQuestItem(GameObject parrent)
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp, _memory);
+        if (name.Equals("Model"))
+        {
+            Destroy(GetComponent<NpcBallController>());
+            if (transform.parent.gameObject != null)
+            {
+                Destroy(parrent);
+            }
+            FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
+            GameObject.Find("DevlinWithHat").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
+        }
+        else if (name.Equals("Catnip"))
+        {
+            FindObjectOfType<DataPersistenceManager>().NextCheckpoint(7);
+            GameObject.Find("Rayen").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
+        }
         _memoryHasPlayed = true;
     }
 
@@ -69,5 +89,20 @@ public class PickupAbleItem : MonoBehaviour
         }
 
         gameObject.layer = LayerMask.NameToLayer("Pickup");
+
+        if (Vector3.Distance(transform.position, _questNpc.position) <= 2)
+        {
+            gameObject.SetActive(false);
+        }
     }
+
+    public void LoadData(GameData gameData)
+    {
+        if ((name.Equals("Model") && gameData.questOneState.Equals(QuestState.Completed)) || (name.Equals("Catnip") && gameData.questTwoState.Equals(QuestState.Completed)))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SaveData(ref GameData gameData) {}
 }

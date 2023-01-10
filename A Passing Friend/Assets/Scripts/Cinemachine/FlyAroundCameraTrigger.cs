@@ -9,6 +9,7 @@ namespace Camera
     {
         private bool _cannotBeTriggered;
         [SerializeField] private float _movementLockTime = 1;
+        private const int NEXT_CHECKPOINT = 2;
 
         public void OnTriggerEnter(Collider collisionCollider)
         {
@@ -24,11 +25,13 @@ namespace Camera
             var soundController = FindObjectOfType<SoundController>();
             var lightCheckScript = FindObjectOfType<LightCheckScript>();
 
+            FindObjectOfType<DataPersistenceManager>().NextCheckpoint(NEXT_CHECKPOINT);
+
             soundController.SetPlayerInTree(true);
             var fogDensity = RenderSettings.fogDensity;
             RenderSettings.fogDensity = 0;
 
-            collisionCollider.GetComponent<PlayerInput>().enabled = false;
+            PlayerFreezer.FreezeAllInput();
             lightCheckScript.calculateLight = false;
             lightCheckScript.DisableLightCheckCameras();
 
@@ -39,7 +42,7 @@ namespace Camera
             soundController.SetPlayerInTree(false);
             RenderSettings.fogDensity = fogDensity;
 
-            collisionCollider.GetComponent<PlayerInput>().enabled = true;
+            PlayerFreezer.ReleaseAllInputFreeze();
             lightCheckScript.EnableLightCheckCameras();
             lightCheckScript.calculateLight = true;
         }

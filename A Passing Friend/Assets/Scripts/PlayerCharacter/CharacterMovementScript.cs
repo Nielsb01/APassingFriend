@@ -9,14 +9,15 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 {
-    [Header("Movement Settings")]
+    // @formatter:off
+
+    [Header("Movement Settings")] 
     [SerializeField] private float _acceleration = 0.8f;
     [SerializeField] private float _deceleration = 1.6f;
     [SerializeField] private float _moveSpeed = 1.75f;
     [SerializeField] private float _jumpSpeed = 4.5f;
     [SerializeField] private float _gravity = 9.81f;
     [SerializeField] private float _rotationSpeed = 0.3f;
-    
     [SerializeField] private float _jumpCheckHeight = 0.5f;
 
     private CharacterController _characterController;
@@ -32,9 +33,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private Vector3 _moveDirection = Vector3.zero;
     private bool _doJump;
     private bool _rotationFrozenDueToFreeLook;
-    private bool _rotationFrozenDueToDialog;
-    [HideInInspector]
-    public bool rotationFrozenDueToSpecialArea;
+    private bool _rotationFrozen;
 
     private const float CHECK_VALUE = 0.1f;
 
@@ -51,15 +50,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private bool _holdingDownJump;
 
     // Climbing
-    [SerializeField] private  float _climbZoneExitJumpSpeed = 0.1f;
+    [SerializeField] private float _climbZoneExitJumpSpeed = 0.1f;
     private bool _inClimbingZone;
     private bool _canClimb;
-    private bool _isClimbing; 
+    private bool _isClimbing;
     private bool _exitingClimbing;
     private static string CLIMBING_ZONE_TAG = "ClimbingZone";
     private static string CLIMBING_WALL_TAG = "ClimbingWall";
     private static float CLIMBING_DISTANCE = 0.3f;
-    
+
     //Animation
     [SerializeField] private Animator _playerAnimator;
     private static string Y_VELOCITY_ANIMATOR_VARIABLE = "velocityY";
@@ -67,26 +66,41 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     //Interacting
     private PlayerInteractionController _playerInteractionController;
     
-    [Header("Fog")]
+    [Header("Fog")] 
     [SerializeField] private FogController _fogController;
     
     private const string WOODS_LAYER_NAME = "Woods";
     private const string VILLAGE_LAYER_NAME = "ShimmerWoodsVillage";
-
-    [Header("Sound Settings")]
+    
+    [Header("Sound Settings")] 
     [SerializeField] private FMODUnity.EventReference _footstepsEventPath;
+
     [SerializeField] private FMODUnity.EventReference _jumpingEventPath;
     [SerializeField] private FMODUnity.EventReference _landingEventPath;
     [SerializeField] private float _minimumDisplacementForSound;
     private Vector3 _prevSoundPosition;
     private float _jumpThresholdSeconds = 1;
+    // @formatter:on 
+
+
+    private void OnEnable()
+    {
+        PlayerFreezer.FreezeMovementEvent += SetFreezeMovementStatus;
+        PlayerFreezer.FreezeCameraEvent += SetFreezeRotationStatus;
+        PlayerFreezer.FreezeInputManager += SetInputHandlerDisabledStatus;
+    }
+
+    private void OnDisable()
+    {
+        PlayerFreezer.FreezeMovementEvent -= SetFreezeMovementStatus;
+        PlayerFreezer.FreezeCameraEvent -= SetFreezeRotationStatus;
+        PlayerFreezer.FreezeInputManager -= SetInputHandlerDisabledStatus;
+    }
 
     private static string WATORLAYORNAME = "Wator";
 
     private void Awake()
     {
-        _doJump = false;
-        _movementImpaired = false;
         _characterController = GetComponent<CharacterController>();
         _playerInteractionController = GetComponent<PlayerInteractionController>();
     }
@@ -118,6 +132,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             Rotate();
             HandleMovementSound();
         }
+
         SetAnimatorVariables();
     }
 
@@ -136,7 +151,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Rotate()
     {
-        if (_rotationFrozenDueToFreeLook || rotationFrozenDueToSpecialArea || _rotationFrozenDueToDialog) return;
+        if (_rotationFrozenDueToFreeLook || _rotationFrozen) return;
 
         transform.Rotate(_rotation * _rotationSpeed);
     }
@@ -149,6 +164,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _jumpCharged += _chargeSpeed * Time.deltaTime;
         }
+
         if (!_characterController.isGrounded && _jumpCharged > 0)
         {
             _jumpCharged = 0;
@@ -168,6 +184,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             {
                 _moveDirection.y = _jumpSpeed;
             }
+
             _doJump = false;
             _doChargeJump = false;
         }
@@ -231,17 +248,26 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         return number >= min && number <= max;
     }
 
-    public void FreezeMovement(bool movementImpaired, bool rotationFrozen)
+    private void SetFreezeRotationStatus(bool status)
     {
-        _movementImpaired = movementImpaired;
-        _rotationFrozenDueToDialog = rotationFrozen;
+        _rotationFrozen = status;
+    }
 
-        if (_movementImpaired || _rotationFrozenDueToDialog)
+    private void SetFreezeMovementStatus(bool status)
+    {
+        _movementImpaired = status;
+        if (status)
         {
-            ResetAllMovement();
-            _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
+            RemoveVelocity();
         }
     }
+
+    private void RemoveVelocity()
+    {
+        ResetAllMovement();
+        _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
+    }
+
 
     private void ResetJumpCharge()
     {
@@ -287,7 +313,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
     }
-    
+
     private void loadHoldingItem(GameData data)
     {
         if (data.ItemHeldByPlayer != null && !data.ItemHeldByPlayer.Equals(String.Empty))
@@ -297,7 +323,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _playerInteractionController.SetItemHolding(itemHeldByPlayer);
         }
     }
-    
+
     private void OnJumpRelease()
     {
         if (_movementImpaired) return;
@@ -314,16 +340,15 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
                 }
                 else
                 {
-                    
                     _moveDirection.y = _jumpCharged;
                     _doJump = true;
                     _doChargeJump = true;
                 }
             }
-            _playerAnimator.SetBool("Charge",false);
+
+            _playerAnimator.SetBool("Charge", false);
         }
-        else 
-        if (_isClimbing)
+        else if (_isClimbing)
         {
             _canClimb = false;
             _isClimbing = false;
@@ -346,6 +371,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         {
             _doJump = true;
         }
+
         // Only jump when cat is not dead
         if (_doJump && isActiveAndEnabled)
         {
@@ -359,11 +385,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         if (_movementImpaired) return;
         if (_chargeJumpUnlocked && isGrounded())
         {
-            _playerAnimator.SetBool("Charge",true);
+            _playerAnimator.SetBool("Charge", true);
             _holdingDownJump = true;
         }
     }
-    
+
     private void OnTriggerEnter(Collider trigger)
     {
         if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
@@ -379,7 +405,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _fogController.GoToVillageFog();
         }
     }
-    
+
     private void OnTriggerExit(Collider trigger)
     {
         if (trigger.transform.CompareTag(CLIMBING_ZONE_TAG))
@@ -399,7 +425,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         _velocityY += _failjumpSpeed;
         _playerAnimator.SetTrigger("Fall");
     }
-    
+
     private void CheckCanClimb()
     {
         if (_canClimb) return;
@@ -422,10 +448,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             _isClimbing = false;
         }
     }
+
     private void ClimbWall()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward,out hit,CLIMBING_DISTANCE))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, CLIMBING_DISTANCE))
         {
             if (hit.transform.CompareTag(CLIMBING_WALL_TAG))
             {
@@ -451,12 +478,13 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
             {
                 _exitingClimbing = false;
             }
-            else if(_isClimbing)
+            else if (_isClimbing)
             {
                 _isClimbing = false;
             }
         }
     }
+
     // This jumped is performed when failing a jump, but also when exiting a climb zone.
     private void PerformSmallJump(float jumpPower)
     {
@@ -476,11 +504,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void SetAnimatorVariables()
     {
         _playerAnimator.SetFloat(Y_VELOCITY_ANIMATOR_VARIABLE, _velocityY);
-        _playerAnimator.SetFloat("velocityZ",_moveDirection.x);
-        _playerAnimator.SetFloat("velocityX",_moveDirection.y);
-        _playerAnimator.SetBool("Grounded",_characterController.isGrounded);
-        _playerAnimator.SetBool("Climbing",_isClimbing);
-        _playerAnimator.SetFloat("ClimbingSpeed",_moveVector.y);
+        _playerAnimator.SetFloat("velocityZ", _moveDirection.x);
+        _playerAnimator.SetFloat("velocityX", _moveDirection.y);
+        _playerAnimator.SetBool("Grounded", _characterController.isGrounded);
+        _playerAnimator.SetBool("Climbing", _isClimbing);
+        _playerAnimator.SetFloat("ClimbingSpeed", _moveVector.y);
     }
 
     // Methods for handling sound
@@ -514,7 +542,7 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
         if (Vector3.Distance(_prevSoundPosition, transform.position) > _minimumDisplacementForSound)
         {
             FMODUnity.RuntimeManager.PlayOneShot(_footstepsEventPath);
-           _prevSoundPosition = transform.position;
+            _prevSoundPosition = transform.position;
         }
     }
 
@@ -542,6 +570,11 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     public bool IsChargeJumpUnlocked()
     {
         return _chargeJumpUnlocked;
+    }
+
+    private void SetInputHandlerDisabledStatus(bool status)
+    {
+        GetComponent<PlayerInput>().enabled = !status;
     }
 
     private bool isGrounded()
