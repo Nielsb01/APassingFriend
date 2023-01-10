@@ -520,4 +520,10 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     {
         return _chargeJumpUnlocked;
     }
+
+    public void OnExitGame()
+    {
+        Debug.Log("QuitGame");
+        Application.Quit();
+    }
 }
