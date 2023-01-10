@@ -151,7 +151,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
 
     private void Rotate()
     {
-        Debug.Log("Status: " + _rotationFrozen);
         if (_rotationFrozenDueToFreeLook || _rotationFrozen) return;
 
         transform.Rotate(_rotation * _rotationSpeed);
@@ -252,7 +251,6 @@ public class CharacterMovementScript : MonoBehaviour, IDataPersistence
     private void SetFreezeRotationStatus(bool status)
     {
         _rotationFrozen = status;
-        Debug.LogWarning("Setting rotation freeze: " + _rotationFrozen);
     }
 
     private void SetFreezeMovementStatus(bool status)

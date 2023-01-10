@@ -1,12 +1,7 @@
 using Npc;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Playables;
-using UnityEngine.Serialization;
 
 public class PickupAbleItem : MonoBehaviour, IDataPersistence
 {
@@ -16,10 +11,8 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
     public static event PickedUpQuestItemEvent PickedUpQuestItem;
     [SerializeField] private Texture2D _memory;
     private bool _memoryHasPlayed;
-    [SerializeField] private bool _isQuestItem = false;
     [SerializeField] private TextAsset _questCompletedText;
     [SerializeField] private Transform _questNpc;
-    private bool _memoryHasPlayed = false;
 
     
     private void Awake()
@@ -57,17 +50,13 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
         
         if (_memory != null && !_memoryHasPlayed)
         {
-            InvokePickedUpQuestItem();
-
-        if (_isQuestItem && !_memoryHasPlayed)
-        {
             InvokePickedUpQuestItem(parrent);
         }
     }
 
     private void InvokePickedUpQuestItem(GameObject parrent)
     {
-        PickedUpQuestItem?.Invoke(QuestState.PickedUp);
+        PickedUpQuestItem?.Invoke(QuestState.PickedUp, _memory);
         if (name.Equals("Model"))
         {
             Destroy(GetComponent<NpcBallController>());

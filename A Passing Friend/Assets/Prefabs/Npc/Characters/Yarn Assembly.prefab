@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickUpHandel: {fileID: 0}
-  _memory: {fileID: 0}
+  _memory: {fileID: 2800000, guid: 96b7272397aac43a8af5580426e0baeb, type: 3}
+  _questCompletedText: {fileID: 0}
+  _questNpc: {fileID: 0}
 --- !u!1 &4428121692145940623
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +221,7 @@ Transform:
   - {fileID: 4428121692145940611}
   - {fileID: 4428121691826300913}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6761924802564070635
 PrefabInstance:
