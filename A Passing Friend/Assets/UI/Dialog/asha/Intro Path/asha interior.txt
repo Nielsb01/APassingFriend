@@ -4,9 +4,10 @@ Asha interior
 *1 Here we are, make yourself at home. Your friend will be here any second
 *2 You are probably wondering why you are here
 *3 See, you are currently dreaming.
-*4 Unfortunately your best friend is dying. I‘m one of the witches, who will help you have one last adventure with your best friend.
-*5 In order to cross over to the afterlife, they need your help to collect the memories.
-*6 These memories are scattered throughout this village.
-*7 To find them, make sure to interact with the other villagers. They might be able to help you.
-*8 Oh look at that, here they come!
-*9 Now that you know what to do, go on your last adventure together. Goodluck!
+*4 Unfortunately your best friend is dying. 
+*5 I‘m one of the witches, who will help you have one last adventure with your best friend.
+*6 In order to cross over to the afterlife, they need your help to collect the memories.
+*7 These memories are scattered throughout this village.
+*8 To find them, make sure to interact with the other villagers. They might be able to help you.
+*9 Oh look at that, here they come!
+*10 Now that you know what to do, go on your last adventure together. Good luck!

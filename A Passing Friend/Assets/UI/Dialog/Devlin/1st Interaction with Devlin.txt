@@ -4,10 +4,11 @@ Intro
 *1 Well…uh… hello. You must be one of the new arrivals.
 *2 This is all very new to me. uhm… welcome to the (tailor shop). How can I help you today…?
 *3 Oh, you are looking to collect your memories.
-*3 Sorry, I am a bit distracted, because I am looking for the red ball of wool. I can’t start my work if I don’t find it.
-*4 Have you seen it by any chance?
-*5 My mother used to run this shop. She passed away and I had to take over the business.
-*6 Only the stitches never seem to work out the way I want. I don't think I'm cut out for this.
-*7 But if you can find the ball of wool I might be able to help you with your memory.
+*3 Sorry, I am a bit distracted, because I am looking for the red ball of wool. 
+*4 I can’t start my work if I don’t find it.
+*5 Have you seen it by any chance?
+*6 My mother used to run this shop. She passed away and I had to take over the business.
+*7 Only the stitches never seem to work out the way I want. I don't think I'm cut out for this.
+*8 But if you can find the ball of wool I might be able to help you with your memory.
 
 
