@@ -15,7 +15,8 @@ MonoBehaviour:
   checkpointName: BallOfYarn
   isDay: 0
   canChargeJump: 1
-  ashaIsAtHouse: 1
+  ashaCutsceneComplete: 1
   questOneState: 3
   questTwoState: 0
   hasBeenEagle: 1
+  fogDensity: 0.03

@@ -4,6 +4,8 @@ using CameraState = Camera.CameraState;
 
 public class AshaCutsceneFogChanger : MonoBehaviour
 {
+    [SerializeField] private HealthController _player;
+    [SerializeField] private GameObject _theGreatWall;
     private float _fogDensity;
     private bool _active;
     private CinemachineVirtualCamera _cam;
@@ -20,6 +22,8 @@ public class AshaCutsceneFogChanger : MonoBehaviour
             if (_cam.Priority == (int)CameraState.Inactive)
             {
                 ExecuteTrigger();
+                _player.SetPlayerInvisible(false);
+                _theGreatWall.transform.GetChild(1).gameObject.SetActive(false);
                 Destroy(this);
             }
         }

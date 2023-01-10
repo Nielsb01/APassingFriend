@@ -5,7 +5,7 @@ using UnityEngine;
 
 #endregion
 
-public class HealthController : MonoBehaviour
+public class HealthController : MonoBehaviour, IDataPersistence
 {
     [Header("General Settings")]
     [SerializeField] private GameObject _lightCheckController;
@@ -47,6 +47,13 @@ public class HealthController : MonoBehaviour
         _lightCheckScript = _lightCheckController.GetComponent<LightCheckScript>();
         _health = _maxHealth;
     }
+
+    public void LoadData(GameData gameData)
+    {
+        SetPlayerInvisible(!gameData.ashaCutsceneComplete);
+    }
+
+    public void SaveData(ref GameData gameData) { }
 
     private void Start()
     {
@@ -161,7 +168,11 @@ public class HealthController : MonoBehaviour
 
         transform.GetComponent<CharacterController>().enabled = !state;
         GetComponent<CharacterMovementScript>().enabled = !state;
-        // Set model inactive
+        SetPlayerInvisible(state);
+    }
+
+    public void SetPlayerInvisible(bool state)
+    {
         transform.GetChild(0).gameObject.SetActive(!state);
     }
 
