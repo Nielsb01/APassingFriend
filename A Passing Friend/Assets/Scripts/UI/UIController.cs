@@ -398,6 +398,8 @@ public class UIController : MonoBehaviour
                 if (FindObjectOfType<DataPersistenceManager>().AllCheckpointsPassed())
                 {
                     _endScreenBackground.visible = true;
+                    PlayerFreezer.FreezeRotation();
+                    PlayerFreezer.FreezeMovement();
                 }
             }
             else
