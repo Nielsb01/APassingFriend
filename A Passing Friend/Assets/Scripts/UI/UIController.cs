@@ -67,7 +67,6 @@ public class UIController : MonoBehaviour
     // Menu Screen
     private VisualElement _menuScreenBackground;
 
-
     // Screen
     [Header("Screen")]
     [SerializeField] private int _lastScreenWidth;
@@ -78,13 +77,15 @@ public class UIController : MonoBehaviour
     public static event DialogEvent DialogExited;
 
     // Audio
+    [Header("Sound")]
+    [SerializeField] private SoundController _audioManager;
     private FMOD.Studio.EventInstance? _currentAudioEventInstance = null;
 
     // Animations
     private NpcAnimationController _npcAnimationController;
 
+    [Header("Other")]
     public bool stopUnfreezingPls;
-
 
 
     // Generic Methods
@@ -141,6 +142,7 @@ public class UIController : MonoBehaviour
         ChangeButtonFontDynamically();
 
         Time.timeScale = 0;
+
     }
 
     private void Update()
@@ -706,6 +708,8 @@ public class UIController : MonoBehaviour
 
         _memoryImage.style.backgroundImage = memory;
 
+        _audioManager.SetMemoryEnabled(true);
+
         StartCoroutine(HideMemoryImage());
     }
 
@@ -718,11 +722,13 @@ public class UIController : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(8);
 
         _isInMemory = false;
 
         _memoryImage.visible = false;
+
+        _audioManager.SetMemoryEnabled(false);
 
         Time.timeScale = 1;
     }

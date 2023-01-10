@@ -239,6 +239,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5293889835202695919, guid: 24c2933a3e903b04a87422d09cc5dd42,
+        type: 3}
+      propertyPath: _navMeshAgent
+      value: 
+      objectReference: {fileID: 1429920583906436331}
     - target: {fileID: 5686131978594062623, guid: 24c2933a3e903b04a87422d09cc5dd42,
         type: 3}
       propertyPath: _dialogTextFile
@@ -255,11 +260,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 69e273027dd3d4f838756e21bb888db2,
         type: 2}
-    - target: {fileID: 5293889835202695919, guid: 24c2933a3e903b04a87422d09cc5dd42,
-        type: 3}
-      propertyPath: _navMeshAgent
-      value: 
-      objectReference: {fileID: 1429920583906436331}
     m_RemovedComponents:
     - {fileID: 0}
     m_AddedGameObjects:
