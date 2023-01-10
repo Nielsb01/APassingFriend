@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npc: {fileID: 4428121692145940623}
-  _bounceStrength: 2
+  _bounceStrength: 3
   _followControllerSpeed: 3
 --- !u!135 &7812641948266489174
 SphereCollider:
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickUpHandel: {fileID: 0}
+  _memory: {fileID: 0}
 --- !u!1 &4428121692145940623
 GameObject:
   m_ObjectHideFlags: 0
