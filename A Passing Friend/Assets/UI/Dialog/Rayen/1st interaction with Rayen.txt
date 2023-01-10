@@ -1,6 +1,6 @@
 Intro
 --
-# 1st interaction with Rayen$ [Camera: 0]
+# 1st interaction with Rayen$ [Camera: 0] [Checkpoint: 6]
 *1 Almost there, just one more ingredient and I am….
 *2 FLAMINGOS!!! 
 *3 It went wrong again! 

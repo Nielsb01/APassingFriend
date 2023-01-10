@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private string _filename;
     [SerializeField] private string _dirPath = "C:\\temp";
-    [SerializeField] private List<GameObject> _checkpoints;
+    [SerializeField] private List<CheckpointController> _checkpoints;
     public static DataPersistenceManager instance { get; private set; }
 
     private GameData _gameData;
@@ -19,6 +20,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.LogError(this.name + "More than one DPM found in scene");
         }
+
         instance = this;
     }
 
@@ -27,19 +29,6 @@ public class DataPersistenceManager : MonoBehaviour
         _fileDataHandler = new FileDataHandler(_dirPath, _filename);
         _dataPersistenceObjects = GetAllDataPersistenceObjects();
         LoadGame();
-    }
-
-    //TODO This needs to be replaced during intergration with a propper way to call it
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            NextWaypoint();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadGame();
-        }
     }
 
     private List<IDataPersistence> GetAllDataPersistenceObjects()
@@ -58,11 +47,12 @@ public class DataPersistenceManager : MonoBehaviour
         _gameData = new GameData();
         if (_checkpoints.Count < 1 || _checkpoints[0] == null)
         {
-            Debug.LogError(this.name + ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
+            Debug.LogError(this.name +
+                           ": Checkpoints list must have at least one CheckPointFlag assigned to use as spawn point.");
         }
         else
         {
-            SetWaypoint(0);
+            SetCheckpoint(0);
         }
     }
 
@@ -87,27 +77,41 @@ public class DataPersistenceManager : MonoBehaviour
 
         foreach (var obj in _dataPersistenceObjects)
         {
-            obj.LoadData(_gameData);
+            try
+            {
+                var crash = ((MonoBehaviour)obj).name;
+                obj.LoadData(_gameData);
+            }
+            catch (Exception e)
+            {
+                var b = e;
+                Debug.LogWarning("Sit 1");
+            }  
         }
     }
 
-    public void NextWaypoint()
+    public void NextCheckpoint(int nextCheckpoint)
     {
+        if (nextCheckpoint <= 0)
+        {
+            Debug.LogError("The chosen index needs to be higher than 0, nextCheckpointIndex cannot be 0.");
+            return;
+        }
+
         var nameActive = _gameData.activeCheckpoint;
 
-        for (int i = 0; i < _checkpoints.Count - 1; i++)
+        if (_checkpoints[nextCheckpoint - 1].GetComponent<CheckpointController>().GetCheckpointName()
+            .Equals(nameActive))
         {
-            if (_checkpoints[i].GetComponent<CheckpointController>().GetCheckpointName().Equals(nameActive))
-            {
-                SetWaypoint(i + 1);
-            }
+            SetCheckpoint(nextCheckpoint);
         }
     }
 
-    private void SetWaypoint(int index)
+    private void SetCheckpoint(int index)
     {
         var checkpoint = _checkpoints[index].GetComponent<CheckpointController>();
         checkpoint.SetIsActiveTrue();
         SaveGame();
+        LoadGame();
     }
 }

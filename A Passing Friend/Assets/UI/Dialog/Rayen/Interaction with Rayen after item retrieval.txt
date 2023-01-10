@@ -1,6 +1,6 @@
 Intro
 --
-# Interaction with Rayen after item retrieval$ [Camera: 0]
+# Interaction with Rayen after item retrieval$ [Camera: 0] [Checkpoint: 8]
 *1 Okay I seem to have everything except for the…, oh hi you are back already!”
 *2 Do you have the catnip I needed?
 *3  You do? That is amazing! Thank you so much. Now I can hopefully finish that potion. 

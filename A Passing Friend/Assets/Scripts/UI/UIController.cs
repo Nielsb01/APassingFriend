@@ -383,7 +383,11 @@ public class UIController : MonoBehaviour
             if (_chosenDialogOption.DoesOptionEndConversation())
             {
                 TurnOffDialog();
-                // add event 
+                var nextCheckpoint = _chosenDialogOption.GetNextCheckpoint();
+                if (nextCheckpoint != null)
+                {
+                    FindObjectOfType<DataPersistenceManager>().NextCheckpoint((int)nextCheckpoint);
+                }
             }
             else
             {
