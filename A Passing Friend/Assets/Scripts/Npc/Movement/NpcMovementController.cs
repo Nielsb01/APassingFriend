@@ -229,7 +229,7 @@ namespace Npc
         {
             if (_npcLoadLocation == null) return;
 
-            if (name.Equals("Asha") && gameData.ashaIsAtHouse)
+            if (name.Equals("Asha") && gameData.ashaCutsceneComplete)
             {
                 transform.position = _npcLoadLocation.transform.position;
                 _waypointsRoute = new List<GameObject> { _npcLoadLocation };
