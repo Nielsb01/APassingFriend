@@ -19,7 +19,6 @@ public class FogController : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData gameData)
     {
-        gameData.fogDensity = RenderSettings.fogDensity;
     }
 
     public void GoToWoodsFog()
