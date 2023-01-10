@@ -64,11 +64,7 @@ public class UIController : MonoBehaviour
 
     // Memories
     private VisualElement _memoryImage;
-
-    [Header("Memories")]
-    [SerializeField] private List<Texture2D> _memoryImages = new List<Texture2D>();
-    private Dictionary<Texture2D, bool> _memoryImagesDictionairy = new Dictionary<Texture2D, bool>();
-    private bool _isInMemory = false;
+    private bool _isInMemory;
 
     // Start & End Screens
     private VisualElement _startScreenBackground;
@@ -90,6 +86,8 @@ public class UIController : MonoBehaviour
     // Animations
     private NpcAnimationController _npcAnimationController;
     
+    public bool stopUnfreezingPls;
+
     // @formatter:on
 
 
@@ -136,11 +134,6 @@ public class UIController : MonoBehaviour
         // Memory
         _memoryImage = _root.Q<VisualElement>("memory-image");
 
-        foreach (var memory in _memoryImages)
-        {
-            _memoryImagesDictionairy.Add(memory, false);
-        }
-
         // Start & End Screens
         _startScreenBackground = _root.Q<VisualElement>("Start-screen-background");
         _endScreenBackground = _root.Q<VisualElement>("End-screen-background");
@@ -153,15 +146,6 @@ public class UIController : MonoBehaviour
         ChangeButtonFontDynamically();
 
         Time.timeScale = 0;
-    }
-
-    private void FixedUpdate()
-    {
-        // Unfreeze the player when they are not in interact range with anything.
-        if (!_isInInteractRange && !_isInMemory)
-        {
-            _characterMovementScript.FreezeMovement(false, false);
-        }
     }
 
     private void Update()
@@ -180,7 +164,13 @@ public class UIController : MonoBehaviour
         */
         if (!_isInInteractRange)
         {
-            _characterMovementScript.FreezeMovement(false, false);
+            // Unfreeze the player when they are not in interact range with anything.
+            if (!_isInMemory && !stopUnfreezingPls)
+            {
+                PlayerFreezer.ReleaseMovementFreeze();
+                PlayerFreezer.ReleaseRotationFreeze();
+            }
+
             _isInInteraction = false;
 
             SetDialogSystemInvisible();
@@ -340,7 +330,9 @@ public class UIController : MonoBehaviour
         */
         if (!_dialogBox.visible)
         {
-            _characterMovementScript.FreezeMovement(true, true);
+            PlayerFreezer.FreezeMovement();
+            PlayerFreezer.FreezeRotation();
+
             _isInInteraction = true;
             _interactBox.visible = false;
 
@@ -436,7 +428,8 @@ public class UIController : MonoBehaviour
         _isInInteraction = false;
         _isDialogBuilderSet = false;
 
-        _characterMovementScript.FreezeMovement(false, false);
+        PlayerFreezer.ReleaseMovementFreeze();
+        PlayerFreezer.ReleaseRotationFreeze();
 
         SetDialogSystemInvisible();
         ResetDialogue();
@@ -599,7 +592,7 @@ public class UIController : MonoBehaviour
             }
             catch
             {
-                Debug.LogError("no audio events found for: " + text);
+                Debug.LogWarning("no audio events found for: " + text);
             }
         }
 
@@ -639,10 +632,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-        Set the dialog of the choice the player clicked on.
-      </summary>
-    **/
+  <summary>
+    Set the dialog of the choice the player clicked on.
+  </summary>
+**/
     private void SetDialogWithChoice()
     {
         var dialogObjects = _dialogBuilder.GetAllDialogObjects();
@@ -656,17 +649,17 @@ public class UIController : MonoBehaviour
         }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  HEALTH
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  HEALTH
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        Alter the health vignette based on the amount of damage the player got.
-      </summary>
-    **/
+  <summary>
+    Alter the health vignette based on the amount of damage the player got.
+  </summary>
+**/
     private void AlterHealthVignette()
     {
         _healthVignette.style.unityBackgroundImageTintColor = new Color(Color.white.r, Color.white.g, Color.white.b,
@@ -685,17 +678,17 @@ public class UIController : MonoBehaviour
         }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  JUMP CHARGE BAR
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  JUMP CHARGE BAR
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        Charge the jump bar.
-      </summary>
-    **/
+  <summary>
+    Charge the jump bar.
+  </summary>
+**/
     private void ChargeJump()
     {
         _currentJumpCharge = _characterMovementScript.GetJumpCharged();
@@ -705,42 +698,35 @@ public class UIController : MonoBehaviour
         _jumpChargeBar.value = _jumpChargePercent;
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  MEMORIES
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  MEMORIES
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        Show a memory image/picture on the screen.
-      </summary>
-    **/
-    private void ShowMemoryImage(QuestState questState)
+  <summary>
+    Show a memory image/picture on the screen.
+  </summary>
+**/
+    private void ShowMemoryImage(QuestState questState, StyleBackground memory)
     {
-        if (_memoryImagesDictionairy.ContainsValue(false))
-        {
-            _interactBox.visible = false;
+        _interactBox.visible = false;
 
-            _isInMemory = true;
+        _isInMemory = true;
 
-            _memoryImage.visible = true;
+        _memoryImage.visible = true;
 
-            var memory = _memoryImagesDictionairy.FirstOrDefault(m => !m.Value);
-            var memoryKey = memory.Key;
-            _memoryImage.style.backgroundImage = memoryKey;
+        _memoryImage.style.backgroundImage = memory;
 
-            StartCoroutine(HideMemoryImage());
-
-            _memoryImagesDictionairy[memory.Key] = true;
-        }
+        StartCoroutine(HideMemoryImage());
     }
 
     /**
-      <summary>
-        Hide a memory image/picture on the screen.
-      </summary>
-    **/
+  <summary>
+    Hide a memory image/picture on the screen.
+  </summary>
+**/
     private IEnumerator HideMemoryImage()
     {
         Time.timeScale = 0;
@@ -755,34 +741,34 @@ public class UIController : MonoBehaviour
     }
 
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  START & END SCREENS
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  START & END SCREENS
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
-      </summary>
-    **/
+  <summary>
+    When in the Start Screen, pressing any key will start the game. This unfreezes the game's time and makes the start screen invisible.
+  </summary>
+**/
     public void StartGame()
     {
         Time.timeScale = 1;
         _startScreenBackground.visible = false;
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  SCREEN RESOLUTION & FONTS
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  SCREEN RESOLUTION & FONTS
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        Check if the screen resolution changes.
-      </summary>
-    **/
+  <summary>
+    Check if the screen resolution changes.
+  </summary>
+**/
     private void CheckForScreenResolutionChanges()
     {
         if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
@@ -796,10 +782,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-        Change the dialog text font size according to the screen resolution so it looks/feels dynamic.
-      </summary>
-    **/
+  <summary>
+    Change the dialog text font size according to the screen resolution so it looks/feels dynamic.
+  </summary>
+**/
     private void ChangeFontDynamically()
     {
         // WXGA
@@ -835,10 +821,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-        Change the dialog option text according to the screen resolution so it looks/feels dynamic.
-      </summary>
-    **/
+  <summary>
+    Change the dialog option text according to the screen resolution so it looks/feels dynamic.
+  </summary>
+**/
     private void ChangeButtonFontDynamically()
     {
         if (_dialogBoxChoiceButtons != null)
@@ -871,17 +857,17 @@ public class UIController : MonoBehaviour
         }
     }
 
-    /* 
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-     *                                  CAMERA'S
-     * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    */
+/* 
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+ *                                  CAMERA'S
+ * =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
     /**
-      <summary>
-        Set the camera which focuses on the npc when in dialog.
-      </summary>
-    **/
+  <summary>
+    Set the camera which focuses on the npc when in dialog.
+  </summary>
+**/
     private void SetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Active)
@@ -891,10 +877,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-       Unset the camera which focuses on the npc when in dialog.
-      </summary>
-    **/
+  <summary>
+   Unset the camera which focuses on the npc when in dialog.
+  </summary>
+**/
     private void UnsetNpcCamera()
     {
         if (_npcCamera != null && _npcCamera.Priority != (int)Camera.CameraState.Inactive)
@@ -904,10 +890,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-        Set the camera which focuses on a npc, a item or a building when in a dialog option.
-      </summary>
-    **/
+  <summary>
+    Set the camera which focuses on a npc, a item or a building when in a dialog option.
+  </summary>
+**/
     private void SetDialogCamera()
     {
         _activeCamera = _chosenDialogOption.GetDialogCamera();
@@ -918,10 +904,10 @@ public class UIController : MonoBehaviour
     }
 
     /**
-      <summary>
-        Unset the camera which focuses on a npc, a item or a building when in a dialog option.
-      </summary>
-    **/
+  <summary>
+    Unset the camera which focuses on a npc, a item or a building when in a dialog option.
+  </summary>
+**/
     private void UnsetDialogCamera()
     {
         if (_activeCamera != null)

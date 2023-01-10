@@ -70,7 +70,7 @@ namespace Camera
 
         public void LockOrientation(float targetOrientation, bool allowMirroredDirectionLock)
         {
-            _characterMovementScript.rotationFrozenDueToSpecialArea = true;
+            PlayerFreezer.FreezeRotation();
             if (!allowMirroredDirectionLock)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, targetOrientation, 0));
@@ -104,7 +104,7 @@ namespace Camera
 
         public void UnlockOrientation()
         {
-            _characterMovementScript.rotationFrozenDueToSpecialArea = false;
+            PlayerFreezer.ReleaseRotationFreeze();
         }
     }
 }
