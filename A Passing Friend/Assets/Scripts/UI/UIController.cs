@@ -574,7 +574,7 @@ public class UIController : MonoBehaviour
         }
         catch
         {
-            Debug.LogError("no audio events found for: " + text);
+            Debug.LogWarning("no audio events found for: " + text);
         }
         }
         _dialogBoxDialog.visible = true;
