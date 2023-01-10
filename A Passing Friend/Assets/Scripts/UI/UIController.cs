@@ -403,6 +403,7 @@ public class UIController : MonoBehaviour
                     PlayerFreezer.FreezeRotation();
                     PlayerFreezer.FreezeMovement();
                     stopUnfreezingPls = true;
+                    Time.timeScale = 0;
                 }
             }
             else
