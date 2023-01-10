@@ -4,8 +4,12 @@ Intro
 *1 Okay I seem to have everything except for the…, oh hi you are back already!”
 *2 Do you have the catnip I needed?
 *3  You do? That is amazing! Thank you so much. Now I can hopefully finish that potion. 
-*4 How can I help you further today? You need help finding memories and lost items. I already thought so when you first walked in.
-*5 So you have collected 2 memories already, impressive! 
-*6 Have you checked out the (shrine tree) already? Whenever you find your memories and items they will slowly start to appear in the tree.
-*7 You haven't yet? If you stand in front of the little altar in front of the tree you are able to see all the objects and memories you collected throughout your adventures.
-*8 Anyway, thank you for helping out and good luck finding the other items and memories you are looking for.
+*4 How can I help you further today? You need help finding memories and lost items. 
+*5 I already thought so when you first walked in.
+*6 So you have collected 2 memories already, impressive! 
+*7 Have you checked out the (shrine tree) already? 
+*8 Whenever you find your memories and items they will slowly start to appear in the tree.
+*9 You haven't yet? 
+*10 If you stand in front of the little altar in front of the tree,
+*11 you are able to see all the objects and memories you collected throughout your adventures.
+*12 Anyway, thank you for helping out and good luck finding the other items and memories you are looking for.
