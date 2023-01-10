@@ -1,3 +1,4 @@
+using Npc;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -24,11 +25,11 @@ public class PickupAbleItem : MonoBehaviour
 
     public void Pickup(Transform pickupLocationObject)
     {
-        if (_isQuestItem && !_memoryHasPlayed)
+        GameObject parrent = null;
+        if(transform.parent.gameObject != null)
         {
-            InvokePickedUpQuestItem();
+            parrent = transform.parent.gameObject;
         }
-
         // If the object has a pickup handle this is used as an offset while picking it up.
         if (_pickUpHandel != null)
         {
@@ -48,13 +49,23 @@ public class PickupAbleItem : MonoBehaviour
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
+
+        if (_isQuestItem && !_memoryHasPlayed)
+        {
+            InvokePickedUpQuestItem(parrent);
+        }
     }
 
-    private void InvokePickedUpQuestItem()
+    private void InvokePickedUpQuestItem(GameObject parrent)
     {
         PickedUpQuestItem?.Invoke(QuestState.PickedUp);
         if (name.Equals("Model"))
         {
+            Destroy(GetComponent<NpcBallController>());
+            if (transform.parent.gameObject != null)
+            {
+                Destroy(parrent);
+            }
             FindObjectOfType<DataPersistenceManager>().NextCheckpoint(4);
             GameObject.Find("DevlinWithHat").GetComponent<DialogBuilder>().LoadDialog(_questCompletedText);
         }
