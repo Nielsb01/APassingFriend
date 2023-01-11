@@ -28,26 +28,22 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
         {
             parrent = transform.parent.gameObject;
         }
+        
+        transform.position = pickupLocationObject.position;
+        if (_rigidbody != null)
+        {
+            pickupLocationObject.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
+            transform.GetComponent<Rigidbody>().isKinematic = false;
+            transform.GetComponent<Collider>().enabled = false;
+            heldBy = pickupLocationObject;
+        }
         // If the object has a pickup handle this is used as an offset while picking it up.
-        if (_pickUpHandel != null)
+        else if (_pickUpHandel != null)
         {
             
             _pickUpHandel.transform.parent = pickupLocationObject;
             transform.parent = _pickUpHandel;
             _pickUpHandel.position = pickupLocationObject.position;
-        }
-        else
-        {
-           // transform.SetParent(pickupLocationObject,true);
-            transform.position = pickupLocationObject.position;
-        }
-        
-        if (_rigidbody != null)
-        {
-            transform.rotation = quaternion.identity;
-            pickupLocationObject.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
-            transform.GetComponent<Collider>().enabled = false;
-            heldBy = pickupLocationObject;
         }
 
         gameObject.layer = LayerMask.NameToLayer("Default");
@@ -77,18 +73,19 @@ public class PickupAbleItem : MonoBehaviour, IDataPersistence
 
     public void Drop()
     {
-        transform.SetParent(null);
-        if (_pickUpHandel != null)
-        {
-            _pickUpHandel.transform.parent = transform;
-        }
-
         if (_rigidbody != null)
         {
             heldBy.GetComponent<FixedJoint>().connectedBody = null;
             transform.GetComponent<Collider>().enabled = true;
         }
-
+        else
+        {
+            transform.SetParent(null);
+            if (_pickUpHandel != null)
+            {
+                _pickUpHandel.transform.parent = transform;
+            }
+        }
         gameObject.layer = LayerMask.NameToLayer("Pickup");
 
         if (Vector3.Distance(transform.position, _questNpc.position) <= 2)
