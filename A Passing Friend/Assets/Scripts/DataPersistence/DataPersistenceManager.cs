@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -113,5 +114,19 @@ public class DataPersistenceManager : MonoBehaviour
         checkpoint.SetIsActiveTrue();
         SaveGame();
         LoadGame();
+    }
+
+    public bool AllCheckpointsPassed()
+    {
+        var currentCheckpoint = _gameData.activeCheckpoint;
+
+        return _checkpoints.Last().GetCheckpointName() == currentCheckpoint;
+    }        
+        
+    private void OnDeleteSave()
+    {
+        NewGame();
+        SaveGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

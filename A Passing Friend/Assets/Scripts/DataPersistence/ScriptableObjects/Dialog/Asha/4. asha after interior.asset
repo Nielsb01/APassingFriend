@@ -25,3 +25,9 @@ MonoBehaviour:
       Data3: -397437564
       Data4: -333189555
     Path: event:/Gibberish/Asha/4. asha after interior/4_2
+  - Guid:
+      Data1: -64179446
+      Data2: 1234861624
+      Data3: 1101161863
+      Data4: -1900219541
+    Path: "event:/Gibberish/Asha/3. 1st Cutscene Asha\u2019s Home/3_4"

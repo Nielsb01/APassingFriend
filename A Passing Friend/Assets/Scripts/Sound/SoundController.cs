@@ -8,7 +8,8 @@ enum SoundState : ushort
     FORREST = 1,
     VILLAGE_DAY = 2,
     VILLAGE_NIGHT = 3,
-    TREE_VIEW = 4
+    TREE_VIEW = 4,
+    MEMORY = 5
 }
 
 public class SoundController : MonoBehaviour, IDataPersistence
@@ -26,6 +27,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     [SerializeField] private FMODUnity.EventReference _villageDayEventPath;
     [SerializeField] private FMODUnity.EventReference _villageNightEventPath;
     [SerializeField] private FMODUnity.EventReference _treeEventPath;
+    [SerializeField] private FMODUnity.EventReference _memoryMusic;
 
     [Header("Sound Objects")] [SerializeField]
     private List<GameObject> _environmentObjects;
@@ -39,6 +41,7 @@ public class SoundController : MonoBehaviour, IDataPersistence
     private bool _playerEnteredTreeViewPlatform = false;
     private bool _treeMusicPlayed = false;
     private bool _playerInTree = false;
+    private bool _memoryEnabled = false;
 
 
     public void Awake()
@@ -129,7 +132,11 @@ public class SoundController : MonoBehaviour, IDataPersistence
     {
         SoundState newState = SoundState.UNDEFINED;
 
-        if (_forrestBoundaries.bounds.Contains(_player.transform.position))
+        if (_memoryEnabled)
+        {
+            newState = SoundState.MEMORY;
+        }
+        else if (_forrestBoundaries.bounds.Contains(_player.transform.position))
         {
             // Player in forrest
             newState = SoundState.FORREST;
@@ -193,6 +200,16 @@ public class SoundController : MonoBehaviour, IDataPersistence
                 FMODUnity.RuntimeManager.PlayOneShot(_treeEventPath);
                 break;
             }
+            case SoundState.MEMORY:
+            {
+               FMODUnity.RuntimeManager.PlayOneShot(_memoryMusic);
+               break;
+            }
         }
+    }
+
+    public void SetMemoryEnabled(bool enable)
+    {
+        _memoryEnabled = enable;
     }
 }

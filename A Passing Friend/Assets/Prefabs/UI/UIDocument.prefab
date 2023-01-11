@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1232823282108055234
 MonoBehaviour:
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb024f51ef563c34185de381b6567773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isDialogExitButtonVisible: 0
   _dialogBuilder: {fileID: 0}
   _activeCamera: {fileID: 0}
   _isDialogBuilderSet: 0
@@ -71,5 +72,14 @@ MonoBehaviour:
   _currentJumpCharge: 0
   _jumpChargePercent: 0
   _characterMovementScript: {fileID: 0}
+  _healthController: {fileID: 0}
   _lastScreenWidth: 0
   _lastScreenHeight: 0
+  _memoryMusic:
+    Guid:
+      Data1: -1291515622
+      Data2: 1243059763
+      Data3: -522706003
+      Data4: 2093017756
+    Path: event:/Music/MemoryMusic
+  stopUnfreezingPls: 0

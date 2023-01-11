@@ -1,6 +1,6 @@
 Intro
 --
-# 1st Interaction with Devlin$ [Camera: 0] [Checkpoint: 3]
+# 1st Interaction with Devlin$~ [Camera: 0] [Audio: 0] [Checkpoint: 3]
 *1 Well…uh… hello. You must be one of the new arrivals.
 *2 This is all very new to me. uhm… welcome to the (tailor shop). How can I help you today…?
 *3 Oh, you are looking to collect your memories.

@@ -29,6 +29,7 @@ namespace Camera
 
             soundController.SetPlayerInTree(true);
             var fogDensity = RenderSettings.fogDensity;
+            yield return new WaitForSeconds(0.5f);
             RenderSettings.fogDensity = 0;
 
             PlayerFreezer.FreezeAllInput();
