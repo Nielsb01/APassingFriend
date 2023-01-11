@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{23c40798-0e3e-4035-a5c9-6d7a0bdd10c1}">
+		<property name="name">
+			<value>2. Interaction with Rayen after item retrieval</value>
+		</property>
+		<relationship name="folder">
+			<destination>{101a757c-d0c5-4c2c-856a-efe005e463b4}</destination>
+		</relationship>
+	</object>
+</objects>

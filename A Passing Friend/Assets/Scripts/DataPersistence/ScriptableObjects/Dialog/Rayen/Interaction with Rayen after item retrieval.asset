@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb08f5cd9306462db1df7f5524f06c0, type: 3}
+  m_Name: Interaction with Rayen after item retrieval
+  m_EditorClassIdentifier: 
+  audioEvents:
+  - Guid:
+      Data1: 902119484
+      Data2: 1226360471
+      Data3: -1245903483
+      Data4: 1284972150
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_1
+  - Guid:
+      Data1: -1135343683
+      Data2: 1198580174
+      Data3: -1468538461
+      Data4: 273197567
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_2
+  - Guid:
+      Data1: 2054212104
+      Data2: 1099282581
+      Data3: 338995586
+      Data4: -340688109
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_3
+  - Guid:
+      Data1: -788660140
+      Data2: 1157193749
+      Data3: 417242267
+      Data4: 1335057907
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_4
+  - Guid:
+      Data1: -853328800
+      Data2: 1193198623
+      Data3: 1018369158
+      Data4: 6427720
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_5
+  - Guid:
+      Data1: 701233516
+      Data2: 1273154159
+      Data3: -1534428260
+      Data4: 1814077761
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_6
+  - Guid:
+      Data1: 1220111417
+      Data2: 1241056110
+      Data3: 54028194
+      Data4: -1956190036
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_7
+  - Guid:
+      Data1: -2129820987
+      Data2: 1320906172
+      Data3: 1172167604
+      Data4: -890977236
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_8
+  - Guid:
+      Data1: 2054212104
+      Data2: 1099282581
+      Data3: 338995586
+      Data4: -340688109
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_3
+  - Guid:
+      Data1: -853328800
+      Data2: 1193198623
+      Data3: 1018369158
+      Data4: 6427720
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_5
+  - Guid:
+      Data1: 1220111417
+      Data2: 1241056110
+      Data3: 54028194
+      Data4: -1956190036
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_7
+  - Guid:
+      Data1: -1135343683
+      Data2: 1198580174
+      Data3: -1468538461
+      Data4: 273197567
+    Path: event:/Gibberish/Rayen/2. Interaction with Rayen after item retrieval/R2_2

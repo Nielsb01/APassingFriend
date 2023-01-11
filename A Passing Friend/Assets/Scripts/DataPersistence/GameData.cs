@@ -18,6 +18,7 @@ public class GameData
         playerLocation = Vector3.zero;
         isDay = true;
         canChargeJump = false;
+        hasBeenEagle = false;
         ashaCutsceneComplete = false;
         questOneState = QuestState.Unavailable;
         questTwoState = QuestState.Unavailable;
